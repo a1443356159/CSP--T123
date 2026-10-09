@@ -1,20 +1,18 @@
 # CCF-CSP 前三题备考讲义
 
-以 CCF-CSP 认证前三题为目标，汇总原始课件和练习材料，按“基础实现、常用算法、综合模拟”编写一份系统讲义。
+一份可独立阅读的中文学习讲义，包含知识讲解、完整教学例题、输入输出、样例推演、解答、复杂度分析、关键代码和章末练习答案。链接仅用于补充训练，学习正文不需要打开外部题面。
 
-## 当前内容
+## 阅读与下载
 
-本次完成的是**资料汇总与总讲义编写方案**，包括 12 章详细提纲、原资料页码对应、重点勘误、练习入口、教学安排和编写标准。完整学生讲义与全部题解将按方案逐章扩写。
-
-- [LaTeX 主文件](main.tex)
-- [编译后的阅读版](dist/main.pdf)
+- **[正式讲义 PDF](dist/main.pdf)**
+- **[可单独编译的 LaTeX 主文件](main.tex)**
+- [分章编辑源文件](chapters/)
+- [26 份完整 C++17 参考程序](code/)
 - [原始资料](sources/)
-- [资料清单](data/sources.json)
-- [练习链接索引](data/exercise-links.json)
 
-现有资料为 5 份 PPTX（160 页）和 2 份 PDF（7 页）。其中两份动态规划课件共 71 页。整理时将基础背包放入正文，高级变式放入选读，并重点补充字符串解析与第三题完整案例。
+正文教学题围绕原资料知识点重新组织，包含完整规则。它们不是对应平台原题的逐字转载，规则和数据范围可能不同；进一步练习平台原题时，应重新核对题面。
 
-## 规划目录
+## 内容
 
 1. 备考方法与程序基本功
 2. 基础枚举与小模拟
@@ -26,14 +24,14 @@
 8. 搜索与剪枝
 9. 动态规划入门
 10. 基础背包与计数
-11. 第三题综合模拟专题
-12. 真题训练与限时复盘
+11. 第三题综合模拟：路径规范化、授权管理、表达式解析、树形查询、模板展开
+12. 综合训练与复盘：差值数对、二维差分、非抢占任务调度
 
-主线讲义建议约 160–200 页。该数字是规划预算，不是当前方案的页数。
+附录补充多重背包、混合背包、多维费用、方案恢复、计数撤销、LIS 优化、实数搜索、可删堆与 KMP。
 
-## 编译
+## 编译讲义
 
-使用安装了 `ctex`、`fontspec`、`geometry`、`amsmath`、`booktabs`、`longtable`、`enumitem`、`listings`、`hyperref` 等宏包的 TeX Live 或 MiKTeX，通过 **XeLaTeX** 编译两次，以生成目录和内部链接。
+主文件已内嵌全部正文和代码，**只下载 `main.tex` 也可以编译**。使用 XeLaTeX，安装 `ctex`、`fontspec`、`geometry`、`amsmath`、`booktabs`、`longtable`、`enumitem`、`listings`、`fancyvrb`、`needspace`、`hyperref` 等常用宏包。字体优先 Fandol；Windows 缺少 Fandol 时回退到宋体、黑体。
 
 ```sh
 mkdir -p dist
@@ -41,20 +39,36 @@ xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
 xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
 ```
 
-Windows PowerShell 可运行：
+PowerShell 创建输出目录：
 
 ```powershell
 New-Item -ItemType Directory -Force dist | Out-Null
-xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
-xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
 ```
 
-字体优先使用 TeX 发行版中的 Fandol；未找到时使用 Windows 的宋体和黑体。非 Windows 环境请安装 Fandol 字体包。
+## 编辑与代码验证
 
-## 资料使用说明
+编辑 `chapters/*.tex` 和 `code/*.cpp` 后，先重新合成主文件，再编译。合成过程不依赖第三方 Python 包。
 
-原始文件保留原样。勘误写入编写方案，后续落实到正文；不覆盖源课件。历年考点中的顺序编号尚未全部对应到认证编号，练习链接也尚未按真题去重。链接索引明确记录这些待核对项，不据网址猜测题名。
+```sh
+python scripts/build.py
+python tests/check_examples.py
+```
 
-建议先完成第 1–4 章，再完成第 5–10 章；第三题案例选题同步推进，最后补全限时训练和附录。教师用的编写方案与未来学生版讲义分开保留。
+检查脚本需要 Python 3.9+ 和可执行 C++17 的 GNU g++。它编译全部 26 个参考程序，运行 53 组样例与边界检查，并对多个算法执行 350 组固定随机种子的小规模对照测试，共 403 项。测试细节见 [验证说明](tests/README.md)。
 
-原始资料及所引题目的权利归原作者或平台所有；本仓库未另行授予这些材料新的许可。
+`main.tex` 是合成结果，应修改分章或程序源文件后重新生成，以免下次合成覆盖手工修改。正文中较短的讲解片段保留在分章文件里。
+
+## 原始资料与整理记录
+
+保留 5 份 PPTX（160 页）和 2 份 PDF（7 页），原文件未改写。
+
+- [文件清单与校验值](data/sources.json)
+- [原资料中的 23 个真题入口及 5 个专题题单](data/exercise-links.json)
+- [教师用整理方案 LaTeX](planning.tex)
+- [教师用整理方案 PDF](dist/planning.pdf)
+
+整理方案是前期编写蓝图，含资料迁移表和勘误。其 160–200 页建议是扩展版预算；当前独立讲义采用较紧凑的讲解与代码布局，实际页数以正式 PDF 为准。
+
+原资料里的年份与题号对应、外部题单内容没有全部重新核对，索引对此保留标记。正文已经改写容易误导的概念，包括 `unique`、DP 无后效性、背包状态语义与“消失之物”的计数目标。
+
+原始资料及所引平台题目的权利归原作者或平台所有，本仓库未另行授予这些材料新的许可。

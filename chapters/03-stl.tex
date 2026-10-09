@@ -1,0 +1,65 @@
+\section{排序与常用STL工具}
+\subsection{按需要选择容器}
+\begin{longtable}{P{3.1cm}P{5.5cm}P{5.6cm}}
+\toprule 工具 & 适用需求 & 关键注意事项\\\midrule\endhead
+vector & 可变长顺序表，下标访问 & 中间插入删除通常为 $O(n)$；扩容可能使迭代器失效。\\
+map & 根据键查找和统计，有序遍历 & 查找、插入通常为 $O(\log n)$；下标访问不存在键会插入默认值。\\
+set / multiset & 动态有序集合 & set去重；multiset可重复。按值erase可能删掉全部相等元素。\\
+queue & 先进先出 & front读队首，pop只删除，不返回元素。\\
+stack & 后进先出 & top读栈顶，空栈不能访问top。\\
+priority\_queue & 动态取最大或最小 & 默认大根堆；不支持任意位置直接删除。\\
+sort & 对可随机访问区间排序 & 比较器要满足严格弱序，不能把小于写成小于等于。\\
+lower\_bound & 有序序列中第一个不小于x的位置 & 可能返回end，访问前应检查。\\
+upper\_bound & 有序序列中第一个大于x的位置 & 与lower\_bound之差可统计出现次数。\\
+\bottomrule
+\end{longtable}
+
+\example{按成绩和编号排序}
+\textbf{题目。}输入 $n$ 名学生的编号和成绩，按成绩降序排列；成绩相同按编号字典序升序。编号为不含空格的字符串且互不相同，$1\le n\le2\times10^5$，成绩在0到100之间。输入第一行 $n$，随后每行编号、成绩；输出排好序的记录。
+\begin{verbatim}
+输入
+4
+b02 90
+a01 95
+a02 90
+a03 90
+输出
+a01 95
+a02 90
+a03 90
+b02 90
+\end{verbatim}
+\textbf{解答。}比较器先比较主关键字，只有主关键字相等才比较次关键字。对于完全相同的对象，比较结果应为false。使用非严格比较可能破坏排序算法的前提。时间 $O(n\log n)$，存储记录需要 $O(n)$ 空间。
+\Code{03_rank.cpp}
+
+\subsection{去重与离散化}
+离散化把一组值替换成它们在去重有序集合中的排名，保留相等关系与大小关系，但\textbf{不保留原来的距离}。例如原值 $[100,5,100,20]$ 排序去重后是 $[5,20,100]$，映射成 $[3,1,3,2]$。若问题涉及长度或面积，仍要保留原坐标。
+
+\begin{lstlisting}
+vector<long long> keys = a;
+sort(keys.begin(), keys.end());
+keys.erase(unique(keys.begin(), keys.end()), keys.end());
+vector<int> rank(a.size());
+for (size_t i = 0; i < a.size(); ++i)
+    rank[i] = lower_bound(keys.begin(), keys.end(), a[i]) - keys.begin() + 1;
+\end{lstlisting}
+unique 处理相邻的等价元素并返回新的逻辑末尾，容器长度由 erase 真正改变。排序不是 unique 的硬性前提，但若希望全局去重，必须让相同值相邻或使用其他去重方案。
+
+\subsection{查找和删除的细节}
+只想查询键是否存在时，使用 find，避免 \texttt{mp[key]} 隐式创建键。在 set 中找第一个不小于 x 的元素，优先调用 \texttt{s.lower\_bound(x)}；对树容器迭代器调用通用 lower\_bound 可能产生线性数量的迭代器移动。
+
+\begin{lstlisting}
+auto it = s.lower_bound(x);
+if (it != s.end()) cout << *it;       // successor, possibly equal
+if (it != s.begin()) cout << *prev(it); // strict predecessor
+auto p = ms.find(x);
+if (p != ms.end()) ms.erase(p);      // erase one occurrence
+\end{lstlisting}
+
+\exercise
+\textbf{练习1。}为什么比较器 \texttt{return x.score >= y.score;} 不正确？\textbf{解答。}对象与自己比较会得到true，违反严格性；并列对象互相都“小于”对方，排序前提被破坏。
+
+\textbf{练习2。}数组 $[2,2,5,7]$ 中 x=2 的 lower\_bound 和 upper\_bound 的0下标分别是什么？\textbf{解答。}分别是0和2，差为2，表示两个2。x=8时两者都返回end，即下标4，不能解引用。
+
+\textbf{练习3。}把坐标 $[1,100,101]$ 离散为 $[1,2,3]$，原区间长度是否仍可由排名差计算？\textbf{解答。}不可以。原来的前两点相距99，排名差只有1，离散化只保序。
+\newpage
