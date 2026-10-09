@@ -1,0 +1,44 @@
+[
+  {
+    "file": "sources/dp入门.pptx",
+    "pages": 18,
+    "bytes": 895659,
+    "sha256": "4a6a67257119766dd4415f5dfa92c89187e802b500b9ad564112055cfa644058"
+  },
+  {
+    "file": "sources/stl.pptx",
+    "pages": 42,
+    "bytes": 1992138,
+    "sha256": "641fe086a716869b4a05795fe79135d441de4ea67bea5a94a7968a4d47783f65"
+  },
+  {
+    "file": "sources/前缀和、差分、二分、双指针.pptx",
+    "pages": 34,
+    "bytes": 2287734,
+    "sha256": "73b37b03616a9811e812d96439429d0c8c69a408678cf8b8e13f97d55832677c"
+  },
+  {
+    "file": "sources/动态规划之背包问题.pptx",
+    "pages": 53,
+    "bytes": 1622389,
+    "sha256": "d2b11411f0751d2037e028b6dac07fc0a285bce8e31c0fb7098b6bfb60fdab61"
+  },
+  {
+    "file": "sources/历年前三题考点梳理.pdf",
+    "pages": 5,
+    "bytes": 203738,
+    "sha256": "e8791f577bfbbc1f548e809734714245daa5f1ef9e01ddb77235079ae79b2eca"
+  },
+  {
+    "file": "sources/搜索、剪枝、暴力.pptx",
+    "pages": 13,
+    "bytes": 718413,
+    "sha256": "352e63bbf4a100b13ea1029ce0f341d7d1b26422dde1114ce81dbda26d4ac1f6"
+  },
+  {
+    "file": "sources/练习题与真题.pdf",
+    "pages": 2,
+    "bytes": 75925,
+    "sha256": "e2ea080efcb53745e5387f6d073efb4636d72ea58c08a342cad23d91660b84c5"
+  }
+]
