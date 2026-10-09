@@ -43,10 +43,18 @@
 - 使用 STL 时写明容器、迭代器类型，不使用 `auto`、Lambda 或结构化绑定；STL 仍然需要 **C++17 编译器**。
 - 采用标准头文件；普通数组容量按讲义题目范围预留。
 - PDF 中代码带**语法高亮**、行号和浅色背景：蓝色关键字、红棕色字符串、绿色注释、紫色常用函数。
+- 输入输出样例使用**浅色边框、输入输出分区和等宽字体**，保留空格与换行，多组样例分别编号。
+
+## 在线做题
+
+- **[洛谷团队 113242 题单汇总](https://www.luogu.com.cn/team/113242/training)**：练习安排以此入口为准。
+- 相关讲解旁提供题目直达链接；自编教学题所附链接标为“同类练习”，提交前要核对平台题面。
+- 书末列出原资料中的 5 个专题题单和 23 个真题入口；真题入口保留原平台，未核对题名时不冒用题名。
+- 团队页与专题题单当前访问返回 401，尚未核对题单成员；已核对的公开题目链接单独记录在 `data/online-practice.json`，不据此宣称它们均在团队题单内。
 
 ## 编译讲义
 
-主文件已内嵌全部正文和代码，**只下载 `main.tex` 也可以编译**。使用 XeLaTeX，安装 `ctex`、`fontspec`、`geometry`、`amsmath`、`booktabs`、`longtable`、`enumitem`、`listings`、`fancyvrb`、`needspace`、`hyperref` 等常用宏包。字体优先 Fandol；Windows 缺少 Fandol 时回退到宋体、黑体。
+主文件已内嵌全部正文和代码，**只下载 `main.tex` 也可以编译**。使用 XeLaTeX，安装 `ctex`、`fontspec`、`geometry`、`amsmath`、`booktabs`、`longtable`、`enumitem`、`listings`、`fancyvrb`、`needspace`、`tcolorbox`、`hyperref` 等常用宏包。字体优先 Fandol；Windows 缺少 Fandol 时回退到宋体、黑体。
 
 ```sh
 mkdir -p dist

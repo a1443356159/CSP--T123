@@ -13,8 +13,9 @@ preamble = r'''% !TeX program = xelatex
 \setCJKsansfont{FandolHei-Regular}\setCJKmonofont{FandolSong-Regular}
 }{\setCJKmainfont{SimSun}[BoldFont=SimHei]\setCJKsansfont{SimHei}\setCJKmonofont{SimSun}}
 \usepackage{amsmath,amssymb,booktabs,longtable,array,enumitem,xcolor,listings}
-\usepackage{fancyvrb,needspace}
+\usepackage{fancyvrb,needspace,tcolorbox}
 \DefineVerbatimEnvironment{Sample}{Verbatim}{samepage=true,fontsize=\small}
+\tcbset{samplebox/.style={colback=blue!2!white,colframe=blue!35!black,colbacktitle=blue!8!white,coltitle=black,fonttitle=\bfseries,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=1mm,bottom=1mm,before skip=6pt,after skip=6pt}}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue!55!black,pdftitle={CCF-CSP前三题备考讲义}}
 \setlength{\parskip}{0.3em}\setlength{\emergencystretch}{3em}
@@ -32,12 +33,39 @@ preamble = r'''% !TeX program = xelatex
 \newcommand{\example}[1]{\subsection{例题 #1}}
 \newcommand{\exercise}{\subsection{练习与解答}}
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
+\newcommand{\practice}[2]{\par\noindent\textbf{同类练习（在线做题）：}\href{https://www.luogu.com.cn/problem/#1}{#1\quad #2}。\par}
+\newcommand{\training}[2]{\par\noindent\textbf{专题题单：}\href{https://www.luogu.com.cn/training/#1}{#2（#1）}。\par}
 \newcommand{\important}[1]{\par\noindent\textbf{#1}\par}
 \title{\textbf{CCF-CSP 前三题备考讲义}}
 \author{第一题：基础实现\quad 第二题：工具与算法\quad 第三题：综合模拟}
 \date{2026年10月9日}
 \begin{document}\maketitle
 '''
+
+def format_sample(match):
+    content = match.group(1).strip('\n')
+    groups = re.split(r'^另一组输入\n', content, flags=re.M)
+    boxes = []
+    for i, group in enumerate(groups):
+        if i:
+            group = '输入\n' + group
+        group = group.replace('\n另一组输出\n', '\n输出\n').rstrip('\n')
+        if group.startswith('输入\n') and '\n输出\n' in group:
+            input_text, output_text = group[3:].split('\n输出\n', 1)
+            title = '输入输出样例' if len(groups) == 1 else f'输入输出样例 {i + 1}'
+            boxes.append('\n'.join([
+                r'\begin{tcolorbox}[samplebox,title={' + title + '}]',
+                r'\textbf{样例输入}', r'\begin{Sample}', input_text, r'\end{Sample}',
+                r'\tcblower', r'\textbf{样例输出}', r'\begin{Sample}', output_text,
+                r'\end{Sample}', r'\end{tcolorbox}',
+            ]))
+        else:
+            boxes.append('\n'.join([
+                r'\begin{tcolorbox}[samplebox,title={语法规则}]',
+                r'\begin{Sample}', group, r'\end{Sample}', r'\end{tcolorbox}',
+            ]))
+    return '\n'.join(boxes)
+
 
 def expand(match):
     name = match.group(1)
@@ -62,7 +90,7 @@ for filename in order:
     if path.name != '00-preface.tex':
         text = text.replace('\\newpage', '\\par\\bigskip')
         text = text.replace('\\section{', '\\Needspace{7\\baselineskip}\\section{')
-    text = text.replace('\\begin{verbatim}', '\\begin{Sample}').replace('\\end{verbatim}', '\\end{Sample}')
+    text = re.sub(r'\\begin\{verbatim\}\n(.*?)\\end\{verbatim\}', format_sample, text, flags=re.S)
     text = re.sub(
         r'\\begin\{lstlisting\}(.*?)\\end\{lstlisting\}',
         lambda m: '\\par\\noindent\\begin{minipage}{\\linewidth}\n' + m.group(0) + '\n\\end{minipage}\\par',

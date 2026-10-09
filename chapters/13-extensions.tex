@@ -3,6 +3,9 @@
 本附录承接原资料中的提高内容。建议在完成正文例题后选择学习。每次变换模型时，先检查状态语义是否改变，不要仅凭代码形式相似就替换循环。
 
 \subsection{多重背包与二进制拆分}
+\practice{P1776}{宝物筛选}
+每种物品有数量上限，拆成01物品包；输入字段次序以原题为准。
+
 第i种物品最多有 $s_i$ 件。朴素转移枚举件数k：
 \[f[i][v]=\max_{0\le k\le s_i,\ kc_i\le v}\{f[i-1][v-kc_i]+kw_i\}.\]
 当数量较大时，把 $s_i$ 件拆成若干只能选一次的物品包。例如13拆成1、2、4、6，每包体积和价值乘相应件数。选择这些包可以表示0到13的任意件数，转化为01背包。拆包数量为 $O(\log(s_i+1))$，总时间为 $O(V\sum_i\log(s_i+1))$。
@@ -26,6 +29,9 @@ for (int batch = 1; remaining > 0; batch *= 2) {
 \textbf{计数陷阱。}这个拆分通常用于最优值或可达性，不能直接拿来统计原问题的方案数。例如拆成1、2、4、6后，6可由6或2+4表示，形成不同拆包选择却代表同样件数。计数背包应另行设计不重不漏的转移。
 
 \subsection{混合背包与多维费用}
+\practice{P1507}{NASA的食物计划}
+对应本节二维费用模型，两种资源容量都必须满足。
+
 混合背包对每种物品分别判断：限一次用逆序，无限次用正序，有限次可枚举或拆包；组内互斥则按整组处理，不能把同组物品当普通独立物品。不同模型混在一起时，应确保每轮转移的“一个决策单位”仍然清晰。
 
 若每件物品同时占体积c和重量d，容量限制为V和W，定义 $f[v][w]$ 为两种资源限制下的最大价值。对于01物品，两个容量维度都逆序：
@@ -37,11 +43,17 @@ for (int v = V; v >= cost; --v)
 时间 $O(nVW)$，空间 $O(VW)$。增加状态维度会迅速增加计算量。应选择取值范围较小的量作维度，必要时考虑按价值记录最小成本，但也要重新定义答案和不可达值。
 
 \subsection{方案恢复}
+\practice{P1064}{金明的预算方案}
+这是依赖背包的拓展题：附件必须依附主件。先枚举每个主件的合法购买组合，再作分组背包；不是普通独立物品模型。
+
 若要求输出选了哪些物品，仅得到最大值还不够。对于二维01背包，可在每个状态记录是否选择第i件，或保留整张f表，从 $(n,V)$ 逆推：若最优值来自不选则i减1；若来自选择，则记录i并把容量减去体积。
 
 一维压缩后直接保存“当前容量的父指针”容易被后续物品覆盖，造成恢复结果重复选同一物品。为了初学者的可靠实现，先使用二维记录恢复，再考虑持久化等高级优化。并列最优解允许任选时，固定一种规则即可；要求字典序最小时必须把并列规则也纳入设计。
 
 \subsection{计数背包的撤销}
+\practice{P4141}{消失之物}
+删除的是一个指定物品，输出恰好装满的方案数末位数字；使用本节计数撤销公式。
+
 设F[s]是所有物品组成体积s的01选择方案数，删除一个体积为w的\textbf{指定物品}后，G[s]是剩余方案数。按是否选该物品分类：
 \[F[s]=G[s]+G[s-w],\qquad G[s]=F[s]-G[s-w].\]
 负下标项为0。因G[s]依赖更小的G，按s从小到大计算。若只输出末位数字，应在模10下减法并把负数归一化：
@@ -53,6 +65,9 @@ for (int s = w; s <= capacity; ++s)
 例如两个体积都为1的不同物品，完整方案数为 $F[0..2]=[1,2,1]$；删去其中一件，得到 $G=[1,1,0]$。物品即使体积相同也按身份区分。该线性计数关系可撤销，但最大值背包的max会丢失候选信息，不能简单相减恢复。
 
 \subsection{LIS优化与排列LCS}
+\practice{P1439}{两个排列的最长公共子序列}
+利用元素各出现一次的性质映射成LIS；二次LCS不能覆盖大规模数据。
+
 定义tail[len]为所有长度len的严格上升子序列中最小的末尾值。这个数组严格递增。处理x时，用lower\_bound找到第一个不小于x的位置并替换；若不存在就把x接到末尾。替换更小的末尾不会改变已获得的长度，却给后续元素留下更多延伸可能。
 \begin{lstlisting}
 int length = 0; // tail[] and a[] have capacity at least n.
@@ -121,3 +136,42 @@ dp入门.pptx & 18 & 第8章、LIS与LCS扩展。\\
 提高题可选：\prob{P2678}、\prob{P1219}、\prob{P3956}、\prob{P1776}、\prob{P1507}、\prob{P1064}、\prob{P1439}、\prob{P4141}。其中P4141的目标是删除指定物品后的恰好装满方案数末位数字，不是最大价值；P1439的较大数据需要利用排列性质，普通二维LCS不能覆盖全部规模。
 
 接口语义可查阅C++工作草案的\href{https://eel.is/c++draft/sort}{sort条目}和\href{https://eel.is/c++draft/alg.unique}{unique条目}。平台原题和标准文档是进一步核对的依据，本讲义正文的教学例题与解答已经提供独立学习所需的规则和算法。
+
+\subsection{团队题单与专题入口}
+\textbf{练习总入口：}\href{https://www.luogu.com.cn/team/113242/training}{洛谷团队113242的训练题单}。以下5个专题地址来自原资料。团队页与专题题单目前需要访问权限，整理时未能核对其中的完整题目列表；正文中的公开题目链接不据此认定为团队题单成员。
+\begin{longtable}{P{8cm}P{6cm}}
+\toprule 专题 & 打开题单\\\midrule\endhead
+二分、前缀和、差分、双指针 & \href{https://www.luogu.com.cn/training/1048062}{1048062}\\
+搜索与剪枝 & \href{https://www.luogu.com.cn/training/1048981}{1048981}\\
+STL & \href{https://www.luogu.com.cn/training/1055276}{1055276}\\
+简单动态规划 & \href{https://www.luogu.com.cn/training/1052248}{1052248}\\
+贪心 & \href{https://www.luogu.com.cn/training/1052246}{1052246}\\
+\bottomrule\end{longtable}
+\subsection{原资料真题做题入口}
+以下按原资料中的第一题、第二题分组保留23个入口，便于直接进入平台作答。这是原资料链接索引；题名、认证编号及跨平台重复关系尚未全部核对，不将其伪标成已讲解的某道原题。正文的自编综合模拟也不等同于这些平台真题。
+\begin{longtable}{P{1.5cm}P{2cm}P{10.5cm}}
+\toprule 序号 & 分组 & 在线做题链接\\\midrule\endhead
+1 & 第一题 & \url{https://www.acwing.com/problem/content/3250/}\\
+2 & 第一题 & \url{https://www.acwing.com/problem/content/3260/}\\
+3 & 第一题 & \url{https://www.acwing.com/problem/content/3275/}\\
+4 & 第一题 & \url{https://www.acwing.com/problem/content/3290/}\\
+5 & 第一题 & \url{https://www.acwing.com/problem/content/3295/}\\
+6 & 第一题 & \url{https://www.acwing.com/problem/content/4009/}\\
+7 & 第一题 & \url{https://www.acwing.com/problem/content/4702/}\\
+8 & 第一题 & \url{https://www.acwing.com/problem/content/5019/}\\
+9 & 第二题 & \url{https://www.acwing.com/problem/content/3266/}\\
+10 & 第二题 & \url{https://www.acwing.com/problem/content/3286/}\\
+11 & 第二题 & \url{https://www.acwing.com/problem/content/3296/}\\
+12 & 第二题 & \url{https://www.acwing.com/problem/content/3415/}\\
+13 & 第二题 & \url{https://www.acwing.com/problem/content/4010/}\\
+14 & 第二题 & \url{https://www.acwing.com/problem/content/4458/}\\
+15 & 第二题 & \url{https://www.acwing.com/problem/content/4513/}\\
+16 & 第二题 & \url{https://www.acwing.com/problem/content/4703/}\\
+17 & 第二题 & \url{https://www.acwing.com/problem/content/5020/}\\
+18 & 第二题 & \url{https://www.acwing.com/problem/content/5723/}\\
+19 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202605B}\\
+20 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202409B}\\
+21 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202412B}\\
+22 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202503B}\\
+23 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202506B}\\
+\bottomrule\end{longtable}
