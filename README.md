@@ -43,6 +43,7 @@
 - 使用 STL 时写明容器、迭代器类型，不使用 `auto`、Lambda 或结构化绑定；STL 仍然需要 **C++17 编译器**。
 - 采用标准头文件；普通数组容量按讲义题目范围预留。
 - PDF 中代码带**语法高亮**、行号和浅色背景：蓝色关键字、红棕色字符串、绿色注释、紫色常用函数。
+- PDF 代码行号保留显示，并通过空的 `ActualText` 排除在复制文本之外（需阅读器支持此 PDF 标记）；代码正文仍可选择、复制。若阅读器忽略该标记，可直接复制 `code/` 中对应的源程序。
 - 输入输出样例使用**浅色边框、输入输出分区和等宽字体**，保留空格与换行，多组样例分别编号。
 
 ## 在线做题
@@ -54,7 +55,7 @@
 
 ## 编译讲义
 
-主文件已内嵌全部正文和代码，**只下载 `main.tex` 也可以编译**。使用 XeLaTeX，安装 `ctex`、`fontspec`、`geometry`、`amsmath`、`booktabs`、`longtable`、`enumitem`、`listings`、`fancyvrb`、`needspace`、`tcolorbox`、`hyperref` 等常用宏包。字体优先 Fandol；Windows 缺少 Fandol 时回退到宋体、黑体。
+主文件已内嵌全部正文和代码，**只下载 `main.tex` 也可以编译**。使用 XeLaTeX，安装 `ctex`、`fontspec`、`geometry`、`amsmath`、`booktabs`、`longtable`、`enumitem`、`listings`、`fancyvrb`、`needspace`、`tcolorbox`、`accsupp`、`hyperref` 等常用宏包。字体优先 Fandol；Windows 缺少 Fandol 时回退到宋体、黑体。
 
 ```sh
 mkdir -p dist

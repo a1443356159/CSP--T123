@@ -14,6 +14,7 @@ preamble = r'''% !TeX program = xelatex
 }{\setCJKmainfont{SimSun}[BoldFont=SimHei]\setCJKsansfont{SimHei}\setCJKmonofont{SimSun}}
 \usepackage{amsmath,amssymb,booktabs,longtable,array,enumitem,xcolor,listings}
 \usepackage{fancyvrb,needspace,tcolorbox}
+\usepackage[xetex]{accsupp}
 \DefineVerbatimEnvironment{Sample}{Verbatim}{samepage=true,fontsize=\small}
 \tcbset{samplebox/.style={colback=blue!2!white,colframe=blue!35!black,colbacktitle=blue!8!white,coltitle=black,fonttitle=\bfseries,boxrule=0.5pt,arc=1mm,left=3mm,right=3mm,top=1mm,bottom=1mm,before skip=6pt,after skip=6pt}}
 \usepackage{hyperref}
@@ -29,7 +30,9 @@ preamble = r'''% !TeX program = xelatex
 \definecolor{CodeComment}{HTML}{326746}
 \definecolor{CodeFunction}{HTML}{71408A}
 \definecolor{CodeBackground}{HTML}{F7F9FC}
-\lstset{language=C++,keywordstyle=\color{CodeKeyword}\bfseries,stringstyle=\color{CodeString},commentstyle=\color{CodeComment}\itshape,backgroundcolor=\color{CodeBackground},emph={scanf,printf,puts,fgets,strcmp,strlen,strcpy,strcspn,strtok,sort,unique,lower_bound,upper_bound,reverse,fill,min,max,swap,push_back,pop_back,insert,erase,find,begin,end,c_str},emphstyle=\color{CodeFunction},basicstyle=\ttfamily\footnotesize\linespread{1}\selectfont,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,numbers=left,numberstyle=\tiny,numbersep=7pt,xleftmargin=1.5em,frame=single,rulecolor=\color{black!20},tabsize=4}
+% Keep line numbers visible, but omit them from PDF text selection/copy.
+\newcommand{\noncopynumber}[1]{\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}}
+\lstset{language=C++,keywordstyle=\color{CodeKeyword}\bfseries,stringstyle=\color{CodeString},commentstyle=\color{CodeComment}\itshape,backgroundcolor=\color{CodeBackground},emph={scanf,printf,puts,fgets,strcmp,strlen,strcpy,strcspn,strtok,sort,unique,lower_bound,upper_bound,reverse,fill,min,max,swap,push_back,pop_back,insert,erase,find,begin,end,c_str},emphstyle=\color{CodeFunction},basicstyle=\ttfamily\footnotesize\linespread{1}\selectfont,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,numbers=left,numberstyle=\tiny\noncopynumber,numbersep=7pt,xleftmargin=1.5em,frame=single,rulecolor=\color{black!20},tabsize=4}
 \newcommand{\example}[1]{\subsection{例题 #1}}
 \newcommand{\exercise}{\subsection{练习与解答}}
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
