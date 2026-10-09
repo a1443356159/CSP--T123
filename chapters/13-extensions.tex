@@ -46,7 +46,7 @@ for (int v = V; v >= cost; --v)
 \[F[s]=G[s]+G[s-w],\qquad G[s]=F[s]-G[s-w].\]
 负下标项为0。因G[s]依赖更小的G，按s从小到大计算。若只输出末位数字，应在模10下减法并把负数归一化：
 \begin{lstlisting}
-vector<int> g = all;
+for (int s = 0; s <= capacity; s++) g[s] = all[s];
 for (int s = w; s <= capacity; ++s)
     g[s] = (all[s] - g[s-w] + 10) % 10;
 \end{lstlisting}
@@ -55,13 +55,13 @@ for (int s = w; s <= capacity; ++s)
 \subsection{LIS优化与排列LCS}
 定义tail[len]为所有长度len的严格上升子序列中最小的末尾值。这个数组严格递增。处理x时，用lower\_bound找到第一个不小于x的位置并替换；若不存在就把x接到末尾。替换更小的末尾不会改变已获得的长度，却给后续元素留下更多延伸可能。
 \begin{lstlisting}
-vector<int> tail;
-for (int x : a) {
-    auto it = lower_bound(tail.begin(), tail.end(), x);
-    if (it == tail.end()) tail.push_back(x);
-    else *it = x;
+int length = 0; // tail[] and a[] have capacity at least n.
+for (int i = 0; i < n; i++) {
+    int pos = lower_bound(tail, tail + length, a[i]) - tail;
+    tail[pos] = a[i];
+    if (pos == length) length++;
 }
-cout << tail.size();
+printf("%d\n", length);
 \end{lstlisting}
 时间 $O(n\log n)$。tail的内容不一定是一条真实的LIS；若要求恢复路径，还需要记录位置和前驱。不下降子序列对应upper\_bound，而不是lower\_bound。
 
@@ -80,15 +80,16 @@ cout << tail.size();
 \subsection{字符串匹配的线性预处理}
 直接在每个起点比较模式串的复杂度最坏为 $O(nm)$，在小规模下完全可用。规模较大时，可用KMP的前缀函数维护“已匹配前缀还能退到多长”。设pi[i]为模式串前缀0到i的最长相等真前后缀长度：
 \begin{lstlisting}
-vector<int> prefix_function(const string &s) {
-    vector<int> pi(s.size());
-    for (int i = 1; i < (int)s.size(); ++i) {
-        int j = pi[i-1];
-        while (j > 0 && s[i] != s[j]) j = pi[j-1];
-        if (s[i] == s[j]) ++j;
+void prefix_function(const char s[], int pi[]) {
+    int n = strlen(s);
+    if (n == 0) return;
+    pi[0] = 0;
+    for (int i = 1; i < n; i++) {
+        int j = pi[i - 1];
+        while (j > 0 && s[i] != s[j]) j = pi[j - 1];
+        if (s[i] == s[j]) j++;
         pi[i] = j;
     }
-    return pi;
 }
 \end{lstlisting}
 对非空模式p扫描文本时，用同样的回退规则更新匹配长度j；当j等于模式长度，记录一次匹配并回退到pi[j-1]，从而允许重叠匹配。由于指针前进与回退的总量受线性界约束，预处理和匹配合计 $O(n+m)$。空模式的匹配规则应另行规定，不能直接访问p[0]。
@@ -107,11 +108,11 @@ vector<int> prefix_function(const string &s) {
 \toprule 原始文件 & 页数 & 本讲义对应内容\\\midrule\endhead
 历年前三题考点梳理.pdf & 5 & 题型安排、基础模拟、综合模拟选题方向。\\
 练习题与真题.pdf & 2 & 继续训练入口，仓库中另存链接索引。\\
-stl.pptx & 42 & 第3--4章与可删堆。\\
-前缀和、差分、二分、双指针.pptx & 34 & 第5--6章及搜索答案的选读内容。\\
-搜索、剪枝、暴力.pptx & 13 & 第8章与模板依赖展开。\\
-dp入门.pptx & 18 & 第9章、LIS与LCS扩展。\\
-动态规划之背包问题.pptx & 53 & 第10章与背包提高专题。\\
+stl.pptx & 42 & 第3章STL专章、第10章解析与可删堆。\\
+前缀和、差分、二分、双指针.pptx & 34 & 第4--5章及搜索答案的选读内容。\\
+搜索、剪枝、暴力.pptx & 13 & 第7章与模板依赖展开。\\
+dp入门.pptx & 18 & 第8章、LIS与LCS扩展。\\
+动态规划之背包问题.pptx & 53 & 第9章与背包提高专题。\\
 \bottomrule
 \end{longtable}
 

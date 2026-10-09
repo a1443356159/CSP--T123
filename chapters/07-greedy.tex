@@ -28,16 +28,17 @@
 \subsection{质因数分解与溢出检查}
 对正整数 x，从2开始试除。若 d 整除 x，反复除去并统计指数。循环条件可写 \texttt{d <= x/d}，避免计算 $d^2$ 溢出。循环结束后若 x>1，它是最后一个质因子。1没有质因子。
 \begin{lstlisting}
-vector<pair<long long,int>> factorize(long long x) {
-    vector<pair<long long,int>> answer;
-    for (long long d = 2; d <= x/d; ++d) {
+// prime[] and exponent[] each need at least 64 elements.
+int factorize(long long x, long long prime[], int exponent[]) {
+    int total = 0;
+    for (long long d = 2; d <= x / d; d++) {
         if (x % d != 0) continue;
-        int e = 0;
-        do { x /= d; ++e; } while (x % d == 0);
-        answer.push_back({d,e});
+        int count = 0;
+        do { x /= d; count++; } while (x % d == 0);
+        prime[total] = d; exponent[total++] = count;
     }
-    if (x > 1) answer.push_back({x,1});
-    return answer;
+    if (x > 1) { prime[total] = x; exponent[total++] = 1; }
+    return total;
 }
 \end{lstlisting}
 最坏试除次数为 $O(\sqrt{x})$。如果要分解很多较大的数，应重新估计总复杂度，而不是只看一次分解。

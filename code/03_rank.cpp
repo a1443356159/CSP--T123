@@ -1,13 +1,19 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 using namespace std;
-struct Student { string id; int score; };
+const int N = 200005;
+struct Student { char id[31]; int score; };
+Student a[N];
+bool cmp(Student x, Student y) {
+    if (x.score != y.score) return x.score > y.score;
+    return strcmp(x.id, y.id) < 0;
+}
 int main() {
-    int n; cin >> n;
-    vector<Student> a(n);
-    for (auto &x : a) cin >> x.id >> x.score;
-    sort(a.begin(), a.end(), [](const Student &x, const Student &y) {
-        if (x.score != y.score) return x.score > y.score;
-        return x.id < y.id;
-    });
-    for (auto x : a) cout << x.id << ' ' << x.score << '\n';
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) scanf("%30s%d", a[i].id, &a[i].score);
+    sort(a, a + n, cmp);
+    for (int i = 0; i < n; i++) printf("%s %d\n", a[i].id, a[i].score);
+    return 0;
 }

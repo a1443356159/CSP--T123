@@ -1,15 +1,23 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
+long long f[2005], next_f[2005], value[25];
+int cost[25];
 int main() {
-    int groups, capacity; cin >> groups >> capacity;
-    vector<long long> f(capacity+1);
-    for (int g = 0; g < groups; ++g) {
-        int k; cin >> k; vector<pair<int,long long>> items(k);
-        for (auto &[c,w] : items) cin >> c >> w;
-        auto next = f;
-        for (int v = 0; v <= capacity; ++v)
-            for (auto [c,w] : items) if (v >= c) next[v] = max(next[v], f[v-c]+w);
-        f.swap(next);
+    int groups, capacity;
+    scanf("%d%d", &groups, &capacity);
+    for (int g = 0; g < groups; g++) {
+        int k;
+        scanf("%d", &k);
+        for (int i = 0; i < k; i++) scanf("%d%lld", &cost[i], &value[i]);
+        for (int v = 0; v <= capacity; v++) {
+            next_f[v] = f[v];
+            for (int i = 0; i < k; i++)
+                if (v >= cost[i])
+                    next_f[v] = max(next_f[v], f[v - cost[i]] + value[i]);
+        }
+        for (int v = 0; v <= capacity; v++) f[v] = next_f[v];
     }
-    cout << f[capacity] << '\n';
+    printf("%lld\n", f[capacity]);
+    return 0;
 }

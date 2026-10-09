@@ -7,7 +7,7 @@ BUILD = ROOT / 'build' / 'tests'
 BUILD.mkdir(parents=True, exist_ok=True)
 cases = []
 def add(name, data, expected):
-    cases.append((name, data, str(expected).strip()))
+    cases.append((name, data, str(expected).rstrip('\r\n')))
 
 fixed = [
 ('01_stats','6\n3 -1 3 2 -1 5\n','11 -1 5\n-1 2'),
@@ -50,6 +50,26 @@ fixed = [
 ('26_scheduler','4\n0 1 5\n1 1 2\n2 3 1\n5 2 2\n','0 5\n8 10\n5 6\n6 8\n7'),
 ('26_scheduler','2\n4 1 2\n0 1 1\n','4 6\n0 1\n0'),
 ]
+fixed.extend([
+('27_distinct','6\n3 1 3 2 2 1\n','3\n1 2 3'),
+('27_distinct','1\n-1\n','1\n-1'),
+('28_brackets','([]){}\n','YES'),('28_brackets','([)]\n','NO'),
+('28_brackets','\n','YES'),('28_brackets',')\n','NO'),('28_brackets','(\n','NO'),
+('29_queue','6\nPOP\nPUSH 5\nPUSH 2\nPOP\nPOP\nPOP\n','EMPTY\n5\n2\nEMPTY'),
+('30_neighbors','8\nADD 5\nADD 5\nADD 9\nDEL 5\nGE 5\nDEL 5\nGE 5\nGE 10\n','5\n9\nNONE'),
+('30_neighbors','3\nDEL 1\nGE 0\nGE -1\n','NONE\nNONE'),
+('31_frequency','5\npear apple pear banana apple\n','apple 2\nbanana 1\npear 2'),
+('32_heap','5 3\n4 1 9 9 2\n','9 9 4'),('32_heap','1 1\n-9\n','-9'),
+('33_undo','7\nUNDO\nADD 4\nADD 9\nPRINT\nUNDO\nPRINT\nUNDO\n','4 9\n4'),
+('33_undo','3\nUNDO\nPRINT\nUNDO\n','EMPTY'),
+('34_replace','one two one\none\nX\n','X two X'),
+('34_replace','aaa\naa\naaaa\n','aaaaa'),
+('34_replace','aaaa\naa\n\n',''),('34_replace','\nx\ny\n',''),
+('03_rank','2\n'+'a'*30+' 1\n'+'b'*30+' 1\n','a'*30+' 1\n'+'b'*30+' 1'),
+('21_expression','('*100+'1'+')'*100+'\n','1'),
+('22_selector','1 1\n0 '+'a'*20+' '+'b'*20+'\n#'+'b'*20+'\n','1 1'),
+('23_templates','1\n'+'a'*20+' 1 '+'b'*20+'\n'+'a'*20+'\n','b'*20),
+])
 for x in fixed: add(*x)
 
 rng = random.Random(20261009)
@@ -118,6 +138,49 @@ for _ in range(25):
         arrival,_,duration=tasks[i];ans[i]=(now,now+duration);wait=max(wait,now-arrival);now+=duration
     add('26_scheduler',str(n)+'\n'+'\n'.join(' '.join(map(str,t)) for t in tasks),'\n'.join(f'{a} {b}' for a,b in ans)+'\n'+str(wait))
 
+
+# Independent small-input oracles for new STL teaching examples.
+for _ in range(25):
+    a=[rng.randint(-6,6) for _ in range(rng.randint(1,25))]
+    b=sorted(set(a))
+    add('27_distinct',str(len(a))+'\n'+' '.join(map(str,a)),str(len(b))+'\n'+' '.join(map(str,b)))
+    k=rng.randint(1,len(a))
+    add('32_heap',f'{len(a)} {k}\n'+' '.join(map(str,a)),' '.join(map(str,sorted(a,reverse=True)[:k])))
+    words=[rng.choice(['apple','a','pear','banana','aa']) for _ in range(20)]
+    freq=collections.Counter(words)
+    add('31_frequency','20\n'+' '.join(words),'\n'.join(f'{w} {freq[w]}' for w in sorted(freq)))
+    values=[];ops=[];expected=[]
+    for j in range(40):
+        op=rng.choice(['ADD','DEL','GE']);x=rng.randint(-8,8);ops.append(f'{op} {x}')
+        if op=='ADD':values.append(x)
+        elif op=='DEL':
+            if x in values:values.remove(x)
+        else:
+            candidates=[v for v in values if v>=x]
+            expected.append(str(min(candidates)) if candidates else 'NONE')
+    add('30_neighbors','40\n'+'\n'.join(ops),'\n'.join(expected))
+    values=[];ops=[];expected=[]
+    for j in range(40):
+        op=rng.choice(['ADD','UNDO','PRINT'])
+        if op=='ADD':
+            x=rng.randint(-8,8);values.append(x);ops.append(f'ADD {x}')
+        elif op=='UNDO':
+            ops.append(op)
+            if values:values.pop()
+        else:ops.append(op);expected.append(' '.join(map(str,values)) if values else 'EMPTY')
+    add('33_undo','40\n'+'\n'.join(ops),'\n'.join(expected))
+    waiting=collections.deque();ops=[];expected=[]
+    for j in range(40):
+        if rng.randrange(2):
+            x=rng.randint(-8,8);waiting.append(x);ops.append(f'PUSH {x}')
+        else:
+            ops.append('POP');expected.append(str(waiting.popleft()) if waiting else 'EMPTY')
+    add('29_queue','40\n'+'\n'.join(ops),'\n'.join(expected))
+    original=''.join(rng.choice('ab ') for _ in range(rng.randint(0,30)))
+    pattern=''.join(rng.choice('ab ') for _ in range(rng.randint(1,4)))
+    replacement=''.join(rng.choice('ab ') for _ in range(rng.randint(0,5)))
+    add('34_replace',original+'\n'+pattern+'\n'+replacement+'\n',original.replace(pattern,replacement))
+
 sources=sorted((ROOT/'code').glob('*.cpp'))
 for source in sources:
     exe=BUILD/(source.stem+('.exe' if sys.platform=='win32' else ''))
@@ -128,7 +191,7 @@ print(f'Compiled {len(sources)} programs',flush=True)
 for name,data,expected in cases:
     exe=BUILD/(name+('.exe' if sys.platform=='win32' else ''))
     result=subprocess.run([str(exe)],input=data,text=True,capture_output=True,check=True,timeout=5)
-    if result.stdout.strip()!=expected:
+    if result.stdout.rstrip('\r\n')!=expected:
         raise AssertionError(f'{name}\ninput={data!r}\nexpected={expected!r}\nactual={result.stdout!r}')
 report={'programs':len(sources),'checks':len(cases),'sample_and_boundary_checks':len(fixed),'random_oracle_checks':len(cases)-len(fixed),'seed':20261009,'result':'passed'}
 (BUILD/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')

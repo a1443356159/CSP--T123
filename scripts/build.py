@@ -23,13 +23,18 @@ preamble = r'''% !TeX program = xelatex
 \pagestyle{plain}\setcounter{tocdepth}{2}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 \ctexset{section={format=\Large\bfseries},subsection={format=\large\bfseries},subsubsection={format=\normalsize\bfseries}}
-\lstset{language=C++,basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,numbers=left,numberstyle=\tiny,numbersep=7pt,xleftmargin=1.5em,frame=single,rulecolor=\color{black!20},tabsize=4}
+\definecolor{CodeKeyword}{HTML}{164D9C}
+\definecolor{CodeString}{HTML}{A13D20}
+\definecolor{CodeComment}{HTML}{326746}
+\definecolor{CodeFunction}{HTML}{71408A}
+\definecolor{CodeBackground}{HTML}{F7F9FC}
+\lstset{language=C++,keywordstyle=\color{CodeKeyword}\bfseries,stringstyle=\color{CodeString},commentstyle=\color{CodeComment}\itshape,backgroundcolor=\color{CodeBackground},emph={scanf,printf,puts,fgets,strcmp,strlen,strcpy,strcspn,strtok,sort,unique,lower_bound,upper_bound,reverse,fill,min,max,swap,push_back,pop_back,insert,erase,find,begin,end,c_str},emphstyle=\color{CodeFunction},basicstyle=\ttfamily\footnotesize\linespread{1}\selectfont,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,numbers=left,numberstyle=\tiny,numbersep=7pt,xleftmargin=1.5em,frame=single,rulecolor=\color{black!20},tabsize=4}
 \newcommand{\example}[1]{\subsection{例题 #1}}
 \newcommand{\exercise}{\subsection{练习与解答}}
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
 \newcommand{\important}[1]{\par\noindent\textbf{#1}\par}
 \title{\textbf{CCF-CSP 前三题备考讲义}}
-\author{基础实现\quad 常用算法\quad 综合模拟}
+\author{第一题：基础实现\quad 第二题：工具与算法\quad 第三题：综合模拟}
 \date{2026年10月9日}
 \begin{document}\maketitle
 '''
@@ -37,19 +42,30 @@ preamble = r'''% !TeX program = xelatex
 def expand(match):
     name = match.group(1)
     content = (ROOT / 'code' / name).read_text(encoding='utf-8').rstrip()
-    room = 12 * len(content.splitlines()) + 34
-    return '\\Needspace{' + str(room) + 'pt}\n\\par\\noindent\\textbf{完整参考实现}\\quad\\texttt{' + name.replace('_', r'\_') + '}\n\\begin{lstlisting}\n' + content + '\n\\end{lstlisting}\n'
+    return '\n'.join([
+        r'\par\noindent\begin{minipage}{\linewidth}',
+        r'\textbf{完整参考实现}\quad\texttt{' + name.replace('_', r'\_') + '}',
+        r'\begin{lstlisting}', content, r'\end{lstlisting}',
+        r'\end{minipage}\par', '',
+    ])
 
+
+# Three study parts; filenames retain their original identities.
+order = ['00-preface.tex', '01-basics.tex', '02-simulation.tex',
+         '03-stl.tex', '05-prefix.tex', '06-binary.tex', '07-greedy.tex',
+         '08-search.tex', '09-dp.tex', '10-knapsack.tex', '04-strings.tex',
+         '11-comprehensive.tex', '12-practice.tex', '13-extensions.tex']
 parts = []
-for path in sorted((ROOT / 'chapters').glob('*.tex')):
-    text = path.read_text(encoding='utf-8')
+for filename in order:
+    path = ROOT / 'chapters' / filename
+    text = path.read_text(encoding='utf-8-sig')
     if path.name != '00-preface.tex':
         text = text.replace('\\newpage', '\\par\\bigskip')
         text = text.replace('\\section{', '\\Needspace{7\\baselineskip}\\section{')
     text = text.replace('\\begin{verbatim}', '\\begin{Sample}').replace('\\end{verbatim}', '\\end{Sample}')
     text = re.sub(
         r'\\begin\{lstlisting\}(.*?)\\end\{lstlisting\}',
-        lambda m: '\\Needspace{' + str(12 * len(m.group(1).strip().splitlines()) + 24) + 'pt}\n' + m.group(0),
+        lambda m: '\\par\\noindent\\begin{minipage}{\\linewidth}\n' + m.group(0) + '\n\\end{minipage}\\par',
         text, flags=re.S,
     )
     parts.append('% ===== ' + path.name + ' =====\n' + re.sub(r'\\Code\{([^}]+)\}', expand, text))

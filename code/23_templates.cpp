@@ -1,33 +1,48 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <map>
+#include <string>
+#include <vector>
 using namespace std;
-map<string, vector<string>> definitions, memo;
-map<string, int> state;
-const vector<string> &expand(const string &name) {
-    if (!definitions.count(name)) throw runtime_error("unknown name");
-    if (state[name] == 1) throw runtime_error("cycle");
-    if (state[name] == 2) return memo.at(name);
-    state[name] = 1;
-    vector<string> output;
-    for (const string &token : definitions.at(name)) {
-        if (token[0] != '@') output.push_back(token);
+map<string, int> number;
+vector<string> definition[105], memo[105];
+int state[105];
+int expand(int u) {
+    if (state[u] == 1) return 0;
+    if (state[u] == 2) return 1;
+    state[u] = 1;
+    for (int i = 0; i < (int)definition[u].size(); i++) {
+        string token = definition[u][i];
+        if (token[0] != '@') memo[u].push_back(token);
         else {
-            const auto &part = expand(token.substr(1));
-            output.insert(output.end(), part.begin(), part.end());
+            map<string, int>::iterator it = number.find(token.substr(1));
+            if (it == number.end() || !expand(it->second)) return 0;
+            int v = it->second;
+            for (int j = 0; j < (int)memo[v].size(); j++)
+                memo[u].push_back(memo[v][j]);
         }
     }
-    state[name] = 2; memo[name] = move(output); return memo.at(name);
+    state[u] = 2;
+    return 1;
 }
 int main() {
-    int n; cin >> n;
-    while (n--) {
-        string name; int k; cin >> name >> k;
-        auto &tokens = definitions[name]; tokens.resize(k);
-        for (auto &s : tokens) cin >> s;
+    int n;
+    scanf("%d", &n);
+    char name[21], token[21];
+    for (int i = 0; i < n; i++) {
+        int k;
+        scanf("%20s%d", name, &k); number[name] = i;
+        for (int j = 0; j < k; j++) {
+            scanf("%20s", token); definition[i].push_back(token);
+        }
     }
-    string start; cin >> start;
-    try {
-        const auto &out = expand(start);
-        for (size_t i = 0; i < out.size(); ++i) cout << (i ? " " : "") << out[i];
-        cout << '\n';
-    } catch (const exception &) { cout << "ERROR\n"; }
+    scanf("%20s", name);
+    map<string, int>::iterator it = number.find(name);
+    if (it == number.end() || !expand(it->second)) puts("ERROR");
+    else {
+        int u = it->second;
+        for (int i = 0; i < (int)memo[u].size(); i++)
+            printf("%s%s", i == 0 ? "" : " ", memo[u][i].c_str());
+        printf("\n");
+    }
+    return 0;
 }

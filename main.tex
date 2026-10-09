@@ -18,13 +18,18 @@
 \pagestyle{plain}\setcounter{tocdepth}{2}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 \ctexset{section={format=\Large\bfseries},subsection={format=\large\bfseries},subsubsection={format=\normalsize\bfseries}}
-\lstset{language=C++,basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,numbers=left,numberstyle=\tiny,numbersep=7pt,xleftmargin=1.5em,frame=single,rulecolor=\color{black!20},tabsize=4}
+\definecolor{CodeKeyword}{HTML}{164D9C}
+\definecolor{CodeString}{HTML}{A13D20}
+\definecolor{CodeComment}{HTML}{326746}
+\definecolor{CodeFunction}{HTML}{71408A}
+\definecolor{CodeBackground}{HTML}{F7F9FC}
+\lstset{language=C++,keywordstyle=\color{CodeKeyword}\bfseries,stringstyle=\color{CodeString},commentstyle=\color{CodeComment}\itshape,backgroundcolor=\color{CodeBackground},emph={scanf,printf,puts,fgets,strcmp,strlen,strcpy,strcspn,strtok,sort,unique,lower_bound,upper_bound,reverse,fill,min,max,swap,push_back,pop_back,insert,erase,find,begin,end,c_str},emphstyle=\color{CodeFunction},basicstyle=\ttfamily\footnotesize\linespread{1}\selectfont,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,numbers=left,numberstyle=\tiny,numbersep=7pt,xleftmargin=1.5em,frame=single,rulecolor=\color{black!20},tabsize=4}
 \newcommand{\example}[1]{\subsection{例题 #1}}
 \newcommand{\exercise}{\subsection{练习与解答}}
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
 \newcommand{\important}[1]{\par\noindent\textbf{#1}\par}
 \title{\textbf{CCF-CSP 前三题备考讲义}}
-\author{基础实现\quad 常用算法\quad 综合模拟}
+\author{第一题：基础实现\quad 第二题：工具与算法\quad 第三题：综合模拟}
 \date{2026年10月9日}
 \begin{document}\maketitle
 % ===== 00-preface.tex =====
@@ -35,9 +40,11 @@
 
 每章建议按三个步骤学习：先自己推演例题，再解释参考代码中的关键不变量，最后遮住答案完成章末练习。不会做时优先寻找“状态究竟表示什么”“哪一步重复计算”“哪个边界没有定义”，而不是立即记忆模板。
 
-参考程序使用 C++17。为减少重复，使用竞赛环境常见的 \texttt{bits/stdc++.h}；该头文件属于 GNU 实现。其他编译器可换成程序实际使用的标准头文件，如 iostream、vector、algorithm、map、set、queue、sstream、string、limits、stdexcept。学习时使用 GNU C++17 编译即可，具体认证提交环境应在考试前核对。
+参考程序以C风格为主：使用scanf/printf、普通数组、下标循环、结构体和独立函数；需要动态容器时再使用STL。没有使用auto、匿名函数或结构化绑定。STL属于C++，因此统一按C++17编译，不能把包含STL的程序当成纯C源文件提交。程序逐项包含实际需要的标准头文件。全局数组会自动初始化为0；局部普通数组不会，使用前必须初始化。数组容量按本讲义题目范围预留，迁移到别题时要重新检查。
 
-第1--10章构成基础算法主线，第11章包含五个完整模拟案例，第12章提供带答案的综合训练。附录补充多重背包、多维背包、背包撤销等原资料中的提高内容。高级内容不影响先完成基础与模拟主线。
+全书分为三个大篇章。\textbf{第一篇：第一题}，学习第1--2章的基础输入输出、枚举、统计和小模拟，不依赖STL。\textbf{第二篇：第二题}，先在第3章逐项学习STL，再学习第4--9章的前缀和、二分、贪心、搜索、动态规划与背包。\textbf{第三篇：第三题}，第10章训练字符串解析，第11章展开五个完整模拟案例，第12章提供综合训练与复盘。提高专题放在书末附录，供完成主线后选读。
+
+这种划分是一条学习路线，不表示每次考试的题号与算法固定对应。第一题通常优先用基础实现；第二篇里的容器也为第三题管理复杂状态服务。附录知识可按需要回查，无须先学完全部提高内容才开始前三题训练。
 
 \important{一个始终要回答的问题}
 一段代码通过样例，只说明它在那个输入上表现正确。每次写完都应检查：最小规模、最大规模、重复值、边界位置、不可达状态，以及题面允许但样例没有出现的情况。
@@ -45,6 +52,10 @@
 \newpage
 
 % ===== 01-basics.tex =====
+\clearpage
+\part{第一题：基础实现}
+\noindent 本篇目标是把短题意翻译成准确的数组、循环和状态更新。先练输入输出与边界，再练枚举、统计和同步模拟。基础解法能清楚表达规则时，优先采用基础解法。
+
 \Needspace{7\baselineskip}\section{备考方法与程序基本功}
 \subsection{从题面到程序的五个问题}
 读题后先写下：输入包含什么；输出要求什么；一个对象需要哪些属性；一次操作如何改变状态；数据规模允许多少工作量。例如，统计学生成绩时，对象可以是“编号与成绩”，状态是所有学生记录，输出可能是排序结果或某种统计值。不要把没有读懂的规则直接埋进条件分支。
@@ -69,7 +80,7 @@
 \subsection{数值范围与输入边界}
 常见32位有符号整数的最大值约为 $2.1\times10^9$。若 $n=2\times10^5$ 且每项绝对值不超过 $10^9$，总和可能达到 $2\times10^{14}$，需要 long long。尤其注意：两个 int 先相乘再赋给 long long，乘法仍可能先溢出。应写 \texttt{1LL*a*b}，让乘法从一开始就在更宽的类型中进行。
 
-字符串用 \texttt{cin >> s} 读取时遇到空白结束；\texttt{getline(cin,s)} 读取整行。在先读取数字、再读取整行时，要处理数字后剩余的换行。可先调用一次 getline 消耗该行剩余内容。若前导空格是有效信息，不要使用会吞掉它们的处理方式。
+整数用\texttt{scanf("\%d",\&n)}，long long用\texttt{\%lld}；输出格式要匹配类型。字符数组用带宽度限制的\texttt{scanf("\%100s",s)}读入单词，数组至少有101格。fgets读取整行并保留可能出现的换行。先读数字再读整行时，应处理数字所在行剩余的字符；若空行或前导空格有意义，不要用跳过所有空白的方法。第3章的string小节给出完整示例。
 
 统一区间含义也很重要。数组前缀和常采用 $[l,r]$ 闭区间；STL 的迭代器区间通常采用 $[first,last)$，last 指向最后一个元素之后。两种习惯都可以使用，但转换处必须明确。
 
@@ -85,29 +96,44 @@
 11 -1 5
 -1 2
 \end{Sample}
-\textbf{解答。}总和与极值可边读边更新。用 map 保存“值到次数”的关系。map 按键升序遍历，仅在次数严格更大时更新答案，就能保留并列时较小的值。最小值不能初始化成0，否则全为正数时会出错；最大值同理。复杂度 $O(n\log n)$，空间 $O(n)$。
-\Needspace{250pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{01\_stats.cpp}
+\textbf{解答。}总和与极值可边读边更新；最小值不能初始化为0，否则全正数时会出错。众数作为本例的进阶要求：先调用C标准库qsort排序，再扫描每个相等值段。按值升序扫描且只在次数严格增加时更新答案，就保留了并列时较小的值。qsort的比较函数返回负数、0或正数，表示小于、等于或大于；不要用可能溢出的相减判断。扫描为$O(n)$，空间为$O(n)$，总时间由排序主导。C标准未规定qsort的复杂度保证；需要明确的$O(n\log n)$比较次数保证时，可使用第二篇讲解的sort。初学时先掌握总和与极值，再学习众数部分。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{01\_stats.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+#include <cstdlib>
+#include <climits>
+long long a[200005];
+int compare(const void *p, const void *q) {
+    long long x = *(const long long *)p;
+    long long y = *(const long long *)q;
+    if (x < y) return -1;
+    if (x > y) return 1;
+    return 0;
+}
 int main() {
-    ios::sync_with_stdio(false); cin.tie(nullptr);
-    int n; cin >> n;
+    int n;
+    scanf("%d", &n);
     long long sum = 0, mn = LLONG_MAX, mx = LLONG_MIN;
-    map<long long, int> cnt;
-    for (int i = 0; i < n; ++i) {
-        long long x; cin >> x;
-        sum += x; mn = min(mn, x); mx = max(mx, x); ++cnt[x];
+    for (int i = 0; i < n; i++) {
+        scanf("%lld", &a[i]); sum += a[i];
+        if (a[i] < mn) mn = a[i];
+        if (a[i] > mx) mx = a[i];
     }
-    long long mode = 0; int best = 0;
-    for (auto [x, c] : cnt) {
-        if (c > best) { best = c; mode = x; }
+    qsort(a, n, sizeof(a[0]), compare);
+    long long mode = a[0];
+    int best = 0, i = 0;
+    while (i < n) {
+        int j = i;
+        while (j < n && a[j] == a[i]) j++;
+        if (j - i > best) { best = j - i; mode = a[i]; }
+        i = j;
     }
-    cout << sum << ' ' << mn << ' ' << mx << '\n';
-    cout << mode << ' ' << best << '\n';
+    printf("%lld %lld %lld\n%lld %d\n", sum, mn, mx, mode, best);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \exercise
@@ -141,29 +167,36 @@ int main() {
 \textbf{推演。}左上格的两个有效邻格都是0，所以变为0；上方中间格的三个邻格都是1，所以变为1。所有计数都使用原数组 a，把答案放进 b。若直接覆盖 a，后面的格子会读到已经变化的数据。
 
 \textbf{正确性。}程序对每格恰好检查四个方向，只有合法坐标参与计数，因此统计值与题意一致；写入 b 不改变 a，满足同步更新。时间和空间均为 $O(nm)$。
-\Needspace{262pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{02\_grid.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{02\_grid.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+const int N = 505;
+int a[N][N], b[N][N];
+int dx[4] = {-1, 1, 0, 0}, dy[4] = {0, 0, -1, 1};
 int main() {
-    int n, m; cin >> n >> m;
-    vector<vector<int>> a(n, vector<int>(m)), b(n, vector<int>(m));
-    for (auto &row : a) for (int &x : row) cin >> x;
-    int dx[] = {-1, 1, 0, 0}, dy[] = {0, 0, -1, 1};
-    for (int i = 0; i < n; ++i) for (int j = 0; j < m; ++j) {
-        int c = 0;
-        for (int k = 0; k < 4; ++k) {
-            int x = i + dx[k], y = j + dy[k];
-            if (x >= 0 && x < n && y >= 0 && y < m) c += a[x][y];
+    int n, m;
+    scanf("%d%d", &n, &m);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++) scanf("%d", &a[i][j]);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            int count = 0;
+            for (int k = 0; k < 4; k++) {
+                int x = i + dx[k], y = j + dy[k];
+                if (x >= 0 && x < n && y >= 0 && y < m)
+                    count += a[x][y];
+            }
+            b[i][j] = (count >= 2);
         }
-        b[i][j] = (c >= 2);
     }
-    for (auto &row : b) {
-        for (int j = 0; j < m; ++j) cout << row[j] << (j+1 == m ? '\n' : ' ');
-    }
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            printf("%d%c", b[i][j], j + 1 == m ? '\n' : ' ');
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{矩形相交的边界}
@@ -177,7 +210,7 @@ h=\max(0,\min(y_2,v_2)-\max(y_1,v_1)).
 \subsection{日期模拟}
 日期问题先确定历法。公历闰年的判定是：能被400整除，或者能被4整除但不能被100整除。月份长度用表保存，二月按闰年调整。把日期加一天时，先增加日；若超过当月天数，日改为1并增加月；若月变成13，再进入下一年。每步只有一个明确定义的状态变化。
 
-\Needspace{108pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 bool leap(int y) {
     return y % 400 == 0 || (y % 4 == 0 && y % 100 != 0);
@@ -187,6 +220,7 @@ int days(int y, int m) {
     return d[m] + (m == 2 && leap(y));
 }
 \end{lstlisting}
+\end{minipage}\par
 
 \exercise
 \textbf{练习1。}对只有一个格子的网格，原值为1，更新后是多少？\textbf{解答。}为0，因为没有有效邻格。它检查越界和最小规模。
@@ -199,24 +233,91 @@ int days(int y, int m) {
 \par\bigskip
 
 % ===== 03-stl.tex =====
-\Needspace{7\baselineskip}\section{排序与常用STL工具}
-\subsection{按需要选择容器}
-\begin{longtable}{P{3.1cm}P{5.5cm}P{5.6cm}}
-\toprule 工具 & 适用需求 & 关键注意事项\\\midrule\endhead
-vector & 可变长顺序表，下标访问 & 中间插入删除通常为 $O(n)$；扩容可能使迭代器失效。\\
-map & 根据键查找和统计，有序遍历 & 查找、插入通常为 $O(\log n)$；下标访问不存在键会插入默认值。\\
-set / multiset & 动态有序集合 & set去重；multiset可重复。按值erase可能删掉全部相等元素。\\
-queue & 先进先出 & front读队首，pop只删除，不返回元素。\\
-stack & 后进先出 & top读栈顶，空栈不能访问top。\\
-priority\_queue & 动态取最大或最小 & 默认大根堆；不支持任意位置直接删除。\\
-sort & 对可随机访问区间排序 & 比较器要满足严格弱序，不能把小于写成小于等于。\\
-lower\_bound & 有序序列中第一个不小于x的位置 & 可能返回end，访问前应检查。\\
-upper\_bound & 有序序列中第一个大于x的位置 & 与lower\_bound之差可统计出现次数。\\
+\clearpage
+\part{第二题：STL与常用算法}
+\noindent 本篇先建立完整的STL工具箱，再学习如何减少重复计算。容器操作、复杂度和算法适用条件要一起理解；本篇的string、map和set也会直接服务于第三篇。
+
+\Needspace{7\baselineskip}\section{STL容器与常用算法详解}
+\label{chap:stl}
+本章是第二篇的工具基础。STL通常指标准模板库；本讲义将常用的标准库容器、算法、字符串和数对放在一起讲解。它们仍然属于C++，程序需要用C++编译器。\textbf{采用C风格写法}是指优先使用scanf/printf、普通数组、下标循环、结构体和独立函数；使用STL时保留必要的模板类型和成员函数调用。
+
+学习时先掌握sort、二分查找、vector与基本队列，再学set、map和堆。string、嵌套容器与自定义比较器会在第三篇继续用到。每种工具都要回答：数据如何存放、能做什么操作、一次操作花多少时间、什么情况下不能调用。
+
+\subsection{头文件、类型与最小程序}
+C++可以调用C标准库。\texttt{<cstdio>}提供scanf/printf，\texttt{<cstring>}提供strlen/strcmp，\texttt{<algorithm>}提供sort、unique等算法。容器各有头文件；只包含algorithm并不能保证queue可用。
+\begin{longtable}{P{3.4cm}P{4.1cm}P{6.7cm}}
+\toprule 头文件 & 工具 & 适合解决的问题\\\midrule\endhead
+algorithm & sort、unique、二分、reverse & 排序、去重、静态有序查找。\\
+vector & vector & 元素数变化，需要按下标访问。\\
+string & string & 保存、比较和加工文本。\\
+utility & pair、make\_pair & 把两个有关联的值放在一起。\\
+stack & stack & 后进先出，撤销、括号匹配。\\
+queue & queue、priority\_queue & 先来先处理，或优先处理极值。\\
+set & set、multiset & 动态有序集合，前驱、后继。\\
+map & map & 从名字、编号映射到信息或次数。\\
+functional & greater & 常用于声明小根堆。\\
 \bottomrule
 \end{longtable}
+本章短代码默认已经包含对应头文件，且写在main或指定函数中；给出的完整参考程序可以直接编译。\texttt{using namespace std;}允许省略std::前缀。\texttt{vector<int>}表示元素为int的动态数组，尖括号里的类型不是容量。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+#include <cstdio>
+#include <vector>
+using namespace std;
+int main() {
+    vector<int> a;
+    a.push_back(7);
+    printf("%d\n", a[0]);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+\textbf{读法。}a是容器；点号后是它的成员操作；push\_back在末尾添加一个元素。普通数组也可以配合STL算法，不必把所有数组改成vector。
+
+\subsection{区间与迭代器：所有接口的共同基础}
+\subsubsection{左闭右开区间}
+算法通常接收$[first,last)$：包含first，不包含last。数组前n项是\texttt{[a,a+n)}；使用1下标时则是\texttt{[a+1,a+n+1)}。空区间满足first等于last，长度为0。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int a[5] = {9, 4, 7, 1, 3};
+sort(a + 1, a + 4); // Sort indices 1, 2, 3 only.
+// a is now {9, 1, 4, 7, 3}.
+\end{lstlisting}
+\end{minipage}\par
+\subsubsection{迭代器可以移动，但不一定能相减}
+\texttt{begin()}指向首元素，\texttt{end()}指向最后一个元素之后。\texttt{*it}读取当前元素，\texttt{++it}移动到下一个。空容器的begin等于end；end不能解引用。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+vector<int> a(3, 8);
+vector<int>::iterator it;
+for (it = a.begin(); it != a.end(); ++it)
+    printf("%d\n", *it);
+\end{lstlisting}
+\end{minipage}\par
+vector迭代器支持\texttt{it+3}和相减；set/map迭代器只支持逐步前后移动，不能写\texttt{it+3}、\texttt{s[0]}或用迭代器相减求排名。迭代器也不能跨两个不同容器比较或相减。
+
+\subsubsection{什么时候需要重新取得迭代器}
+vector扩容会使原来的指针、引用和迭代器失效；即使没有扩容，在中间插入、删除后，受影响位置及后面的迭代器也不能继续照用。set/map插入通常不影响已有迭代器，删除则使指向被删元素的迭代器失效。最稳妥的初学者习惯是：修改容器后重新查找，删除时使用erase返回的下一个位置。
+
+\subsection{sort：普通数组排序与多关键字排序}
+\subsubsection{升序、降序和局部排序}
+默认sort按小于关系升序排列。下例里的cmp是\textbf{普通函数}，不是匿名函数；返回true表示x应排在y前面。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+bool descending(int x, int y) { return x > y; }
+// Inside main:
+int a[5] = {3, 1, 4, 1, 5};
+sort(a, a + 5);             // 1 1 3 4 5
+sort(a, a + 5, descending); // 5 4 3 1 1
+\end{lstlisting}
+\end{minipage}\par
+对n个元素，sort保证$O(n\log n)$量级的比较次数。不要把它固定理解为某一种朴素快速排序实现。sort不保证等价元素的原相对顺序；需要保留时用stable\_sort，或将原下标加入次关键字。
+
+\subsubsection{比较器必须严格}
+\texttt{cmp(x,x)}必须为false；x排在y前时，y不能也排在x前；比较关系还要传递。\texttt{x>=y}不是合格比较器。不能在比较过程中随机改变规则，也不应通过\texttt{return x-y;}返回布尔结果：非零都会变成true，而且减法可能溢出。字符数组按内容比较应使用strcmp，不能直接比较两个数组地址。
 
 \example{按成绩和编号排序}
-\textbf{题目。}输入 $n$ 名学生的编号和成绩，按成绩降序排列；成绩相同按编号字典序升序。编号为不含空格的字符串且互不相同，$1\le n\le2\times10^5$，成绩在0到100之间。输入第一行 $n$，随后每行编号、成绩；输出排好序的记录。
+\textbf{题目。}输入$n$名学生的编号和成绩，成绩降序，相同成绩按编号字典序升序。编号是不含空格的字符串，长度1到30且互不相同；$1\le n\le2\times10^5$，成绩0到100。首行n，随后每行编号和成绩，输出排序后的记录。
 \begin{Sample}
 输入
 4
@@ -230,120 +331,678 @@ a02 90
 a03 90
 b02 90
 \end{Sample}
-\textbf{解答。}比较器先比较主关键字，只有主关键字相等才比较次关键字。对于完全相同的对象，比较结果应为false。使用非严格比较可能破坏排序算法的前提。时间 $O(n\log n)$，存储记录需要 $O(n)$ 空间。
-\Needspace{190pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{03\_rank.cpp}
+\textbf{解答。}结构体数组保存记录，cmp先判断成绩，再用strcmp判断编号。编号数组容量31，多留一格保存字符串结束符。\texttt{\%30s}限制一次最多读入30个字符。比较次数为$O(n\log n)$，每次字符串比较最多扫描30个字符，记录存储为$O(n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{03\_rank.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
 using namespace std;
-struct Student { string id; int score; };
+const int N = 200005;
+struct Student { char id[31]; int score; };
+Student a[N];
+bool cmp(Student x, Student y) {
+    if (x.score != y.score) return x.score > y.score;
+    return strcmp(x.id, y.id) < 0;
+}
 int main() {
-    int n; cin >> n;
-    vector<Student> a(n);
-    for (auto &x : a) cin >> x.id >> x.score;
-    sort(a.begin(), a.end(), [](const Student &x, const Student &y) {
-        if (x.score != y.score) return x.score > y.score;
-        return x.id < y.id;
-    });
-    for (auto x : a) cout << x.id << ' ' << x.score << '\n';
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) scanf("%30s%d", a[i].id, &a[i].score);
+    sort(a, a + n, cmp);
+    for (int i = 0; i < n; i++) printf("%s %d\n", a[i].id, a[i].score);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
+\textbf{自测。}若编号为a2和a10，字典序中a10在a2之前；题目若要求按数字编号排序，应先把数字部分解析为数值。
 
-\subsection{去重与离散化}
-离散化把一组值替换成它们在去重有序集合中的排名，保留相等关系与大小关系，但\textbf{不保留原来的距离}。例如原值 $[100,5,100,20]$ 排序去重后是 $[5,20,100]$，映射成 $[3,1,3,2]$。若问题涉及长度或面积，仍要保留原坐标。
-
-\Needspace{96pt}
+\subsection{unique：去相邻重复与修改逻辑长度}
+unique把相邻等价元素压缩到区间前部，返回\textbf{新的逻辑末尾}，不改变普通数组容量，也不会自动缩短vector。新末尾后的元素不属于去重结果，不要依赖其具体值。
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-vector<long long> keys = a;
-sort(keys.begin(), keys.end());
-keys.erase(unique(keys.begin(), keys.end()), keys.end());
-vector<int> rank(a.size());
-for (size_t i = 0; i < a.size(); ++i)
-    rank[i] = lower_bound(keys.begin(), keys.end(), a[i]) - keys.begin() + 1;
+int a[6] = {3, 1, 3, 2, 2, 1};
+sort(a, a + 6);                // 1 1 2 2 3 3
+int m = unique(a, a + 6) - a;   // m = 3
+for (int i = 0; i < m; i++) printf("%d ", a[i]);
+// Output: 1 2 3
 \end{lstlisting}
-unique 处理相邻的等价元素并返回新的逻辑末尾，容器长度由 erase 真正改变。排序不是 unique 的硬性前提，但若希望全局去重，必须让相同值相邻或使用其他去重方案。
-
-\subsection{查找和删除的细节}
-只想查询键是否存在时，使用 find，避免 \texttt{mp[key]} 隐式创建键。在 set 中找第一个不小于 x 的元素，优先调用 \texttt{s.lower\_bound(x)}；对树容器迭代器调用通用 lower\_bound 可能产生线性数量的迭代器移动。
-
-\Needspace{84pt}
+\end{minipage}\par
+如果不排序，\texttt{[1,2,1]}中两个1不相邻，unique不会删掉后面的1。若要求保留首次出现顺序，排序去重会改变顺序，应该用集合判断是否见过，同时另存答案。vector全局去重的常见顺序是sort、unique、erase：
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-auto it = s.lower_bound(x);
-if (it != s.end()) cout << *it;       // successor, possibly equal
-if (it != s.begin()) cout << *prev(it); // strict predecessor
-auto p = ms.find(x);
-if (p != ms.end()) ms.erase(p);      // erase one occurrence
+vector<int> v;
+v.push_back(3); v.push_back(1); v.push_back(3);
+sort(v.begin(), v.end());
+vector<int>::iterator last = unique(v.begin(), v.end());
+v.erase(last, v.end());
 \end{lstlisting}
+\end{minipage}\par
+\textbf{练习与完整解答：有序去重。}输入$n$个整数，$1\le n\le2\times10^5$、$|a_i|\le10^9$。第一行输出不同值数量，第二行按升序输出这些值。输入\texttt{6}和\texttt{3 1 3 2 2 1}，输出\texttt{3}和\texttt{1 2 3}。排序后每个等值段保留一个即可，时间$O(n\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{27\_distinct.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <algorithm>
+using namespace std;
+int a[200005];
+int main() {
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+    sort(a, a + n);
+    int m = unique(a, a + n) - a;
+    printf("%d\n", m);
+    for (int i = 0; i < m; i++)
+        printf("%d%c", a[i], i + 1 == m ? '\n' : ' ');
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
 
-\exercise
-\textbf{练习1。}为什么比较器 \texttt{return x.score >= y.score;} 不正确？\textbf{解答。}对象与自己比较会得到true，违反严格性；并列对象互相都“小于”对方，排序前提被破坏。
 
-\textbf{练习2。}数组 $[2,2,5,7]$ 中 x=2 的 lower\_bound 和 upper\_bound 的0下标分别是什么？\textbf{解答。}分别是0和2，差为2，表示两个2。x=8时两者都返回end，即下标4，不能解引用。
+\subsection{lower\_bound与upper\_bound：四种边界}
+本节默认序列按升序排列；不要在无序数组上直接使用二分查找。lower\_bound找第一个不小于x的位置，upper\_bound找第一个大于x的位置；找不到时都返回右端点。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int a[4] = {2, 2, 5, 7};
+int n = 4, x = 2;
+int l = lower_bound(a, a + n, x) - a;
+int r = upper_bound(a, a + n, x) - a;
+printf("%d %d %d\n", l, r, r - l); // 0 2 2
+if (l < n && a[l] == x) puts("FOUND");
+\end{lstlisting}
+\end{minipage}\par
+\begin{longtable}{P{4.5cm}P{5cm}P{4.7cm}}
+\toprule 需求 & 下标公式 & 必须检查\\\midrule\endhead
+第一个$\ge x$ & lower\_bound减起点 & 下标小于n。\\
+第一个$>x$ & upper\_bound减起点 & 下标小于n。\\
+最后一个$<x$ & lower\_bound下标减1 & 结果不小于0。\\
+最后一个$\le x$ & upper\_bound下标减1 & 结果不小于0。\\
+x出现次数 & upper下标减lower下标 & 两次使用同一有序区间。\\
+\bottomrule
+\end{longtable}
+数组或vector上的一次查询为$O(\log n)$。例如x=8时两端均为4，表示不存在8；\texttt{a[4]}不是有效元素。\textbf{set/map上优先使用成员函数}，如\texttt{s.lower\_bound(x)}；通用算法作用于树迭代器时，比较次数虽少，迭代器移动却可能达到线性数量。
 
-\textbf{练习3。}把坐标 $[1,100,101]$ 离散为 $[1,2,3]$，原区间长度是否仍可由排名差计算？\textbf{解答。}不可以。原来的前两点相距99，排名差只有1，离散化只保序。
-\par\bigskip
+\subsection{离散化：值域大时保存相对大小}
+离散化把实际值变成在去重有序表中的排名。原序列$[100,5,100,20]$的有序不同值为$[5,20,100]$，1起始排名为$[3,1,3,2]$。\textbf{保留相等关系与大小关系，不保留坐标距离。}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int a[4] = {100, 5, 100, 20}, keys[4], rank_id[4];
+int n = 4;
+for (int i = 0; i < n; i++) keys[i] = a[i];
+sort(keys, keys + n);
+int m = unique(keys, keys + n) - keys;
+for (int i = 0; i < n; i++)
+    rank_id[i] = lower_bound(keys, keys + m, a[i]) - keys + 1;
+\end{lstlisting}
+\end{minipage}\par
+排序$O(n\log n)$，逐项查询$O(n\log n)$，空间$O(n)$。必须复制一份数据再排序，否则原顺序被破坏。涉及线段长度或面积时，用排名定位，用keys恢复原坐标计算距离。在线出现的新值不能随意追加到末尾并假定排名仍正确。
 
-% ===== 04-strings.tex =====
-\Needspace{7\baselineskip}\section{字符串处理与解析基础}
-\subsection{常用操作与区间含义}
-string 的下标从0开始。\texttt{s.substr(pos,len)} 的第二个参数是长度；\texttt{s.find(t)} 返回首次匹配位置，找不到时返回 \texttt{string::npos}。不要把 npos 随意存进 int 后再与某个猜测值比较。字符串比较是字典序，例如 \texttt{"10" < "2"}，与整数大小不同。
+\subsection{vector：可变长数组}
+\subsubsection{建立、赋值与下标访问}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+vector<int> a;             // Empty, size 0.
+vector<int> b(5);          // Five zeros.
+vector<int> c(5, -1);      // Five copies of -1.
+a.push_back(10); a.push_back(20);
+printf("%d %d\n", (int)a.size(), a[1]); // 2 20
+b = a;                    // Copies the elements.
+for (int i = 0; i < (int)b.size(); i++) printf("%d ", b[i]);
+\end{lstlisting}
+\end{minipage}\par
+合法下标为0到size减1。\texttt{a[5]=1}不会自动扩容。size返回无符号类型；本讲义数据量可用int表示，循环前转为int，避免空容器上\texttt{size()-1}发生无符号下溢。\texttt{front()}、\texttt{back()}、\texttt{pop\_back()}均应先确认非空。
 
-扫描字符串时最好约定：“指针 p 总是指向下一个尚未处理的字符”。每个分支要么推进 p，要么返回。若某个分支既不推进也不退出，就容易死循环。处理完整段落时，通常比反复在字符串中间 erase 更清楚、也更高效。
+\subsubsection{size、capacity、resize、reserve的区别}
+size是已有元素数，capacity是无需重新分配时能容纳的数量。resize改变元素数；reserve只预留容量。\texttt{vector<int> a; a.reserve(100);}之后a仍然为空，不能写a[0]，应该push\_back或先resize。\texttt{a.resize(100,7)}只把新增元素填成7，原有元素不会全部改写；要整体重置可用\texttt{a.assign(100,7)}。
 
-\example{带引号的单行分词}
-\textbf{题目。}一行文本由普通字符、空格和英文双引号组成。引号外的连续空格分隔单词；引号内的空格属于单词；双引号本身不输出。相邻的普通片段和引号片段属于同一个单词。空引号表示一个空单词。本题不支持转义字符。若引号不匹配，输出 ERROR。行长不超过 $10^5$。
+\subsubsection{插入、删除和二维vector}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+vector<int> a(3, 5);       // 5 5 5
+a.insert(a.begin() + 1, 9); // 5 9 5 5
+a.erase(a.begin() + 2);    // 5 9 5
+a.erase(a.begin(), a.begin() + 2); // 5
+a.clear();                // size becomes 0.
+vector<vector<int> > grid(3, vector<int>(4, 0));
+grid[1][2] = 8;
+\end{lstlisting}
+\end{minipage}\par
+下标访问为$O(1)$，末尾push\_back均摊$O(1)$；单次扩容可能搬移全部元素。中间插入删除通常为$O(n)$，连续在开头删除n次可能变成$O(n^2)$。clear清空元素，不承诺立刻归还所有容量。二维vector的每一行是独立vector，不能假定跨行内存连续；规模已知的普通矩阵通常直接使用二维数组。
 
-\textbf{输入。}一整行文本，可为空。\textbf{输出。}合法时先输出单词数，随后每个单词单独一行，用方括号包住，便于看见空单词和空格。
+\textbf{练习与解答：追加和撤销。}首行$q$，$1\le q\le10^5$；随后每条命令为ADD x、UNDO或PRINT，$|x|\le10^9$。ADD末尾追加，UNDO删除末尾一项，空时忽略；PRINT输出当前序列，空时输出EMPTY。保证全部PRINT实际输出的元素数不超过$2\times10^5$。
 \begin{Sample}
 输入
-add "hello world" "" x
+7
+UNDO
+ADD 4
+ADD 9
+PRINT
+UNDO
+PRINT
+UNDO
 输出
+4 9
 4
-[add]
-[hello world]
-[]
-[x]
 \end{Sample}
-\textbf{状态设计。}quoted 表示当前是否在引号内；cur 保存当前单词；active 表示当前单词已经开始。active 不能由 cur 是否为空代替，否则空引号会丢失。遇到引号切换 quoted；遇到引号外空格时结束当前单词；其余字符加入 cur。扫描结束后检查引号是否闭合，再处理最后一个单词。
-
-\textbf{正确性。}每个字符恰好进入一种分支。引号仅改变状态，分隔空格仅结束一个已开始的单词，因此保留的字符、单词边界和空单词均符合规则。时间 $O(L)$，输出存储 $O(L)$。
-\Needspace{238pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{04\_tokens.cpp}
+每次修改仅涉及末尾，vector适合保存操作结果。时间为$O(q+S)$的均摊量级，S为输出元素总数；没有对S的约束时，反复PRINT的输出本身也可能很大。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{33\_undo.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <vector>
 using namespace std;
 int main() {
-    string s; getline(cin, s);
-    vector<string> words; string cur;
-    bool quoted = false, active = false;
-    for (char c : s) {
-        if (c == '"') { quoted = !quoted; active = true; }
-        else if (c == ' ' && !quoted) {
-            if (active) { words.push_back(cur); cur.clear(); active = false; }
-        } else { cur += c; active = true; }
+    int q;
+    scanf("%d", &q);
+    vector<int> a;
+    while (q--) {
+        char op[10]; scanf("%9s", op);
+        if (strcmp(op, "ADD") == 0) {
+            int x; scanf("%d", &x); a.push_back(x);
+        } else if (strcmp(op, "UNDO") == 0) {
+            if (!a.empty()) a.pop_back();
+        } else {
+            if (a.empty()) puts("EMPTY");
+            else {
+                for (int i = 0; i < (int)a.size(); i++)
+                    printf("%d%c", a[i], i + 1 == (int)a.size() ? '\n' : ' ');
+            }
+        }
     }
-    if (quoted) { cout << "ERROR\n"; return 0; }
-    if (active) words.push_back(cur);
-    cout << words.size() << '\n';
-    for (const auto &w : words) cout << '[' << w << "]\n";
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
-\subsection{C字符数组与string的区别}
-C 字符串以终止字符 \verb|'\0'| 结尾，数组需要额外空间存放它。strlen 统计终止符前的字符数。定义后的字符数组不能用赋值表达式整体赋值；string 可以直接赋值。strcmp 返回值的符号表示字典序关系，不保证只返回1或-1。字符分类函数如 isdigit 接收字符时，可先转为 unsigned char，避免负 char 值带来的未定义行为。
+\subsection{string：与字符数组配合处理文本}
+\subsubsection{读写、复制和字典序}
+string自动管理存储空间，可赋值、拼接和按内容比较。字符数组用\texttt{strcmp(a,b)}，string可以直接用\texttt{a==b}、\texttt{a<b}。字符串\texttt{"10"}按字典序小于\texttt{"2"}，这不等于数值比较。char指针不应直接作为按文本内容比较的map键，本章统一使用string键。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+char buf[101];
+scanf("%100s", buf);
+string s = buf;
+printf("%s\n", s.c_str());
+string t = s; t += "!";
+for (int i = 0; i < (int)t.size(); i++) printf("%c", t[i]);
+\end{lstlisting}
+\end{minipage}\par
+不能写\texttt{scanf("\%s", s)}或\texttt{printf("\%s", s)}：格式化函数不会自动把string转换成字符指针。输出使用c\_str；输入先读字符数组再赋给string。\texttt{c\_str()}返回的指针只宜用于即时读取，修改string后不要继续依赖旧指针。
 
-\subsection{解析与业务处理分开}
-例如命令 \texttt{GRANT alice file1}，解析层先产生三个字符串，再由执行层决定如何修改权限。这样出现错误时，可以先打印解析结果，判断错在读入还是状态更新。第11章会进一步用函数处理路径和表达式。
+\subsubsection{整行输入与空格}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+char line[1005];
+if (fgets(line, sizeof(line), stdin) != NULL) {
+    line[strcspn(line, "\r\n")] = '\0';
+    string s = line;
+    printf("[%s]\n", s.c_str());
+}
+\end{lstlisting}
+\end{minipage}\par
+fgets最多读入容量减1个字符，可能保留换行。例中用strcspn找到第一个回车或换行并截断。容量必须覆盖题目允许的最大行长，否则一次fgets不一定读完一行。先scanf读取数字再fgets时，应把该行余下字符读到换行；只调用一次getchar仅在确知剩余恰好一个换行时才足够。不要用跳过所有空白的方法处理允许空行或前导空格的题目。
+
+\subsubsection{截取、查找、插入、删除与替换}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+string s = "abcdef";
+string t = s.substr(2, 3);  // "cde": start, count.
+s.erase(1, 2);             // "adef": remove b,c.
+s.insert(1, "XY");         // "aXYdef".
+s.replace(1, 2, "-");      // "a-def".
+string::size_type p = s.find("de");
+if (p != string::npos) printf("%d\n", (int)p); // 2
+\end{lstlisting}
+\end{minipage}\par
+substr第二参数是长度，不是终点。find失败返回string::npos，先判断成功再转成int或拿来访问。insert/erase/replace可能移动后缀，反复从头修改长字符串会很慢；可以逐段追加到新字符串。string不能用memset清零，清空用clear。
+
+\textbf{练习与解答：从左向右替换。}输入三行s、p、t，各行长度不超过1000，允许空格；s和t可空，p非空。按原串s从左到右查找p，每次选取最靠左的不重叠出现，将其替换为t。新插入的内容不再次参与匹配，输出结果。例如s为aaaa、p为aa、t为b，结果bb；s为aaa时结果ba。
+\begin{Sample}
+输入
+one two one
+one
+X
+输出
+X two X
+\end{Sample}
+用start标记原串尚未处理的位置。找到后先追加未匹配片段，再追加t，随后前进p的长度。始终在原串上find，可避免t包含p时重复替换甚至死循环。答案最长为约$10^6$字符；朴素匹配可用$O(|s||p|+|answer|)$估计，具体string查找实现可能优化，本题规模不依赖这种优化。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{34\_replace.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <cstring>
+#include <string>
+using namespace std;
+char line[1005], pattern[1005], replacement[1005];
+void read_line(char s[]) {
+    if (fgets(s, 1005, stdin) == NULL) s[0] = '\0';
+    s[strcspn(s, "\r\n")] = '\0';
+}
+int main() {
+    read_line(line); read_line(pattern); read_line(replacement);
+    string s = line, p = pattern, t = replacement, answer;
+    string::size_type start = 0;
+    while (true) {
+        string::size_type pos = s.find(p, start);
+        if (pos == string::npos) break;
+        answer += s.substr(start, pos - start);
+        answer += t;
+        start = pos + p.size();
+    }
+    answer += s.substr(start);
+    printf("%s\n", answer.c_str());
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\subsection{pair：两个值的组合}
+pair是辅助类型，不是可增删元素的容器。\texttt{pair<int,int>}可以存坐标、数值与下标等；成员名为first、second。为了保持简单写法，本章用make\_pair创建数对，不用结构化绑定。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+pair<int, int> p = make_pair(3, 8);
+printf("%d %d\n", p.first, p.second);
+pair<int, int> a[3];
+a[0] = make_pair(2, 1);
+a[1] = make_pair(1, 9);
+a[2] = make_pair(1, 4);
+sort(a, a + 3); // (1,4), (1,9), (2,1)
+\end{lstlisting}
+\end{minipage}\par
+默认按first比较，first相同才比较second，即字典序。字段有明确业务含义时可改用结构体并命名为x、y、score等，提高可读性；pair的比较不会自动满足“第一项降序、第二项升序”，这种规则仍需自定义比较函数。
+
+\subsection{stack：后进先出与括号匹配}
+\subsubsection{基本操作}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+stack<int> st;
+st.push(4); st.push(9);
+if (!st.empty()) {
+    printf("%d\n", st.top()); // 9
+    st.pop();
+}
+printf("%d\n", (int)st.size()); // 1
+\end{lstlisting}
+\end{minipage}\par
+push加入栈顶，top只读取栈顶，pop只删除栈顶，\textbf{pop不返回被删除的值}。默认底层容器下这些操作为常数时间。stack不提供下标访问或普通遍历；需要访问所有元素时可改用vector。普通数组也能实现栈：用top表示已有元素数，入栈\texttt{a[top++]=x}，读栈顶\texttt{a[top-1]}，出栈\texttt{top--}，访问前确认top大于0。
+
+\textbf{练习与解答：三类括号匹配。}输入一行仅由\texttt{()[]\{\}}组成的字符串，长度0到$10^5$；空串合法。若每个右括号能与最近尚未匹配的同类左括号配对，输出YES，否则NO。输入\texttt{([])\{\}}输出YES，输入\texttt{([)]}输出NO。
+
+最近出现的未匹配左括号必须先配对，所以使用栈。扫描右括号时先检查非空，再检查类型；扫描结束还必须检查栈是否为空。每个字符最多入栈出栈各一次，时间和最坏空间均为$O(n)$。只比较左右括号总数会误判顺序或嵌套类型。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{28\_brackets.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <cstring>
+#include <stack>
+using namespace std;
+char s[100005];
+int match(char left, char right) {
+    return (left == '(' && right == ')') ||
+           (left == '[' && right == ']') ||
+           (left == '{' && right == '}');
+}
+int main() {
+    if (fgets(s, sizeof(s), stdin) == NULL) s[0] = '\0';
+    s[strcspn(s, "\r\n")] = '\0';
+    stack<char> st;
+    for (int i = 0; s[i] != '\0'; i++) {
+        char c = s[i];
+        if (c == '(' || c == '[' || c == '{') st.push(c);
+        else {
+            if (st.empty() || !match(st.top(), c)) {
+                puts("NO"); return 0;
+            }
+            st.pop();
+        }
+    }
+    puts(st.empty() ? "YES" : "NO");
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\subsection{queue：先进先出与处理顺序}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+queue<int> q;
+q.push(4); q.push(9);
+if (!q.empty()) {
+    printf("%d %d\n", q.front(), q.back()); // 4 9
+    q.pop();
+}
+\end{lstlisting}
+\end{minipage}\par
+push在队尾添加，front读取队首，back读取队尾，pop删除队首；访问空队列是错误。默认底层容器下这些操作为常数时间。queue按进入顺序处理，不按数值大小排序。BFS按层扩展用queue；总要取最大值时则应考虑priority\_queue。
+
+普通数组实现队列时，可用$[head,tail)$表示有效区间：入队\texttt{a[tail++]=x}，出队先读\texttt{a[head]}再head加1，非空条件head小于tail。只增不回绕的写法需要容量覆盖\textbf{累计入队次数}；长期复用时可改成循环队列或直接用queue。
+
+\textbf{练习与解答：排队取号。}首行$n$，$1\le n\le10^5$；随后每行PUSH x或POP，编号x为int范围内整数。PUSH入队；POP输出并删除队首，空队列输出EMPTY。
+\begin{Sample}
+输入
+6
+POP
+PUSH 5
+PUSH 2
+POP
+POP
+POP
+输出
+EMPTY
+5
+2
+EMPTY
+\end{Sample}
+维护进入顺序即可。每条命令$O(1)$，总时间$O(n)$，最多保存n个编号。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{29\_queue.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <cstring>
+#include <queue>
+using namespace std;
+int main() {
+    int n;
+    scanf("%d", &n);
+    queue<int> q;
+    while (n--) {
+        char op[10];
+        scanf("%9s", op);
+        if (strcmp(op, "PUSH") == 0) {
+            int x; scanf("%d", &x); q.push(x);
+        } else {
+            if (q.empty()) puts("EMPTY");
+            else { printf("%d\n", q.front()); q.pop(); }
+        }
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\subsection{priority\_queue：堆与优先处理}
+\subsubsection{大根堆与小根堆}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+priority_queue<int> large;
+large.push(4); large.push(9); large.push(2);
+printf("%d\n", large.top()); // 9
+priority_queue<int, vector<int>, greater<int> > small;
+small.push(4); small.push(9); small.push(2);
+printf("%d\n", small.top()); // 2
+\end{lstlisting}
+\end{minipage}\par
+第一个模板参数是元素类型，第二个是底层存储，第三个是比较方式。默认大根堆top最大；greater使最小值位于堆顶。top为$O(1)$，push/pop的堆调整为$O(\log n)$，底层vector分配另有均摊成本。堆不是完全排好序的数组，不支持第k项查询，也没有erase(x)接口。要删除指定值可用multiset；延迟删除见提高附录。
+
+\subsubsection{结构体与普通比较函数}
+堆的比较函数返回true，表示\textbf{左边对象优先级比右边低}，与sort里“应放在前面”的直观含义不同。下面优先取成绩更高者，相同成绩取编号更小者。函数指针类型写法中，Compare表示接收两个Item并返回bool的函数指针。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+struct Item { int score, id; };
+bool lower_priority(Item a, Item b) {
+    if (a.score != b.score) return a.score < b.score;
+    return a.id > b.id;
+}
+// Inside main:
+typedef bool (*Compare)(Item, Item);
+priority_queue<Item, vector<Item>, Compare> q(lower_priority);
+Item a; a.score = 90; a.id = 2; q.push(a);
+a.id = 1; q.push(a);
+printf("%d\n", q.top().id); // 1
+\end{lstlisting}
+\end{minipage}\par
+构造时必须传入比较函数，不能让函数指针保持空值。不要直接把sort的“高分在前”比较器原封不动放进堆。本讲义第三篇的任务调度继续使用这种普通函数写法。
+
+\textbf{练习与解答：保留最大的k个数。}输入n、k及n个整数，$1\le k\le n\le2\times10^5$，数值在int范围内。重复值按不同出现计数，按降序输出最大的k个数。样例：\texttt{5 3}和\texttt{4 1 9 9 2}，输出\texttt{9 9 4}。
+
+维护最多k个元素的小根堆。每读入一个数就入堆，超过k个时删除最小值；留下的恰好是已读前缀中最大的k个。反复弹出得到升序，最后逆转。时间$O(n\log(k+1)+k)$，额外空间$O(k)$。若n很小且一次读完，直接sort也是合理选择。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{32\_heap.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <queue>
+#include <vector>
+#include <algorithm>
+#include <functional>
+using namespace std;
+int main() {
+    int n, k;
+    scanf("%d%d", &n, &k);
+    priority_queue<int, vector<int>, greater<int> > q;
+    for (int i = 0; i < n; i++) {
+        int x; scanf("%d", &x); q.push(x);
+        if ((int)q.size() > k) q.pop();
+    }
+    vector<int> a;
+    while (!q.empty()) { a.push_back(q.top()); q.pop(); }
+    reverse(a.begin(), a.end());
+    for (int i = 0; i < (int)a.size(); i++)
+        printf("%d%c", a[i], i + 1 == (int)a.size() ? '\n' : ' ');
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\subsection{set：自动去重的有序集合}
+set存唯一键，默认按升序排列。insert重复键不会新增元素；find失败返回end；count在set中只能为0或1。查找、插入、按键删除的通常复杂度为$O(\log n)$，完整遍历为$O(n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+set<int> s;
+s.insert(5); s.insert(2); s.insert(5);
+printf("%d\n", (int)s.size()); // 2
+set<int>::iterator it;
+for (it = s.begin(); it != s.end(); ++it) printf("%d ", *it);
+if (s.find(5) != s.end()) puts("FOUND");
+s.erase(2);
+\end{lstlisting}
+\end{minipage}\par
+不能通过\texttt{*it=新值}修改set中的键，否则会破坏有序关系；修改键应先删旧值再插新值。遍历不是按插入顺序，不支持按下标读取。只做一次排序去重时普通数组往往更直接；数据边加入边查询时set更合适。
+
+\subsubsection{前驱、后继与安全边界}
+以下寻找严格小于x的前驱，以及不小于x的后继。两者定义不同于“严格大于”的后继；严格大于应改用upper\_bound。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int x = 6;
+set<int>::iterator it = s.lower_bound(x);
+if (it != s.end()) printf("next = %d\n", *it);
+if (it != s.begin()) {
+    --it;
+    printf("previous = %d\n", *it);
+}
+\end{lstlisting}
+\end{minipage}\par
+空集合begin等于end，两种访问都会被挡住；x大于所有元素时it为end，可以在集合非空的条件下先减一次取得最大值；x不大于最小值时不能对begin做减法。
+
+\subsection{multiset：重复值与删除一个副本}
+multiset允许相同值出现多次。\texttt{erase(x)}删除\textbf{所有等于x的元素}；\texttt{erase(it)}只删除迭代器指向的一个。count可能返回大于1，统计大量重复元素的成本也与出现次数有关，不能把它一律算作$O(\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+multiset<int> s;
+s.insert(5); s.insert(5); s.insert(8);
+multiset<int>::iterator it = s.find(5);
+if (it != s.end()) s.erase(it); // One 5 remains.
+printf("%d\n", (int)s.count(5)); // 1
+s.erase(5); // Remove all remaining 5s.
+\end{lstlisting}
+\end{minipage}\par
+\textbf{练习与解答：动态候选值。}首行q，$1\le q\le2\times10^5$；随后每行ADD x、DEL x或GE x，$|x|\le10^9$。ADD加入一个副本，DEL删除一个副本，不存在则忽略；GE输出当前最小的、不小于x的值，不存在输出NONE。
+\begin{Sample}
+输入
+8
+ADD 5
+ADD 5
+ADD 9
+DEL 5
+GE 5
+DEL 5
+GE 5
+GE 10
+输出
+5
+9
+NONE
+\end{Sample}
+使用multiset保留重复值；DEL采用find加erase迭代器；GE用成员lower\_bound。每条操作至多$O(\log(q+1))$，空间$O(q)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{30\_neighbors.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <cstring>
+#include <set>
+using namespace std;
+int main() {
+    int q;
+    scanf("%d", &q);
+    multiset<int> s;
+    while (q--) {
+        char op[10]; int x;
+        scanf("%9s%d", op, &x);
+        if (strcmp(op, "ADD") == 0) s.insert(x);
+        else if (strcmp(op, "DEL") == 0) {
+            multiset<int>::iterator it = s.find(x);
+            if (it != s.end()) s.erase(it);
+        } else {
+            multiset<int>::iterator it = s.lower_bound(x);
+            if (it == s.end()) puts("NONE");
+            else printf("%d\n", *it);
+        }
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\subsection{map：键到信息的映射}
+\subsubsection{下标、find和有序遍历}
+map保存唯一键及其对应值，默认按键排序。迭代器的first是键、second是值；键不可直接修改，值可以修改。
+
+例如，string到int的映射可以保存名字及其次数；int到vector的映射可以保存某个编号对应的一组记录。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+map<string, int> cnt;
+cnt["apple"]++; cnt["pear"] += 2;
+map<string, int>::iterator it = cnt.find("orange");
+if (it == cnt.end()) puts("NOT FOUND");
+for (it = cnt.begin(); it != cnt.end(); ++it)
+    printf("%s %d\n", it->first.c_str(), it->second);
+\end{lstlisting}
+\end{minipage}\par
+访问不存在键的\texttt{cnt[key]}会插入默认值；这里int默认为0，因此计数很方便。但只想查存在性时应使用find或count，避免创建新键。\texttt{cnt.count(key)}表示这个键是否存在，不是该单词的频数。\texttt{insert(make\_pair(key,value))}遇到已有键不会覆盖旧值；需要覆盖应使用下标赋值。
+
+比较和树查找通常需要$O(\log n)$次键比较。若键是长度L的字符串，一次比较最坏$O(L)$，整体可估为$O(L\log n)$。值域很小且连续的计数优先用普通数组，避免不必要的树节点开销。
+
+\textbf{练习与解答：单词计数。}输入$n$及n个仅含小写字母的单词，每词长度1到30，$1\le n\le10^5$。按字典序输出每个不同单词及次数。
+\begin{Sample}
+输入
+5
+pear apple pear banana apple
+输出
+apple 2
+banana 1
+pear 2
+\end{Sample}
+读入时对键计数；map已经按键排列，最后顺序遍历即可，不需要再sort。若有m个不同单词，计数约需$O(30n\log(m+1))$时间，存储约$O(30m)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{31\_frequency.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <map>
+#include <string>
+using namespace std;
+int main() {
+    int n;
+    scanf("%d", &n);
+    map<string, int> count;
+    for (int i = 0; i < n; i++) {
+        char word[31];
+        scanf("%30s", word); count[word]++;
+    }
+    map<string, int>::iterator it;
+    for (it = count.begin(); it != count.end(); ++it)
+        printf("%s %d\n", it->first.c_str(), it->second);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\subsubsection{遍历时删除与嵌套映射}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+map<string, int>::iterator it = cnt.begin();
+while (it != cnt.end()) {
+    if (it->second == 0) it = cnt.erase(it);
+    else ++it;
+}
+map<string, set<string> > rights;
+rights["alice"].insert("file1");
+map<string, set<string> >::iterator p = rights.find("alice");
+if (p != rights.end() && p->second.count("file1")) puts("YES");
+\end{lstlisting}
+\end{minipage}\par
+erase之后继续对旧it加1会使用失效迭代器。嵌套map/set适合权限管理：外层找用户，内层查资源。查询用find，授权才用下标主动创建，这正是第三篇授权模拟的状态组织方式。
+
+\subsection{常用算法补充与容器选择}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int a[5] = {1, 2, 3, 4, 5};
+reverse(a, a + 5); // 5 4 3 2 1
+fill(a, a + 3, 7); // 7 7 7 2 1
+int pos = max_element(a, a + 5) - a;
+printf("%d %d\n", pos, a[pos]); // 0 7
+swap(a[0], a[4]);
+\end{lstlisting}
+\end{minipage}\par
+reverse和fill为线性，max\_element找最大值位置也为线性；空区间会返回右端点，不能解引用。min/max常用于两个值的比较；数组整体求最小值用min\_element。给普通int数组全部置0可以memset；\textbf{memset按字节填充}，\texttt{memset(a,1,sizeof(a))}不是把每项变成整数1。给每项赋一般数值时用fill或for循环。
+
+\begin{longtable}{P{5.4cm}P{3.2cm}P{5.6cm}}
+\toprule 任务特征 & 首选工具 & 选择依据\\\midrule\endhead
+规模已知、频繁下标访问 & 普通数组 & 简单直接，容量需提前留够。\\
+末尾追加、撤销，偶尔遍历 & vector & 连续存储，动态长度。\\
+最近未完成对象先处理 & stack & 后进先出。\\
+最早进入对象先处理 & queue & 先进先出。\\
+每次仅取最大或最小 & priority\_queue & 堆顶快，不提供任意删除。\\
+动态查前驱后继、无重复 & set & 有序唯一键。\\
+动态查前驱后继、有重复 & multiset & 保留出现次数。\\
+按名字查次数或属性 & map & 键到值，有序遍历。\\
+静态排序后重复查找 & 数组加二分 & 不需维护动态树结构。\\
+\bottomrule
+\end{longtable}
+unordered\_map、unordered\_set不按键排序，常见哈希操作平均较快但最坏可能退化；不能替代需要lower\_bound或有序输出的map/set。deque支持两端操作，list适合特定位置已知的链表操作，但本讲义常规题型不以它们为主。选择容器应由题目操作决定，不能仅凭“高级”程度选择。
 
 \exercise
-\textbf{练习1。}输入 \verb|a"b c"d|，分词结果是什么？\textbf{解答。}只有一个单词 \texttt{ab cd}。相邻片段没有引号外空格，不应拆开。
+\textbf{1.}有序数组$[2,2,5,7]$中，x=2的lower和upper下标是多少？x=8呢？\textbf{解答：}分别为0、2和4、4；后者是末尾，不能访问数组第4项。
 
-\textbf{练习2。}输入只有三个空格，输出什么？\textbf{解答。}单词数为0。输入 \verb|""| 时则是一个空单词，输出1和 \texttt{[]}。
+\textbf{2.}vector只reserve(20)，能否写a[0]=3？\textbf{解答：}不能，size仍为0。push\_back(3)或先resize才建立元素。
 
-\textbf{练习3。}若题目新增反斜杠转义，当前程序能直接使用吗？\textbf{解答。}不能。需要新增 escape 状态：读取反斜杠后，下一个字符按普通字符处理，不切换引号状态。还要定义行末孤立反斜杠是否非法。规则改变后必须重新列出状态转移。
-\par\bigskip
+\textbf{3.}map中a键的频数是5，\texttt{cnt.count("a")}是多少？\textbf{解答：}1；它统计键是否存在。实际频数在it->second或cnt["a"]中。
+
+\textbf{4.}multiset含$[4,4,8]$，删一个4后如何保证仍有一个4？\textbf{解答：}find(4)，检查不为end，然后erase该迭代器；不能直接erase(4)。
+
+\textbf{5.}比较器返回\texttt{x.score>=y.score}是否正确？\textbf{解答：}错误，自比较会为true，破坏严格弱序。相同主关键字再比较次关键字。
+
+\textbf{6.}栈和队列均依次加入2、7、3，再依次弹出，输出是什么？\textbf{解答：}栈为3、7、2，队列为2、7、3；默认大根堆则为7、3、2。
+
+\textbf{7.}把坐标$[1,100,101]$变成$[1,2,3]$后能否用排名差算距离？\textbf{解答：}不能。排名只保序，原前两点距离99而排名差为1。
+
+\textbf{8.}替换题s=aaa、p=aa、t=aaaa时，结果和处理次数是多少？\textbf{解答：}一次匹配，输出aaaaa；新插入内容不再匹配，避免无休止增长。
+
+\textbf{9.}用小根堆保存最大的3个数，已读$[6,1,5,2]$时堆中是什么？\textbf{解答：}保留2、5、6，堆顶2；内部数组次序不必完全升序。
+
+\textbf{10.}为什么不能在map查询缺失用户时一律写rights[user]？\textbf{解答：}该语句会建立空集合；查询越多，状态可能无故增长。使用find后再访问已有记录。
+
+\textbf{接口核对。}进一步可查阅C++工作草案中的\href{https://eel.is/c++draft/vector.capacity}{vector容量规则}、\href{https://eel.is/c++draft/associative.reqmts}{关联容器规则}、\href{https://eel.is/c++draft/priority.queue}{优先队列}与\href{https://eel.is/c++draft/alg.sorting}{排序算法}。上述定义、示例和解答均已写在正文，链接仅用于查阅细节。
 
 % ===== 05-prefix.tex =====
 \Needspace{7\baselineskip}\section{前缀和与差分}
@@ -367,19 +1026,29 @@ C 字符串以终止字符 \verb|'\0'| 结尾，数组需要额外空间存放�
 5
 \end{Sample}
 前缀数组为 $[0,2,1,4,8,13]$，查询 $[2,4]$ 得 $8-2=6$。0号位置让 $l=1$ 的查询无需特殊判断。使用 long long 存前缀和。总复杂度 $O(n+q)$，空间 $O(n)$。
-\Needspace{142pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{05\_prefix.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{05\_prefix.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+const int N = 200005;
+long long pre[N];
 int main() {
-    ios::sync_with_stdio(false); cin.tie(nullptr);
-    int n, q; cin >> n >> q;
-    vector<long long> pre(n + 1);
-    for (int i = 1; i <= n; ++i) { long long x; cin >> x; pre[i] = pre[i-1] + x; }
-    while (q--) { int l, r; cin >> l >> r; cout << pre[r] - pre[l-1] << '\n'; }
+    int n, q;
+    scanf("%d%d", &n, &q);
+    for (int i = 1; i <= n; i++) {
+        long long x;
+        scanf("%lld", &x);
+        pre[i] = pre[i - 1] + x;
+    }
+    while (q--) {
+        int l, r;
+        scanf("%d%d", &l, &r);
+        printf("%lld\n", pre[r] - pre[l - 1]);
+    }
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{二维前缀和与容斥}
@@ -406,32 +1075,45 @@ int main() {
 0 4 5 6 4
 \end{Sample}
 先用初始数组构造差分。所有修改都可叠加，最后做一次前缀累加。总时间 $O(n+q)$，空间 $O(n)$。上例第一轮得到 $[1,5,6,7,5]$，第二轮整体减1。
-\Needspace{166pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{06\_difference.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{06\_difference.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+const int N = 200005;
+long long a[N], d[N];
 int main() {
-    ios::sync_with_stdio(false); cin.tie(nullptr);
-    int n, q; cin >> n >> q;
-    vector<long long> a(n+1), d(n+2);
-    for (int i = 1; i <= n; ++i) { cin >> a[i]; d[i] = a[i] - a[i-1]; }
-    while (q--) { int l, r; long long v; cin >> l >> r >> v; d[l] += v; d[r+1] -= v; }
+    int n, q;
+    scanf("%d%d", &n, &q);
+    for (int i = 1; i <= n; i++) {
+        scanf("%lld", &a[i]);
+        d[i] = a[i] - a[i - 1];
+    }
+    while (q--) {
+        int l, r; long long v;
+        scanf("%d%d%lld", &l, &r, &v);
+        d[l] += v; d[r + 1] -= v;
+    }
     long long x = 0;
-    for (int i = 1; i <= n; ++i) { x += d[i]; cout << x << (i == n ? '\n' : ' '); }
+    for (int i = 1; i <= n; i++) {
+        x += d[i];
+        printf("%lld%c", x, i == n ? '\n' : ' ');
+    }
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{二维差分的四个角}
 给矩形 $[x_1,x_2]\times[y_1,y_2]$ 加 v：
-\Needspace{72pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 d[x1][y1] += v;
 d[x2+1][y1] -= v;
 d[x1][y2+1] -= v;
 d[x2+1][y2+1] += v;
 \end{lstlisting}
+\end{minipage}\par
 随后对 d 求二维前缀和，就得到每个格子的增量。左上角启动影响，下方和右方分别取消，右下角因取消两次再补一次。若有初始矩阵，可先恢复增量再加到初值上，或按 $d[i][j]=a[i][j]-a[i-1][j]-a[i][j-1]+a[i-1][j-1]$ 建初始差分。
 
 \exercise
@@ -461,29 +1143,38 @@ d[x2+1][y2+1] += v;
 7
 \end{Sample}
 长度7时可得 $2+2+1+2=7$ 段；长度8时只有 $2+1+1+2=6$ 段。判定函数为 $\sum_i\lfloor a_i/x\rfloor\ge k$，随 x 增大计数不增。0作为“无正整数解”的哨兵，不传入判定函数，因此不会除以0。复杂度 $O(n\log\max a_i)$，空间 $O(n)$。
-\Needspace{262pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{07\_wood.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{07\_wood.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+const int N = 200005;
+int n;
+long long k, a[N];
+int check(long long len) {
+    long long count = 0;
+    for (int i = 0; i < n; i++) {
+        count += a[i] / len;
+        if (count >= k) return 1;
+    }
+    return 0;
+}
 int main() {
-    int n; long long k; cin >> n >> k;
-    vector<long long> a(n);
-    long long hi = 0;
-    for (auto &x : a) { cin >> x; hi = max(hi, x); }
-    auto ok = [&](long long len) {
-        long long count = 0;
-        for (long long x : a) { count += x / len; if (count >= k) return true; }
-        return false;
-    };
-    long long lo = 0;
+    scanf("%d%lld", &n, &k);
+    long long lo = 0, hi = 0;
+    for (int i = 0; i < n; i++) {
+        scanf("%lld", &a[i]);
+        if (a[i] > hi) hi = a[i];
+    }
     while (lo < hi) {
         long long mid = lo + (hi - lo + 1) / 2;
-        if (ok(mid)) lo = mid; else hi = mid - 1;
+        if (check(mid)) lo = mid;
+        else hi = mid - 1;
     }
-    cout << lo << '\n';
+    printf("%lld\n", lo);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{跳石头中的判定建模}
@@ -506,25 +1197,29 @@ int main() {
 合法区间包括4个单元素、$[10,5]$、$[5,2]$、$[2,6]$、$[5,2,6]$，共8个。维护窗口乘积，每加入右端点，就在乘积过大时删除左端点。缩小后，以当前右端点结尾的合法区间有 $right-left+1$ 个。
 
 所有数至少为1，因此缩短区间不会使乘积增大，合法左端点形成后缀。若允许负数，这个性质会失效；若允许0，除法维护也需另外处理。k不大于1时没有合法非空区间。按本题约束，乘入新元素前乘积小于 $10^9$，乘后小于 $10^{15}$，long long 足够。时间 $O(n)$，空间 $O(n)$。
-\Needspace{214pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{08\_window.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{08\_window.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+const int N = 200005;
+long long a[N];
 int main() {
-    int n; long long k; cin >> n >> k;
-    vector<long long> a(n);
-    for (auto &x : a) cin >> x;
-    if (k <= 1) { cout << 0 << '\n'; return 0; }
-    long long product = 1, answer = 0; int left = 0;
-    for (int right = 0; right < n; ++right) {
+    int n; long long k;
+    scanf("%d%lld", &n, &k);
+    for (int i = 0; i < n; i++) scanf("%lld", &a[i]);
+    if (k <= 1) { puts("0"); return 0; }
+    long long product = 1, answer = 0;
+    int left = 0;
+    for (int right = 0; right < n; right++) {
         product *= a[right];
         while (left <= right && product >= k) product /= a[left++];
         answer += right - left + 1;
     }
-    cout << answer << '\n';
+    printf("%lld\n", answer);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{差值数对与重复元素}
@@ -561,23 +1256,33 @@ int main() {
 \textbf{为什么取最小两堆。}合并过程可以看成二叉树，每个原始堆是叶子；总代价等于每个叶子权值乘以其深度之和。在固定树形中，较小权值放到较深位置不会使代价增大。选择一对最深的兄弟叶子，可通过交换把最小的两个权值放到那里。因此存在一个最优方案先合并最小两堆；把它们缩成一堆后，剩下同类子问题。重复此选择即可。
 
 用小根堆维护所有堆，每次取两个最小值再插入它们的和。时间 $O(n\log n)$，空间 $O(n)$。只有一堆时无需合并，答案为0。
-\Needspace{190pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{09\_merge.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{09\_merge.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <queue>
+#include <vector>
+#include <functional>
 using namespace std;
 int main() {
-    int n; cin >> n;
-    priority_queue<long long, vector<long long>, greater<long long>> q;
-    for (int i = 0; i < n; ++i) { long long x; cin >> x; q.push(x); }
+    int n;
+    scanf("%d", &n);
+    priority_queue<long long, vector<long long>, greater<long long> > q;
+    for (int i = 0; i < n; i++) {
+        long long x;
+        scanf("%lld", &x); q.push(x);
+    }
     long long answer = 0;
     while (q.size() > 1) {
-        long long x = q.top(); q.pop(); long long y = q.top(); q.pop();
+        long long x = q.top(); q.pop();
+        long long y = q.top(); q.pop();
         answer += x + y; q.push(x + y);
     }
-    cout << answer << '\n';
+    printf("%lld\n", answer);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{中位数最小化绝对距离和}
@@ -587,20 +1292,22 @@ int main() {
 
 \subsection{质因数分解与溢出检查}
 对正整数 x，从2开始试除。若 d 整除 x，反复除去并统计指数。循环条件可写 \texttt{d <= x/d}，避免计算 $d^2$ 溢出。循环结束后若 x>1，它是最后一个质因子。1没有质因子。
-\Needspace{156pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-vector<pair<long long,int>> factorize(long long x) {
-    vector<pair<long long,int>> answer;
-    for (long long d = 2; d <= x/d; ++d) {
+// prime[] and exponent[] each need at least 64 elements.
+int factorize(long long x, long long prime[], int exponent[]) {
+    int total = 0;
+    for (long long d = 2; d <= x / d; d++) {
         if (x % d != 0) continue;
-        int e = 0;
-        do { x /= d; ++e; } while (x % d == 0);
-        answer.push_back({d,e});
+        int count = 0;
+        do { x /= d; count++; } while (x % d == 0);
+        prime[total] = d; exponent[total++] = count;
     }
-    if (x > 1) answer.push_back({x,1});
-    return answer;
+    if (x > 1) { prime[total] = x; exponent[total++] = 1; }
+    return total;
 }
 \end{lstlisting}
+\end{minipage}\par
 最坏试除次数为 $O(\sqrt{x})$。如果要分解很多较大的数，应重新估计总复杂度，而不是只看一次分解。
 
 \subsection{矩阵运算先看维度}
@@ -632,26 +1339,32 @@ vector<pair<long long,int>> factorize(long long x) {
 3 1 2
 3 2 1
 \end{Sample}
-path 保存已选的前缀，used[x] 标记 x 是否已在前缀中。每层从小到大尝试尚未使用的数，输出顺序自然为字典序。每个排列对应唯一一条长度 n 的路径，因此不重不漏。输出本身有 $n\cdot n!$ 个数字量级，时间 $O(n\cdot n!)$，递归与标记空间 $O(n)$。
-\Needspace{214pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{10\_permutations.cpp}
+path[0..depth-1] 保存已选的前缀，used[x] 标记 x 是否已在前缀中。每层从小到大尝试尚未使用的数，输出顺序自然为字典序。每个排列对应唯一一条长度 n 的路径，因此不重不漏。输出本身有 $n\cdot n!$ 个数字量级，时间 $O(n\cdot n!)$，递归与标记空间 $O(n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{10\_permutations.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
-int n; vector<int> path; vector<bool> used;
-void dfs() {
-    if ((int)path.size() == n) {
-        for (int i = 0; i < n; ++i) cout << path[i] << (i+1 == n ? '\n' : ' ');
+#include <cstdio>
+int n, path[10], used[10];
+void dfs(int depth) {
+    if (depth == n) {
+        for (int i = 0; i < n; i++)
+            printf("%d%c", path[i], i + 1 == n ? '\n' : ' ');
         return;
     }
-    for (int x = 1; x <= n; ++x) if (!used[x]) {
-        used[x] = true; path.push_back(x);
-        dfs();
-        path.pop_back(); used[x] = false;
+    for (int x = 1; x <= n; x++) {
+        if (used[x]) continue;
+        used[x] = 1; path[depth] = x;
+        dfs(depth + 1);
+        used[x] = 0;
     }
 }
-int main() { cin >> n; used.assign(n+1, false); dfs(); }
+int main() {
+    scanf("%d", &n);
+    dfs(0);
+    return 0;
+}
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{剪枝必须有排除理由}
@@ -671,29 +1384,42 @@ n皇后按行放置时，记录列 c、对角线 $r+c$、另一方向 $r-c+n$ �
 5
 \end{Sample}
 \textbf{解答。}所有移动代价相等，使用 BFS。起点距离为0，邻居距离为当前距离加1；入队时就记录距离，确保同一格最多入队一次。队列按距离层次扩展，因此首次到达就是最短距离。注意这里的“步数”不包含起点，单格可走迷宫答案为0。时间与空间均为 $O(nm)$。
-\Needspace{262pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{11\_bfs.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{11\_bfs.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
+const int N = 505;
+char g[N][N];
+int d[N][N], qx[N * N], qy[N * N];
+int dx[4] = {-1, 1, 0, 0}, dy[4] = {0, 0, -1, 1};
 int main() {
-    int n, m; cin >> n >> m;
-    vector<string> g(n); for (auto &s : g) cin >> s;
-    vector<vector<int>> d(n, vector<int>(m, -1));
-    queue<pair<int,int>> q;
-    if (g[0][0] == '.') { d[0][0] = 0; q.push({0,0}); }
-    int dx[] = {-1,1,0,0}, dy[] = {0,0,-1,1};
-    while (!q.empty()) {
-        auto [x,y] = q.front(); q.pop();
-        for (int k = 0; k < 4; ++k) {
-            int a = x+dx[k], b = y+dy[k];
-            if (a<0 || a>=n || b<0 || b>=m || g[a][b]=='#' || d[a][b]!=-1) continue;
-            d[a][b] = d[x][y]+1; q.push({a,b});
+    int n, m;
+    scanf("%d%d", &n, &m);
+    for (int i = 0; i < n; i++) {
+        scanf("%504s", g[i]);
+        fill(d[i], d[i] + m, -1);
+    }
+    int head = 0, tail = 0;
+    if (g[0][0] == '.') {
+        d[0][0] = 0; qx[tail] = 0; qy[tail++] = 0;
+    }
+    while (head < tail) {
+        int x = qx[head], y = qy[head]; head++;
+        for (int k = 0; k < 4; k++) {
+            int a = x + dx[k], b = y + dy[k];
+            if (a < 0 || a >= n || b < 0 || b >= m) continue;
+            if (g[a][b] == '#' || d[a][b] != -1) continue;
+            d[a][b] = d[x][y] + 1;
+            qx[tail] = a; qy[tail++] = b;
         }
     }
-    cout << d[n-1][m-1] << '\n';
+    printf("%d\n", d[n - 1][m - 1]);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{访问标记的三种含义}
@@ -702,7 +1428,7 @@ int main() {
 若走到同一位置时“钥匙是否拿到”影响后续，则状态必须是（位置，钥匙状态）。只用位置作为 visited 会错误合并不同状态。若边权不同，普通 BFS 不再保证最小代价；应根据权值性质考虑0--1 BFS或最短路算法，不直接套网格模板。
 
 \exercise
-\textbf{练习1。}全排列递归返回后只清 used、不弹出path会怎样？\textbf{解答。}路径长度与真实递归层数不一致，后续输出混入旧选择，甚至再也无法达到正确终止条件。所有在进入分支时改变的状态都应对应恢复。
+\textbf{练习1。}数组版全排列返回后，需要清空path[depth]吗？\textbf{解答。}不必。有效前缀长度由depth给出，下次选择会覆盖这一格，只有depth等于n时才输出。used[x]必须恢复为0，否则后续分支会错误地禁止使用x。若用可变长vector保存路径，则应配对push\_back与pop\_back，不能把两种实现的恢复规则混为一谈。
 
 \textbf{练习2。}BFS为何在入队时标记，而不是出队时？\textbf{解答。}同一格可能被多个同层前驱发现，若出队才标记会重复入队。入队时记录距离既防重，也固定首次最短距离。
 
@@ -730,22 +1456,29 @@ int main() {
 可取 $[1,2,5]$ 或 $[1,2,4]$。设 f[i] 为\textbf{以第i个元素结尾}的最长长度，
 \[f[i]=1+\max\{f[j]:j<i,\ a_j<a_i\},\]
 没有合法 j 时 f[i]=1。任何以 i 结尾的较长方案，倒数第二个位置必然是一个合法 j；反过来，把 a[i] 接到该 j 的方案后面也合法。因此枚举所有前驱就覆盖全部可能。答案是所有 f[i] 的最大值，不一定是 f[n]。时间 $O(n^2)$，空间 $O(n)$。
-\Needspace{178pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{12\_lis.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{12\_lis.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
+const int N = 5005;
+int a[N], f[N];
 int main() {
-    int n; cin >> n; vector<int> a(n), f(n,1);
-    for (int &x : a) cin >> x;
-    int answer = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < i; ++j) if (a[j] < a[i]) f[i] = max(f[i], f[j]+1);
+    int n, answer = 0;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+    for (int i = 0; i < n; i++) {
+        f[i] = 1;
+        for (int j = 0; j < i; j++)
+            if (a[j] < a[i]) f[i] = max(f[i], f[j] + 1);
         answer = max(answer, f[i]);
     }
-    cout << answer << '\n';
+    printf("%d\n", answer);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \example{非空最大子段和}
@@ -758,20 +1491,26 @@ int main() {
 6
 \end{Sample}
 设 ending 为以当前位置结尾的非空区间最大和。若使用当前数 x，则最优区间要么从 x 重新开始，要么延长前一位置的最优区间：$ending=\max(x,ending+x)$。全局答案记录所有位置的最大 ending。由于要求非空，初始化为第一个元素，不能初始化为0。时间 $O(n)$，额外空间 $O(1)$。
-\Needspace{154pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{13\_maxsum.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{13\_maxsum.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
 int main() {
-    int n; cin >> n; long long x; cin >> x;
+    int n; long long x;
+    scanf("%d%lld", &n, &x);
     long long ending = x, answer = x;
-    for (int i = 1; i < n; ++i) {
-        cin >> x; ending = max(x, ending+x); answer = max(answer, ending);
+    for (int i = 1; i < n; i++) {
+        scanf("%lld", &x);
+        ending = max(x, ending + x);
+        answer = max(answer, ending);
     }
-    cout << answer << '\n';
+    printf("%lld\n", answer);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \example{数字三角形的最大路径和}
@@ -788,23 +1527,29 @@ int main() {
 二维状态 f[i][j] 表示到第 i 行第 j 个位置的最优值，合法前驱只有 $(i-1,j-1)$ 与 $(i-1,j)$。初值为顶点，非法位置为负无穷。转移
 \[f[i][j]=a[i][j]+\max(f[i-1][j-1],f[i-1][j]).\]
 上例路径 $2,3,1$ 得6。因为每行只依赖前一行，可压缩成一维。\textbf{从右向左更新}才能确保 f[j-1] 尚未被本行覆盖。代码设置 f[1]=0 作为顶点前的虚拟起点，其他位置为负无穷。时间 $O(n^2)$，额外空间 $O(n)$。
-\Needspace{190pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{14\_triangle.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{14\_triangle.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
+const int N = 1005;
+const long long NEG = -(1LL << 60);
+long long f[N], row[N];
 int main() {
-    int n; cin >> n;
-    const long long NEG = -(1LL<<60);
-    vector<long long> f(n+1, NEG); f[1] = 0;
-    for (int i = 1; i <= n; ++i) {
-        vector<long long> row(i+1);
-        for (int j = 1; j <= i; ++j) cin >> row[j];
-        for (int j = i; j >= 1; --j) f[j] = max(f[j], f[j-1]) + row[j];
+    int n;
+    scanf("%d", &n);
+    fill(f, f + n + 1, NEG); f[1] = 0;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) scanf("%lld", &row[j]);
+        for (int j = i; j >= 1; j--)
+            f[j] = max(f[j], f[j - 1]) + row[j];
     }
-    cout << *max_element(f.begin()+1, f.end()) << '\n';
+    printf("%lld\n", *max_element(f + 1, f + n + 1));
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{二维DP与最长公共子序列}
@@ -855,21 +1600,27 @@ int main() {
 令 f[i][v] 为只考虑前 i 件物品、容量不超过 v 的最大价值。第 i 件选或不选：
 \[f[i][v]=\max(f[i-1][v],\ f[i-1][v-c_i]+w_i),\]
 第二项只在 $v\ge c_i$ 时存在。若压缩掉 i 维，容量必须从大到小更新，使 f[v-c] 仍是上一层状态，避免同一件被重复选。复杂度 $O(nV)$，空间 $O(V)$。
-\Needspace{166pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{15\_knapsack01.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{15\_knapsack01.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
+long long f[5005];
 int main() {
-    int n, capacity; cin >> n >> capacity;
-    vector<long long> f(capacity+1);
-    for (int i = 0; i < n; ++i) {
-        int cost; long long value; cin >> cost >> value;
-        for (int v = capacity; v >= cost; --v) f[v] = max(f[v], f[v-cost]+value);
+    int n, capacity;
+    scanf("%d%d", &n, &capacity);
+    for (int i = 0; i < n; i++) {
+        int cost; long long value;
+        scanf("%d%lld", &cost, &value);
+        for (int v = capacity; v >= cost; v--)
+            f[v] = max(f[v], f[v - cost] + value);
     }
-    cout << f[capacity] << '\n';
+    printf("%lld\n", f[capacity]);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \example{每种物品可以无限选择}
@@ -883,21 +1634,27 @@ int main() {
 10
 \end{Sample}
 选择体积2的两件和体积3的一件，价值10。二维转移的选取项变为 $f[i][v-c_i]+w_i$，它允许当前种类继续使用。因此一维容量循环从小到大，使 f[v-c] 已经包含本种物品。时间 $O(nV)$，空间 $O(V)$。
-\Needspace{166pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{16\_knapsack\_complete.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{16\_knapsack\_complete.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
+long long f[5005];
 int main() {
-    int n, capacity; cin >> n >> capacity;
-    vector<long long> f(capacity+1);
-    for (int i = 0; i < n; ++i) {
-        int cost; long long value; cin >> cost >> value;
-        for (int v = cost; v <= capacity; ++v) f[v] = max(f[v], f[v-cost]+value);
+    int n, capacity;
+    scanf("%d%d", &n, &capacity);
+    for (int i = 0; i < n; i++) {
+        int cost; long long value;
+        scanf("%d%lld", &cost, &value);
+        for (int v = cost; v <= capacity; v++)
+            f[v] = max(f[v], f[v - cost] + value);
     }
-    cout << f[capacity] << '\n';
+    printf("%lld\n", f[capacity]);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{用最小反例检查循环方向}
@@ -913,22 +1670,26 @@ int main() {
 4
 \end{Sample}
 四种为 $1+1+1+1+1$、$1+1+1+2$、$1+2+2$、5。令 f[v] 为已处理面额能凑出的组合数。先枚举面额，再正序枚举金额，确保每种组合按固定面额顺序生成一次。f[0]=1 是构造非空方案的起点。时间 $O(n\cdot target)$，空间 $O(target)$。
-\Needspace{178pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{17\_coin\_count.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{17\_coin\_count.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+const int MOD = 1000000007;
+int f[10005];
 int main() {
-    int n, target; cin >> n >> target;
-    const int MOD = 1000000007;
-    vector<int> f(target+1); f[0] = 1;
-    for (int i = 0; i < n; ++i) {
-        int c; cin >> c;
-        for (int v = c; v <= target; ++v) f[v] = (f[v]+f[v-c])%MOD;
+    int n, target;
+    scanf("%d%d", &n, &target);
+    f[0] = 1;
+    for (int i = 0; i < n; i++) {
+        int c;
+        scanf("%d", &c);
+        for (int v = c; v <= target; v++) f[v] = (f[v] + f[v - c]) % MOD;
     }
-    cout << f[target] << '\n';
+    printf("%d\n", f[target]);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 若改成先枚举金额、再枚举最后一个硬币，就会按排列计数。例如面额1和2凑3，组合只有 $1+1+1$ 与 $1+2$ 两种，排列则还区分 $1+2$ 和 $2+1$，共三种。循环顺序改变了状态的计数含义。
@@ -947,26 +1708,35 @@ int main() {
 输出
 9
 \end{Sample}
-第一组选体积3价值5，第二组选体积2价值4。对每组保留旧数组 f，所有选择都从旧状态转移到 next，next 初始复制 f 表示不选。这种写法直接保证同一组至多贡献一件，比混用循环顺序更容易检查。若总物品数为 M，时间 $O(MV)$，空间 $O(V)$。
-\Needspace{214pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{18\_group.cpp}
+第一组选体积3价值5，第二组选体积2价值4。对每组保留旧数组 f，所有选择都从旧状态转移到 next\_f，next\_f 初始复制 f 表示不选。这种写法直接保证同一组至多贡献一件，比混用循环顺序更容易检查。若总物品数为 M，时间 $O(MV)$，空间 $O(V)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{18\_group.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
+long long f[2005], next_f[2005], value[25];
+int cost[25];
 int main() {
-    int groups, capacity; cin >> groups >> capacity;
-    vector<long long> f(capacity+1);
-    for (int g = 0; g < groups; ++g) {
-        int k; cin >> k; vector<pair<int,long long>> items(k);
-        for (auto &[c,w] : items) cin >> c >> w;
-        auto next = f;
-        for (int v = 0; v <= capacity; ++v)
-            for (auto [c,w] : items) if (v >= c) next[v] = max(next[v], f[v-c]+w);
-        f.swap(next);
+    int groups, capacity;
+    scanf("%d%d", &groups, &capacity);
+    for (int g = 0; g < groups; g++) {
+        int k;
+        scanf("%d", &k);
+        for (int i = 0; i < k; i++) scanf("%d%lld", &cost[i], &value[i]);
+        for (int v = 0; v <= capacity; v++) {
+            next_f[v] = f[v];
+            for (int i = 0; i < k; i++)
+                if (v >= cost[i])
+                    next_f[v] = max(next_f[v], f[v - cost[i]] + value[i]);
+        }
+        for (int v = 0; v <= capacity; v++) f[v] = next_f[v];
     }
-    cout << f[capacity] << '\n';
+    printf("%lld\n", f[capacity]);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{恰好装满时如何处理不可达}
@@ -980,6 +1750,84 @@ int main() {
 \textbf{练习3。}只有一组，包含体积2价值3、体积3价值5，容量5。答案是多少？\textbf{解答。}5，不能同组选两件得到8。使用旧数组转移可防止这个错误。
 
 \textbf{练习4。}若完全背包出现体积0且价值正的物品，答案还有限吗？\textbf{解答。}没有有限上界。本章题目明确要求体积为正，这是算法与问题有意义的重要前提。
+\par\bigskip
+
+% ===== 04-strings.tex =====
+\clearpage
+\part{第三题：字符串解析与综合模拟}
+\noindent 本篇围绕长题意的实现展开：先解析输入，再组织状态，最后执行规则并检查边界。遇到陌生背景时，先列出输入格式、状态定义、修改规则和查询规则，再写程序。
+
+\Needspace{7\baselineskip}\section{字符串处理与解析基础}
+\subsection{常用操作与区间含义}
+string 的下标从0开始。\texttt{s.substr(pos,len)} 的第二个参数是长度；\texttt{s.find(t)} 返回首次匹配位置，找不到时返回 \texttt{string::npos}。不要把 npos 随意存进 int 后再与某个猜测值比较。字符串比较是字典序，例如 \texttt{"10" < "2"}，与整数大小不同。
+
+扫描字符串时最好约定：“指针 p 总是指向下一个尚未处理的字符”。每个分支要么推进 p，要么返回。若某个分支既不推进也不退出，就容易死循环。处理完整段落时，通常比反复在字符串中间 erase 更清楚、也更高效。
+
+\example{带引号的单行分词}
+\textbf{题目。}一行文本由普通字符、空格和英文双引号组成。引号外的连续空格分隔单词；引号内的空格属于单词；双引号本身不输出。相邻的普通片段和引号片段属于同一个单词。空引号表示一个空单词。本题不支持转义字符。若引号不匹配，输出 ERROR。行长不超过 $10^5$。
+
+\textbf{输入。}一整行文本，可为空。\textbf{输出。}合法时先输出单词数，随后每个单词单独一行，用方括号包住，便于看见空单词和空格。
+\begin{Sample}
+输入
+add "hello world" "" x
+输出
+4
+[add]
+[hello world]
+[]
+[x]
+\end{Sample}
+\textbf{状态设计。}quoted 表示当前是否在引号内；word[0..len-1] 保存当前单词；active 表示当前单词已经开始。active 不能由 len 是否为0代替，否则空引号会丢失。遇到引号切换 quoted；遇到引号外空格时结束当前单词；其余字符追加到word并增加len。扫描结束后检查引号是否闭合，再处理最后一个单词。
+
+\textbf{正确性。}每个字符恰好进入一种分支。引号仅改变状态，分隔空格仅结束一个已开始的单词，因此保留的字符、单词边界和空单词均符合规则。时间 $O(L)$，输出存储 $O(L)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{04\_tokens.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+const int N = 100005;
+char s[N], word[N];
+int main() {
+    if (fgets(s, N, stdin) == NULL) s[0] = '\0';
+    s[strcspn(s, "\r\n")] = '\0';
+    vector<string> words;
+    int len = 0, quoted = 0, active = 0;
+    for (int i = 0; s[i] != '\0'; i++) {
+        char c = s[i];
+        if (c == '"') { quoted = !quoted; active = 1; }
+        else if (c == ' ' && !quoted) {
+            if (active) {
+                word[len] = '\0'; words.push_back(word);
+                len = 0; active = 0;
+            }
+        } else { word[len++] = c; active = 1; }
+    }
+    if (quoted) { puts("ERROR"); return 0; }
+    if (active) { word[len] = '\0'; words.push_back(word); }
+    printf("%d\n", (int)words.size());
+    for (int i = 0; i < (int)words.size(); i++)
+        printf("[%s]\n", words[i].c_str());
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\subsection{C字符数组与string的区别}
+C 字符串以终止字符 \verb|'\0'| 结尾，数组需要额外空间存放它。strlen 统计终止符前的字符数。定义后的字符数组不能用赋值表达式整体赋值；string 可以直接赋值。strcmp 返回值的符号表示字典序关系，不保证只返回1或-1。字符分类函数如 isdigit 接收字符时，可先转为 unsigned char，避免负 char 值带来的未定义行为。
+
+\subsection{解析与业务处理分开}
+例如命令 \texttt{GRANT alice file1}，解析层先产生三个字符串，再由执行层决定如何修改权限。这样出现错误时，可以先打印解析结果，判断错在读入还是状态更新。第11章会进一步用函数处理路径和表达式。
+
+\exercise
+\textbf{练习1。}输入 \verb|a"b c"d|，分词结果是什么？\textbf{解答。}只有一个单词 \texttt{ab cd}。相邻片段没有引号外空格，不应拆开。
+
+\textbf{练习2。}输入只有三个空格，输出什么？\textbf{解答。}单词数为0。输入 \verb|""| 时则是一个空单词，输出1和 \texttt{[]}。
+
+\textbf{练习3。}若题目新增反斜杠转义，当前程序能直接使用吗？\textbf{解答。}不能。需要新增 escape 状态：读取反斜杠后，下一个字符按普通字符处理，不切换引号状态。还要定义行末孤立反斜杠是否非法。规则改变后必须重新列出状态转移。
 \par\bigskip
 
 % ===== 11-comprehensive.tex =====
@@ -1012,32 +1860,49 @@ tmp/../../z
 最后一条查询从 $[a,b]$ 出发，读tmp得到 $[a,b,tmp]$，两次父目录操作后为 $[a]$，加入z后得到 $[a,z]$。不变量是：栈中的目录始终表示已经处理的路径前缀的规范形式。
 
 设cwd长度为B，第i个查询长度为 $L_i$。复制基目录的总成本最坏为 $O(qB)$，加上扫描与输出为 $O(qB+\sum L_i)$。不能漏算复制和输出中重复的cwd长度。
-\Needspace{298pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{19\_path.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{19\_path.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <string>
+#include <vector>
 using namespace std;
-void append_parts(const string &s, vector<string> &parts) {
-    string item; stringstream input(s);
-    while (getline(input, item, '/')) {
-        if (item.empty() || item == ".") continue;
-        if (item == "..") { if (!parts.empty()) parts.pop_back(); }
-        else parts.push_back(item);
+const int N = 10005;
+char cwd[N], path[N];
+void append_parts(const char s[], vector<string> &parts) {
+    char item[N];
+    int i = 0;
+    while (s[i] != '\0') {
+        while (s[i] == '/') i++;
+        int len = 0;
+        while (s[i] != '\0' && s[i] != '/') item[len++] = s[i++];
+        item[len] = '\0';
+        if (len == 0 || strcmp(item, ".") == 0) continue;
+        if (strcmp(item, "..") == 0) {
+            if (!parts.empty()) parts.pop_back();
+        } else parts.push_back(item);
     }
 }
 int main() {
-    string cwd; cin >> cwd; int q; cin >> q;
-    vector<string> base; append_parts(cwd, base);
+    int q;
+    scanf("%10004s%d", cwd, &q);
+    vector<string> base;
+    append_parts(cwd, base);
     while (q--) {
-        string path; cin >> path;
-        vector<string> result = (path[0]=='/' ? vector<string>{} : base);
+        scanf("%10004s", path);
+        vector<string> result;
+        if (path[0] != '/') result = base;
         append_parts(path, result);
-        if (result.empty()) cout << '/';
-        for (const string &x : result) cout << '/' << x;
-        cout << '\n';
+        if (result.empty()) printf("/");
+        for (int i = 0; i < (int)result.size(); i++)
+            printf("/%s", result[i].c_str());
+        printf("\n");
     }
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 \textbf{调试。}先测根目录与普通绝对路径，再测相对路径和多次上移，最后检查是否错误地修改了共享cwd。若后续查询受前面查询影响，优先检查是否复用了同一可变目录数组。
 
@@ -1063,28 +1928,37 @@ NO
 \textbf{解答。}外层map按用户名定位，内层set保存资源。set处理重复授权。查询和撤销用find，避免无意创建空记录。所有操作依次执行，因此CHECK反映此前的状态。
 
 设用户数U，每位用户最多持有R项权限，单次比较次数为 $O(\log U+\log R)$，还需考虑字符串比较长度。总存储不超过授予过的记录规模。权限是用户与资源的二元关系，不能只判断用户是否出现过；撤销file1不能影响file2。
-\Needspace{250pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{20\_permissions.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{20\_permissions.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <map>
+#include <set>
+#include <string>
 using namespace std;
+map<string, set<string> > rights;
 int main() {
-    int q; cin >> q;
-    map<string, set<string>> rights;
+    int q;
+    scanf("%d", &q);
     while (q--) {
-        string op, user, resource; cin >> op >> user >> resource;
-        if (op == "GRANT") rights[user].insert(resource);
-        else if (op == "REVOKE") {
-            auto it = rights.find(user);
-            if (it != rights.end()) it->second.erase(resource);
-        } else {
-            auto it = rights.find(user);
-            bool allowed = it != rights.end() && it->second.count(resource);
-            cout << (allowed ? "YES" : "NO") << '\n';
+        char op[10], user[21], resource[21];
+        scanf("%9s%20s%20s", op, user, resource);
+        if (strcmp(op, "GRANT") == 0) rights[user].insert(resource);
+        else {
+            map<string, set<string> >::iterator it = rights.find(user);
+            if (strcmp(op, "REVOKE") == 0) {
+                if (it != rights.end()) it->second.erase(resource);
+            } else {
+                int allowed = it != rights.end() && it->second.count(resource);
+                puts(allowed ? "YES" : "NO");
+            }
         }
     }
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \example{带括号的整数表达式}
@@ -1110,64 +1984,68 @@ factor     = number | '(' expression ')' | '+' factor | '-' factor
 expression负责加减，term负责乘法，factor负责括号、数字与一元符号。共享指针p指向下一个未处理字符，每个函数返回其负责部分的值。term先完整处理乘法，从而保证优先级；循环保证减法左结合，例如 $8-3-2=3$。
 
 解析前面一个合法表达式不代表整行合法。例如 \texttt{1 2}，解析1后还剩2，必须输出ERROR。最后检查是否读到行尾。时间 $O(L)$，递归空间与嵌套深度有关。
-\Needspace{574pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{21\_expression.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{21\_expression.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
-struct Parser {
-    string s; size_t p = 0;
-    void space() { while (p<s.size() && s[p]==' ') ++p; }
-    bool take(char c) {
-        space(); if (p<s.size() && s[p]==c) { ++p; return true; }
-        return false;
-    }
-    long long expression() {
-        long long x = term();
-        while (true) {
-            if (take('+')) x += term();
-            else if (take('-')) x -= term();
-            else return x;
-        }
-    }
-    long long term() {
-        long long x = factor();
-        while (take('*')) x *= factor();
+#include <cstdio>
+#include <cstring>
+char s[1005];
+int p = 0, valid = 1;
+void skip_space() { while (s[p] == ' ') p++; }
+int take(char c) {
+    skip_space();
+    if (s[p] == c) { p++; return 1; }
+    return 0;
+}
+long long expression();
+long long factor() {
+    if (take('+')) return factor();
+    if (take('-')) return -factor();
+    if (take('(')) {
+        long long x = expression();
+        if (!take(')')) valid = 0;
         return x;
     }
-    long long factor() {
-        if (take('+')) return factor();
-        if (take('-')) return -factor();
-        if (take('(')) {
-            long long x = expression();
-            if (!take(')')) throw runtime_error("missing )");
-            return x;
-        }
-        space();
-        if (p==s.size() || !isdigit((unsigned char)s[p])) throw runtime_error("number expected");
-        long long x = 0;
-        while (p<s.size() && isdigit((unsigned char)s[p])) x = x*10+s[p++]-'0';
-        return x;
+    skip_space();
+    if (s[p] < '0' || s[p] > '9') { valid = 0; return 0; }
+    long long x = 0;
+    while (s[p] >= '0' && s[p] <= '9') x = x * 10 + s[p++] - '0';
+    return x;
+}
+long long term() {
+    long long x = factor();
+    while (valid && take('*')) x *= factor();
+    return x;
+}
+long long expression() {
+    long long x = term();
+    while (valid) {
+        if (take('+')) x += term();
+        else if (take('-')) x -= term();
+        else break;
     }
-};
+    return x;
+}
 int main() {
-    Parser a; getline(cin, a.s);
-    try {
-        long long answer = a.expression(); a.space();
-        if (a.p != a.s.size()) throw runtime_error("trailing input");
-        cout << answer << '\n';
-    } catch (const exception &) { cout << "ERROR\n"; }
+    if (fgets(s, sizeof(s), stdin) == NULL) s[0] = '\0';
+    s[strcspn(s, "\r\n")] = '\0';
+    long long answer = expression();
+    skip_space();
+    if (!valid || s[p] != '\0') puts("ERROR");
+    else printf("%lld\n", answer);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 \textbf{调试。}依次验证单数字、一元负号、连续加减、乘法优先级、嵌套括号，再测空串、缺右括号、多右括号和多余字符。查看每个函数消费到哪里，比只看最终错误数值更有帮助。
 
 \example{树形文档的后代选择查询}
-\textbf{题目。}给出按先序排列的一片有根森林，共n个节点。每行记录深度、标签和标识。根深度0，孩子比父亲深1；输入结构合法，每次深度最多增加1。标识为减号表示无标识，其余标识互不相同；标签和标识只含字母数字。
+\textbf{题目。}给出按先序排列的一片有根森林，共n个节点。每行记录深度、标签和标识。根深度0，孩子比父亲深1；输入结构合法，每次深度最多增加1。标识为减号表示无标识，其余标识互不相同；标签和标识只含字母数字，长度1到20。
 
 查询由空格分隔的选择符组成。普通选择符匹配标签，以井号开头的选择符匹配标识。\texttt{div p}表示匹配p节点，且它的某个\textbf{严格祖先}是div；\texttt{div div p}需要两个不同的div祖先按顺序出现，允许隔着其他节点。节点不能把自己当祖先。
 
-$1\le n\le500$，$1\le q\le50$，最大深度100，每条查询1到10个选择符。第一行n、q，随后n行节点，最后q行查询。每次输出匹配数和按输入顺序排列的节点行号，编号从1开始。
+$1\le n\le500$，$1\le q\le50$，最大深度100，每条查询1到10个选择符，查询行总长度不超过1000。第一行n、q，随后n行节点，最后q行查询。每次输出匹配数和按输入顺序排列的节点行号，编号从1开始。
 \begin{Sample}
 输入
 7 5
@@ -1195,50 +2073,66 @@ div div p
 \textbf{匹配。}从查询末尾开始，先检查候选节点本身，再沿父链逆序匹配剩余选择符。找到一个就继续寻找更高祖先。选择最近的匹配祖先不会损失可行解，因为它给剩余前缀保留最多的上方祖先。找齐全部选择符则接受。
 
 候选检查最多走树高H条父边并处理K个选择符，整体为 $O(qn(H+K))$，本题规模下足够。节点7虽是p，但没有div祖先；若程序把它算入 \texttt{div p}，通常是把“之前出现的节点”误认为“当前祖先”。
-\Needspace{442pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{22\_selector.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{22\_selector.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
-struct Node { string tag, id; int parent; };
+#include <cstdio>
+#include <cstring>
+struct Node { char tag[21], id[21]; int parent; };
+Node a[505];
+int ancestors[505], answer[505];
+char line[1005], tokens[10][22];
+int matches(int u, const char token[]) {
+    if (token[0] == '#')
+        return strcmp(a[u].id, "-") != 0 && strcmp(a[u].id, token + 1) == 0;
+    return strcmp(a[u].tag, token) == 0;
+}
 int main() {
-    int n, q; cin >> n >> q;
-    vector<Node> a(n); vector<int> ancestors;
-    for (int i = 0; i < n; ++i) {
-        int depth; cin >> depth >> a[i].tag >> a[i].id;
-        while ((int)ancestors.size() > depth) ancestors.pop_back();
-        a[i].parent = ancestors.empty() ? -1 : ancestors.back();
-        ancestors.push_back(i);
+    int n, q, top = 0;
+    scanf("%d%d", &n, &q);
+    for (int i = 0; i < n; i++) {
+        int depth;
+        scanf("%d%20s%20s", &depth, a[i].tag, a[i].id);
+        top = depth;
+        a[i].parent = top == 0 ? -1 : ancestors[top - 1];
+        ancestors[top++] = i;
     }
-    string line; getline(cin, line);
-    auto matches = [&](int u, const string &token) {
-        if (token[0]=='#') return a[u].id != "-" && a[u].id == token.substr(1);
-        return a[u].tag == token;
-    };
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF) {}
     while (q--) {
-        getline(cin, line); stringstream ss(line); vector<string> tokens;
-        string token; while (ss >> token) tokens.push_back(token);
-        vector<int> answer;
-        for (int u = 0; u < n; ++u) {
-            int k = (int)tokens.size()-1;
-            if (!matches(u, tokens[k])) continue;
-            --k; int v = a[u].parent;
+        if (fgets(line, sizeof(line), stdin) == NULL) break;
+        int count = 0;
+        char *s = strtok(line, " \t\r\n");
+        while (s != NULL) {
+            strcpy(tokens[count++], s);
+            s = strtok(NULL, " \t\r\n");
+        }
+        int total = 0;
+        for (int u = 0; u < n; u++) {
+            int k = count - 1;
+            if (k < 0 || !matches(u, tokens[k])) continue;
+            k--;
+            int v = a[u].parent;
             while (v != -1 && k >= 0) {
-                if (matches(v, tokens[k])) --k;
+                if (matches(v, tokens[k])) k--;
                 v = a[v].parent;
             }
-            if (k < 0) answer.push_back(u+1);
+            if (k < 0) answer[total++] = u + 1;
         }
-        cout << answer.size(); for (int x : answer) cout << ' ' << x; cout << '\n';
+        printf("%d", total);
+        for (int i = 0; i < total; i++) printf(" %d", answer[i]);
+        printf("\n");
     }
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \example{模板展开与循环依赖}
 \textbf{题目。}有n个命名模板，每个由若干以空白分隔的词组成。以at符号开头的词引用另一个模板，其余词直接输出。定义全部读完后，展开指定起始模板，以单个空格连接所有普通词。从起始模板可达的引用若出现未定义名称或环，输出ERROR；不可达模板的错误不影响本次输出。
 
-模板名互不重复，只含字母数字；引用符号后必须有名称。允许空模板。$1\le n\le100$，每个定义最多100个词，每词长度最多20。保证无环情况下每个模板完整展开不超过2000个词。第一行n，随后每个定义包含名称、词数k及k个词，最后给出起始名称。
+模板名互不重复，只含字母数字，长度不超过20；引用符号后必须有名称。允许空模板。$1\le n\le100$，每个定义最多100个词，每词长度最多20。保证无环情况下每个模板完整展开不超过2000个词。第一行n，随后每个定义包含名称、词数k及k个词，最后给出起始名称。
 \begin{Sample}
 输入
 3
@@ -1259,43 +2153,59 @@ ERROR
 \textbf{三色状态。}0表示未算，1表示正在递归，2表示已经完成并缓存。访问状态1说明当前依赖链回到了自己；访问状态2直接复用。第二次引用同一模板不必然成环，关键看第一次展开是否结束。
 
 \textbf{解答。}先读入全部定义以允许前向引用。按词序展开，普通词加入结果，引用词接上被引用模板的结果。记忆化避免重算，但每次拼接仍复制相应词。时间取决于查找及所有实际复制的词数；本题每个模板最多缓存2000词，总缓存约不超过 $100\times2000$ 词，不能忽略输出规模而声称总是O(n)。
-\Needspace{430pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{23\_templates.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{23\_templates.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <map>
+#include <string>
+#include <vector>
 using namespace std;
-map<string, vector<string>> definitions, memo;
-map<string, int> state;
-const vector<string> &expand(const string &name) {
-    if (!definitions.count(name)) throw runtime_error("unknown name");
-    if (state[name] == 1) throw runtime_error("cycle");
-    if (state[name] == 2) return memo.at(name);
-    state[name] = 1;
-    vector<string> output;
-    for (const string &token : definitions.at(name)) {
-        if (token[0] != '@') output.push_back(token);
+map<string, int> number;
+vector<string> definition[105], memo[105];
+int state[105];
+int expand(int u) {
+    if (state[u] == 1) return 0;
+    if (state[u] == 2) return 1;
+    state[u] = 1;
+    for (int i = 0; i < (int)definition[u].size(); i++) {
+        string token = definition[u][i];
+        if (token[0] != '@') memo[u].push_back(token);
         else {
-            const auto &part = expand(token.substr(1));
-            output.insert(output.end(), part.begin(), part.end());
+            map<string, int>::iterator it = number.find(token.substr(1));
+            if (it == number.end() || !expand(it->second)) return 0;
+            int v = it->second;
+            for (int j = 0; j < (int)memo[v].size(); j++)
+                memo[u].push_back(memo[v][j]);
         }
     }
-    state[name] = 2; memo[name] = move(output); return memo.at(name);
+    state[u] = 2;
+    return 1;
 }
 int main() {
-    int n; cin >> n;
-    while (n--) {
-        string name; int k; cin >> name >> k;
-        auto &tokens = definitions[name]; tokens.resize(k);
-        for (auto &s : tokens) cin >> s;
+    int n;
+    scanf("%d", &n);
+    char name[21], token[21];
+    for (int i = 0; i < n; i++) {
+        int k;
+        scanf("%20s%d", name, &k); number[name] = i;
+        for (int j = 0; j < k; j++) {
+            scanf("%20s", token); definition[i].push_back(token);
+        }
     }
-    string start; cin >> start;
-    try {
-        const auto &out = expand(start);
-        for (size_t i = 0; i < out.size(); ++i) cout << (i ? " " : "") << out[i];
-        cout << '\n';
-    } catch (const exception &) { cout << "ERROR\n"; }
+    scanf("%20s", name);
+    map<string, int>::iterator it = number.find(name);
+    if (it == number.end() || !expand(it->second)) puts("ERROR");
+    else {
+        int u = it->second;
+        for (int i = 0; i < (int)memo[u].size(); i++)
+            printf("%s%s", i == 0 ? "" : " ", memo[u][i].c_str());
+        printf("\n");
+    }
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \exercise
@@ -1325,23 +2235,34 @@ int main() {
 6
 \end{Sample}
 \textbf{解答。}先统计每个值的频次。c>0时，只从较小值x寻找x+c，不会重复统计同一无序数对；贡献是两组频次乘积。c=0时，频次k的组中任选两个位置，贡献 $k(k-1)/2$。答案最多为 $n(n-1)/2$，需要long long。时间 $O(n\log n)$，空间 $O(n)$。
-\Needspace{190pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{24\_pairs.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{24\_pairs.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <map>
 using namespace std;
 int main() {
-    int n; long long c; cin >> n >> c;
-    map<long long,long long> count;
-    for (int i = 0; i < n; ++i) { long long x; cin >> x; ++count[x]; }
-    long long answer = 0;
-    for (auto [x, k] : count) {
-        if (c == 0) answer += k*(k-1)/2;
-        else { auto it = count.find(x+c); if (it != count.end()) answer += k*it->second; }
+    int n; long long c;
+    scanf("%d%lld", &n, &c);
+    map<long long, long long> count;
+    for (int i = 0; i < n; i++) {
+        long long x; scanf("%lld", &x); count[x]++;
     }
-    cout << answer << '\n';
+    long long answer = 0;
+    map<long long, long long>::iterator it;
+    for (it = count.begin(); it != count.end(); ++it) {
+        long long x = it->first, k = it->second;
+        if (c == 0) answer += k * (k - 1) / 2;
+        else {
+            map<long long, long long>::iterator p = count.find(x + c);
+            if (p != count.end()) answer += k * p->second;
+        }
+    }
+    printf("%lld\n", answer);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 \textbf{检查用例。}数组 $[7,7,7]$、c=0应输出3；单元素时应输出0。若输出9，说明把相同位置配对或对称重复都算了进去。
 
@@ -1356,29 +2277,35 @@ int main() {
 5 1
 \end{Sample}
 \textbf{解答。}把每次矩形更新记录在二维差分四角，最后恢复每格真实值，同时维护最大值和次数。只统计1到n行、1到m列，不能把辅助边界算进去。允许负更新，最大值要从负无穷开始，不能默认0。时间 $O(nm+q)$，空间 $O(nm)$。
-\Needspace{262pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{25\_rectangle.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{25\_rectangle.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+#include <climits>
+const int N = 1005;
+long long d[N][N];
 int main() {
-    ios::sync_with_stdio(false); cin.tie(nullptr);
-    int n, m, q; cin >> n >> m >> q;
-    vector<vector<long long>> d(n+2, vector<long long>(m+2));
+    int n, m, q;
+    scanf("%d%d%d", &n, &m, &q);
     while (q--) {
-        int x1,y1,x2,y2; long long v; cin >> x1 >> y1 >> x2 >> y2 >> v;
-        d[x1][y1] += v; d[x2+1][y1] -= v;
-        d[x1][y2+1] -= v; d[x2+1][y2+1] += v;
+        int x1, y1, x2, y2; long long v;
+        scanf("%d%d%d%d%lld", &x1, &y1, &x2, &y2, &v);
+        d[x1][y1] += v; d[x2 + 1][y1] -= v;
+        d[x1][y2 + 1] -= v; d[x2 + 1][y2 + 1] += v;
     }
     long long best = LLONG_MIN, count = 0;
-    for (int i = 1; i <= n; ++i) for (int j = 1; j <= m; ++j) {
-        d[i][j] += d[i-1][j] + d[i][j-1] - d[i-1][j-1];
-        if (d[i][j] > best) { best = d[i][j]; count = 1; }
-        else if (d[i][j] == best) ++count;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            d[i][j] += d[i - 1][j] + d[i][j - 1] - d[i - 1][j - 1];
+            if (d[i][j] > best) { best = d[i][j]; count = 1; }
+            else if (d[i][j] == best) count++;
+        }
     }
-    cout << best << ' ' << count << '\n';
+    printf("%lld %lld\n", best, count);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 \textbf{检查用例。}q=0时输出 \texttt{0 n*m}，第二项应计算成实际格子数；若整个矩阵一次减5，则最大值为-5而不是0。
 
@@ -1407,42 +2334,55 @@ int main() {
 \textbf{状态划分。}排序数组保存还未到达的任务，指针i指向下一项；优先队列保存已经到达的任务；now保存处理器可再次分配工作的时刻。每轮先补全所有到达时间不大于now的任务，再选堆顶。
 
 \textbf{正确性。}选择前，堆恰好包含全部可选任务；比较器严格实现三级优先顺序。执行结束后更新now，不处理中途抢占，符合规则。每个任务入堆出堆各一次，排序与堆操作总时间 $O(n\log n)$，空间 $O(n)$。结束时刻可能达到 $10^{14}$ 量级，应使用long long。
-\Needspace{418pt}
-\par\noindent\textbf{完整参考实现}\quad\texttt{26\_scheduler.cpp}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{26\_scheduler.cpp}
 \begin{lstlisting}
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <algorithm>
+#include <queue>
+#include <vector>
 using namespace std;
+const int N = 200005;
 struct Task { long long arrival, priority, duration; int id; };
-struct Compare {
-    bool operator()(const Task &a, const Task &b) const {
-        if (a.priority != b.priority) return a.priority < b.priority;
-        if (a.arrival != b.arrival) return a.arrival > b.arrival;
-        return a.id > b.id;
-    }
-};
+Task tasks[N];
+long long start_time[N], finish_time[N];
+bool by_arrival(Task a, Task b) {
+    if (a.arrival != b.arrival) return a.arrival < b.arrival;
+    return a.id < b.id;
+}
+bool lower_priority(Task a, Task b) {
+    if (a.priority != b.priority) return a.priority < b.priority;
+    if (a.arrival != b.arrival) return a.arrival > b.arrival;
+    return a.id > b.id;
+}
 int main() {
-    int n; cin >> n; vector<Task> tasks(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> tasks[i].arrival >> tasks[i].priority >> tasks[i].duration;
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%lld%lld%lld", &tasks[i].arrival,
+              &tasks[i].priority, &tasks[i].duration);
         tasks[i].id = i;
     }
-    sort(tasks.begin(), tasks.end(), [](auto a, auto b) {
-        return tie(a.arrival,a.id) < tie(b.arrival,b.id);
-    });
-    priority_queue<Task,vector<Task>,Compare> ready;
-    vector<pair<long long,long long>> answer(n);
-    long long now = 0, maxWait = 0; int i = 0;
+    sort(tasks, tasks + n, by_arrival);
+    typedef bool (*Compare)(Task, Task);
+    priority_queue<Task, vector<Task>, Compare> ready(lower_priority);
+    long long now = 0, max_wait = 0;
+    int i = 0;
     while (i < n || !ready.empty()) {
         if (ready.empty()) now = max(now, tasks[i].arrival);
         while (i < n && tasks[i].arrival <= now) ready.push(tasks[i++]);
         Task t = ready.top(); ready.pop();
-        answer[t.id] = {now, now+t.duration};
-        maxWait = max(maxWait, now-t.arrival); now += t.duration;
+        start_time[t.id] = now; finish_time[t.id] = now + t.duration;
+        max_wait = max(max_wait, now - t.arrival);
+        now += t.duration;
     }
-    for (auto [start,finish] : answer) cout << start << ' ' << finish << '\n';
-    cout << maxWait << '\n';
+    for (int j = 0; j < n; j++)
+        printf("%lld %lld\n", start_time[j], finish_time[j]);
+    printf("%lld\n", max_wait);
+    return 0;
 }
 \end{lstlisting}
+\end{minipage}\par
 
 
 \subsection{如何复盘一次错误}
@@ -1471,7 +2411,7 @@ int main() {
 \[f[i][v]=\max_{0\le k\le s_i,\ kc_i\le v}\{f[i-1][v-kc_i]+kw_i\}.\]
 当数量较大时，把 $s_i$ 件拆成若干只能选一次的物品包。例如13拆成1、2、4、6，每包体积和价值乘相应件数。选择这些包可以表示0到13的任意件数，转化为01背包。拆包数量为 $O(\log(s_i+1))$，总时间为 $O(V\sum_i\log(s_i+1))$。
 
-\Needspace{144pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 int remaining = count;
 for (int batch = 1; remaining > 0; batch *= 2) {
@@ -1484,6 +2424,7 @@ for (int batch = 1; remaining > 0; batch *= 2) {
             f[v] = max(f[v], f[v-(int)cc] + ww);
 }
 \end{lstlisting}
+\end{minipage}\par
 此片段假设count不超过 $10^6$、体积为正，避免batch翻倍溢出。若采用更大数量范围，应使用更宽类型并检查翻倍边界。
 
 \textbf{为什么能覆盖。}若已有包可以组成0到t，再加入大小不超过t+1的新包，就可以连续覆盖到t加新包大小。按1、2、4增长并保留余数满足这个条件。
@@ -1494,12 +2435,13 @@ for (int batch = 1; remaining > 0; batch *= 2) {
 混合背包对每种物品分别判断：限一次用逆序，无限次用正序，有限次可枚举或拆包；组内互斥则按整组处理，不能把同组物品当普通独立物品。不同模型混在一起时，应确保每轮转移的“一个决策单位”仍然清晰。
 
 若每件物品同时占体积c和重量d，容量限制为V和W，定义 $f[v][w]$ 为两种资源限制下的最大价值。对于01物品，两个容量维度都逆序：
-\Needspace{60pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 for (int v = V; v >= cost; --v)
     for (int w = W; w >= weight; --w)
         f[v][w] = max(f[v][w], f[v-cost][w-weight]+value);
 \end{lstlisting}
+\end{minipage}\par
 时间 $O(nVW)$，空间 $O(VW)$。增加状态维度会迅速增加计算量。应选择取值范围较小的量作维度，必要时考虑按价值记录最小成本，但也要重新定义答案和不可达值。
 
 \subsection{方案恢复}
@@ -1511,26 +2453,28 @@ for (int v = V; v >= cost; --v)
 设F[s]是所有物品组成体积s的01选择方案数，删除一个体积为w的\textbf{指定物品}后，G[s]是剩余方案数。按是否选该物品分类：
 \[F[s]=G[s]+G[s-w],\qquad G[s]=F[s]-G[s-w].\]
 负下标项为0。因G[s]依赖更小的G，按s从小到大计算。若只输出末位数字，应在模10下减法并把负数归一化：
-\Needspace{60pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-vector<int> g = all;
+for (int s = 0; s <= capacity; s++) g[s] = all[s];
 for (int s = w; s <= capacity; ++s)
     g[s] = (all[s] - g[s-w] + 10) % 10;
 \end{lstlisting}
+\end{minipage}\par
 例如两个体积都为1的不同物品，完整方案数为 $F[0..2]=[1,2,1]$；删去其中一件，得到 $G=[1,1,0]$。物品即使体积相同也按身份区分。该线性计数关系可撤销，但最大值背包的max会丢失候选信息，不能简单相减恢复。
 
 \subsection{LIS优化与排列LCS}
 定义tail[len]为所有长度len的严格上升子序列中最小的末尾值。这个数组严格递增。处理x时，用lower\_bound找到第一个不小于x的位置并替换；若不存在就把x接到末尾。替换更小的末尾不会改变已获得的长度，却给后续元素留下更多延伸可能。
-\Needspace{108pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-vector<int> tail;
-for (int x : a) {
-    auto it = lower_bound(tail.begin(), tail.end(), x);
-    if (it == tail.end()) tail.push_back(x);
-    else *it = x;
+int length = 0; // tail[] and a[] have capacity at least n.
+for (int i = 0; i < n; i++) {
+    int pos = lower_bound(tail, tail + length, a[i]) - tail;
+    tail[pos] = a[i];
+    if (pos == length) length++;
 }
-cout << tail.size();
+printf("%d\n", length);
 \end{lstlisting}
+\end{minipage}\par
 时间 $O(n\log n)$。tail的内容不一定是一条真实的LIS；若要求恢复路径，还需要记录位置和前驱。不下降子序列对应upper\_bound，而不是lower\_bound。
 
 若两个序列都是1到n的排列，把第一序列每个值的位置记为pos，再将第二序列映射成位置序列。共同子序列需要在第一序列位置上递增，因此转成LIS。这个转换利用了元素唯一的性质，不能直接用于有任意重复值的一般LCS。
@@ -1547,19 +2491,21 @@ cout << tail.size();
 
 \subsection{字符串匹配的线性预处理}
 直接在每个起点比较模式串的复杂度最坏为 $O(nm)$，在小规模下完全可用。规模较大时，可用KMP的前缀函数维护“已匹配前缀还能退到多长”。设pi[i]为模式串前缀0到i的最长相等真前后缀长度：
-\Needspace{144pt}
+\par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-vector<int> prefix_function(const string &s) {
-    vector<int> pi(s.size());
-    for (int i = 1; i < (int)s.size(); ++i) {
-        int j = pi[i-1];
-        while (j > 0 && s[i] != s[j]) j = pi[j-1];
-        if (s[i] == s[j]) ++j;
+void prefix_function(const char s[], int pi[]) {
+    int n = strlen(s);
+    if (n == 0) return;
+    pi[0] = 0;
+    for (int i = 1; i < n; i++) {
+        int j = pi[i - 1];
+        while (j > 0 && s[i] != s[j]) j = pi[j - 1];
+        if (s[i] == s[j]) j++;
         pi[i] = j;
     }
-    return pi;
 }
 \end{lstlisting}
+\end{minipage}\par
 对非空模式p扫描文本时，用同样的回退规则更新匹配长度j；当j等于模式长度，记录一次匹配并回退到pi[j-1]，从而允许重叠匹配。由于指针前进与回退的总量受线性界约束，预处理和匹配合计 $O(n+m)$。空模式的匹配规则应另行规定，不能直接访问p[0]。
 
 \subsection{附录练习与解答}
@@ -1576,11 +2522,11 @@ vector<int> prefix_function(const string &s) {
 \toprule 原始文件 & 页数 & 本讲义对应内容\\\midrule\endhead
 历年前三题考点梳理.pdf & 5 & 题型安排、基础模拟、综合模拟选题方向。\\
 练习题与真题.pdf & 2 & 继续训练入口，仓库中另存链接索引。\\
-stl.pptx & 42 & 第3--4章与可删堆。\\
-前缀和、差分、二分、双指针.pptx & 34 & 第5--6章及搜索答案的选读内容。\\
-搜索、剪枝、暴力.pptx & 13 & 第8章与模板依赖展开。\\
-dp入门.pptx & 18 & 第9章、LIS与LCS扩展。\\
-动态规划之背包问题.pptx & 53 & 第10章与背包提高专题。\\
+stl.pptx & 42 & 第3章STL专章、第10章解析与可删堆。\\
+前缀和、差分、二分、双指针.pptx & 34 & 第4--5章及搜索答案的选读内容。\\
+搜索、剪枝、暴力.pptx & 13 & 第7章与模板依赖展开。\\
+dp入门.pptx & 18 & 第8章、LIS与LCS扩展。\\
+动态规划之背包问题.pptx & 53 & 第9章与背包提高专题。\\
 \bottomrule
 \end{longtable}
 

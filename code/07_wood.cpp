@@ -1,19 +1,27 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+const int N = 200005;
+int n;
+long long k, a[N];
+int check(long long len) {
+    long long count = 0;
+    for (int i = 0; i < n; i++) {
+        count += a[i] / len;
+        if (count >= k) return 1;
+    }
+    return 0;
+}
 int main() {
-    int n; long long k; cin >> n >> k;
-    vector<long long> a(n);
-    long long hi = 0;
-    for (auto &x : a) { cin >> x; hi = max(hi, x); }
-    auto ok = [&](long long len) {
-        long long count = 0;
-        for (long long x : a) { count += x / len; if (count >= k) return true; }
-        return false;
-    };
-    long long lo = 0;
+    scanf("%d%lld", &n, &k);
+    long long lo = 0, hi = 0;
+    for (int i = 0; i < n; i++) {
+        scanf("%lld", &a[i]);
+        if (a[i] > hi) hi = a[i];
+    }
     while (lo < hi) {
         long long mid = lo + (hi - lo + 1) / 2;
-        if (ok(mid)) lo = mid; else hi = mid - 1;
+        if (check(mid)) lo = mid;
+        else hi = mid - 1;
     }
-    cout << lo << '\n';
+    printf("%lld\n", lo);
+    return 0;
 }

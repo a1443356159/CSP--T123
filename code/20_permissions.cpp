@@ -1,18 +1,26 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <map>
+#include <set>
+#include <string>
 using namespace std;
+map<string, set<string> > rights;
 int main() {
-    int q; cin >> q;
-    map<string, set<string>> rights;
+    int q;
+    scanf("%d", &q);
     while (q--) {
-        string op, user, resource; cin >> op >> user >> resource;
-        if (op == "GRANT") rights[user].insert(resource);
-        else if (op == "REVOKE") {
-            auto it = rights.find(user);
-            if (it != rights.end()) it->second.erase(resource);
-        } else {
-            auto it = rights.find(user);
-            bool allowed = it != rights.end() && it->second.count(resource);
-            cout << (allowed ? "YES" : "NO") << '\n';
+        char op[10], user[21], resource[21];
+        scanf("%9s%20s%20s", op, user, resource);
+        if (strcmp(op, "GRANT") == 0) rights[user].insert(resource);
+        else {
+            map<string, set<string> >::iterator it = rights.find(user);
+            if (strcmp(op, "REVOKE") == 0) {
+                if (it != rights.end()) it->second.erase(resource);
+            } else {
+                int allowed = it != rights.end() && it->second.count(resource);
+                puts(allowed ? "YES" : "NO");
+            }
         }
     }
+    return 0;
 }
