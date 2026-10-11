@@ -1,6 +1,6 @@
 \appendix
 \section{提高专题与模型扩展}
-本附录承接原资料中的提高内容。建议在完成正文例题后选择学习。每次变换模型时，先检查状态语义是否改变，不要仅凭代码形式相似就替换循环。
+建议在完成正文例题后选择学习。每次变换模型时，先检查状态语义是否改变，不要仅凭代码形式相似就替换循环。
 
 \subsection{多重背包与二进制拆分}
 \practice{P1776}{宝物筛选}
@@ -117,7 +117,6 @@ void prefix_function(const char s[], int pi[]) {
 \textbf{练习3。}模式aaa在文本aaaa中出现几次？\textbf{解答。}2次，起点0和1。记录第一次后应保留可重叠的前后缀，而不是把匹配长度清成0。
 \newpage
 \section{资料来源与继续练习}
-本讲义依据以下原始材料重新编排知识体系，补充了自包含教学例题、解答和参考程序。原课件中的重点概念问题已在正文采用修正后的表述，包括unique语义、DP状态信息、背包初始化、BFS归类和计数背包撤销。
 
 \begin{longtable}{P{7.4cm}P{1cm}P{6cm}}
 \toprule 原始文件 & 页数 & 本讲义对应内容\\\midrule\endhead
@@ -131,14 +130,14 @@ dp入门.pptx & 18 & 第二篇DP、LIS与LCS扩展。\\
 \bottomrule
 \end{longtable}
 
-\textbf{优先做题入口：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}和\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次认证训练}。已展开的认证真题及解答见前两篇，各算法旁附直达链接。以下为原课件的专项补充：排序 \prob{P1177}、去重 \prob{P1059}、前缀和 \prob{P8218}、差分 \prob{P2367}、二分 \prob{P2249}、切木条 \prob{P2440}、全排列 \prob{P1706}、马的遍历 \prob{P1443}、LIS \prob{B3637}、最大子段和 \prob{P1115}、01背包 \prob{P1048}、完全背包 \prob{P1616}、分组背包 \prob{P1757}。这些题可能有与教学题不同的输入、限制和输出要求，应重新阅读原题。
+\textbf{做题入口：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}和\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次认证训练}。专项练习：排序 \prob{P1177}、去重 \prob{P1059}、前缀和 \prob{P8218}、差分 \prob{P2367}、二分 \prob{P2249}、切木条 \prob{P2440}、全排列 \prob{P1706}、马的遍历 \prob{P1443}、LIS \prob{B3637}、最大子段和 \prob{P1115}、01背包 \prob{P1048}、完全背包 \prob{P1616}、分组背包 \prob{P1757}。
 
 提高题可选：\prob{P2678}、\prob{P1219}、\prob{P3956}、\prob{P1776}、\prob{P1507}、\prob{P1064}、\prob{P1439}、\prob{P4141}。其中P4141的目标是删除指定物品后的恰好装满方案数末位数字，不是最大价值；P1439的较大数据需要利用排列性质，普通二维LCS不能覆盖全部规模。
 
-接口语义可查阅C++工作草案的\href{https://eel.is/c++draft/sort}{sort条目}和\href{https://eel.is/c++draft/alg.unique}{unique条目}。平台原题和标准文档是进一步核对的依据，本讲义正文的教学例题与解答已经提供独立学习所需的规则和算法。
+接口语义可查阅C++工作草案的\href{https://eel.is/c++draft/sort}{sort条目}和\href{https://eel.is/c++draft/alg.unique}{unique条目}。
 
 \subsection{团队题单与专题入口}
-\textbf{练习总入口：}\href{https://www.luogu.com.cn/team/113242/training}{洛谷团队113242的训练题单}。2026年10月11日已登录核对当前四个专题的全部64道题，第二篇练习题中已逐题给出题意、解答与关键代码。专题列表需团队权限，正文的单题直达链接便于直接做题。
+\textbf{练习总入口：}\href{https://www.luogu.com.cn/team/113242/training}{洛谷团队113242的训练题单}。
 \begin{longtable}{P{7cm}P{2cm}P{5cm}}
 \toprule 当前专题 & 题数 & 题单入口\\\midrule\endhead
 二分、差分、双指针 & 16 & \href{https://www.luogu.com.cn/training/1112210}{1112210}\\
@@ -146,35 +145,25 @@ dp入门.pptx & 18 & 第二篇DP、LIS与LCS扩展。\\
 贪心 & 10 & \href{https://www.luogu.com.cn/training/1112208}{1112208}\\
 dp & 19 & \href{https://www.luogu.com.cn/training/1112207}{1112207}\\
 \bottomrule\end{longtable}
-以下5个专题地址来自原资料，作为历史入口保留；它们与当前团队题单不是同一组编号。
-\begin{longtable}{P{8cm}P{6cm}}
-\toprule 专题 & 打开题单\\\midrule\endhead
-二分、前缀和、差分、双指针 & \href{https://www.luogu.com.cn/training/1048062}{1048062}\\
-搜索与剪枝 & \href{https://www.luogu.com.cn/training/1048981}{1048981}\\
-STL & \href{https://www.luogu.com.cn/training/1055276}{1055276}\\
-简单动态规划 & \href{https://www.luogu.com.cn/training/1052248}{1052248}\\
-贪心 & \href{https://www.luogu.com.cn/training/1052246}{1052246}\\
-\bottomrule\end{longtable}
-\subsection{原资料真题做题入口}
-以下完整覆盖原资料的23个真题入口。认证次数、题名和原资料跨平台对应关系已于2026年10月11日核对；正文十道真题速看与十三道剩余真题都给出解答与完整实现。已有曙梦页面优先链接曙梦，未读取到对应题目的旧题保留原资料入口。具体输入与范围按正文所用平台说明。原始链接仍保存在仓库索引，便于追溯。
+\subsection{真题做题入口}
 \begin{longtable}{P{1cm}P{3.7cm}P{2.8cm}P{6cm}}
 \toprule 题号 & 真题 & 认证次数与年月 & 主要做题入口\\\midrule\endhead
-1 & 打酱油 & 第11次，2017-09 & \href{https://www.acwing.com/problem/content/3250/}{CSP201709A（原入口）}\\
-1 & 跳一跳 & 第13次，2018-03 & \href{https://www.acwing.com/problem/content/3260/}{CSP201803A（原入口）}\\
-1 & 小中大 & 第16次，2019-03 & \href{https://www.acwing.com/problem/content/3275/}{CSP201903A（原入口）}\\
+1 & 打酱油 & 第11次，2017-09 & \href{https://www.acwing.com/problem/content/3250/}{CSP201709A（AcWing）}\\
+1 & 跳一跳 & 第13次，2018-03 & \href{https://www.acwing.com/problem/content/3260/}{CSP201803A（AcWing）}\\
+1 & 小中大 & 第16次，2019-03 & \href{https://www.acwing.com/problem/content/3275/}{CSP201903A（AcWing）}\\
 1 & 线性分类器 & 第19次，2020-06 & \href{https://oj.shumeng.tech/p/CSP202006A}{CSP202006A（曙梦）}\\
-1 & 检测点查询 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3295/}{CSP202009A（原入口）}\\
-1 & 数组推导 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4009/}{CSP202109A（原入口）}\\
-1 & 如此编码 & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4702/}{CSP202209A（原入口）}\\
+1 & 检测点查询 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3295/}{CSP202009A（AcWing）}\\
+1 & 数组推导 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4009/}{CSP202109A（AcWing）}\\
+1 & 如此编码 & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4702/}{CSP202209A（AcWing）}\\
 1 & 田地丈量 & 第29次，2023-03 & \href{https://oj.shumeng.tech/p/CSP202303A}{CSP202303A（曙梦）}\\
 2 & 买菜 & 第14次，2018-09 & \href{https://oj.shumeng.tech/p/CSP201809B}{CSP201809B（曙梦）}\\
 2 & 回收站选址 & 第18次，2019-12 & \href{https://oj.shumeng.tech/p/CSP201912B}{CSP201912B（曙梦）}\\
-2 & 风险人群筛查 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3296/}{CSP202009B（原入口）}\\
+2 & 风险人群筛查 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3296/}{CSP202009B（AcWing）}\\
 2 & 邻域均值 & 第22次，2021-04 & \href{https://oj.shumeng.tech/p/CSP202104B}{CSP202104B（曙梦）}\\
-2 & 非零段划分 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4010/}{CSP202109B（原入口）}\\
-2 & 出行计划 & 第25次，2022-03 & \href{https://www.acwing.com/problem/content/4458/}{CSP202203B（原入口）}\\
+2 & 非零段划分 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4010/}{CSP202109B（AcWing）}\\
+2 & 出行计划 & 第25次，2022-03 & \href{https://www.acwing.com/problem/content/4458/}{CSP202203B（AcWing）}\\
 2 & 寻宝！大冒险！ & 第26次，2022-06 & \href{https://oj.shumeng.tech/p/CSP202206B}{CSP202206B（曙梦）}\\
-2 & 何以包邮？ & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4703/}{CSP202209B（原入口）}\\
+2 & 何以包邮？ & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4703/}{CSP202209B（AcWing）}\\
 2 & 垦田计划 & 第29次，2023-03 & \href{https://oj.shumeng.tech/p/CSP202303B}{CSP202303B（曙梦）}\\
 2 & 相似度计算 & 第33次，2024-03 & \href{https://oj.shumeng.tech/p/CSP202403B}{CSP202403B（曙梦）}\\
 2 & 机器人宿管指南 & 第42次，2026-05 & \href{https://oj.shumeng.tech/p/CSP202605B}{CSP202605B（曙梦）}\\

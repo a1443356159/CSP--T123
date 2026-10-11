@@ -33,7 +33,7 @@
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
 \newcommand{\practice}[2]{\par\noindent\textbf{同类练习（在线做题）：}\href{https://www.luogu.com.cn/problem/#1}{#1\quad #2}。\par}
 \newcommand{\training}[2]{\par\noindent\textbf{专题题单：}\href{https://www.luogu.com.cn/training/#1}{#2（#1）}。\par}
-\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，原入口）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
+\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，AcWing）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
 \newcommand{\ojpractice}[2]{\par\noindent\textbf{真题练习：}\csp{#1}{#2}。\par}
 \makeatletter\@addtoreset{section}{part}\makeatother
 \renewcommand{\theHsection}{\thepart.\arabic{section}}
@@ -58,13 +58,11 @@
 
 全书分成\textbf{第一题、第二题、第三题}三个大的篇章。第一篇依次是“程序基本功与做题技巧、真题速看、考点总结、练习题”；第二篇依次是“基础算法与STL使用、STL、真题速看、考点总结、练习题”；第三篇保留字符串解析、综合模拟案例及综合训练。各篇分别编号，提高专题放入附录。题号是一条学习路线，不表示每次考试的算法固定对应。
 
-正文区分两类内容。\textbf{认证真题}标出题名、认证次数、年月、题号和做题链接，压缩转述完整规则，并给出解答、样例或关键代码；原资料23道真题及六道历年考点补充题均提供按所列题面编写的完整程序。\textbf{教学例题与自测}围绕资料知识点设计，完整展示规则、输入输出、样例、解答和参考实现；若旁边链接标为同类练习，平台原题的规则可能不同，提交前应重新核对。
+\textbf{认证真题}标明认证次数、年月与题号；\textbf{教学例题与自测}用于练习单个知识点。在线做题时注意平台题目的输入格式、数据范围和输出要求。
 
-\textbf{主要在线练习平台：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}；\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次CCF-CSP认证训练总入口}。各算法小节就近列出对应真题或练习题，不需要等到章末才能练习。团队四个专题题单的64道练习已在第二篇按知识点展开，缺少已核对曙梦入口的专项题保留洛谷链接；原资料旧题单链接在附录保留。
+\textbf{在线练习：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}；\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次CCF-CSP认证训练}。可直接打开各算法小节和练习题旁的做题链接。
 
-题面、届次、数据范围和曙梦当前限制按2026年10月11日读取的页面核对。已核对原资料23个真题入口：第一篇五道速看与三道剩余题，第二篇五道速看与十道剩余题。原资料中的AcWing入口已通过浏览器题面及来源栏确认身份；部分旧题暂未读取到曙梦对应页面，保留原入口。登录后已核对团队113242当前四个题单的完整成员：二分、差分、双指针16题，搜索19题，贪心10题，dp19题。正文分别标明团队专项题与原资料补充题，团队专项全部给出题意、解答和关键代码，其中五道代表题提供完整程序。
-
-参考程序以C风格为主，使用scanf/printf、普通数组、下标循环、结构体和独立函数；需要动态容器时再使用STL。没有使用auto、匿名函数或结构化绑定。STL属于C++，统一按C++17编译。主文件内嵌全部正文与代码，只下载本TeX文件也可以编译。代码高亮；行号保留显示，以空ActualText排除在复制文本之外（需要阅读器支持）；代码正文可选择、复制。输入输出样例分区装框，保留原始空格与换行。
+参考程序以C风格为主，使用scanf/printf、普通数组、下标循环、结构体和独立函数；需要动态容器时再使用STL。STL属于C++，统一按C++17编译。代码有高亮和行号，复制时只包含代码正文（需要阅读器支持）。输入输出样例分区装框，保留空格与换行。
 
 建议先自己推演例题，再说明参考程序的关键不变量，最后遮住答案完成练习。每次写完都应检查最小规模、最大规模、重复值、端点、不可达状态，以及题面允许而样例没有出现的情况。
 \tableofcontents
@@ -96,7 +94,7 @@ char word[101];
 scanf("%100s", word);
 \end{lstlisting}
 \end{minipage}\par
-\texttt{\%c}默认不跳过空白；格式串中在它前面加空格，表示先跳过空格与换行。\texttt{\%s}遇到空白停止，因此不能读取含空格的整行。fgets读取整行时可能保留换行；数字输入后再读整行，要处理该行剩余字符。第二篇STL的string小节和字符串变换真题给出处理方法。输出空格和换行按题面要求写，不输出“请输入”等提示语。
+\texttt{\%c}默认不跳过空白；格式串中在它前面加空格，表示先跳过空格与换行。\texttt{\%s}遇到空白停止，因此不能读取含空格的整行。fgets读取整行时可能保留换行；数字输入后再读整行，要处理该行剩余字符。输出空格和换行按题面要求写，不输出“请输入”等提示语。
 \subsubsection{整型、浮点数与运算}
 本讲义所用评测环境中int通常占4字节，范围为$-2147483648$到$2147483647$；long long占8字节，范围约为$\pm9.22\times10^{18}$。不要只看最后答案，\textbf{每个中间结果也必须装得下}。\texttt{long long s = a*b;}仍可能先进行int乘法，应写\texttt{1LL*a*b}。
 
@@ -144,41 +142,87 @@ struct Point p[1005];
 scanf("%d%d %c", &p[0].x, &p[0].y, &p[0].type);
 \end{lstlisting}
 \end{minipage}\par
-第一题真题“线性分类器”会直接使用这种写法。不需要因为使用结构体就引入复杂的类设计。
 \subsection{读题重点}
-\subsubsection{理解基本题意}
-先用一句话说明“给什么，求什么”，再圈出“至少”“严格大于”“同时”“先……后……”和“不存在时……”等限制。明确输出是一个值、每个对象的结果，还是操作后的完整状态。自己手算一个小例子，并专门构造与样例不同的边界。读懂规则后才选择算法。
-
-例如仓库规划比较的是\textbf{所有维度都严格更大}，输出的是\textbf{编号最小}的上级；图像旋转是\textbf{逆时针}，且行列数交换；折点计数只检查有两个邻居的内部位置。漏掉这些词，即使循环写得再熟练也会得到错误答案。
 \subsubsection{观察数据范围：两个首要检查}
-\textbf{第一，数组不能开小。}若$n\le1000$且使用1下标，数组不能只有1000格；二维边界、差分的$n+1$位置、字符串末尾都要留出来。数组大小由\textbf{索引最大值}决定，不一定由输入个数决定：稀疏向量长度可达$10^9$，却只有$5\times10^5$个非零项，不能按完整长度开数组。
+\textbf{第一，数组不能开小。}若$n\le1000$且使用1下标，数组不能只有1000格；二维边界、可能访问的$n+1$位置、字符串末尾都要留出来。数组大小由\textbf{索引最大值}决定，不一定由输入个数决定：即使只输入500个编号，若编号可达$10^9$，也不能直接用这么大的编号作为普通数组下标。
 
-\textbf{第二，运算过程中会不会超过int或long long的范围。}若$n=2\times10^5$且每项绝对值不超过$10^9$，总和上界为$2\times10^{14}$，需要long long；两项乘积的上界应相乘估算。即便long long也可能溢出，例如$10^{18}\times5$还安全，而$10^{18}\times100$已经越界。机器人宿管会用商和余数拆开计算比例，避免大数直接乘100。数组范围与数值范围要分别检查。
+\textbf{第二，运算过程中会不会超过int或long long的范围。}若$n=2\times10^5$且每项绝对值不超过$10^9$，总和上界为$2\times10^{14}$，需要long long；两项乘积的上界应相乘估算。即便long long也可能溢出，例如$10^{18}\times5$还安全，而$10^{18}\times100$已经越界。
 \subsubsection{留意时间限制：时间复杂度与估算}
-时间复杂度描述基本操作次数随输入规模增长的数量级。$O(n)$表示数量随n线性增长，$O(n^2)$表示平方增长；忽略常数和低阶项，不表示精确秒数。独立的两重n循环通常为$O(n^2)$；前后两次遍历是$O(n)+O(n)=O(n)$；每步把候选区间减半通常为$O(\log n)$；排序通常为$O(n\log n)$。
+时间复杂度描述操作次数随输入规模增长的数量级，不是程序运行的精确秒数。估算时先看循环执行多少次，再忽略常数倍和低阶项。以下各段代码独立示意，假设n、m已给定，数组a、grid已读入，各次加法、比较的代价近似相同。
 
-估算时把\textbf{最大数据规模}代入操作次数，再看时限。例如$n=1000,m=10$的三重仓库枚举至多约$10^7$次维度比较；$n=2\times10^5$的两重枚举约$4\times10^{10}$次，通常不可行。$2\times10^5\log_2(2\times10^5)$约为$3.5\times10^6$，排序更值得考虑。机器、常数、输入输出和操作类型都会影响耗时，不能把某个次数阈值当作保证。
-\begin{longtable}{P{4cm}P{3cm}P{7.1cm}}
-\toprule 程序模式 & 数量级 & 估算重点\\\midrule\endhead
-一次遍历n项 & $O(n)$ & 每项处理是否有隐藏的大操作。\\
-每次查询重新扫描n项 & $O(nq)$ & 多次静态求和可改用前缀和。\\
-枚举所有数对 & $O(n^2)$ & 排序、桶、映射或双指针是否适用。\\
-双指针各自只前进 & $O(n)$ & 累计移动次数，而非只数循环层数。\\
-枚举n个元素的子集 & $O(2^n)$ & $n=20$有约百万个子集，还要算每个子集的检查成本。\\
-DP & 状态数$\times$每状态转移数 & 不能只统计状态数。\\
-\bottomrule\end{longtable}
+\Needspace{9\baselineskip}\textbf{一次遍历：$O(n)$。}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long sum = 0;
+for (int i = 0; i < n; i++) {
+    sum += a[i];
+}
+\end{lstlisting}
+\end{minipage}\par
+循环执行n次，每次做一次加法。n扩大到原来的10倍，主要操作次数也约为原来的10倍。
+
+\Needspace{9\baselineskip}\textbf{前后两次遍历：仍是$O(n)$。}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long sum = 0;
+for (int i = 0; i < n; i++) sum += a[i];
+int positive = 0;
+for (int i = 0; i < n; i++) {
+    if (a[i] > 0) positive++;
+}
+\end{lstlisting}
+\end{minipage}\par
+两个循环依次执行，总共约2n次，忽略常数2后是$O(n)$。不能看到两个for就判断为平方复杂度。
+
+\Needspace{9\baselineskip}\textbf{嵌套循环：$O(n^2)$。}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long equalPairs = 0;
+for (int i = 0; i < n; i++) {
+    for (int j = i + 1; j < n; j++) {
+        if (a[i] == a[j]) equalPairs++;
+    }
+}
+\end{lstlisting}
+\end{minipage}\par
+内层依次执行$n-1,n-2,\ldots,0$次，合计$n(n-1)/2$次比较，数量级为$O(n^2)$。n扩大10倍，比较次数约扩大100倍；内层不必每次都执行n次，仍可能是平方复杂度。
+
+\Needspace{9\baselineskip}\textbf{两层循环长度不同：$O(nm)$。}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long sum = 0;
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+        sum += grid[i][j];
+    }
+}
+\end{lstlisting}
+\end{minipage}\par
+外层n次，每次内层m次，共nm次加法。若m始终是固定的10，便是10n次，可以记作$O(n)$；若m也随输入变化，就保留$O(nm)$。
+
+\Needspace{9\baselineskip}\textbf{每次缩小一半：$O(\log n)$。}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int steps = 0;
+for (int length = n; length > 1; length /= 2) {
+    steps++;
+}
+\end{lstlisting}
+\end{minipage}\par
+例如n=16时，length依次为16、8、4、2，循环4次，因为$2^4=16$。一般约执行$\log_2 n$次；n翻倍只会多执行约一次。
+
+判断能否在时限内完成，要把\textbf{最大数据规模}代入。例如$n=10^5$时，一次遍历约$10^5$次，枚举所有数对约$5\times10^9$次，后者通常无法在几秒内完成。操作类型、机器速度和输入输出都会影响耗时，因此次数估算用于筛选算法，不能当作精确的用时保证。
 \subsubsection{留意空间限制：空间复杂度与估算}
 空间复杂度描述存储需求随规模增长的数量级。本书说明程序使用的主要数组，并把输入存储也计入；额外空间另有需要时会单独指出。一个n项数组为$O(n)$，$n\times m$矩阵为$O(nm)$，只保留若干计数变量为$O(1)$。递归栈也占空间，深度n的递归可能占$O(n)$栈空间。
 
 实际估算为“元素个数$\times$每个元素字节数”，再把所有数组、容器和递归开销相加。$1000\times1000$的int矩阵约$4\times10^6$字节（约3.8MiB），两个矩阵约7.6MiB；$10^5$项long long数组约0.76MiB；$10^5\times10^5$的int矩阵约37GiB，显然不可行。结构体可能有对齐填充，STL容器还有管理开销，按实际\texttt{sizeof}和容量估算更准确。
 \subsubsection{写完后的检查顺序}
-先查格式与类型，再查最小规模、最大下标、重复值、负值、端点和更新顺序；最后分析算法为什么不重不漏。样例通过不代表所有数据正确。小规模时可写直接枚举作为对照，尤其适合检查前缀和、双指针、二分与DP。
+先查格式与类型，再查最小规模、最大下标、重复值、负值、端点和更新顺序；最后分析算法为什么不重不漏。样例通过不代表所有数据正确。小规模时可写直接枚举程序作为对照。
 
 % ===== first-true.tex =====
 \Needspace{7\baselineskip}\section{真题速看}
-本节的五题均出自原资料的第一题真题入口，训练枚举、状态更新、对象判定、多键比较与矩形求交。已有曙梦题目优先使用曙梦入口；其余旧题保留原资料链接。认证次数、样例与题面已逐项核对。
 \subsection{打酱油}
-\textbf{第11次CCF-CSP认证，2017-09，第1题。}\href{https://www.acwing.com/problem/content/3250/}{打酱油（原资料入口）}。
+\textbf{第11次CCF-CSP认证，2017-09，第1题。}\href{https://www.acwing.com/problem/content/3250/}{打酱油（在线做题）}。
 \textbf{题目与输入输出。}带N元买每瓶10元的酱油，可选择买3瓶赠1瓶或买5瓶赠2瓶，促销组之间不重复使用已赠送的瓶。求最多得到多少瓶。输入N，输出最大瓶数。N是10的整数倍且不超过300。
 \textbf{读题思路。}先把钱换成可付费的瓶数，赠品不消耗钱，也不能把同一份购买重复参加两种促销。付费瓶数至多30，枚举促销组完全够用。
 \textbf{做题思路与解答。}枚举买5赠2的组数f。剩余付费瓶数为r时，尽可能组成买3赠1的组，剩下的按单瓶购买，得到$7f+4\lfloor r/3\rfloor+r\bmod3$。每种方案都有一个f；固定f时多组成三瓶组只会增加赠品，所以逐项取最大值必然包含最优方案。也可证明优先五瓶组的贪心，但本题的小规模枚举不需要额外假设。
@@ -224,7 +268,7 @@ int main() {
 \end{minipage}\par
 
 \subsection{跳一跳}
-\textbf{第13次CCF-CSP认证，2018-03，第1题。}\href{https://www.acwing.com/problem/content/3260/}{跳一跳（原资料入口）}。
+\textbf{第13次CCF-CSP认证，2018-03，第1题。}\href{https://www.acwing.com/problem/content/3260/}{跳一跳（在线做题）}。
 \textbf{题目与输入输出。}输入若干个0、1、2，数量不超过30；0仅在末尾出现，表示游戏结束。1表示跳到方块非中心，得1分；2表示跳到中心，若是第一次跳或上次得1分，则得2分，否则比上次多2分。输出总得分。
 \textbf{读题思路。}输入没有n，由0终止；连续中心得分为2、4、6等，遇到1后必须重置。末尾0不计分。
 \textbf{做题思路与解答。}last表示上一跳实际得分，初值0。读到1令last=1；读到2且last不超过1时令last=2，否则加2。然后累加last。每次更新恰好实现规则，因此处理完前缀后总分始终正确。
@@ -318,7 +362,7 @@ int main() {
 \end{minipage}\par
 
 \subsection{检测点查询}
-\textbf{第20次CCF-CSP认证，2020-09，第1题。}\href{https://www.acwing.com/problem/content/3295/}{检测点查询（原资料入口）}。
+\textbf{第20次CCF-CSP认证，2020-09，第1题。}\href{https://www.acwing.com/problem/content/3295/}{检测点查询（在线做题）}。
 \textbf{题目与输入输出。}输入n、居民坐标X、Y，随后n行检测点坐标，编号按输入顺序从1开始。输出最近的三个点编号，每个一行；同距离时编号小者在前。$3\le n\le200$，坐标绝对值不超过1000。
 \textbf{读题思路。}要按距离、编号两层比较。无需真的开方，平方距离与距离具有相同顺序。只取三个点，三轮扫描就够用。
 \textbf{做题思路与解答。}计算各点平方距离。每轮从未选点中找最小距离者，按编号升序扫描且只在距离严格减小时替换，就自动保留同距离最小编号。输出并标记已选，重复三轮。归纳可知每轮得到剩余点中的第一名，三轮恰好得到所需前三名。
@@ -533,7 +577,7 @@ int days(int y, int m) {
 \Needspace{7\baselineskip}\section{练习题}
 \subsection{原题单剩余三道第一题}\textbf{先做原题单，再做知识点补充。}真题速看未展开的三题如下，都保留认证次数、完整规则、样例与可提交程序。
 \subsection{小中大}
-\textbf{第16次CCF-CSP认证，2019-03，第1题。}\href{https://www.acwing.com/problem/content/3275/}{小中大（原资料入口）}。
+\textbf{第16次CCF-CSP认证，2019-03，第1题。}\href{https://www.acwing.com/problem/content/3275/}{小中大（在线做题）}。
 \textbf{题目与输入输出。}输入$n\le10^5$以及n个已按升序或降序排列的整数，可重复，绝对值不超过$10^7$。输出最大值、中位数、最小值，空格分隔；整数不带小数，非整数保留1位小数。
 \textbf{读题思路。}已经有序，无需重排；升序和降序都能由首尾取得极值。奇数长度中位数是一项，偶数长度是中间两项均值。
 \textbf{做题思路与解答。}首尾取min、max，中间位置按奇偶取值。先计算中位数的两倍twice；偶数时直接输出twice/2，否则输出twice/2.0保留一位。这使负半整数也正确，避免整数除法丢掉0.5。
@@ -583,7 +627,7 @@ int main() {
 \end{minipage}\par
 
 \subsection{数组推导}
-\textbf{第23次CCF-CSP认证，2021-09，第1题。}\href{https://www.acwing.com/problem/content/4009/}{数组推导（原资料入口）}。
+\textbf{第23次CCF-CSP认证，2021-09，第1题。}\href{https://www.acwing.com/problem/content/4009/}{数组推导（在线做题）}。
 \textbf{题目与输入输出。}非负整数数组A的前缀最大值为$B_i=\max(A_1,\ldots,A_i)$。已知单调不降的B，求A的元素和最大值及最小值，各输出一行，最大值在前。输入n、n项B；$1\le n\le100$，$0\le B_i\le10^5$。
 \textbf{读题思路。}B是前缀最大值，不是前缀和。B上升时当前A被迫等于新值；B不变时A可小到0。
 \textbf{做题思路与解答。}最大和为$\sum B_i$，因为各项都可选为B对应值，且不能超过该值。最小和只保留第一项及严格上升处的B值，其他A取0。上升时此前元素不可能提供新最大值，必须由当前A提供；这些强制项已足以实现全部B，所以该和最小。
@@ -634,7 +678,7 @@ int main() {
 \end{minipage}\par
 
 \subsection{如此编码}
-\textbf{第27次CCF-CSP认证，2022-09，第1题。}\href{https://www.acwing.com/problem/content/4702/}{如此编码（原资料入口）}。
+\textbf{第27次CCF-CSP认证，2022-09，第1题。}\href{https://www.acwing.com/problem/content/4702/}{如此编码（在线做题）}。
 \textbf{题目与输入输出。}每题有$a_i\ge2$个选项，正确选项$0\le b_i<a_i$。设$c_0=1,c_i=\prod_{j=1}^i a_j$，编码$m=\sum_{i=1}^n c_{i-1}b_i$。输入n、m及n项a，恢复并输出n项b，空格分隔。$n\le20,c_n\le10^9,0\le m<c_n$。
 \textbf{读题思路。}这是不同位使用不同进制的编码。题面给出长公式，但可以从最低位逐次取余，避免反复计算前缀积。
 \textbf{做题思路与解答。}对$a_1$取余，后面所有项都是$a_1$的倍数，所以$b_1=m\bmod a_1$。再令$m=\lfloor m/a_1\rfloor$，得到余下位的同类编码。依次取余和整除即可恢复全部b。每步都唯一确定一位，最终得到原编码的唯一表示。
@@ -876,7 +920,6 @@ for (int i = 0; i < n; i++) {
 包含\texttt{<cstring>}。比较必须覆盖全部64格，不能只用某一个格子或棋子数量作为身份。第二篇学完map后，可把完整棋盘串作为键重新实现。
 
 \subsection{历年考点补充：数组与二维枚举}
-下列四题依据原资料的历年考点表补充，不冒充原题单中的八个入口。
 \subsection{图像旋转}
 \textbf{第4次CCF-CSP认证，2015-03，第1题。}\csp{CSP201503A}{图像旋转}。
 \textbf{题目与输入输出。}输入一个$n\times m$矩阵，将它逆时针旋转$90^\circ$后输出。第一行n、m，随后n行每行m个整数；输出m行，每行n个整数。$1\le n,m\le1000$，元素在0到1000之间。
@@ -1054,7 +1097,6 @@ int main() {
 按频率和编号排序 & 次数桶、结构体、sort & \csp{CSP201503B}{数字排序}。\\
 维护单词集合与交并 & set、map、规范化 & \csp{CSP202403B}{相似度计算}。\\
 \bottomrule\end{longtable}
-已有原题能在曙梦OJ练习时优先使用该入口；原资料中的全排列、最长上升子序列、01背包等专项题保留洛谷补充链接。专题题单目录集中放在附录，各算法学习时可以直接打开旁边的具体题目。
 \subsection{C风格程序中怎样使用STL}
 STL是C++标准库的一部分，可以与scanf/printf、普通数组和结构体一起使用。按C++17编译，写清需要的头文件。数组排序可直接使用\texttt{std::sort(a,a+n)}；不需要把已有数组先复制成vector。比较函数写成独立函数；迭代器写明类型。本篇用到的接口会在第二节逐个说明。
 \par\noindent\begin{minipage}{\linewidth}
@@ -2870,11 +2912,10 @@ unordered\_map、unordered\_set不按键排序，常见哈希操作平均较快�
 
 \textbf{10.}为什么不能在map查询缺失用户时一律写rights[user]？\textbf{解答：}该语句会建立空集合；查询越多，状态可能无故增长。使用find后再访问已有记录。
 
-\textbf{接口核对。}进一步可查阅C++工作草案中的\href{https://eel.is/c++draft/vector.capacity}{vector容量规则}、\href{https://eel.is/c++draft/associative.reqmts}{关联容器规则}、\href{https://eel.is/c++draft/priority.queue}{优先队列}与\href{https://eel.is/c++draft/alg.sorting}{排序算法}。上述定义、示例和解答均已写在正文，链接仅用于查阅细节。
+\textbf{参考文档。}C++工作草案中的\href{https://eel.is/c++draft/vector.capacity}{vector容量规则}、\href{https://eel.is/c++draft/associative.reqmts}{关联容器规则}、\href{https://eel.is/c++draft/priority.queue}{优先队列}与\href{https://eel.is/c++draft/alg.sorting}{排序算法}。
 
 % ===== second-true.tex =====
 \Needspace{7\baselineskip}\section{真题速看}
-本节五题均选自原资料第二题入口，分别训练双指针、二维前缀和、二分答案、STL哈希与完全背包。规则按对应做题平台转述；不同平台的数据范围可能不同，本书优先采用曙梦当前范围。
 \subsection{买菜}
 \textbf{第14次CCF-CSP认证，2018-09，第2题。}\csp{CSP201809B}{买菜}。
 \textbf{题目与输入输出。}两个人各有n段在广场装车的时间，两组区间分别按起点严格递增，且同组区间互不接触、不重叠。求两人同时在广场装车的总时长。输入n、第一人的n行起止时刻、第二人的n行起止时刻；输出总时长。$1\le n\le2000$，时刻在1到$10^6$之间。
@@ -3046,8 +3087,8 @@ int main() {
 
 \subsection{相似度计算}
 \textbf{第33次CCF-CSP认证，2024-03，第2题。}\csp{CSP202403B}{相似度计算}。
-\textbf{题目与输入输出。}输入两篇文章的单词个数n、m，随后分别输入n和m个仅含英文字母的单词。忽略大小写并去重，分别输出两个集合的交集大小、并集大小，每个一行。曙梦范围$n,m\le5\times10^5$，每词长度不超过10；原资料AcWing页面给$n,m\le10^4$。
-\textbf{读题思路。}题名涉及相似度，但不输出相似度小数；只输出两个计数。同篇重复单词只算一次，大小写必须统一。按较大的曙梦数据范围选择实现。
+\textbf{题目与输入输出。}输入两篇文章的单词个数n、m，随后分别输入n和m个仅含英文字母的单词。忽略大小写并去重，分别输出两个集合的交集大小、并集大小，每个一行。数据范围$n,m\le5\times10^5$，每词长度不超过10。
+\textbf{读题思路。}题名涉及相似度，但不输出相似度小数；只输出两个计数。同篇重复单词只算一次，大小写必须统一。
 \textbf{做题思路与解答。}用哈希表记录每个规范化单词在哪篇出现：位1表示第一篇，位2表示第二篇。第一篇按位或1，第二篇按位或2，重复不会改变状态。表中键数就是并集大小，标记为3的键数就是交集大小。哈希表平均查找时间为常数；若用set或map则有对数因子，适合先练语义后比较效率。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
@@ -3509,8 +3550,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{风险人群筛查}
-\textbf{第20次CCF-CSP认证，2020-09，第2题。}\href{https://www.acwing.com/problem/content/3296/}{风险人群筛查（原资料入口）}。
-\textbf{题目与输入输出。}输入n、k、t及矩形左下xl、yd、右上xr、yu；再输入每人的t个记录坐标。含边界的矩形内出现过记录即“经过”；有至少k条连续记录都在内即“逗留”。输出经过人数和逗留人数，各一行。采用原资料页面较宽的$n\le24$，$1\le k\le t\le1000$，坐标绝对值不超过$10^6$。
+\textbf{第20次CCF-CSP认证，2020-09，第2题。}\href{https://www.acwing.com/problem/content/3296/}{风险人群筛查（在线做题）}。
+\textbf{题目与输入输出。}输入n、k、t及矩形左下xl、yd、右上xr、yu；再输入每人的t个记录坐标。含边界的矩形内出现过记录即“经过”；有至少k条连续记录都在内即“逗留”。输出经过人数和逗留人数，各一行。数据范围$n\le24$，$1\le k\le t\le1000$，坐标绝对值不超过$10^6$。
 \textbf{读题思路。}只检查采样记录，不插值判断相邻记录间的连线。逗留强调连续；分散的k次进入不算。矩形边界也在区域内。
 \textbf{做题思路与解答。}对每人维护曾进入标记、当前连续进入长度run、曾逗留标记。内点令run加1，外点清0；run达到k后保留逗留标记，即使后来离开也不取消。每人结束时各标记只加一次计数。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
@@ -3553,7 +3594,7 @@ int main() {
 \end{minipage}\par
 
 \subsection{非零段划分}
-\textbf{第23次CCF-CSP认证，2021-09，第2题。}\href{https://www.acwing.com/problem/content/4010/}{非零段划分（原资料入口）}。
+\textbf{第23次CCF-CSP认证，2021-09，第2题。}\href{https://www.acwing.com/problem/content/4010/}{非零段划分（在线做题）}。
 \textbf{题目与输入输出。}输入n项非负整数A，选择正整数p，把所有小于p的值变0，求剩余连续非零段数量的最大值。一个非零段必须不能再向左或向右扩展。$n\le5\times10^5,A_i\le10^4$。输出最大段数。
 \textbf{读题思路。}阈值变化时段数不单调，不能二分“段数达到某值”。直接枚举每个p并扫描全数组约$5\times10^9$次，需利用值域。
 \textbf{做题思路与解答。}每段恰好由一个开头贡献。设$A_0=0$，位置i成为开头当且仅当$A_{i-1}<p\le A_i$。因此当$A_{i-1}<A_i$时，给阈值区间$[A_{i-1}+1,A_i]$贡献1，用差分记录；遍历阈值恢复段数并取最大值。每个真实段只有一个开头，条件与开头定义等价，所以统计不重不漏。
@@ -3606,7 +3647,7 @@ int main() {
 \end{minipage}\par
 
 \subsection{出行计划}
-\textbf{第25次CCF-CSP认证，2022-03，第2题。}\href{https://www.acwing.com/problem/content/4458/}{出行计划（原资料入口）}。
+\textbf{第25次CCF-CSP认证，2022-03，第2题。}\href{https://www.acwing.com/problem/content/4458/}{出行计划（在线做题）}。
 \textbf{题目与输入输出。}输入计划数n、查询数m、等待结果时长k；随后n行出行时刻$t_i$和有效时长$c_i$，最后m个检测时刻q。q检测的结果可从$q+k$到$q+k+c_i-1$进入对应场所。每查询输出符合条件的计划数。$n,m,k\le10^5$，$t_i,c_i,q\le2\times10^5$，均为正整数。
 \textbf{读题思路。}有效时间包括刚获得结果的时刻，末端是有效时长减1。把“这次检测满足哪些计划”反过来，求“每项计划允许在哪些时刻检测”。
 \textbf{做题思路与解答。}条件$q+k\le t_i\le q+k+c_i-1$等价于$t_i-c_i+1-k\le q\le t_i-k$。每项计划给这个整数区间加1，按q正数范围裁剪后做差分；一次前缀累加得到每个q的答案。等价变形保证区间内恰好计入满足要求的计划。
@@ -3727,7 +3768,7 @@ int main() {
 \end{minipage}\par
 
 \subsection{何以包邮？}
-\textbf{第27次CCF-CSP认证，2022-09，第2题。}\href{https://www.acwing.com/problem/content/4703/}{何以包邮？（原资料入口）}。
+\textbf{第27次CCF-CSP认证，2022-09，第2题。}\href{https://www.acwing.com/problem/content/4703/}{何以包邮？（在线做题）}。
 \textbf{题目与输入输出。}输入n、包邮阈值x，随后n本书的正整数价格，每本只能选一次。求总价至少x的最小选购总价，保证全部价格和不小于x。$n\le30,a_i\le10^4$，故总价S不超过$3\times10^5$。输出最小总价。
 \textbf{读题思路。}不是花费不超过x的最大价值，而是总价至少x且最小。$2^{30}$枚举太大；利用价格和上界做01可达性背包。
 \textbf{做题思路与解答。}reachable[s]表示用已处理书本能否恰好买到s元。初值仅0为真，每本价格a加入时从S向a倒序更新$reachable[s]\mathrel{|}=reachable[s-a]$，保证当前书只使用一次。全部处理后从x向上找首个可达s，就是满足包邮的最小价格。
@@ -3799,7 +3840,7 @@ bool less_record(const Record &a, const Record &b) {
 \end{minipage}\par
 排序时间$O(u\log u)$，u是不同值个数；还需加上计数过程的成本。与第一篇众数题区别在于，这里输出全部不同值，并有两层排序键。
 \subsection{其他算法专项训练}
-以下题按本篇算法顺序安排，关键方法在相应小节已经解释；洛谷仅用于原资料中没有已核对曙梦入口的专项训练。
+以下题按本篇算法顺序安排。
 \begin{longtable}{P{4.8cm}P{3.2cm}P{6cm}}
 \toprule 做题链接 & 训练点 & 解答要点与边界\\\midrule\endhead
 \csp{CSP201409B}{画图（第2次）} & 二维差分 & 每块矩形标记四角，恢复后统计覆盖数大于0的单位格，重叠只计一次。\\
@@ -3913,9 +3954,9 @@ int main() {
 
 % ===== team-practice.tex =====
 \subsection{团队题单专项练习：学习顺序与代码约定}
-2026年10月11日已登录核对\href{https://www.luogu.com.cn/team/113242/training}{团队113242}的全部四个题单，共64道题。本节保留全部成员，按知识点给出题意摘要、解答与关键实现；代码片段中的数组、循环范围与初始化按旁边文字说明补齐，标为“完整参考实现”的程序可以独立编译。
+代码片段中的数组、循环范围与初始化按旁边文字说明补齐；标为“完整参考实现”的程序可以独立编译。
 
-建议先完成每组的基础题，再做需要多个模型的提高题。题单中的NOIP、CSP-J、NOI、USACO等题用于算法训练，认证真题速看仍指前面标明届次的CCF-CSP认证题。认证题优先在曙梦OJ完成；团队专项题保留已核对的洛谷直达链接，不猜测其他平台题号。私有题单需要团队权限，公开单题可以从直达链接进入。
+建议先完成每组的基础题，再做需要多个模型的提高题。
 
 \subsection{团队题单：二分、差分、双指针（16题）}
 \training{1112210}{二分、差分、双指针}
@@ -5674,7 +5715,7 @@ int main() {
 % ===== 13-extensions.tex =====
 \appendix
 \Needspace{7\baselineskip}\section{提高专题与模型扩展}
-本附录承接原资料中的提高内容。建议在完成正文例题后选择学习。每次变换模型时，先检查状态语义是否改变，不要仅凭代码形式相似就替换循环。
+建议在完成正文例题后选择学习。每次变换模型时，先检查状态语义是否改变，不要仅凭代码形式相似就替换循环。
 
 \subsection{多重背包与二进制拆分}
 \practice{P1776}{宝物筛选}
@@ -5801,7 +5842,6 @@ void prefix_function(const char s[], int pi[]) {
 \textbf{练习3。}模式aaa在文本aaaa中出现几次？\textbf{解答。}2次，起点0和1。记录第一次后应保留可重叠的前后缀，而不是把匹配长度清成0。
 \par\bigskip
 \Needspace{7\baselineskip}\section{资料来源与继续练习}
-本讲义依据以下原始材料重新编排知识体系，补充了自包含教学例题、解答和参考程序。原课件中的重点概念问题已在正文采用修正后的表述，包括unique语义、DP状态信息、背包初始化、BFS归类和计数背包撤销。
 
 \begin{longtable}{P{7.4cm}P{1cm}P{6cm}}
 \toprule 原始文件 & 页数 & 本讲义对应内容\\\midrule\endhead
@@ -5815,14 +5855,14 @@ dp入门.pptx & 18 & 第二篇DP、LIS与LCS扩展。\\
 \bottomrule
 \end{longtable}
 
-\textbf{优先做题入口：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}和\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次认证训练}。已展开的认证真题及解答见前两篇，各算法旁附直达链接。以下为原课件的专项补充：排序 \prob{P1177}、去重 \prob{P1059}、前缀和 \prob{P8218}、差分 \prob{P2367}、二分 \prob{P2249}、切木条 \prob{P2440}、全排列 \prob{P1706}、马的遍历 \prob{P1443}、LIS \prob{B3637}、最大子段和 \prob{P1115}、01背包 \prob{P1048}、完全背包 \prob{P1616}、分组背包 \prob{P1757}。这些题可能有与教学题不同的输入、限制和输出要求，应重新阅读原题。
+\textbf{做题入口：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}和\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次认证训练}。专项练习：排序 \prob{P1177}、去重 \prob{P1059}、前缀和 \prob{P8218}、差分 \prob{P2367}、二分 \prob{P2249}、切木条 \prob{P2440}、全排列 \prob{P1706}、马的遍历 \prob{P1443}、LIS \prob{B3637}、最大子段和 \prob{P1115}、01背包 \prob{P1048}、完全背包 \prob{P1616}、分组背包 \prob{P1757}。
 
 提高题可选：\prob{P2678}、\prob{P1219}、\prob{P3956}、\prob{P1776}、\prob{P1507}、\prob{P1064}、\prob{P1439}、\prob{P4141}。其中P4141的目标是删除指定物品后的恰好装满方案数末位数字，不是最大价值；P1439的较大数据需要利用排列性质，普通二维LCS不能覆盖全部规模。
 
-接口语义可查阅C++工作草案的\href{https://eel.is/c++draft/sort}{sort条目}和\href{https://eel.is/c++draft/alg.unique}{unique条目}。平台原题和标准文档是进一步核对的依据，本讲义正文的教学例题与解答已经提供独立学习所需的规则和算法。
+接口语义可查阅C++工作草案的\href{https://eel.is/c++draft/sort}{sort条目}和\href{https://eel.is/c++draft/alg.unique}{unique条目}。
 
 \subsection{团队题单与专题入口}
-\textbf{练习总入口：}\href{https://www.luogu.com.cn/team/113242/training}{洛谷团队113242的训练题单}。2026年10月11日已登录核对当前四个专题的全部64道题，第二篇练习题中已逐题给出题意、解答与关键代码。专题列表需团队权限，正文的单题直达链接便于直接做题。
+\textbf{练习总入口：}\href{https://www.luogu.com.cn/team/113242/training}{洛谷团队113242的训练题单}。
 \begin{longtable}{P{7cm}P{2cm}P{5cm}}
 \toprule 当前专题 & 题数 & 题单入口\\\midrule\endhead
 二分、差分、双指针 & 16 & \href{https://www.luogu.com.cn/training/1112210}{1112210}\\
@@ -5830,35 +5870,25 @@ dp入门.pptx & 18 & 第二篇DP、LIS与LCS扩展。\\
 贪心 & 10 & \href{https://www.luogu.com.cn/training/1112208}{1112208}\\
 dp & 19 & \href{https://www.luogu.com.cn/training/1112207}{1112207}\\
 \bottomrule\end{longtable}
-以下5个专题地址来自原资料，作为历史入口保留；它们与当前团队题单不是同一组编号。
-\begin{longtable}{P{8cm}P{6cm}}
-\toprule 专题 & 打开题单\\\midrule\endhead
-二分、前缀和、差分、双指针 & \href{https://www.luogu.com.cn/training/1048062}{1048062}\\
-搜索与剪枝 & \href{https://www.luogu.com.cn/training/1048981}{1048981}\\
-STL & \href{https://www.luogu.com.cn/training/1055276}{1055276}\\
-简单动态规划 & \href{https://www.luogu.com.cn/training/1052248}{1052248}\\
-贪心 & \href{https://www.luogu.com.cn/training/1052246}{1052246}\\
-\bottomrule\end{longtable}
-\subsection{原资料真题做题入口}
-以下完整覆盖原资料的23个真题入口。认证次数、题名和原资料跨平台对应关系已于2026年10月11日核对；正文十道真题速看与十三道剩余真题都给出解答与完整实现。已有曙梦页面优先链接曙梦，未读取到对应题目的旧题保留原资料入口。具体输入与范围按正文所用平台说明。原始链接仍保存在仓库索引，便于追溯。
+\subsection{真题做题入口}
 \begin{longtable}{P{1cm}P{3.7cm}P{2.8cm}P{6cm}}
 \toprule 题号 & 真题 & 认证次数与年月 & 主要做题入口\\\midrule\endhead
-1 & 打酱油 & 第11次，2017-09 & \href{https://www.acwing.com/problem/content/3250/}{CSP201709A（原入口）}\\
-1 & 跳一跳 & 第13次，2018-03 & \href{https://www.acwing.com/problem/content/3260/}{CSP201803A（原入口）}\\
-1 & 小中大 & 第16次，2019-03 & \href{https://www.acwing.com/problem/content/3275/}{CSP201903A（原入口）}\\
+1 & 打酱油 & 第11次，2017-09 & \href{https://www.acwing.com/problem/content/3250/}{CSP201709A（AcWing）}\\
+1 & 跳一跳 & 第13次，2018-03 & \href{https://www.acwing.com/problem/content/3260/}{CSP201803A（AcWing）}\\
+1 & 小中大 & 第16次，2019-03 & \href{https://www.acwing.com/problem/content/3275/}{CSP201903A（AcWing）}\\
 1 & 线性分类器 & 第19次，2020-06 & \href{https://oj.shumeng.tech/p/CSP202006A}{CSP202006A（曙梦）}\\
-1 & 检测点查询 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3295/}{CSP202009A（原入口）}\\
-1 & 数组推导 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4009/}{CSP202109A（原入口）}\\
-1 & 如此编码 & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4702/}{CSP202209A（原入口）}\\
+1 & 检测点查询 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3295/}{CSP202009A（AcWing）}\\
+1 & 数组推导 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4009/}{CSP202109A（AcWing）}\\
+1 & 如此编码 & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4702/}{CSP202209A（AcWing）}\\
 1 & 田地丈量 & 第29次，2023-03 & \href{https://oj.shumeng.tech/p/CSP202303A}{CSP202303A（曙梦）}\\
 2 & 买菜 & 第14次，2018-09 & \href{https://oj.shumeng.tech/p/CSP201809B}{CSP201809B（曙梦）}\\
 2 & 回收站选址 & 第18次，2019-12 & \href{https://oj.shumeng.tech/p/CSP201912B}{CSP201912B（曙梦）}\\
-2 & 风险人群筛查 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3296/}{CSP202009B（原入口）}\\
+2 & 风险人群筛查 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3296/}{CSP202009B（AcWing）}\\
 2 & 邻域均值 & 第22次，2021-04 & \href{https://oj.shumeng.tech/p/CSP202104B}{CSP202104B（曙梦）}\\
-2 & 非零段划分 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4010/}{CSP202109B（原入口）}\\
-2 & 出行计划 & 第25次，2022-03 & \href{https://www.acwing.com/problem/content/4458/}{CSP202203B（原入口）}\\
+2 & 非零段划分 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4010/}{CSP202109B（AcWing）}\\
+2 & 出行计划 & 第25次，2022-03 & \href{https://www.acwing.com/problem/content/4458/}{CSP202203B（AcWing）}\\
 2 & 寻宝！大冒险！ & 第26次，2022-06 & \href{https://oj.shumeng.tech/p/CSP202206B}{CSP202206B（曙梦）}\\
-2 & 何以包邮？ & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4703/}{CSP202209B（原入口）}\\
+2 & 何以包邮？ & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4703/}{CSP202209B（AcWing）}\\
 2 & 垦田计划 & 第29次，2023-03 & \href{https://oj.shumeng.tech/p/CSP202303B}{CSP202303B（曙梦）}\\
 2 & 相似度计算 & 第33次，2024-03 & \href{https://oj.shumeng.tech/p/CSP202403B}{CSP202403B（曙梦）}\\
 2 & 机器人宿管指南 & 第42次，2026-05 & \href{https://oj.shumeng.tech/p/CSP202605B}{CSP202605B（曙梦）}\\

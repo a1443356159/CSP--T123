@@ -1,7 +1,7 @@
 \section{练习题}
 \subsection{原题单剩余三道第一题}\textbf{先做原题单，再做知识点补充。}真题速看未展开的三题如下，都保留认证次数、完整规则、样例与可提交程序。
 \subsection{小中大}
-\textbf{第16次CCF-CSP认证，2019-03，第1题。}\href{https://www.acwing.com/problem/content/3275/}{小中大（原资料入口）}。
+\textbf{第16次CCF-CSP认证，2019-03，第1题。}\href{https://www.acwing.com/problem/content/3275/}{小中大（在线做题）}。
 \textbf{题目与输入输出。}输入$n\le10^5$以及n个已按升序或降序排列的整数，可重复，绝对值不超过$10^7$。输出最大值、中位数、最小值，空格分隔；整数不带小数，非整数保留1位小数。
 \textbf{读题思路。}已经有序，无需重排；升序和降序都能由首尾取得极值。奇数长度中位数是一项，偶数长度是中间两项均值。
 \textbf{做题思路与解答。}首尾取min、max，中间位置按奇偶取值。先计算中位数的两倍twice；偶数时直接输出twice/2，否则输出twice/2.0保留一位。这使负半整数也正确，避免整数除法丢掉0.5。
@@ -22,7 +22,7 @@
 \textbf{复杂度与边界。}读入时间$O(n)$、数组空间$O(n)$。可以只保留首尾及中间项把额外空间降为$O(1)$。n=1时三个输出值相同。
 \Code{53_small_middle_large.cpp}
 \subsection{数组推导}
-\textbf{第23次CCF-CSP认证，2021-09，第1题。}\href{https://www.acwing.com/problem/content/4009/}{数组推导（原资料入口）}。
+\textbf{第23次CCF-CSP认证，2021-09，第1题。}\href{https://www.acwing.com/problem/content/4009/}{数组推导（在线做题）}。
 \textbf{题目与输入输出。}非负整数数组A的前缀最大值为$B_i=\max(A_1,\ldots,A_i)$。已知单调不降的B，求A的元素和最大值及最小值，各输出一行，最大值在前。输入n、n项B；$1\le n\le100$，$0\le B_i\le10^5$。
 \textbf{读题思路。}B是前缀最大值，不是前缀和。B上升时当前A被迫等于新值；B不变时A可小到0。
 \textbf{做题思路与解答。}最大和为$\sum B_i$，因为各项都可选为B对应值，且不能超过该值。最小和只保留第一项及严格上升处的B值，其他A取0。上升时此前元素不可能提供新最大值，必须由当前A提供；这些强制项已足以实现全部B，所以该和最小。
@@ -45,7 +45,7 @@
 \textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$。B首项可为0，全0时两个答案都是0。
 \Code{54_derive.cpp}
 \subsection{如此编码}
-\textbf{第27次CCF-CSP认证，2022-09，第1题。}\href{https://www.acwing.com/problem/content/4702/}{如此编码（原资料入口）}。
+\textbf{第27次CCF-CSP认证，2022-09，第1题。}\href{https://www.acwing.com/problem/content/4702/}{如此编码（在线做题）}。
 \textbf{题目与输入输出。}每题有$a_i\ge2$个选项，正确选项$0\le b_i<a_i$。设$c_0=1,c_i=\prod_{j=1}^i a_j$，编码$m=\sum_{i=1}^n c_{i-1}b_i$。输入n、m及n项a，恢复并输出n项b，空格分隔。$n\le20,c_n\le10^9,0\le m<c_n$。
 \textbf{读题思路。}这是不同位使用不同进制的编码。题面给出长公式，但可以从最低位逐次取余，避免反复计算前缀积。
 \textbf{做题思路与解答。}对$a_1$取余，后面所有项都是$a_1$的倍数，所以$b_1=m\bmod a_1$。再令$m=\lfloor m/a_1\rfloor$，得到余下位的同类编码。依次取余和整除即可恢复全部b。每步都唯一确定一位，最终得到原编码的唯一表示。
@@ -204,7 +204,6 @@ for (int i = 0; i < n; i++) {
 包含\texttt{<cstring>}。比较必须覆盖全部64格，不能只用某一个格子或棋子数量作为身份。第二篇学完map后，可把完整棋盘串作为键重新实现。
 
 \subsection{历年考点补充：数组与二维枚举}
-下列四题依据原资料的历年考点表补充，不冒充原题单中的八个入口。
 \subsection{图像旋转}
 \textbf{第4次CCF-CSP认证，2015-03，第1题。}\csp{CSP201503A}{图像旋转}。
 \textbf{题目与输入输出。}输入一个$n\times m$矩阵，将它逆时针旋转$90^\circ$后输出。第一行n、m，随后n行每行m个整数；输出m行，每行n个整数。$1\le n,m\le1000$，元素在0到1000之间。

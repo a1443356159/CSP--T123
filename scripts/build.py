@@ -39,7 +39,7 @@ preamble = r'''% !TeX program = xelatex
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
 \newcommand{\practice}[2]{\par\noindent\textbf{同类练习（在线做题）：}\href{https://www.luogu.com.cn/problem/#1}{#1\quad #2}。\par}
 \newcommand{\training}[2]{\par\noindent\textbf{专题题单：}\href{https://www.luogu.com.cn/training/#1}{#2（#1）}。\par}
-\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，原入口）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
+\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，AcWing）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
 \newcommand{\ojpractice}[2]{\par\noindent\textbf{真题练习：}\csp{#1}{#2}。\par}
 \makeatletter\@addtoreset{section}{part}\makeatother
 \renewcommand{\theHsection}{\thepart.\arabic{section}}
