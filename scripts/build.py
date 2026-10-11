@@ -1,6 +1,7 @@
 """Assemble a standalone TeX file. Run from any working directory."""
 from pathlib import Path
 import re
+import json
 
 ROOT = Path(__file__).resolve().parents[1]
 preamble = r'''% !TeX program = xelatex
@@ -38,12 +39,25 @@ preamble = r'''% !TeX program = xelatex
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
 \newcommand{\practice}[2]{\par\noindent\textbf{同类练习（在线做题）：}\href{https://www.luogu.com.cn/problem/#1}{#1\quad #2}。\par}
 \newcommand{\training}[2]{\par\noindent\textbf{专题题单：}\href{https://www.luogu.com.cn/training/#1}{#2（#1）}。\par}
+\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，原入口）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
+\newcommand{\ojpractice}[2]{\par\noindent\textbf{真题练习：}\csp{#1}{#2}。\par}
+\makeatletter\@addtoreset{section}{part}\makeatother
+\renewcommand{\theHsection}{\thepart.\arabic{section}}
 \newcommand{\important}[1]{\par\noindent\textbf{#1}\par}
 \title{\textbf{CCF-CSP 前三题备考讲义}}
 \author{第一题：基础实现\quad 第二题：工具与算法\quad 第三题：综合模拟}
-\date{2026年10月9日}
+\date{2026年10月11日}
 \begin{document}\maketitle
 '''
+
+# Preserve verified original portals when a Shumeng counterpart is unavailable.
+for entry in json.loads((ROOT / 'data/exercise-links.json').read_text(encoding='utf-8-sig')):
+    url = entry.get('preferred_url', '')
+    if entry.get('certification_id') and url and not url.startswith('https://oj.shumeng.tech/'):
+        definition = (r'\expandafter\def\csname cspurl@' + entry['certification_id']
+                      + r'\endcsname{' + url + '}\n')
+        preamble = preamble.replace(r'\begin{document}', definition + r'\begin{document}', 1)
+
 
 def format_sample(match):
     content = match.group(1).strip('\n')
@@ -82,9 +96,11 @@ def expand(match):
 
 
 # Three study parts; filenames retain their original identities.
-order = ['00-preface.tex', '01-basics.tex', '02-simulation.tex',
-         '03-stl.tex', '05-prefix.tex', '06-binary.tex', '07-greedy.tex',
-         '08-search.tex', '09-dp.tex', '10-knapsack.tex', '04-strings.tex',
+order = ['00-preface.tex', '01-basics.tex', 'first-true.tex', 'first-summary.tex',
+         '02-simulation.tex', 'first-practice.tex', 'second-foundations.tex',
+         '05-prefix.tex', '06-binary.tex', '07-greedy.tex', '08-search.tex',
+         '09-dp.tex', '10-knapsack.tex', '03-stl.tex', 'second-true.tex',
+         'second-summary.tex', 'second-practice.tex', '04-strings.tex',
          '11-comprehensive.tex', '12-practice.tex', '13-extensions.tex']
 parts = []
 for filename in order:

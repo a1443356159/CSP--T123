@@ -1,11 +1,6 @@
-\clearpage
-\part{第二题：STL与常用算法}
-\noindent 本篇先建立完整的STL工具箱，再学习如何减少重复计算。容器操作、复杂度和算法适用条件要一起理解；本篇的string、map和set也会直接服务于第三篇。
-
-\section{STL容器与常用算法详解}
-\training{1055276}{STL}
-\label{chap:stl}
-本章是第二篇的工具基础。STL通常指标准模板库；本讲义将常用的标准库容器、算法、字符串和数对放在一起讲解。它们仍然属于C++，程序需要用C++编译器。\textbf{采用C风格写法}是指优先使用scanf/printf、普通数组、下标循环、结构体和独立函数；使用STL时保留必要的模板类型和成员函数调用。
+\section{STL}
+\label{chap:stl}\ojpractice{CSP201503B}{数字排序：第4次，2015-03，第2题；计数后按次数降序、数值升序排序}\ojpractice{CSP202403B}{相似度计算：第33次，2024-03，第2题；统一字母大小写后用set计算交集和并集}
+本节是第二篇的独立STL专章。STL通常指标准模板库；本讲义将常用的标准库容器、算法、字符串和数对放在一起讲解。它们仍然属于C++，程序需要用C++编译器。\textbf{采用C风格写法}是指优先使用scanf/printf、普通数组、下标循环、结构体和独立函数；使用STL时保留必要的模板类型和成员函数调用。
 
 学习时先掌握sort、二分查找、vector与基本队列，再学set、map和堆。string、嵌套容器与自定义比较器会在第三篇继续用到。每种工具都要回答：数据如何存放、能做什么操作、一次操作花多少时间、什么情况下不能调用。
 
@@ -471,6 +466,25 @@ map<string, set<string> >::iterator p = rights.find("alice");
 if (p != rights.end() && p->second.count("file1")) puts("YES");
 \end{lstlisting}
 erase之后继续对旧it加1会使用失效迭代器。嵌套map/set适合权限管理：外层找用户，内层查资源。查询用find，授权才用下标主动创建，这正是第三篇授权模拟的状态组织方式。
+
+\subsection{unordered\_map与unordered\_set：哈希查找}
+\ojpractice{CSP202403B}{相似度计算：第33次，统一大小写后记录每个词在哪篇出现；真题速看给完整代码}
+\ojpractice{CSP201912B}{回收站选址：第18次，查询坐标是否存在；练习中用set的有序查找实现}
+\texttt{unordered\_map}保存键值对，需要包含\texttt{<unordered\_map>}。\texttt{unordered\_set}只保存不重复的键，需要包含\texttt{<unordered\_set>}。哈希表根据键的哈希值选桶，再在桶内寻找精确相等的键。不同键可能哈希相同，不能把哈希值相同直接当作原对象相同。
+
+与map、set相比，哈希容器不维护键的顺序，不能直接求某值的前驱、后继或最小键。插入、查找、删除的\textbf{平均}时间为$O(1)$（字符串还要计算与长度相关的哈希）；严重冲突时单次可能退化为$O(n)$。不要把平均复杂度写成最坏保证。
+\begin{lstlisting}
+#include <string>
+#include <unordered_map>
+std::unordered_map<std::string, int> mask;
+mask.max_load_factor(0.7f);
+mask.reserve(100000);
+mask["apple"] |= 1;
+mask["apple"] |= 2; // 3 means present in both articles.
+std::unordered_map<std::string, int>::const_iterator it = mask.find("pear");
+if (it != mask.end()) printf("%d\n", it->second);
+\end{lstlisting}
+reserve根据预计元素数预留桶，减少插入中的重哈希；不能保证无冲突。负载因子约为“元素数/桶数”，调整时兼顾时间和内存。重哈希会使迭代器失效，所以不要在一次遍历中继续使用重哈希之前的迭代器。operator[]会插入不存在的键；只想查看存在性用find。\textbf{练习与解答：}若第一篇apple出现三次、第二篇出现两次，位标记仍为3，交集只贡献1；若要求按词典序输出单词，应另行排序或改用map。
 
 \subsection{常用算法补充与容器选择}
 \begin{lstlisting}

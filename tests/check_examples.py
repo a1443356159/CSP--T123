@@ -181,6 +181,11 @@ for _ in range(25):
     replacement=''.join(rng.choice('ab ') for _ in range(rng.randint(0,5)))
     add('34_replace',original+'\n'+pattern+'\n'+replacement+'\n',original.replace(pattern,replacement))
 
+from csp_cases import make_cases
+csp_fixed, csp_random = make_cases(ROOT)
+fixed.extend(csp_fixed)
+for x in csp_fixed + csp_random: add(*x)
+
 sources=sorted((ROOT/'code').glob('*.cpp'))
 for source in sources:
     exe=BUILD/(source.stem+('.exe' if sys.platform=='win32' else ''))
@@ -193,6 +198,6 @@ for name,data,expected in cases:
     result=subprocess.run([str(exe)],input=data,text=True,capture_output=True,check=True,timeout=5)
     if result.stdout.rstrip('\r\n')!=expected:
         raise AssertionError(f'{name}\ninput={data!r}\nexpected={expected!r}\nactual={result.stdout!r}')
-report={'programs':len(sources),'checks':len(cases),'sample_and_boundary_checks':len(fixed),'random_oracle_checks':len(cases)-len(fixed),'seed':20261009,'result':'passed'}
+report={'programs':len(sources),'checks':len(cases),'sample_and_boundary_checks':len(fixed),'random_oracle_checks':len(cases)-len(fixed),'seeds':[20261009,20261011],'result':'passed'}
 (BUILD/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report),flush=True)

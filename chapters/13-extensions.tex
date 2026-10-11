@@ -123,15 +123,15 @@ void prefix_function(const char s[], int pi[]) {
 \toprule 原始文件 & 页数 & 本讲义对应内容\\\midrule\endhead
 历年前三题考点梳理.pdf & 5 & 题型安排、基础模拟、综合模拟选题方向。\\
 练习题与真题.pdf & 2 & 继续训练入口，仓库中另存链接索引。\\
-stl.pptx & 42 & 第3章STL专章、第10章解析与可删堆。\\
-前缀和、差分、二分、双指针.pptx & 34 & 第4--5章及搜索答案的选读内容。\\
-搜索、剪枝、暴力.pptx & 13 & 第7章与模板依赖展开。\\
-dp入门.pptx & 18 & 第8章、LIS与LCS扩展。\\
-动态规划之背包问题.pptx & 53 & 第9章与背包提高专题。\\
+stl.pptx & 42 & 第二篇STL专章、第三篇解析与可删堆。\\
+前缀和、差分、二分、双指针.pptx & 34 & 第二篇前缀和、二分、双指针。\\
+搜索、剪枝、暴力.pptx & 13 & 第二篇搜索与第三篇模板展开。\\
+dp入门.pptx & 18 & 第二篇DP、LIS与LCS扩展。\\
+动态规划之背包问题.pptx & 53 & 第二篇背包与附录提高专题。\\
 \bottomrule
 \end{longtable}
 
-基础题进一步练习可选：排序 \prob{P1177}、去重 \prob{P1059}、前缀和 \prob{P8218}、差分 \prob{P2367}、二分 \prob{P2249}、切木条 \prob{P2440}、全排列 \prob{P1706}、马的遍历 \prob{P1443}、LIS \prob{B3637}、最大子段和 \prob{P1115}、01背包 \prob{P1048}、完全背包 \prob{P1616}、分组背包 \prob{P1757}。这些题可能有与教学题不同的输入、限制和输出要求，应重新阅读原题。
+\textbf{优先做题入口：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}和\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次认证训练}。已展开的认证真题及解答见前两篇，各算法旁附直达链接。以下为原课件的专项补充：排序 \prob{P1177}、去重 \prob{P1059}、前缀和 \prob{P8218}、差分 \prob{P2367}、二分 \prob{P2249}、切木条 \prob{P2440}、全排列 \prob{P1706}、马的遍历 \prob{P1443}、LIS \prob{B3637}、最大子段和 \prob{P1115}、01背包 \prob{P1048}、完全背包 \prob{P1616}、分组背包 \prob{P1757}。这些题可能有与教学题不同的输入、限制和输出要求，应重新阅读原题。
 
 提高题可选：\prob{P2678}、\prob{P1219}、\prob{P3956}、\prob{P1776}、\prob{P1507}、\prob{P1064}、\prob{P1439}、\prob{P4141}。其中P4141的目标是删除指定物品后的恰好装满方案数末位数字，不是最大价值；P1439的较大数据需要利用排列性质，普通二维LCS不能覆盖全部规模。
 
@@ -148,30 +148,30 @@ STL & \href{https://www.luogu.com.cn/training/1055276}{1055276}\\
 贪心 & \href{https://www.luogu.com.cn/training/1052246}{1052246}\\
 \bottomrule\end{longtable}
 \subsection{原资料真题做题入口}
-以下按原资料中的第一题、第二题分组保留23个入口，便于直接进入平台作答。这是原资料链接索引；题名、认证编号及跨平台重复关系尚未全部核对，不将其伪标成已讲解的某道原题。正文的自编综合模拟也不等同于这些平台真题。
-\begin{longtable}{P{1.5cm}P{2cm}P{10.5cm}}
-\toprule 序号 & 分组 & 在线做题链接\\\midrule\endhead
-1 & 第一题 & \url{https://www.acwing.com/problem/content/3250/}\\
-2 & 第一题 & \url{https://www.acwing.com/problem/content/3260/}\\
-3 & 第一题 & \url{https://www.acwing.com/problem/content/3275/}\\
-4 & 第一题 & \url{https://www.acwing.com/problem/content/3290/}\\
-5 & 第一题 & \url{https://www.acwing.com/problem/content/3295/}\\
-6 & 第一题 & \url{https://www.acwing.com/problem/content/4009/}\\
-7 & 第一题 & \url{https://www.acwing.com/problem/content/4702/}\\
-8 & 第一题 & \url{https://www.acwing.com/problem/content/5019/}\\
-9 & 第二题 & \url{https://www.acwing.com/problem/content/3266/}\\
-10 & 第二题 & \url{https://www.acwing.com/problem/content/3286/}\\
-11 & 第二题 & \url{https://www.acwing.com/problem/content/3296/}\\
-12 & 第二题 & \url{https://www.acwing.com/problem/content/3415/}\\
-13 & 第二题 & \url{https://www.acwing.com/problem/content/4010/}\\
-14 & 第二题 & \url{https://www.acwing.com/problem/content/4458/}\\
-15 & 第二题 & \url{https://www.acwing.com/problem/content/4513/}\\
-16 & 第二题 & \url{https://www.acwing.com/problem/content/4703/}\\
-17 & 第二题 & \url{https://www.acwing.com/problem/content/5020/}\\
-18 & 第二题 & \url{https://www.acwing.com/problem/content/5723/}\\
-19 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202605B}\\
-20 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202409B}\\
-21 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202412B}\\
-22 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202503B}\\
-23 & 第二题 & \url{https://oj.shumeng.tech/p/CSP202506B}\\
+以下完整覆盖原资料的23个真题入口。认证次数、题名和原资料跨平台对应关系已于2026年10月11日核对；正文十道真题速看与十三道剩余真题都给出解答与完整实现。已有曙梦页面优先链接曙梦，未读取到对应题目的旧题保留原资料入口。具体输入与范围按正文所用平台说明。原始链接仍保存在仓库索引，便于追溯。
+\begin{longtable}{P{1cm}P{3.7cm}P{2.8cm}P{6cm}}
+\toprule 题号 & 真题 & 认证次数与年月 & 主要做题入口\\\midrule\endhead
+1 & 打酱油 & 第11次，2017-09 & \href{https://www.acwing.com/problem/content/3250/}{CSP201709A（原入口）}\\
+1 & 跳一跳 & 第13次，2018-03 & \href{https://www.acwing.com/problem/content/3260/}{CSP201803A（原入口）}\\
+1 & 小中大 & 第16次，2019-03 & \href{https://www.acwing.com/problem/content/3275/}{CSP201903A（原入口）}\\
+1 & 线性分类器 & 第19次，2020-06 & \href{https://oj.shumeng.tech/p/CSP202006A}{CSP202006A（曙梦）}\\
+1 & 检测点查询 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3295/}{CSP202009A（原入口）}\\
+1 & 数组推导 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4009/}{CSP202109A（原入口）}\\
+1 & 如此编码 & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4702/}{CSP202209A（原入口）}\\
+1 & 田地丈量 & 第29次，2023-03 & \href{https://oj.shumeng.tech/p/CSP202303A}{CSP202303A（曙梦）}\\
+2 & 买菜 & 第14次，2018-09 & \href{https://oj.shumeng.tech/p/CSP201809B}{CSP201809B（曙梦）}\\
+2 & 回收站选址 & 第18次，2019-12 & \href{https://oj.shumeng.tech/p/CSP201912B}{CSP201912B（曙梦）}\\
+2 & 风险人群筛查 & 第20次，2020-09 & \href{https://www.acwing.com/problem/content/3296/}{CSP202009B（原入口）}\\
+2 & 邻域均值 & 第22次，2021-04 & \href{https://oj.shumeng.tech/p/CSP202104B}{CSP202104B（曙梦）}\\
+2 & 非零段划分 & 第23次，2021-09 & \href{https://www.acwing.com/problem/content/4010/}{CSP202109B（原入口）}\\
+2 & 出行计划 & 第25次，2022-03 & \href{https://www.acwing.com/problem/content/4458/}{CSP202203B（原入口）}\\
+2 & 寻宝！大冒险！ & 第26次，2022-06 & \href{https://oj.shumeng.tech/p/CSP202206B}{CSP202206B（曙梦）}\\
+2 & 何以包邮？ & 第27次，2022-09 & \href{https://www.acwing.com/problem/content/4703/}{CSP202209B（原入口）}\\
+2 & 垦田计划 & 第29次，2023-03 & \href{https://oj.shumeng.tech/p/CSP202303B}{CSP202303B（曙梦）}\\
+2 & 相似度计算 & 第33次，2024-03 & \href{https://oj.shumeng.tech/p/CSP202403B}{CSP202403B（曙梦）}\\
+2 & 机器人宿管指南 & 第42次，2026-05 & \href{https://oj.shumeng.tech/p/CSP202605B}{CSP202605B（曙梦）}\\
+2 & 字符串变换 & 第35次，2024-09 & \href{https://oj.shumeng.tech/p/CSP202409B}{CSP202409B（曙梦）}\\
+2 & 梦境巡查 & 第36次，2024-12 & \href{https://oj.shumeng.tech/p/CSP202412B}{CSP202412B（曙梦）}\\
+2 & 机器人饲养指南 & 第37次，2025-03 & \href{https://oj.shumeng.tech/p/CSP202503B}{CSP202503B（曙梦）}\\
+2 & 机器人复健指南 & 第38次，2025-06 & \href{https://oj.shumeng.tech/p/CSP202506B}{CSP202506B（曙梦）}\\
 \bottomrule\end{longtable}

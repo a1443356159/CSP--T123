@@ -5,9 +5,12 @@
     "url": "https://www.acwing.com/problem/content/3250/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "打酱油",
+    "certification_id": "CSP201709A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 11,
+    "preferred_url": "https://www.acwing.com/problem/content/3250/",
+    "program": "49_soy.cpp"
   },
   {
     "type": "真题入口",
@@ -15,9 +18,12 @@
     "url": "https://www.acwing.com/problem/content/3260/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "跳一跳",
+    "certification_id": "CSP201803A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 13,
+    "preferred_url": "https://www.acwing.com/problem/content/3260/",
+    "program": "50_jump.cpp"
   },
   {
     "type": "真题入口",
@@ -25,9 +31,12 @@
     "url": "https://www.acwing.com/problem/content/3275/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "小中大",
+    "certification_id": "CSP201903A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 16,
+    "preferred_url": "https://www.acwing.com/problem/content/3275/",
+    "program": "53_small_middle_large.cpp"
   },
   {
     "type": "真题入口",
@@ -35,9 +44,12 @@
     "url": "https://www.acwing.com/problem/content/3290/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "线性分类器",
+    "certification_id": "CSP202006A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 19,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202006A",
+    "program": "38_classifier.cpp"
   },
   {
     "type": "真题入口",
@@ -45,9 +57,12 @@
     "url": "https://www.acwing.com/problem/content/3295/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "检测点查询",
+    "certification_id": "CSP202009A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 20,
+    "preferred_url": "https://www.acwing.com/problem/content/3295/",
+    "program": "51_nearest.cpp"
   },
   {
     "type": "真题入口",
@@ -55,9 +70,12 @@
     "url": "https://www.acwing.com/problem/content/4009/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "数组推导",
+    "certification_id": "CSP202109A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 23,
+    "preferred_url": "https://www.acwing.com/problem/content/4009/",
+    "program": "54_derive.cpp"
   },
   {
     "type": "真题入口",
@@ -65,9 +83,12 @@
     "url": "https://www.acwing.com/problem/content/4702/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "如此编码",
+    "certification_id": "CSP202209A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 27,
+    "preferred_url": "https://www.acwing.com/problem/content/4702/",
+    "program": "55_encoding.cpp"
   },
   {
     "type": "真题入口",
@@ -75,9 +96,12 @@
     "url": "https://www.acwing.com/problem/content/5019/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "田地丈量",
+    "certification_id": "CSP202303A",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 29,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202303A",
+    "program": "52_land.cpp"
   },
   {
     "type": "真题入口",
@@ -85,9 +109,12 @@
     "url": "https://www.acwing.com/problem/content/3266/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "买菜",
+    "certification_id": "CSP201809B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 14,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP201809B",
+    "program": "40_intervals.cpp"
   },
   {
     "type": "真题入口",
@@ -95,9 +122,12 @@
     "url": "https://www.acwing.com/problem/content/3286/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "回收站选址",
+    "certification_id": "CSP201912B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 18,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP201912B",
+    "program": "58_recycle.cpp"
   },
   {
     "type": "真题入口",
@@ -105,9 +135,12 @@
     "url": "https://www.acwing.com/problem/content/3296/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "风险人群筛查",
+    "certification_id": "CSP202009B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 20,
+    "preferred_url": "https://www.acwing.com/problem/content/3296/",
+    "program": "59_risk.cpp"
   },
   {
     "type": "真题入口",
@@ -115,9 +148,12 @@
     "url": "https://www.acwing.com/problem/content/3415/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "邻域均值",
+    "certification_id": "CSP202104B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 22,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202104B",
+    "program": "42_neighborhood.cpp"
   },
   {
     "type": "真题入口",
@@ -125,9 +161,12 @@
     "url": "https://www.acwing.com/problem/content/4010/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "非零段划分",
+    "certification_id": "CSP202109B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 23,
+    "preferred_url": "https://www.acwing.com/problem/content/4010/",
+    "program": "60_nonzero.cpp"
   },
   {
     "type": "真题入口",
@@ -135,9 +174,12 @@
     "url": "https://www.acwing.com/problem/content/4458/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "出行计划",
+    "certification_id": "CSP202203B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 25,
+    "preferred_url": "https://www.acwing.com/problem/content/4458/",
+    "program": "61_travel.cpp"
   },
   {
     "type": "真题入口",
@@ -145,9 +187,12 @@
     "url": "https://www.acwing.com/problem/content/4513/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "寻宝！大冒险！",
+    "certification_id": "CSP202206B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 26,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202206B",
+    "program": "62_treasure.cpp"
   },
   {
     "type": "真题入口",
@@ -155,9 +200,12 @@
     "url": "https://www.acwing.com/problem/content/4703/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "何以包邮？",
+    "certification_id": "CSP202209B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 27,
+    "preferred_url": "https://www.acwing.com/problem/content/4703/",
+    "program": "63_shipping.cpp"
   },
   {
     "type": "真题入口",
@@ -165,9 +213,12 @@
     "url": "https://www.acwing.com/problem/content/5020/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "垦田计划",
+    "certification_id": "CSP202303B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 29,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202303B",
+    "program": "56_farming.cpp"
   },
   {
     "type": "真题入口",
@@ -175,9 +226,12 @@
     "url": "https://www.acwing.com/problem/content/5723/",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "相似度计算",
+    "certification_id": "CSP202403B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 33,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202403B",
+    "program": "57_similarity.cpp"
   },
   {
     "type": "真题入口",
@@ -185,9 +239,12 @@
     "url": "https://oj.shumeng.tech/p/CSP202605B",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "机器人宿管指南",
+    "certification_id": "CSP202605B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 42,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202605B",
+    "program": "46_dorm.cpp"
   },
   {
     "type": "真题入口",
@@ -195,9 +252,12 @@
     "url": "https://oj.shumeng.tech/p/CSP202409B",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "字符串变换",
+    "certification_id": "CSP202409B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 35,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202409B",
+    "program": "47_transform.cpp"
   },
   {
     "type": "真题入口",
@@ -205,9 +265,12 @@
     "url": "https://oj.shumeng.tech/p/CSP202412B",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "梦境巡查",
+    "certification_id": "CSP202412B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 36,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202412B",
+    "program": "45_dream.cpp"
   },
   {
     "type": "真题入口",
@@ -215,9 +278,12 @@
     "url": "https://oj.shumeng.tech/p/CSP202503B",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "机器人饲养指南",
+    "certification_id": "CSP202503B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 37,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202503B",
+    "program": "44_feeding.cpp"
   },
   {
     "type": "真题入口",
@@ -225,9 +291,12 @@
     "url": "https://oj.shumeng.tech/p/CSP202506B",
     "source": "sources/练习题与真题.pdf",
     "page": 1,
-    "title": null,
-    "certification_id": null,
-    "verification": "保留原资料链接，题名、认证编号及跨平台去重待核对"
+    "title": "机器人复健指南",
+    "certification_id": "CSP202506B",
+    "verification": "2026-10-11：题名、认证次数、原入口及平台对应已核对",
+    "session": 38,
+    "preferred_url": "https://oj.shumeng.tech/p/CSP202506B",
+    "program": "48_knight.cpp"
   },
   {
     "type": "专题题单",

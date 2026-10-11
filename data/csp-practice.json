@@ -1,0 +1,550 @@
+{
+  "verified": "2026-10-11",
+  "primary_oj": "https://oj.shumeng.tech/p",
+  "selection_note": "真题速看五加五及剩余三加十，完整覆盖原资料23个真题入口；另列历年考点补充。",
+  "problems": [
+    {
+      "pid": "CSP201503A",
+      "title": "图像旋转",
+      "session": 4,
+      "date": "2015-03",
+      "url": "https://oj.shumeng.tech/p/CSP201503A",
+      "program": "35_rotate.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "2 3\n1 5 3\n3 2 4\n",
+          "output": "3 4\n5 2\n1 3\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP201512A",
+      "title": "数位之和",
+      "session": 6,
+      "date": "2015-12",
+      "url": "https://oj.shumeng.tech/p/CSP201512A",
+      "program": "36_digits.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "20151220\n",
+          "output": "13\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP201604A",
+      "title": "折点计数",
+      "session": 7,
+      "date": "2016-04",
+      "url": "https://oj.shumeng.tech/p/CSP201604A",
+      "program": "37_turns.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "7\n5 4 1 2 3 6 4\n",
+          "output": "2\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202006A",
+      "title": "线性分类器",
+      "session": 19,
+      "date": "2020-06",
+      "url": "https://oj.shumeng.tech/p/CSP202006A",
+      "program": "38_classifier.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "9 3\n1 1 A\n1 0 A\n1 -1 A\n2 2 B\n2 3 B\n0 1 A\n3 1 B\n1 3 B\n2 0 A\n0 2 -3\n-3 0 2\n-3 1 1\n",
+          "output": "No\nNo\nYes\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3290/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202312A",
+      "title": "仓库规划",
+      "session": 32,
+      "date": "2023-12",
+      "url": "https://oj.shumeng.tech/p/CSP202312A",
+      "program": "39_warehouses.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4 2\n0 0\n-1 -1\n1 2\n0 -1\n",
+          "output": "3\n1\n0\n3\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP201809B",
+      "title": "买菜",
+      "session": 14,
+      "date": "2018-09",
+      "url": "https://oj.shumeng.tech/p/CSP201809B",
+      "program": "40_intervals.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4\n1 3\n5 6\n9 13\n14 15\n2 4\n5 7\n10 11\n13 14\n",
+          "output": "3\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3266/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202006B",
+      "title": "稀疏向量",
+      "session": 19,
+      "date": "2020-06",
+      "url": "https://oj.shumeng.tech/p/CSP202006B",
+      "program": "41_sparse.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "10 3 4\n4 5\n7 -3\n10 1\n1 10\n4 20\n5 30\n7 40\n",
+          "output": "-20\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202104B",
+      "title": "邻域均值",
+      "session": 22,
+      "date": "2021-04",
+      "url": "https://oj.shumeng.tech/p/CSP202104B",
+      "program": "42_neighborhood.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4 16 1 6\n0 1 2 3\n4 5 6 7\n8 9 10 11\n12 13 14 15\n",
+          "output": "7\n"
+        },
+        {
+          "input": "11 8 2 2\n0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0\n0 7 0 0 0 7 0 0 7 7 0\n7 0 7 0 7 0 7 0 7 0 7\n7 0 0 0 7 0 0 0 7 0 7\n7 0 0 0 0 7 0 0 7 7 0\n7 0 0 0 0 0 7 0 7 0 0\n7 0 7 0 7 0 7 0 7 0 0\n0 7 0 0 0 7 0 0 7 0 0\n0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0\n",
+          "output": "83\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3415/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202312B",
+      "title": "因子化简",
+      "session": 32,
+      "date": "2023-12",
+      "url": "https://oj.shumeng.tech/p/CSP202312B",
+      "program": "43_factor.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "3\n2155895064 3\n2 2\n10000000000 10\n",
+          "output": "2238728\n1\n10000000000\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202503B",
+      "title": "机器人饲养指南",
+      "session": 37,
+      "date": "2025-03",
+      "url": "https://oj.shumeng.tech/p/CSP202503B",
+      "program": "44_feeding.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "10 5\n1 3 5 3 1\n",
+          "output": "16\n"
+        },
+        {
+          "input": "4 3\n1 60 100\n",
+          "output": "120\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202412B",
+      "title": "梦境巡查",
+      "session": 36,
+      "date": "2024-12",
+      "url": "https://oj.shumeng.tech/p/CSP202412B",
+      "program": "45_dream.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "3\n5 5 5 5\n0 100 0\n",
+          "output": "10 20 10\n"
+        },
+        {
+          "input": "3\n9 4 6 2\n9 4 6\n",
+          "output": "15 10 9\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202605B",
+      "title": "机器人宿管指南",
+      "session": 42,
+      "date": "2026-05",
+      "url": "https://oj.shumeng.tech/p/CSP202605B",
+      "program": "46_dorm.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "1000 1 5\n",
+          "output": "194\n"
+        },
+        {
+          "input": "19 5 3\n",
+          "output": "5\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202409B",
+      "title": "字符串变换",
+      "session": 35,
+      "date": "2024-09",
+      "url": "https://oj.shumeng.tech/p/CSP202409B",
+      "program": "47_transform.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "#Hello World#\n6\n#HH#\n#e #\n# r#\n#re#\n#oa#\n#ao#\n3\n1 2 3\n",
+          "output": "#H llarWaeld#\n#HrlloeWo ld#\n#Hella Warld#\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP201709A",
+      "title": "打酱油",
+      "session": 11,
+      "date": "2017-09",
+      "url": "https://www.acwing.com/problem/content/3250/",
+      "program": "49_soy.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "40\n",
+          "output": "5\n"
+        },
+        {
+          "input": "80\n",
+          "output": "11\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3250/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP201803A",
+      "title": "跳一跳",
+      "session": 13,
+      "date": "2018-03",
+      "url": "https://www.acwing.com/problem/content/3260/",
+      "program": "50_jump.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "1 1 2 2 2 1 1 2 2 0\n",
+          "output": "22\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3260/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202009A",
+      "title": "检测点查询",
+      "session": 20,
+      "date": "2020-09",
+      "url": "https://www.acwing.com/problem/content/3295/",
+      "program": "51_nearest.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "3 2 2\n2 2\n2 3\n2 4\n",
+          "output": "1\n2\n3\n"
+        },
+        {
+          "input": "5 0 1\n-1 0\n0 0\n1 0\n0 2\n-1 2\n",
+          "output": "2\n4\n1\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3295/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202303A",
+      "title": "田地丈量",
+      "session": 29,
+      "date": "2023-03",
+      "url": "https://oj.shumeng.tech/p/CSP202303A",
+      "program": "52_land.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4 10 10\n0 0 5 5\n5 -2 15 3\n8 8 15 15\n-2 10 3 15\n",
+          "output": "44\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/5019/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP201903A",
+      "title": "小中大",
+      "session": 16,
+      "date": "2019-03",
+      "url": "https://www.acwing.com/problem/content/3275/",
+      "program": "53_small_middle_large.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "3\n-1 2 4\n",
+          "output": "4 2 -1\n"
+        },
+        {
+          "input": "4\n-2 -1 3 4\n",
+          "output": "4 1 -2\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3275/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202109A",
+      "title": "数组推导",
+      "session": 23,
+      "date": "2021-09",
+      "url": "https://www.acwing.com/problem/content/4009/",
+      "program": "54_derive.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "6\n0 0 5 5 10 10\n",
+          "output": "30\n15\n"
+        },
+        {
+          "input": "7\n10 20 30 40 50 60 75\n",
+          "output": "285\n285\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/4009/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202209A",
+      "title": "如此编码",
+      "session": 27,
+      "date": "2022-09",
+      "url": "https://www.acwing.com/problem/content/4702/",
+      "program": "55_encoding.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4 0\n2 3 2 5\n",
+          "output": "0 0 0 0\n"
+        },
+        {
+          "input": "7 23333\n3 5 20 10 4 3 10\n",
+          "output": "2 2 15 7 3 1 0\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/4702/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202303B",
+      "title": "垦田计划",
+      "session": 29,
+      "date": "2023-03",
+      "url": "https://oj.shumeng.tech/p/CSP202303B",
+      "program": "56_farming.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4 9 2\n6 1\n5 1\n6 2\n7 1\n",
+          "output": "5\n"
+        },
+        {
+          "input": "4 30 2\n6 1\n5 1\n6 2\n7 1\n",
+          "output": "2\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/5020/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202403B",
+      "title": "相似度计算",
+      "session": 33,
+      "date": "2024-03",
+      "url": "https://oj.shumeng.tech/p/CSP202403B",
+      "program": "57_similarity.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "3 2\nThe tHe thE\nthe THE\n",
+          "output": "1\n1\n"
+        },
+        {
+          "input": "9 7\nPar les soirs bleus dete jirai dans les sentiers\nPICOTE PAR LES BLES FOULER LHERBE MENUE\n",
+          "output": "2\n13\n"
+        },
+        {
+          "input": "15 15\nThou that art now the worlds fresh ornament And only herald to the gaudy spring\nShall I compare thee to a summers day Thou art more lovely and more temperate\n",
+          "output": "4\n24\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/5723/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202506B",
+      "title": "机器人复健指南",
+      "session": 38,
+      "date": "2025-06",
+      "url": "https://oj.shumeng.tech/p/CSP202506B",
+      "program": "48_knight.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4 1\n1 1\n",
+          "output": "3\n"
+        },
+        {
+          "input": "4 2\n1 1\n",
+          "output": "8\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP201912B",
+      "title": "回收站选址",
+      "session": 18,
+      "date": "2019-12",
+      "url": "https://oj.shumeng.tech/p/CSP201912B",
+      "program": "58_recycle.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "7\n1 2\n2 1\n0 0\n1 1\n1 0\n2 0\n0 1\n",
+          "output": "0\n0\n1\n0\n0\n"
+        },
+        {
+          "input": "2\n0 0\n-100000 10\n",
+          "output": "0\n0\n0\n0\n0\n"
+        },
+        {
+          "input": "11\n9 10\n10 10\n11 10\n12 10\n13 10\n11 9\n11 8\n12 9\n10 9\n10 11\n12 11\n",
+          "output": "0\n2\n1\n0\n0\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3286/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202009B",
+      "title": "风险人群筛查",
+      "session": 20,
+      "date": "2020-09",
+      "url": "https://www.acwing.com/problem/content/3296/",
+      "program": "59_risk.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "1 3 8 0 0 10 10\n-1 -1 0 0 0 0 -1 -1 0 0 -1 -1 0 0 0 0\n",
+          "output": "1\n0\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/3296/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202109B",
+      "title": "非零段划分",
+      "session": 23,
+      "date": "2021-09",
+      "url": "https://www.acwing.com/problem/content/4010/",
+      "program": "60_nonzero.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "11\n3 1 2 0 0 2 0 4 5 0 2\n",
+          "output": "5\n"
+        },
+        {
+          "input": "14\n5 1 20 10 10 10 10 15 10 20 1 5 10 15\n",
+          "output": "4\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/4010/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202203B",
+      "title": "出行计划",
+      "session": 25,
+      "date": "2022-03",
+      "url": "https://www.acwing.com/problem/content/4458/",
+      "program": "61_travel.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "6 2 10\n5 24\n10 24\n11 24\n34 24\n35 24\n35 48\n1\n2\n",
+          "output": "3\n3\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/4458/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202206B",
+      "title": "寻宝！大冒险！",
+      "session": 26,
+      "date": "2022-06",
+      "url": "https://oj.shumeng.tech/p/CSP202206B",
+      "program": "62_treasure.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "5 100 2\n0 0\n1 1\n2 2\n3 3\n4 4\n0 0 1\n0 1 0\n1 0 0\n",
+          "output": "3\n"
+        },
+        {
+          "input": "5 4 2\n0 0\n1 1\n2 2\n3 3\n4 4\n0 0 0\n0 1 0\n1 0 0\n",
+          "output": "0\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/4513/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP202209B",
+      "title": "何以包邮？",
+      "session": 27,
+      "date": "2022-09",
+      "url": "https://www.acwing.com/problem/content/4703/",
+      "program": "63_shipping.cpp",
+      "verified": "2026-10-11",
+      "samples": [
+        {
+          "input": "4 100\n20\n90\n60\n60\n",
+          "output": "110\n"
+        },
+        {
+          "input": "3 30\n15\n40\n30\n",
+          "output": "30\n"
+        }
+      ],
+      "original_url": "https://www.acwing.com/problem/content/4703/",
+      "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    }
+  ]
+}
