@@ -58,7 +58,7 @@ for (long long p = 2; p <= x / p; p++) {
 }
 if (x > 1) printf("%lld 1\n", x);
 \end{lstlisting}
-每次到达p时，更小的质因子已全部除尽，所以能整除的p一定是质数。结束后若$x>1$，它只能是一个剩余质因子。用$p\le x/p$避免$p^2$溢出。最坏时间$O(\sqrt{x_{\mathrm{初始}}})$，额外空间$O(1)$。
+每次到达p时，更小的质因子已全部除尽，所以能整除的p一定是质数。结束后若$x>1$，它只能是一个剩余质因子。用$p\le x/p$避免$p^2$溢出。最坏时间$O(\sqrt{x_{\text{初始}}})$，额外空间$O(1)$。
 \subsubsection{矩阵乘法与结合顺序}
 A为$n\times k$，B为$k\times m$时，$C=AB$是$n\times m$矩阵，
 \[

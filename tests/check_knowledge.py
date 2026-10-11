@@ -145,37 +145,6 @@ add('knapsack_count','int v[6];long long ways[25];'+count_reference,
     'for(int t=0;t<120;t++){int n=1+gen()%4,V=gen()%18,MOD=7;for(int i=1;i<=n;i++)v[i]=i;',
     'assert(ways[V]==enumerate(1,n,V)%MOD);}return 120;')
 
-add('scan_number','',
-    'char s[]="12345,7";int p=0;',
-    'assert(value==12345&&p==5);return 1;')
-add('scan_state','',
-    'char s[]="a \\"b c\\" d";',
-    'assert(separators==2&&!in_quote);return 1;')
-add('synchronous','long long a[20],b[20],want[20];',
-    'for(int t=0;t<120;t++){int n=gen()%15;for(int i=0;i<n;i++)a[i]=(int)(gen()%21)-10;for(int i=0;i<n;i++){want[i]=0;for(int j=0;j<n;j++)if(std::abs(i-j)<=1)want[i]+=a[j];}',
-    'for(int i=0;i<n;i++)assert(a[i]==want[i]);}return 120;')
-add('parse_stack','int st[40];',
-    'for(int t=0;t<120;t++){int n=gen()%25;char s[40];for(int i=0;i<n;i++)s[i]=(gen()%2?\'(\':\')\');s[n]=0;int balance=0;bool want=true;for(int i=0;i<n;i++){balance+=(s[i]==\'(\'?1:-1);if(balance<0)want=false;}want=want&&balance==0;',
-    'assert((bool)valid==want);}return 120;')
-parser_generator = r'''
-std::pair<std::string,long long> expression(int depth){
-    if(!depth || gen()%3==0){long long x=gen()%100;return {std::to_string(x),x};}
-    std::pair<std::string,long long> a=expression(depth-1),b=expression(depth-1);
-    return {"("+a.first+"+"+b.first+")",a.second+b.second};
-}
-'''
-add('recursive_parser',parser_generator,None,
-    'for(int t=0;t<120;t++){std::pair<std::string,long long> e=expression(5);strcpy(s,e.first.c_str());p=0;assert(parse_expr()==e.second);assert(s[p]==0);}return 120;')
-# Build adjacency from the actual array-based snippet, then validate subtree counts by parent chains.
-tree_declarations='int n,parent[40],first[40],next[40];'
-tree_function=snippets['tree_size']
-add('tree_build',tree_declarations+tree_function,
-    'for(int t=0;t<120;t++){n=1+gen()%30;parent[0]=-1;for(int v=1;v<n;v++)parent[v]=gen()%v;',
-    'for(int u=0;u<n;u++){int want=0;for(int v=0;v<n;v++){int p=v;while(p!=-1&&p!=u)p=parent[p];if(p==u)want++;}assert(subtree_size(u)==want);}}return 120;')
-tested.append('tree_size')
-add('dependency','std::vector<int> dependency[12];int color[12],order[12],count;',None,
-    'for(int t=0;t<160;t++){int n=1+gen()%10;bool reach[12][12]={};memset(color,0,sizeof(color));count=0;for(int u=0;u<n;u++){dependency[u].clear();for(int v=0;v<n;v++)if(gen()%7==0){dependency[u].push_back(v);reach[u][v]=true;}}for(int k=0;k<n;k++)for(int i=0;i<n;i++)for(int j=0;j<n;j++)reach[i][j]=reach[i][j]||(reach[i][k]&&reach[k][j]);bool want=true;for(int i=0;i<n;i++)if(reach[i][i])want=false;bool actual=true;for(int u=0;u<n;u++)if(!solve(u)){actual=false;break;}assert(actual==want);if(actual){int pos[12];assert(count==n);for(int i=0;i<n;i++)pos[order[i]]=i;for(int u=0;u<n;u++)for(int v:dependency[u])assert(pos[v]<pos[u]);}}return 160;')
-
 add('median','int a[20];',
     'for(int t=0;t<120;t++){int n=1+gen()%15;for(int i=0;i<n;i++)a[i]=(int)(gen()%21)-10;',
     'long long want=100000;for(int p=-10;p<=10;p++){long long sum=0;for(int i=0;i<n;i++)sum+=std::abs(a[i]-p);want=std::min(want,sum);}assert(answer==want);}return 120;')
@@ -246,7 +215,7 @@ std::mt19937 gen(20261011);
 source=BUILD/'knowledge.cpp'
 assert set(tested)==set(snippets), (set(snippets)-set(tested),set(tested)-set(snippets))
 source.write_text(header+'\n'.join(units)+'\nint main(){int checks=0;\n'+
-    '\n'.join('checks+=test_'+tag+'::run();' for tag in tested if tag!='tree_size')+
+    '\n'.join('checks+=test_'+tag+'::run();' for tag in tested)+
     '\nprintf("CHECKS=%d\\n",checks);}\n',encoding='utf-8')
 exe=BUILD/('knowledge.exe' if sys.platform=='win32' else 'knowledge')
 result=subprocess.run(['g++','-std=c++17','-O2','-Wall','-Wextra','-pedantic',str(source),'-o',str(exe)],capture_output=True,text=True,encoding='utf-8',errors='replace')

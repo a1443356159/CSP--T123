@@ -206,9 +206,12 @@ n=16时依次处理16、8、4、2，执行4次。通常约为$\log_2 n$次，n�
 \Needspace{7\baselineskip}\section{例题速看}
 \subsection{打酱油}
 \textbf{真题 · 第11次CCF-CSP认证，2017-09，第1题。}\href{https://www.acwing.com/problem/content/3250/}{打酱油（在线做题）}。
-\textbf{题目与输入输出。}带N元买每瓶10元的酱油，可选择买3瓶赠1瓶或买5瓶赠2瓶，促销组之间不重复使用已赠送的瓶。求最多得到多少瓶。输入N，输出最大瓶数。N是10的整数倍且不超过300。
-\textbf{读题思路。}先把钱换成可付费的瓶数，赠品不消耗钱，也不能把同一份购买重复参加两种促销。付费瓶数至多30，枚举促销组完全够用。
-\textbf{做题思路与解答。}枚举买5赠2的组数f。剩余付费瓶数为r时，尽可能组成买3赠1的组，剩下的按单瓶购买，得到$7f+4\lfloor r/3\rfloor+r\bmod3$。每种方案都有一个f；固定f时多组成三瓶组只会增加赠品，所以逐项取最大值必然包含最优方案。也可证明优先五瓶组的贪心，但本题的小规模枚举不需要额外假设。
+
+\noindent\textbf{题目与输入输出。}带N元买每瓶10元的酱油，可选择买3瓶赠1瓶或买5瓶赠2瓶，促销组之间不重复使用已赠送的瓶。求最多得到多少瓶。输入N，输出最大瓶数。N是10的整数倍且不超过300。
+
+\noindent\textbf{读题思路。}先把钱换成可付费的瓶数，赠品不消耗钱，也不能把同一份购买重复参加两种促销。付费瓶数至多30，枚举促销组完全够用。
+
+\noindent\textbf{做题思路与解答。}枚举买5赠2的组数f。剩余付费瓶数为r时，尽可能组成买3赠1的组，剩下的按单瓶购买，得到$7f+4\lfloor r/3\rfloor+r\bmod3$。每种方案都有一个f；固定f时多组成三瓶组只会增加赠品，所以逐项取最大值必然包含最优方案。也可证明优先五瓶组的贪心，但本题的小规模枚举不需要额外假设。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -231,7 +234,8 @@ n=16时依次处理16、8、4、2，执行4次。通常约为$\log_2 n$次，n�
 11
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(N/50+1)$，额外空间$O(1)$。0元时答案0；余下4个付费瓶应组成三瓶组加单瓶。
+
+\noindent\textbf{复杂度与边界。}时间$O(N/50+1)$，额外空间$O(1)$。0元时答案0；余下4个付费瓶应组成三瓶组加单瓶。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{49\_soy.cpp}
 \begin{lstlisting}
@@ -252,9 +256,12 @@ int main() {
 
 \subsection{跳一跳}
 \textbf{真题 · 第13次CCF-CSP认证，2018-03，第1题。}\href{https://www.acwing.com/problem/content/3260/}{跳一跳（在线做题）}。
-\textbf{题目与输入输出。}输入若干个0、1、2，数量不超过30；0仅在末尾出现，表示游戏结束。1表示跳到方块非中心，得1分；2表示跳到中心，若是第一次跳或上次得1分，则得2分，否则比上次多2分。输出总得分。
-\textbf{读题思路。}输入没有n，由0终止；连续中心得分为2、4、6等，遇到1后必须重置。末尾0不计分。
-\textbf{做题思路与解答。}last表示上一跳实际得分，初值0。读到1令last=1；读到2且last不超过1时令last=2，否则加2。然后累加last。每次更新恰好实现规则，因此处理完前缀后总分始终正确。
+
+\noindent\textbf{题目与输入输出。}输入若干个0、1、2，数量不超过30；0仅在末尾出现，表示游戏结束。1表示跳到方块非中心，得1分；2表示跳到中心，若是第一次跳或上次得1分，则得2分，否则比上次多2分。输出总得分。
+
+\noindent\textbf{读题思路。}输入没有n，由0终止；连续中心得分为2、4、6等，遇到1后必须重置。末尾0不计分。
+
+\noindent\textbf{做题思路与解答。}last表示上一跳实际得分，初值0。读到1令last=1；读到2且last不超过1时令last=2，否则加2。然后累加last。每次更新恰好实现规则，因此处理完前缀后总分始终正确。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -266,7 +273,8 @@ int main() {
 22
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间与输入数量成正比，空间$O(1)$。输入首项为0时总分为0；不要把last当作上一次输入的1或2。
+
+\noindent\textbf{复杂度与边界。}时间与输入数量成正比，空间$O(1)$。输入首项为0时总分为0；不要把last当作上一次输入的1或2。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{50\_jump.cpp}
 \begin{lstlisting}
@@ -287,10 +295,14 @@ int main() {
 
 \subsection{线性分类器}
 \textbf{真题 · 第19次CCF-CSP认证，2020-06，第1题。}\csp{CSP202006A}{线性分类器}。
-\textbf{题目与输入输出。}给出n个点，每点含整数坐标x、y以及类别A或B，两类都存在。随后给m条直线$\theta_0+\theta_1x+\theta_2y=0$；保证没有给定点恰在直线上。若同类点全部位于同一侧、异类点位于另一侧，输出Yes，否则No，每条直线一行。输入首行n、m，随后n行点、m行三个系数。$1\le n\le1000$，$1\le m\le20$，坐标和系数绝对值不超过$10^4$。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
-\textbf{读题思路。}必须把一条线与所有点比较；不是检查两类各找一个代表就结束。Yes和No的大小写要精确。两侧由表达式符号区分，无需求斜率，因而竖直线也适用。
-\textbf{做题思路与解答。}用第一个点确定“正侧应该是哪一类”，再检查每个点的符号是否与类别相符。如果有反例，这条线不满足。代入式使用long long计算；原范围下int也能容纳，但显式提升类型便于保持安全的乘法习惯。正确性来自直线两侧的表达式符号相反，以及逐点检查完整覆盖了分类条件。
+
+\noindent\textbf{题目与输入输出。}给出n个点，每点含整数坐标x、y以及类别A或B，两类都存在。随后给m条直线$\theta_0+\theta_1x+\theta_2y=0$；保证没有给定点恰在直线上。若同类点全部位于同一侧、异类点位于另一侧，输出Yes，否则No，每条直线一行。输入首行n、m，随后n行点、m行三个系数。$1\le n\le1000$，$1\le m\le20$，坐标和系数绝对值不超过$10^4$。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+
+\noindent\textbf{读题思路。}必须把一条线与所有点比较；不是检查两类各找一个代表就结束。Yes和No的大小写要精确。两侧由表达式符号区分，无需求斜率，因而竖直线也适用。
+
+\noindent\textbf{做题思路与解答。}用第一个点确定“正侧应该是哪一类”，再检查每个点的符号是否与类别相符。如果有反例，这条线不满足。代入式使用long long计算；原范围下int也能容纳，但显式提升类型便于保持安全的乘法习惯。正确性来自直线两侧的表达式符号相反，以及逐点检查完整覆盖了分类条件。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -316,7 +328,8 @@ No
 Yes
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(nm)$，空间$O(n)$。结构体记录三项属性；读类别用格式串中的空格跳过之前的换行。
+
+\noindent\textbf{复杂度与边界。}时间$O(nm)$，空间$O(n)$。结构体记录三项属性；读类别用格式串中的空格跳过之前的换行。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{38\_classifier.cpp}
 \begin{lstlisting}
@@ -346,9 +359,12 @@ int main() {
 
 \subsection{检测点查询}
 \textbf{真题 · 第20次CCF-CSP认证，2020-09，第1题。}\href{https://www.acwing.com/problem/content/3295/}{检测点查询（在线做题）}。
-\textbf{题目与输入输出。}输入n、居民坐标X、Y，随后n行检测点坐标，编号按输入顺序从1开始。输出最近的三个点编号，每个一行；同距离时编号小者在前。$3\le n\le200$，坐标绝对值不超过1000。
-\textbf{读题思路。}要按距离、编号两层比较。无需真的开方，平方距离与距离具有相同顺序。只取三个点，三轮扫描就够用。
-\textbf{做题思路与解答。}计算各点平方距离。每轮从未选点中找最小距离者，按编号升序扫描且只在距离严格减小时替换，就自动保留同距离最小编号。输出并标记已选，重复三轮。归纳可知每轮得到剩余点中的第一名，三轮恰好得到所需前三名。
+
+\noindent\textbf{题目与输入输出。}输入n、居民坐标X、Y，随后n行检测点坐标，编号按输入顺序从1开始。输出最近的三个点编号，每个一行；同距离时编号小者在前。$3\le n\le200$，坐标绝对值不超过1000。
+
+\noindent\textbf{读题思路。}要按距离、编号两层比较。无需真的开方，平方距离与距离具有相同顺序。只取三个点，三轮扫描就够用。
+
+\noindent\textbf{做题思路与解答。}计算各点平方距离。每轮从未选点中找最小距离者，按编号升序扫描且只在距离严格减小时替换，就自动保留同距离最小编号。输出并标记已选，重复三轮。归纳可知每轮得到剩余点中的第一名，三轮恰好得到所需前三名。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -383,7 +399,8 @@ int main() {
 1
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(3n)=O(n)$，数组空间$O(n)$。平方距离最大为$8\times10^6$，此范围int可装下；代码用long long并先提升差值类型。
+
+\noindent\textbf{复杂度与边界。}时间$O(3n)=O(n)$，数组空间$O(n)$。平方距离最大为$8\times10^6$，此范围int可装下；代码用long long并先提升差值类型。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{51\_nearest.cpp}
 \begin{lstlisting}
@@ -410,9 +427,12 @@ int main() {
 
 \subsection{田地丈量}
 \textbf{真题 · 第29次CCF-CSP认证，2023-03，第1题。}\csp{CSP202303A}{田地丈量}。
-\textbf{题目与输入输出。}输入n、a、b，随后n行现有田地矩形的左下与右上坐标。现有田地互不重叠（交集面积为0），目标区域为$[0,a]\times[0,b]$。求目标区域内已有田地面积。$n\le100$，所有坐标绝对值不超过$10^4$，a、b为正。输出面积。
-\textbf{读题思路。}统计连续面积，边接触贡献0，不能加1。现有田地互不重叠，所以各块与目标的交面积可以直接相加；若取消这一保证，则不能简单累加。
-\textbf{做题思路与解答。}每块田地裁剪到目标：横向左端取$\max(x_1,0)$、右端取$\min(x_2,a)$，纵向同理。有正宽、正高才累加其乘积。两个一维交区间的笛卡尔积正好是矩形交集；原田地互不重叠，因此求和无重复覆盖。
+
+\noindent\textbf{题目与输入输出。}输入n、a、b，随后n行现有田地矩形的左下与右上坐标。现有田地互不重叠（交集面积为0），目标区域为$[0,a]\times[0,b]$。求目标区域内已有田地面积。$n\le100$，所有坐标绝对值不超过$10^4$，a、b为正。输出面积。
+
+\noindent\textbf{读题思路。}统计连续面积，边接触贡献0，不能加1。现有田地互不重叠，所以各块与目标的交面积可以直接相加；若取消这一保证，则不能简单累加。
+
+\noindent\textbf{做题思路与解答。}每块田地裁剪到目标：横向左端取$\max(x_1,0)$、右端取$\min(x_2,a)$，纵向同理。有正宽、正高才累加其乘积。两个一维交区间的笛卡尔积正好是矩形交集；原田地互不重叠，因此求和无重复覆盖。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -428,7 +448,8 @@ int main() {
 44
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$，可边读边算。面积与累加值用long long，乘法前提升类型。
+
+\noindent\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$，可边读边算。面积与累加值用long long，乘法前提升类型。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{52\_land.cpp}
 \begin{lstlisting}
@@ -450,9 +471,12 @@ int main() {
 
 \subsection{小中大}
 \textbf{真题 · 第16次CCF-CSP认证，2019-03，第1题。}\href{https://www.acwing.com/problem/content/3275/}{小中大（在线做题）}。
-\textbf{题目与输入输出。}输入$n\le10^5$以及n个已按升序或降序排列的整数，可重复，绝对值不超过$10^7$。输出最大值、中位数、最小值，空格分隔；整数不带小数，非整数保留1位小数。
-\textbf{读题思路。}已经有序，无需重排；升序和降序都能由首尾取得极值。奇数长度中位数是一项，偶数长度是中间两项均值。
-\textbf{做题思路与解答。}首尾取min、max，中间位置按奇偶取值。先计算中位数的两倍twice；偶数时直接输出twice/2，否则输出twice/2.0保留一位。这使负半整数也正确，避免整数除法丢掉0.5。
+
+\noindent\textbf{题目与输入输出。}输入$n\le10^5$以及n个已按升序或降序排列的整数，可重复，绝对值不超过$10^7$。输出最大值、中位数、最小值，空格分隔；整数不带小数，非整数保留1位小数。
+
+\noindent\textbf{读题思路。}已经有序，无需重排；升序和降序都能由首尾取得极值。奇数长度中位数是一项，偶数长度是中间两项均值。
+
+\noindent\textbf{做题思路与解答。}首尾取min、max，中间位置按奇偶取值。先计算中位数的两倍twice；偶数时直接输出twice/2，否则输出twice/2.0保留一位。这使负半整数也正确，避免整数除法丢掉0.5。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -477,7 +501,8 @@ int main() {
 4 1 -2
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}读入时间$O(n)$、数组空间$O(n)$。可以只保留首尾及中间项把额外空间降为$O(1)$。n=1时三个输出值相同。
+
+\noindent\textbf{复杂度与边界。}读入时间$O(n)$、数组空间$O(n)$。可以只保留首尾及中间项把额外空间降为$O(1)$。n=1时三个输出值相同。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{53\_small\_middle\_large.cpp}
 \begin{lstlisting}
@@ -500,9 +525,12 @@ int main() {
 
 \subsection{数组推导}
 \textbf{真题 · 第23次CCF-CSP认证，2021-09，第1题。}\href{https://www.acwing.com/problem/content/4009/}{数组推导（在线做题）}。
-\textbf{题目与输入输出。}非负整数数组A的前缀最大值为$B_i=\max(A_1,\ldots,A_i)$。已知单调不降的B，求A的元素和最大值及最小值，各输出一行，最大值在前。输入n、n项B；$1\le n\le100$，$0\le B_i\le10^5$。
-\textbf{读题思路。}B是前缀最大值，不是前缀和。B上升时当前A被迫等于新值；B不变时A可小到0。
-\textbf{做题思路与解答。}最大和为$\sum B_i$，因为各项都可选为B对应值，且不能超过该值。最小和只保留第一项及严格上升处的B值，其他A取0。上升时此前元素不可能提供新最大值，必须由当前A提供；这些强制项已足以实现全部B，所以该和最小。
+
+\noindent\textbf{题目与输入输出。}非负整数数组A的前缀最大值为$B_i=\max(A_1,\ldots,A_i)$。已知单调不降的B，求A的元素和最大值及最小值，各输出一行，最大值在前。输入n、n项B；$1\le n\le100$，$0\le B_i\le10^5$。
+
+\noindent\textbf{读题思路。}B是前缀最大值，不是前缀和。B上升时当前A被迫等于新值；B不变时A可小到0。
+
+\noindent\textbf{做题思路与解答。}最大和为$\sum B_i$，因为各项都可选为B对应值，且不能超过该值。最小和只保留第一项及严格上升处的B值，其他A取0。上升时此前元素不可能提供新最大值，必须由当前A提供；这些强制项已足以实现全部B，所以该和最小。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -529,7 +557,8 @@ int main() {
 285
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$。B首项可为0，全0时两个答案都是0。
+
+\noindent\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$。B首项可为0，全0时两个答案都是0。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{54\_derive.cpp}
 \begin{lstlisting}
@@ -551,9 +580,12 @@ int main() {
 
 \subsection{如此编码}
 \textbf{真题 · 第27次CCF-CSP认证，2022-09，第1题。}\href{https://www.acwing.com/problem/content/4702/}{如此编码（在线做题）}。
-\textbf{题目与输入输出。}每题有$a_i\ge2$个选项，正确选项$0\le b_i<a_i$。设$c_0=1,c_i=\prod_{j=1}^i a_j$，编码$m=\sum_{i=1}^n c_{i-1}b_i$。输入n、m及n项a，恢复并输出n项b，空格分隔。$n\le20,c_n\le10^9,0\le m<c_n$。
-\textbf{读题思路。}这是不同位使用不同进制的编码。题面给出长公式，但可以从最低位逐次取余，避免反复计算前缀积。
-\textbf{做题思路与解答。}对$a_1$取余，后面所有项都是$a_1$的倍数，所以$b_1=m\bmod a_1$。再令$m=\lfloor m/a_1\rfloor$，得到余下位的同类编码。依次取余和整除即可恢复全部b。每步都唯一确定一位，最终得到原编码的唯一表示。
+
+\noindent\textbf{题目与输入输出。}每题有$a_i\ge2$个选项，正确选项$0\le b_i<a_i$。设$c_0=1,c_i=\prod_{j=1}^i a_j$，编码$m=\sum_{i=1}^n c_{i-1}b_i$。输入n、m及n项a，恢复并输出n项b，空格分隔。$n\le20,c_n\le10^9,0\le m<c_n$。
+
+\noindent\textbf{读题思路。}这是不同位使用不同进制的编码。题面给出长公式，但可以从最低位逐次取余，避免反复计算前缀积。
+
+\noindent\textbf{做题思路与解答。}对$a_1$取余，后面所有项都是$a_1$的倍数，所以$b_1=m\bmod a_1$。再令$m=\lfloor m/a_1\rfloor$，得到余下位的同类编码。依次取余和整除即可恢复全部b。每步都唯一确定一位，最终得到原编码的唯一表示。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -578,7 +610,8 @@ int main() {
 2 2 15 7 3 1 0
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$，可边读a边输出。m为0时每位都为0；余数不是输出的逆序。
+
+\noindent\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$，可边读a边输出。m为0时每位都为0；余数不是输出的逆序。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{55\_encoding.cpp}
 \begin{lstlisting}
@@ -596,8 +629,10 @@ int main() {
 \end{minipage}\par
 
 \subsection{相反数与相邻数对：不重不漏}
-\textbf{做题：}\csp{CSP201403A}{相反数（真题，第1次，2014-03，第1题）}、\csp{CSP201409A}{相邻数对（真题，第2次，2014-09，第1题）}。
-\textbf{解答。}这两题数据小，读入数组后枚举$i<j$即可。相反数检查$a_i+a_j=0$；相邻数对检查差为1或-1。每个无序对只枚举一次。题面保证输入值互不相同；若改成可重复，按值存在性计数便不等于按位置数对计数。
+
+\noindent\textbf{做题：}\csp{CSP201403A}{相反数（真题，第1次，2014-03，第1题）}、\csp{CSP201409A}{相邻数对（真题，第2次，2014-09，第1题）}。
+
+\noindent\textbf{解答。}这两题数据小，读入数组后枚举$i<j$即可。相反数检查$a_i+a_j=0$；相邻数对检查差为1或-1。每个无序对只枚举一次。题面保证输入值互不相同；若改成可重复，按值存在性计数便不等于按位置数对计数。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 int answer = 0;
@@ -612,8 +647,11 @@ for (int i = 0; i < n; i++) {
 \end{minipage}\par
 时间$O(n^2)$，数组空间$O(n)$。值域小且不重复时也可用存在性桶：相反数只检查正数x与-x，相邻数对只检查x与x+1，这同样只计一次。
 \subsection{门禁系统与灰度直方图：同一种桶的两种输出}
-\textbf{做题：}\csp{CSP201412A}{门禁系统（真题，第3次，2014-12，第1题）}、\csp{CSP202104A}{灰度直方图（真题，第22次，2021-04，第1题）}。
-门禁题输入n及n次记录，每条是编号，输出每条编号在当前前缀中的出现次数；原题$1\le n\le1000$，编号在1到n之间。直方图题输入n、m、L和$n\times m$个灰度值，灰度在0到$L-1$之间，输出L个计数。\textbf{解答。}数组cnt全0，每读入一个x就\texttt{cnt[x]++}。门禁在更新后立即输出，直方图在全部更新后按0到L-1输出。
+
+\noindent\textbf{做题：}\csp{CSP201412A}{门禁系统（真题，第3次，2014-12，第1题）}、\csp{CSP202104A}{灰度直方图（真题，第22次，2021-04，第1题）}。
+门禁题输入n及n次记录，每条是编号，输出每条编号在当前前缀中的出现次数；原题$1\le n\le1000$，编号在1到n之间。直方图题输入n、m、L和$n\times m$个灰度值，灰度在0到$L-1$之间，输出L个计数。
+
+\noindent\textbf{解答。}数组cnt全0，每读入一个x就\texttt{cnt[x]++}。门禁在更新后立即输出，直方图在全部更新后按0到L-1输出。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 int cnt[1005] = {0};
@@ -627,8 +665,11 @@ for (int i = 0; i < n; i++) {
 \end{minipage}\par
 每条记录只访问一次，时间线性；存储取决于值域，不是记录数量。多个测试实例时必须重新清零。
 \subsection{数列分段与分蛋糕：何时增加答案}
-\textbf{做题：}\csp{CSP201509A}{数列分段（真题，第5次，2015-09，第1题）}、\csp{CSP201703A}{分蛋糕（真题，第10次，2017-03，第1题）}。
-数列分段把相邻相等项放在同一段，输入n及数组，输出段数；n至少为1。\textbf{解答。}先有一段，每个$a_i\ne a_{i-1}$的位置开启新段，答案为1加变化次数。
+
+\noindent\textbf{做题：}\csp{CSP201509A}{数列分段（真题，第5次，2015-09，第1题）}、\csp{CSP201703A}{分蛋糕（真题，第10次，2017-03，第1题）}。
+数列分段把相邻相等项放在同一段，输入n及数组，输出段数；n至少为1。
+
+\noindent\textbf{解答。}先有一段，每个$a_i\ne a_{i-1}$的位置开启新段，答案为1加变化次数。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 int segments = 1;
@@ -648,8 +689,10 @@ if (sum > 0) people++;
 \end{minipage}\par
 达到阈值就分出，符合题目指定流程；若从最大化可分人数理解，正重量条件下延后分出只会消耗更多块，不能增加后续可分段数。两题时间$O(n)$；读入可流式处理，额外空间$O(1)$。
 \subsection{卖菜：首尾与同步更新}
-\textbf{做题：}\csp{CSP201809A}{卖菜（真题，第14次，2018-09，第1题）}。输入至少2个原价格；内部新价格是左、中、右原价格之和除以3向下取整，两端是两个相邻原价格之和除以2。输出新价格序列。
-\textbf{解答与关键代码。}全部原值先读入a，再按规则输出，或者写入新数组b；不要修改a后再算后面的均值。价格非负，整数除法正好完成向下取整。
+
+\noindent\textbf{做题：}\csp{CSP201809A}{卖菜（真题，第14次，2018-09，第1题）}。输入至少2个原价格；内部新价格是左、中、右原价格之和除以3向下取整，两端是两个相邻原价格之和除以2。输出新价格序列。
+
+\noindent\textbf{解答与关键代码。}全部原值先读入a，再按规则输出，或者写入新数组b；不要修改a后再算后面的均值。价格非负，整数除法正好完成向下取整。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 printf("%d", (a[0]+a[1])/2);
@@ -659,8 +702,10 @@ printf(" %d\n", (a[n-2]+a[n-1])/2);
 \end{minipage}\par
 时间$O(n)$，空间$O(n)$。n=2时内部循环不执行，两个答案都是两项均值。
 \subsection{报数：数字与轮次分开}
-\textbf{做题：}\csp{CSP201912A}{报数（真题，第18次，2019-12，第1题）}。四人依次轮流报自然数，从1开始；7的倍数或十进制含7时跳过并记录当前人的跳过次数。直到成功报出n个数，输出四人的跳过次数（每人一行）。
-\textbf{解答。}变量x记录当前自然数，done只统计成功次数；每处理一个x，轮次都会推进，包括被跳过的数。当前人是$(x-1)\bmod4$。
+
+\noindent\textbf{做题：}\csp{CSP201912A}{报数（真题，第18次，2019-12，第1题）}。四人依次轮流报自然数，从1开始；7的倍数或十进制含7时跳过并记录当前人的跳过次数。直到成功报出n个数，输出四人的跳过次数（每人一行）。
+
+\noindent\textbf{解答。}变量x记录当前自然数，done只统计成功次数；每处理一个x，轮次都会推进，包括被跳过的数。当前人是$(x-1)\bmod4$。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 bool skip(int x) {
@@ -675,8 +720,10 @@ bool skip(int x) {
 \end{minipage}\par
 不要在跳过时停留在同一个人，也不要把x直接限制为n。若实际处理T个数，时间$O(T\log T)$，空间$O(1)$。
 \subsection{归一化处理：均值、方差与浮点除法}
-\textbf{做题：}\csp{CSP202206A}{归一化处理（真题，第26次，2022-06，第1题）}。给定n个整数，计算均值$\mu=\frac1n\sum a_i$、总体方差$D=\frac1n\sum(a_i-\mu)^2$，再逐行输出$(a_i-\mu)/\sqrt D$；原题保证方差非零。
-\textbf{解答与关键代码。}使用double累加，先求均值，再求平方偏差和。不要误用样本方差的分母n-1，也不要把平方根漏掉。
+
+\noindent\textbf{做题：}\csp{CSP202206A}{归一化处理（真题，第26次，2022-06，第1题）}。给定n个整数，计算均值$\mu=\frac1n\sum a_i$、总体方差$D=\frac1n\sum(a_i-\mu)^2$，再逐行输出$(a_i-\mu)/\sqrt D$；原题保证方差非零。
+
+\noindent\textbf{解答与关键代码。}使用double累加，先求均值，再求平方偏差和。不要误用样本方差的分母n-1，也不要把平方根漏掉。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 double sum = 0, variance = 0;
@@ -691,8 +738,10 @@ for (int i = 0; i < n; i++) printf("%.10f\n", (a[i]-mean)/sqrt(variance));
 \end{minipage}\par
 需包含\texttt{<cmath>}并调用相应sqrt。时间$O(n)$，数组空间$O(n)$。自编变式若允许全部相等，必须规定D=0时的输出，不能直接除以0。
 \subsection{重复局面：不用STL也能比较字符串}
-\textbf{做题：}\csp{CSP202305A}{重复局面（真题，第30次，2023-05，第1题）}。输入n个$8\times8$字符棋盘，按输入顺序输出当前棋盘在截至此刻的全部棋盘中出现了几次。原题$n\le100$。
-\textbf{解答。}每个棋盘压成一个长度64的字符数组，末尾加0；枚举此前及当前所有棋盘，用strcmp判断完全相同。n很小，$O(64n^2)$足够，
+
+\noindent\textbf{做题：}\csp{CSP202305A}{重复局面（真题，第30次，2023-05，第1题）}。输入n个$8\times8$字符棋盘，按输入顺序输出当前棋盘在截至此刻的全部棋盘中出现了几次。原题$n\le100$。
+
+\noindent\textbf{解答。}每个棋盘压成一个长度64的字符数组，末尾加0；枚举此前及当前所有棋盘，用strcmp判断完全相同。n很小，$O(64n^2)$足够，
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 char board[105][65];
@@ -711,10 +760,14 @@ for (int i = 0; i < n; i++) {
 
 \subsection{图像旋转}
 \textbf{真题 · 第4次CCF-CSP认证，2015-03，第1题。}\csp{CSP201503A}{图像旋转}。
-\textbf{题目与输入输出。}输入一个$n\times m$矩阵，将它逆时针旋转$90^\circ$后输出。第一行n、m，随后n行每行m个整数；输出m行，每行n个整数。$1\le n,m\le1000$，元素在0到1000之间。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
-\textbf{读题思路。}圈出“逆时针”和“输出m行n列”。矩阵不一定是正方形，不能把行列长度混用。百万个int约3.8MiB，可以存整个原矩阵。
-\textbf{做题思路与解答。}原矩阵第j列从上到下，会成为新矩阵第$m-1-j$行（0下标）。因此按列从右到左、每列从上到下输出即可；无需再开一张新矩阵。映射式为$b[m-1-j][i]=a[i][j]$。每个输入元素恰好输出一次，所以既没有漏项，也没有重复。
+
+\noindent\textbf{题目与输入输出。}输入一个$n\times m$矩阵，将它逆时针旋转$90^\circ$后输出。第一行n、m，随后n行每行m个整数；输出m行，每行n个整数。$1\le n,m\le1000$，元素在0到1000之间。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
+
+\noindent\textbf{读题思路。}圈出“逆时针”和“输出m行n列”。矩阵不一定是正方形，不能把行列长度混用。百万个int约3.8MiB，可以存整个原矩阵。
+
+\noindent\textbf{做题思路与解答。}原矩阵第j列从上到下，会成为新矩阵第$m-1-j$行（0下标）。因此按列从右到左、每列从上到下输出即可；无需再开一张新矩阵。映射式为$b[m-1-j][i]=a[i][j]$。每个输入元素恰好输出一次，所以既没有漏项，也没有重复。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -730,7 +783,8 @@ for (int i = 0; i < n; i++) {
 1 3
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(nm)$，空间$O(nm)$。用$1\times3$和$3\times1$检查方向；每行最后一个值后输出换行。
+
+\noindent\textbf{复杂度与边界。}时间$O(nm)$，空间$O(nm)$。用$1\times3$和$3\times1$检查方向；每行最后一个值后输出换行。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{35\_rotate.cpp}
 \begin{lstlisting}
@@ -751,10 +805,14 @@ int main() {
 
 \subsection{数位之和}
 \textbf{真题 · 第6次CCF-CSP认证，2015-12，第1题。}\csp{CSP201512A}{数位之和}。
-\textbf{题目与输入输出。}输入一个整数$n$，输出其十进制各位数字之和。$0\le n\le10^9$。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
-\textbf{读题思路。}任务是求数字之和，不是数位数量，也不是把各位拼成新数。输入允许0；不必为了拆位把整数转换为字符串。
-\textbf{做题思路与解答。}每轮用$n\bmod10$取个位，再用整数除法$n/10$删除个位；不断累加。每位恰好取一次，得到所求总和。do-while会对0执行一次，结果仍为0；普通while配合总和初值0也正确。
+
+\noindent\textbf{题目与输入输出。}输入一个整数$n$，输出其十进制各位数字之和。$0\le n\le10^9$。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
+
+\noindent\textbf{读题思路。}任务是求数字之和，不是数位数量，也不是把各位拼成新数。输入允许0；不必为了拆位把整数转换为字符串。
+
+\noindent\textbf{做题思路与解答。}每轮用$n\bmod10$取个位，再用整数除法$n/10$删除个位；不断累加。每位恰好取一次，得到所求总和。do-while会对0执行一次，结果仍为0；普通while配合总和初值0也正确。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -766,7 +824,8 @@ int main() {
 13
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}若十进制位数为d，时间$O(d)$，空间$O(1)$。$10^9$只有10位，和最多81（$10^9$本身为1）；int足够。
+
+\noindent\textbf{复杂度与边界。}若十进制位数为d，时间$O(d)$，空间$O(1)$。$10^9$只有10位，和最多81（$10^9$本身为1）；int足够。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{36\_digits.cpp}
 \begin{lstlisting}
@@ -782,10 +841,14 @@ int main() {
 
 \subsection{折点计数}
 \textbf{真题 · 第7次CCF-CSP认证，2016-04，第1题。}\csp{CSP201604A}{折点计数}。
-\textbf{题目与输入输出。}有n天销售量$a_1,\ldots,a_n$，相邻两天的销售量不同。一个内部位置的值严格大于左右两项，或严格小于左右两项，称为折点。输入n及n项销售量，输出折点数。$1\le n\le1000$，销售量在0到10000之间。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
-\textbf{读题思路。}折点表示趋势从升变降或从降变升。第一天和最后一天没有两侧邻居，不能计入；不相邻的位置可以取相同值。
-\textbf{做题思路与解答。}从第二项到倒数第二项检查“同时大于左右”或“同时小于左右”。每个内部位置独立判断一次，恰好覆盖全部折点。也可检查相邻差的符号是否不同，但直接写大小关系更直观，且没有乘法溢出的隐患。
+
+\noindent\textbf{题目与输入输出。}有n天销售量$a_1,\ldots,a_n$，相邻两天的销售量不同。一个内部位置的值严格大于左右两项，或严格小于左右两项，称为折点。输入n及n项销售量，输出折点数。$1\le n\le1000$，销售量在0到10000之间。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
+
+\noindent\textbf{读题思路。}折点表示趋势从升变降或从降变升。第一天和最后一天没有两侧邻居，不能计入；不相邻的位置可以取相同值。
+
+\noindent\textbf{做题思路与解答。}从第二项到倒数第二项检查“同时大于左右”或“同时小于左右”。每个内部位置独立判断一次，恰好覆盖全部折点。也可检查相邻差的符号是否不同，但直接写大小关系更直观，且没有乘法溢出的隐患。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -798,7 +861,8 @@ int main() {
 2
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n)$，空间$O(n)$。n为1或2时循环不执行，答案为0。严格单调序列也没有折点。
+
+\noindent\textbf{复杂度与边界。}时间$O(n)$，空间$O(n)$。n为1或2时循环不执行，答案为0。严格单调序列也没有折点。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{37\_turns.cpp}
 \begin{lstlisting}
@@ -819,10 +883,14 @@ int main() {
 
 \subsection{仓库规划}
 \textbf{真题 · 第32次CCF-CSP认证，2023-12，第1题。}\csp{CSP202312A}{仓库规划}。
-\textbf{题目与输入输出。}n个仓库各有m维坐标。只有j的每一维都严格大于i，j才是i的上级；若有多个，取编号最小的j，否则为0。输入n、m，再输入n行坐标；按编号顺序输出各仓库上级，一行一个。$1\le n\le1000$，$1\le m\le10$，各坐标绝对值不超过$10^6$。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
-\textbf{读题思路。}关注“每一维”“严格大于”“编号最小”。输出不是最近仓库，也不是坐标最小仓库。$n^2m\le10^7$，直接枚举候选可行，不必急着排序或使用STL。
-\textbf{做题思路与解答。}对每个i，按编号递增枚举j；逐维检查，一旦出现$a[j][k]\le a[i][k]$便拒绝。第一个全部通过的j就是编号最小答案，可以退出候选循环。自身必然无法通过严格比较。遍历所有候选保证无遗漏，升序与首次接受保证最小编号。
+
+\noindent\textbf{题目与输入输出。}n个仓库各有m维坐标。只有j的每一维都严格大于i，j才是i的上级；若有多个，取编号最小的j，否则为0。输入n、m，再输入n行坐标；按编号顺序输出各仓库上级，一行一个。$1\le n\le1000$，$1\le m\le10$，各坐标绝对值不超过$10^6$。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+
+\noindent\textbf{读题思路。}关注“每一维”“严格大于”“编号最小”。输出不是最近仓库，也不是坐标最小仓库。$n^2m\le10^7$，直接枚举候选可行，不必急着排序或使用STL。
+
+\noindent\textbf{做题思路与解答。}对每个i，按编号递增枚举j；逐维检查，一旦出现$a[j][k]\le a[i][k]$便拒绝。第一个全部通过的j就是编号最小答案，可以退出候选循环。自身必然无法通过严格比较。遍历所有候选保证无遗漏，升序与首次接受保证最小编号。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -841,7 +909,8 @@ int main() {
 3
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n^2m)$，空间$O(nm)$。相等坐标不是上级；无上级时保留初值0。
+
+\noindent\textbf{复杂度与边界。}时间$O(n^2m)$，空间$O(nm)$。相等坐标不是上级；无上级时保留初值0。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{39\_warehouses.cpp}
 \begin{lstlisting}
@@ -869,9 +938,11 @@ int main() {
 
 \subsection{统计一组整数（教学例题）}
 
-\textbf{题目。}输入 $n$ 个整数，输出总和、最小值、最大值，以及出现次数最多的值及其次数。若多个值并列，输出最小的值。$1\le n\le2\times10^5$，$|a_i|\le10^9$。
+\noindent\textbf{题目。}输入 $n$ 个整数，输出总和、最小值、最大值，以及出现次数最多的值及其次数。若多个值并列，输出最小的值。$1\le n\le2\times10^5$，$|a_i|\le10^9$。
 
-\textbf{输入。}第一行 $n$，第二行 $n$ 个整数。\textbf{输出。}第一行依次输出总和、最小值、最大值；第二行输出众数及出现次数。
+\noindent\textbf{输入。}第一行 $n$，第二行 $n$ 个整数。
+
+\noindent\textbf{输出。}第一行依次输出总和、最小值、最大值；第二行输出众数及出现次数。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -885,7 +956,8 @@ int main() {
 -1 2
 \end{Sample}
 \end{tcolorbox}
-\textbf{解答。}总和与极值可边读边更新；最小值不能初始化为0，否则全正数时会出错。众数作为本例的进阶要求：先调用C标准库qsort排序，再扫描每个相等值段。按值升序扫描且只在次数严格增加时更新答案，就保留了并列时较小的值。qsort的比较函数返回负数、0或正数，表示小于、等于或大于；不要用可能溢出的相减判断。扫描为$O(n)$，空间为$O(n)$，总时间由排序主导。C标准未规定qsort的复杂度保证；需要明确的$O(n\log n)$比较次数保证时，可使用第二篇讲解的sort。初学时先掌握总和与极值，再学习众数部分。
+
+\noindent\textbf{解答。}总和与极值可边读边更新；最小值不能初始化为0，否则全正数时会出错。众数作为本例的进阶要求：先调用C标准库qsort排序，再扫描每个相等值段。按值升序扫描且只在次数严格增加时更新答案，就保留了并列时较小的值。qsort的比较函数返回负数、0或正数，表示小于、等于或大于；不要用可能溢出的相减判断。扫描为$O(n)$，空间为$O(n)$，总时间由排序主导。C标准未规定qsort的复杂度保证；需要明确的$O(n\log n)$比较次数保证时，可使用第二篇讲解的sort。初学时先掌握总和与极值，再学习众数部分。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{01\_stats.cpp}
 \begin{lstlisting}
@@ -925,9 +997,11 @@ int main() {
 \end{minipage}\par
 \subsection{网格的一轮同步更新（教学例题）}
 
-\textbf{题目。}给定一个 $n\times m$ 的0/1网格。一次更新后，每个格子的新值由其旧状态的上下左右四邻格决定：值为1的邻格至少有两个，则新值为1，否则为0。越界邻格不计入。只进行一轮更新，$1\le n,m\le500$。
+\noindent\textbf{题目。}给定一个 $n\times m$ 的0/1网格。一次更新后，每个格子的新值由其旧状态的上下左右四邻格决定：值为1的邻格至少有两个，则新值为1，否则为0。越界邻格不计入。只进行一轮更新，$1\le n,m\le500$。
 
-\textbf{输入。}第一行 $n,m$，随后每行 $m$ 个0或1。\textbf{输出。}更新后的网格。
+\noindent\textbf{输入。}第一行 $n,m$，随后每行 $m$ 个0或1。
+
+\noindent\textbf{输出。}更新后的网格。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -942,9 +1016,10 @@ int main() {
 1 0 1
 \end{Sample}
 \end{tcolorbox}
-\textbf{推演。}左上格的两个有效邻格都是0，所以变为0；上方中间格的三个邻格都是1，所以变为1。所有计数都使用原数组 a，把答案放进 b。若直接覆盖 a，后面的格子会读到已经变化的数据。
 
-\textbf{正确性。}程序对每格恰好检查四个方向，只有合法坐标参与计数，因此统计值与题意一致；写入 b 不改变 a，满足同步更新。时间和空间均为 $O(nm)$。
+\noindent\textbf{推演。}左上格的两个有效邻格都是0，所以变为0；上方中间格的三个邻格都是1，所以变为1。所有计数都使用原数组 a，把答案放进 b。若直接覆盖 a，后面的格子会读到已经变化的数据。
+
+\noindent\textbf{正确性。}程序对每格恰好检查四个方向，只有合法坐标参与计数，因此统计值与题意一致；写入 b 不改变 a，满足同步更新。时间和空间均为 $O(nm)$。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{02\_grid.cpp}
 \begin{lstlisting}
@@ -975,7 +1050,6 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
-
 
 % ===== first-practice.tex =====
 \Needspace{7\baselineskip}\section{练习题}
@@ -1233,7 +1307,7 @@ for (long long p = 2; p <= x / p; p++) {
 if (x > 1) printf("%lld 1\n", x);
 \end{lstlisting}
 \end{minipage}\par
-每次到达p时，更小的质因子已全部除尽，所以能整除的p一定是质数。结束后若$x>1$，它只能是一个剩余质因子。用$p\le x/p$避免$p^2$溢出。最坏时间$O(\sqrt{x_{\mathrm{初始}}})$，额外空间$O(1)$。
+每次到达p时，更小的质因子已全部除尽，所以能整除的p一定是质数。结束后若$x>1$，它只能是一个剩余质因子。用$p\le x/p$避免$p^2$溢出。最坏时间$O(\sqrt{x_{\text{初始}}})$，额外空间$O(1)$。
 \Needspace{12\baselineskip}\subsubsection{矩阵乘法与结合顺序}
 A为$n\times k$，B为$k\times m$时，$C=AB$是$n\times m$矩阵，
 \[
@@ -1807,10 +1881,14 @@ insert返回的second表示是否插入了新值。查询、插入、删除平�
 \Needspace{7\baselineskip}\section{例题速看}
 \subsection{买菜}
 \textbf{真题 · 第14次CCF-CSP认证，2018-09，第2题。}\csp{CSP201809B}{买菜}。
-\textbf{题目与输入输出。}两个人各有n段在广场装车的时间，两组区间分别按起点严格递增，且同组区间互不接触、不重叠。求两人同时在广场装车的总时长。输入n、第一人的n行起止时刻、第二人的n行起止时刻；输出总时长。$1\le n\le2000$，时刻在1到$10^6$之间。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
-\textbf{读题思路。}计算的是连续时间长度，端点接触不贡献时长，所以交集长度不加1。原题每组都已排序；读入后无需重复排序。
-\textbf{做题思路与解答。}用i、j指向尚未处理的两段。交集为$[\max(l_i,l_j),\min(r_i,r_j)]$，右端大于左端时累加其差。结束更早的一段不可能与另一组后面的区间重叠，因此移动它；若同时结束，两个都移动。每次安全丢弃已经算完的一段，既不漏交集，也不会重复计数。
+
+\noindent\textbf{题目与输入输出。}两个人各有n段在广场装车的时间，两组区间分别按起点严格递增，且同组区间互不接触、不重叠。求两人同时在广场装车的总时长。输入n、第一人的n行起止时刻、第二人的n行起止时刻；输出总时长。$1\le n\le2000$，时刻在1到$10^6$之间。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
+
+\noindent\textbf{读题思路。}计算的是连续时间长度，端点接触不贡献时长，所以交集长度不加1。原题每组都已排序；读入后无需重复排序。
+
+\noindent\textbf{做题思路与解答。}用i、j指向尚未处理的两段。交集为$[\max(l_i,l_j),\min(r_i,r_j)]$，右端大于左端时累加其差。结束更早的一段不可能与另一组后面的区间重叠，因此移动它；若同时结束，两个都移动。每次安全丢弃已经算完的一段，既不漏交集，也不会重复计数。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -1830,7 +1908,8 @@ insert返回的second表示是否插入了新值。查询、插入、删除平�
 3
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}两个指针各前进至多n次，时间$O(n)$，数组空间$O(n)$。样例中正时长交集是$[2,3]$、$[5,6]$、$[10,11]$，总长3。
+
+\noindent\textbf{复杂度与边界。}两个指针各前进至多n次，时间$O(n)$，数组空间$O(n)$。样例中正时长交集是$[2,3]$、$[5,6]$、$[10,11]$，总长3。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{40\_intervals.cpp}
 \begin{lstlisting}
@@ -1857,10 +1936,14 @@ int main() {
 
 \subsection{邻域均值}
 \textbf{真题 · 第22次CCF-CSP认证，2021-04，第2题。}\csp{CSP202104B}{邻域均值}。
-\textbf{题目与输入输出。}给出$n\times n$灰度矩阵，各值在0到$L-1$。一个像素的邻域包括与它行、列距离分别不超过r的所有合法格子（含自身），越出图像的部分裁掉。统计邻域平均灰度不超过t的像素数。输入n、L、r、t，再输入矩阵；输出计数。$n\le600$，$1\le r\le100$，$2\le t<L\le256$。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
-\textbf{读题思路。}每格对应一个裁剪后的矩形查询；边缘像素分母较小，不能固定用$(2r+1)^2$。条件是“小于等于”。如果每个像素重算整个邻域，工作量最多约$600^2\times201^2$，应预处理。
-\textbf{做题思路与解答。}建二维前缀和，查询每格邻域矩形总和S，实际格数为A。用$S\le tA$判定，无需浮点除法。二维容斥保证求出的和恰好是裁剪矩形的所有像素；整数不等式与平均值条件等价。
+
+\noindent\textbf{题目与输入输出。}给出$n\times n$灰度矩阵，各值在0到$L-1$。一个像素的邻域包括与它行、列距离分别不超过r的所有合法格子（含自身），越出图像的部分裁掉。统计邻域平均灰度不超过t的像素数。输入n、L、r、t，再输入矩阵；输出计数。$n\le600$，$1\le r\le100$，$2\le t<L\le256$。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+
+\noindent\textbf{读题思路。}每格对应一个裁剪后的矩形查询；边缘像素分母较小，不能固定用$(2r+1)^2$。条件是“小于等于”。如果每个像素重算整个邻域，工作量最多约$600^2\times201^2$，应预处理。
+
+\noindent\textbf{做题思路与解答。}建二维前缀和，查询每格邻域矩形总和S，实际格数为A。用$S\le tA$判定，无需浮点除法。二维容斥保证求出的和恰好是裁剪矩形的所有像素；整数不等式与平均值条件等价。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -1876,7 +1959,8 @@ int main() {
 7
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}预处理和全部查询均为$O(n^2)$，空间$O(n^2)$。0行0列作为哨兵；r大于图像边长时，裁剪仍正确。
+
+\noindent\textbf{复杂度与边界。}预处理和全部查询均为$O(n^2)$，空间$O(n^2)$。0行0列作为哨兵；r大于图像边长时，裁剪仍正确。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{42\_neighborhood.cpp}
 \begin{lstlisting}
@@ -1910,9 +1994,12 @@ int main() {
 
 \subsection{垦田计划}
 \textbf{真题 · 第29次CCF-CSP认证，2023-03，第2题。}\csp{CSP202303B}{垦田计划}。
-\textbf{题目与输入输出。}n块田同时开垦，第i块原耗时$t_i$；每投入$c_i$资源能缩短1天，但最少需要k天。共m资源，求全部田完成的最少天数。输入n、m、k，随后n行$t_i,c_i$。$n,t_i,c_i\le10^5,m\le10^9,1\le k\le\min t_i$；输出最少天数。
-\textbf{读题思路。}全部田并行，目标是最大单块耗时，不是耗时总和。每块都不能低于k，资源需求可能达$10^{15}$，累加和乘法用long long。
-\textbf{做题思路与解答。}固定目标天数T，要让所有$t_i\le T$，第i块至少投入$\max(0,t_i-T)c_i$，这些资源需求互不替代，和不超过m便可行。T越大成本越低，可行性为“假、假、真、真”；二分$[k,\max t_i]$中第一个可行值，取下中位数，可行令hi=mid，不可行令lo=mid+1。每块的必要投入可同时实现，所以判定充分且必要。
+
+\noindent\textbf{题目与输入输出。}n块田同时开垦，第i块原耗时$t_i$；每投入$c_i$资源能缩短1天，但最少需要k天。共m资源，求全部田完成的最少天数。输入n、m、k，随后n行$t_i,c_i$。$n,t_i,c_i\le10^5,m\le10^9,1\le k\le\min t_i$；输出最少天数。
+
+\noindent\textbf{读题思路。}全部田并行，目标是最大单块耗时，不是耗时总和。每块都不能低于k，资源需求可能达$10^{15}$，累加和乘法用long long。
+
+\noindent\textbf{做题思路与解答。}固定目标天数T，要让所有$t_i\le T$，第i块至少投入$\max(0,t_i-T)c_i$，这些资源需求互不替代，和不超过m便可行。T越大成本越低，可行性为“假、假、真、真”；二分$[k,\max t_i]$中第一个可行值，取下中位数，可行令hi=mid，不可行令lo=mid+1。每块的必要投入可同时实现，所以判定充分且必要。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -1943,7 +2030,8 @@ int main() {
 2
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n\log\max t_i)$，空间$O(n)$。没有资源时答案为最大原耗时；资源很多时也不能小于k。
+
+\noindent\textbf{复杂度与边界。}时间$O(n\log\max t_i)$，空间$O(n)$。没有资源时答案为最大原耗时；资源很多时也不能小于k。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{56\_farming.cpp}
 \begin{lstlisting}
@@ -1976,9 +2064,12 @@ int main() {
 
 \subsection{相似度计算}
 \textbf{真题 · 第33次CCF-CSP认证，2024-03，第2题。}\csp{CSP202403B}{相似度计算}。
-\textbf{题目与输入输出。}输入两篇文章的单词个数n、m，随后分别输入n和m个仅含英文字母的单词。忽略大小写并去重，分别输出两个集合的交集大小、并集大小，每个一行。数据范围$n,m\le5\times10^5$，每词长度不超过10。
-\textbf{读题思路。}题名涉及相似度，但不输出相似度小数；只输出两个计数。同篇重复单词只算一次，大小写必须统一。
-\textbf{做题思路与解答。}用哈希表记录每个规范化单词在哪篇出现：位1表示第一篇，位2表示第二篇。第一篇按位或1，第二篇按位或2，重复不会改变状态。表中键数就是并集大小，标记为3的键数就是交集大小。哈希表平均查找时间为常数；若用set或map则有对数因子，适合先练语义后比较效率。
+
+\noindent\textbf{题目与输入输出。}输入两篇文章的单词个数n、m，随后分别输入n和m个仅含英文字母的单词。忽略大小写并去重，分别输出两个集合的交集大小、并集大小，每个一行。数据范围$n,m\le5\times10^5$，每词长度不超过10。
+
+\noindent\textbf{读题思路。}题名涉及相似度，但不输出相似度小数；只输出两个计数。同篇重复单词只算一次，大小写必须统一。
+
+\noindent\textbf{做题思路与解答。}用哈希表记录每个规范化单词在哪篇出现：位1表示第一篇，位2表示第二篇。第一篇按位或1，第二篇按位或2，重复不会改变状态。表中键数就是并集大小，标记为3的键数就是交集大小。哈希表平均查找时间为常数；若用set或map则有对数因子，适合先练语义后比较效率。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2007,7 +2098,8 @@ PICOTE PAR LES BLES FOULER LHERBE MENUE
 13
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}设词长上界为W，平均时间$O((n+m)W)$，空间与不同词数u成正比；哈希冲突严重时性能会退化，不提供最坏常数时间保证。reserve预留容量降低扩容次数，不能保证没有碰撞。
+
+\noindent\textbf{复杂度与边界。}设词长上界为W，平均时间$O((n+m)W)$，空间与不同词数u成正比；哈希冲突严重时性能会退化，不提供最坏常数时间保证。reserve预留容量降低扩容次数，不能保证没有碰撞。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{57\_similarity.cpp}
 \begin{lstlisting}
@@ -2038,10 +2130,14 @@ int main() {
 
 \subsection{机器人饲养指南}
 \textbf{真题 · 第37次CCF-CSP认证，2025-03，第2题。}\csp{CSP202503B}{机器人饲养指南}。
-\textbf{题目与输入输出。}有n个苹果，每天可喂机器人i个苹果（$1\le i\le m$），当天奖励为$A_i$，同一种喂法可重复使用。所有苹果都必须喂完，求总奖励最大值。输入n、m，再输入$A_1,\ldots,A_m$；输出最优奖励。$1\le n\le10^4$，$1\le m\le100$，$0\le A_i\le10^5$，$A_0=0$。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
-\textbf{读题思路。}每天选择可以重复，但资源要求是“恰好用完”。奖励既不保证递增，也不保证单价递增，按单日奖励最大贪心没有依据。$nm\le10^6$，一维DP可行。
-\textbf{做题思路与解答。}令$f[v]$表示恰好吃掉v个苹果的最大收益。按最后一天吃i个苹果分类，$f[v]=\max_{1\le i\le\min(m,v)}(f[v-i]+A_i)$。$f[0]=0$，其余先设为负无穷，按v从小到大计算。每个方案都有最后一天，且前面的最优方案可以接上这一天，所以转移不漏方案，并保留最大奖励。
+
+\noindent\textbf{题目与输入输出。}有n个苹果，每天可喂机器人i个苹果（$1\le i\le m$），当天奖励为$A_i$，同一种喂法可重复使用。所有苹果都必须喂完，求总奖励最大值。输入n、m，再输入$A_1,\ldots,A_m$；输出最优奖励。$1\le n\le10^4$，$1\le m\le100$，$0\le A_i\le10^5$，$A_0=0$。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+
+\noindent\textbf{读题思路。}每天选择可以重复，但资源要求是“恰好用完”。奖励既不保证递增，也不保证单价递增，按单日奖励最大贪心没有依据。$nm\le10^6$，一维DP可行。
+
+\noindent\textbf{做题思路与解答。}令$f[v]$表示恰好吃掉v个苹果的最大收益。按最后一天吃i个苹果分类，$f[v]=\max_{1\le i\le\min(m,v)}(f[v-i]+A_i)$。$f[0]=0$，其余先设为负无穷，按v从小到大计算。每个方案都有最后一天，且前面的最优方案可以接上这一天，所以转移不漏方案，并保留最大奖励。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2066,7 +2162,8 @@ int main() {
 120
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(nm)$，空间$O(n+m)$。第二组样例中先吃3再吃1只有101，而两次吃2得120，直接说明贪心会失败。
+
+\noindent\textbf{复杂度与边界。}时间$O(nm)$，空间$O(n+m)$。第二组样例中先吃3再吃1只有101，而两次吃2得120，直接说明贪心会失败。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{44\_feeding.cpp}
 \begin{lstlisting}
@@ -2093,10 +2190,14 @@ int main() {
 
 \subsection{梦境巡查}
 \textbf{真题 · 第36次CCF-CSP认证，2024-12，第2题。}\csp{CSP202412B}{梦境巡查}。
-\textbf{题目与输入输出。}输入n，接着输入$a_0,\ldots,a_n$及$b_1,\ldots,b_n$。从0号区域出发，走第i段消耗$a_i$，到区域i后得到$b_i$；每段出发前能量须够支付。当仅第i个补给失效时，求完成整条路线并返回0号区域所需的最少初始能量$w_i$，输出n个结果。$1\le n\le10^5$，所有消耗与补给在0到1000之间。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
-\textbf{读题思路。}n次逐段模拟为$O(n^2)$，规模不允许。缺失$b_i$只影响从区域i出发及以后的检查；区域i之前不受影响。
-\textbf{做题思路与解答。}设$d_j=\sum_{t=0}^j a_t-\sum_{t=1}^j b_t$，表示出发走第j段前，对初始能量的下界。缺失第i个补给后，$j<i$仍需$d_j$，$j\ge i$则需$d_j+b_i$。分别预处理d的前缀最大值P和后缀最大值S，得到$w_i=\max(P_{i-1},S_i+b_i)$。因为$d_0=a_0\ge0$，无需额外把负答案截成0。每个出发检查都满足当且仅当初始值不低于这些下界的最大值，因此这是最小可行值。
+
+\noindent\textbf{题目与输入输出。}输入n，接着输入$a_0,\ldots,a_n$及$b_1,\ldots,b_n$。从0号区域出发，走第i段消耗$a_i$，到区域i后得到$b_i$；每段出发前能量须够支付。当仅第i个补给失效时，求完成整条路线并返回0号区域所需的最少初始能量$w_i$，输出n个结果。$1\le n\le10^5$，所有消耗与补给在0到1000之间。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+
+\noindent\textbf{读题思路。}n次逐段模拟为$O(n^2)$，规模不允许。缺失$b_i$只影响从区域i出发及以后的检查；区域i之前不受影响。
+
+\noindent\textbf{做题思路与解答。}设$d_j=\sum_{t=0}^j a_t-\sum_{t=1}^j b_t$，表示出发走第j段前，对初始能量的下界。缺失第i个补给后，$j<i$仍需$d_j$，$j\ge i$则需$d_j+b_i$。分别预处理d的前缀最大值P和后缀最大值S，得到$w_i=\max(P_{i-1},S_i+b_i)$。因为$d_0=a_0\ge0$，无需额外把负答案截成0。每个出发检查都满足当且仅当初始值不低于这些下界的最大值，因此这是最小可行值。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2123,7 +2224,8 @@ int main() {
 15 10 9
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n)$，空间$O(n)$。检查b本来就是0和巨额补给位于中间的情况。
+
+\noindent\textbf{复杂度与边界。}时间$O(n)$，空间$O(n)$。检查b本来就是0和巨额补给位于中间的情况。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{45\_dream.cpp}
 \begin{lstlisting}
@@ -2154,10 +2256,14 @@ int main() {
 
 \subsection{机器人宿管指南}
 \textbf{真题 · 第42次CCF-CSP认证，2026-05，第2题。}\csp{CSP202605B}{机器人宿管指南}。
-\textbf{题目与输入输出。}输入初始苹果数n、损耗百分比k、天数m。每天先丢掉$\lceil tk/100\rceil$个坏苹果（t是前一天剩余量），再给每个机器人一个苹果。求最多能供养多少机器人，要求第m天吃完后剩余非负。$1\le n\le10^{18}$，$1\le k\le5$，$1\le m\le2000$；保证答案为不超过$10^9$的正整数。
-\textbf{评测限制。}曙梦OJ当前时限0.5秒，内存512MB。
-\textbf{读题思路。}顺序是先变质后食用，百分比向上取整。n超过int范围，即使long long也不宜直接算$n\times100$；不能用浮点数近似大整数比例。
-\textbf{做题思路与解答。}人数x给定后按天模拟检查。剩余映射为$\lfloor t(100-k)/100\rfloor-x$，对t单调不减，所以人数越少，全程剩余越多，可行人数形成前缀。二分最后一个可行人数，范围$[0,\min(10^9,n/m)]$。损耗按$\lfloor t/100\rfloor k+\lceil (t\bmod100)k/100\rceil$计算，各项都在long long范围内。
+
+\noindent\textbf{题目与输入输出。}输入初始苹果数n、损耗百分比k、天数m。每天先丢掉$\lceil tk/100\rceil$个坏苹果（t是前一天剩余量），再给每个机器人一个苹果。求最多能供养多少机器人，要求第m天吃完后剩余非负。$1\le n\le10^{18}$，$1\le k\le5$，$1\le m\le2000$；保证答案为不超过$10^9$的正整数。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限0.5秒，内存512MB。
+
+\noindent\textbf{读题思路。}顺序是先变质后食用，百分比向上取整。n超过int范围，即使long long也不宜直接算$n\times100$；不能用浮点数近似大整数比例。
+
+\noindent\textbf{做题思路与解答。}人数x给定后按天模拟检查。剩余映射为$\lfloor t(100-k)/100\rfloor-x$，对t单调不减，所以人数越少，全程剩余越多，可行人数形成前缀。二分最后一个可行人数，范围$[0,\min(10^9,n/m)]$。损耗按$\lfloor t/100\rfloor k+\lceil (t\bmod100)k/100\rceil$计算，各项都在long long范围内。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2180,7 +2286,8 @@ int main() {
 5
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(m\log 10^9)$，空间$O(1)$。0作为可行哨兵，题面保证最终答案为正。第m天可以恰好剩0，不要求还能吃第m+1天。
+
+\noindent\textbf{复杂度与边界。}时间$O(m\log 10^9)$，空间$O(1)$。0作为可行哨兵，题面保证最终答案为正。第m天可以恰好剩0，不要求还能吃第m+1天。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{46\_dorm.cpp}
 \begin{lstlisting}
@@ -2214,10 +2321,14 @@ int main() {
 
 \subsection{字符串变换}
 \textbf{真题 · 第35次CCF-CSP认证，2024-09，第2题。}\csp{CSP202409B}{字符串变换}。
-\textbf{题目与输入输出。}字符集合为大小写字母、数字和空格，共63种。输入以\#包围的初始字符串，再给n个形如\#xy\#的字符替换规则，未定义的字符保持不变；规则构成单射。随后输入m与m个k，每次独立询问初始串连续变换k次的结果，以\#包围输出。$n\le63,m\le1000,k\le10^9$，初始串长不超过100。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
-\textbf{读题思路。}保留空格，不能用\%s读整行；每次查询从原始串开始。每轮替换是同时进行，不能按规则就地多次替换同一个位置。巨大k不能逐轮模拟。
-\textbf{做题思路与解答。}预处理$jump[b][c]=f^{2^b}(c)$，初值为一次变换，递推$jump[b][c]=jump[b-1][jump[b-1][c]]$。把k拆成二进制，对每个字符依次应用对应的跳表即可。每个字符独立变化，函数复合保证跳表恰好等于所需次数。单射还允许按置换环长度取模；这里的倍增实现无需依赖单射，便于统一处理。
+
+\noindent\textbf{题目与输入输出。}字符集合为大小写字母、数字和空格，共63种。输入以\#包围的初始字符串，再给n个形如\#xy\#的字符替换规则，未定义的字符保持不变；规则构成单射。随后输入m与m个k，每次独立询问初始串连续变换k次的结果，以\#包围输出。$n\le63,m\le1000,k\le10^9$，初始串长不超过100。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+
+\noindent\textbf{读题思路。}保留空格，不能用\%s读整行；每次查询从原始串开始。每轮替换是同时进行，不能按规则就地多次替换同一个位置。巨大k不能逐轮模拟。
+
+\noindent\textbf{做题思路与解答。}预处理$jump[b][c]=f^{2^b}(c)$，初值为一次变换，递推$jump[b][c]=jump[b-1][jump[b-1][c]]$。把k拆成二进制，对每个字符依次应用对应的跳表即可。每个字符独立变化，函数复合保证跳表恰好等于所需次数。单射还允许按置换环长度取模；这里的倍增实现无需依赖单射，便于统一处理。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2240,7 +2351,8 @@ int main() {
 #Hella Warld#
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}字符表用128项覆盖ASCII；时间$O(128\log K+m|s|\log K)$，空间$O(128\log K+|s|)$。输入的两个\#是包装符号，不参与变换。
+
+\noindent\textbf{复杂度与边界。}字符表用128项覆盖ASCII；时间$O(128\log K+m|s|\log K)$，空间$O(128\log K+|s|)$。输入的两个\#是包装符号，不参与变换。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{47\_transform.cpp}
 \begin{lstlisting}
@@ -2279,12 +2391,14 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \subsection{机器人复健指南}
 \textbf{真题 · 第38次CCF-CSP认证，2025-06，第2题。}\csp{CSP202506B}{机器人复健指南}。
-\textbf{题目与输入输出。}输入n、k和起点x、y。在$n\times n$场地内每次按马步跳跃，即坐标变化为$(\pm1,\pm2)$或$(\pm2,\pm1)$，共八个方向，不得跳出场地。统计不超过k步可到达的不同格数，包含起点。$1\le n,k\le100$。输出格数。
-\textbf{读题思路。}图中的八方向是马步，不是上下左右及四个对角相邻格。要求不超过k步，且一个格子多次到达只计一次。
-\textbf{做题思路与解答。}BFS把每个格子作为状态，首次访问得到最短步数。到达第k层就不再扩展；每个首次入队的格子给答案加1，起点先计入。无权边BFS按距离递增发现状态，所以所有且仅有最短距离不超过k的格子被统计。也能用“步数、位置”的分层可达DP，再对各层取并集，但BFS不用重复访问位置，复杂度更低。
+
+\noindent\textbf{题目与输入输出。}输入n、k和起点x、y。在$n\times n$场地内每次按马步跳跃，即坐标变化为$(\pm1,\pm2)$或$(\pm2,\pm1)$，共八个方向，不得跳出场地。统计不超过k步可到达的不同格数，包含起点。$1\le n,k\le100$。输出格数。
+
+\noindent\textbf{读题思路。}图中的八方向是马步，不是上下左右及四个对角相邻格。要求不超过k步，且一个格子多次到达只计一次。
+
+\noindent\textbf{做题思路与解答。}BFS把每个格子作为状态，首次访问得到最短步数。到达第k层就不再扩展；每个首次入队的格子给答案加1，起点先计入。无权边BFS按距离递增发现状态，所以所有且仅有最短距离不超过k的格子被统计。也能用“步数、位置”的分层可达DP，再对各层取并集，但BFS不用重复访问位置，复杂度更低。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2309,7 +2423,8 @@ int main() {
 8
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n^2)$，空间$O(n^2)$，每格最多一次入队。n=1或2时可能完全没有合法马步；答案仍包含起点。
+
+\noindent\textbf{复杂度与边界。}时间$O(n^2)$，空间$O(n^2)$，每格最多一次入队。n=1或2时可能完全没有合法马步；答案仍包含起点。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{48\_knight.cpp}
 \begin{lstlisting}
@@ -2341,12 +2456,14 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \subsection{回收站选址}
 \textbf{真题 · 第18次CCF-CSP认证，2019-12，第2题。}\csp{CSP201912B}{回收站选址}。
-\textbf{题目与输入输出。}输入n个两两不同的垃圾点坐标。只有本身有垃圾且上下左右四邻都存在的点可以选址；得分为四个对角邻点中有垃圾的个数。依次输出得分0到4的选址数量，各一行。$n\le1000$，坐标绝对值不超过$10^9$。
-\textbf{读题思路。}地图坐标巨大且可负，不能按坐标开完整网格。只有已有垃圾点能成为候选；四个正交邻居是资格条件，四个对角邻居只负责评分。
-\textbf{做题思路与解答。}用set保存坐标pair。枚举每个原点，查询四个正交邻点，全部存在后统计四个对角邻点并增加相应频率。set的键同时包含横纵坐标，查询精确匹配，所以资格和得分都符合定义。n很小时也可用数组线性查找作为对照。
+
+\noindent\textbf{题目与输入输出。}输入n个两两不同的垃圾点坐标。只有本身有垃圾且上下左右四邻都存在的点可以选址；得分为四个对角邻点中有垃圾的个数。依次输出得分0到4的选址数量，各一行。$n\le1000$，坐标绝对值不超过$10^9$。
+
+\noindent\textbf{读题思路。}地图坐标巨大且可负，不能按坐标开完整网格。只有已有垃圾点能成为候选；四个正交邻居是资格条件，四个对角邻居只负责评分。
+
+\noindent\textbf{做题思路与解答。}用set保存坐标pair。枚举每个原点，查询四个正交邻点，全部存在后统计四个对角邻点并增加相应频率。set的键同时包含横纵坐标，查询精确匹配，所以资格和得分都符合定义。n很小时也可用数组线性查找作为对照。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2386,7 +2503,8 @@ int main() {
 0
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n\log n)$，空间$O(n)$。输入坐标绝对值至多$10^9$，加减1仍在int范围内；n为1时输出五个0。
+
+\noindent\textbf{复杂度与边界。}时间$O(n\log n)$，空间$O(n)$。输入坐标绝对值至多$10^9$，加减1仍在int范围内；n为1时输出五个0。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{58\_recycle.cpp}
 \begin{lstlisting}
@@ -2419,9 +2537,12 @@ int main() {
 
 \subsection{风险人群筛查}
 \textbf{真题 · 第20次CCF-CSP认证，2020-09，第2题。}\href{https://www.acwing.com/problem/content/3296/}{风险人群筛查（在线做题）}。
-\textbf{题目与输入输出。}输入n、k、t及矩形左下xl、yd、右上xr、yu；再输入每人的t个记录坐标。含边界的矩形内出现过记录即“经过”；有至少k条连续记录都在内即“逗留”。输出经过人数和逗留人数，各一行。数据范围$n\le24$，$1\le k\le t\le1000$，坐标绝对值不超过$10^6$。
-\textbf{读题思路。}只检查采样记录，不插值判断相邻记录间的连线。逗留强调连续；分散的k次进入不算。矩形边界也在区域内。
-\textbf{做题思路与解答。}对每人维护曾进入标记、当前连续进入长度run、曾逗留标记。内点令run加1，外点清0；run达到k后保留逗留标记，即使后来离开也不取消。每人结束时各标记只加一次计数。
+
+\noindent\textbf{题目与输入输出。}输入n、k、t及矩形左下xl、yd、右上xr、yu；再输入每人的t个记录坐标。含边界的矩形内出现过记录即“经过”；有至少k条连续记录都在内即“逗留”。输出经过人数和逗留人数，各一行。数据范围$n\le24$，$1\le k\le t\le1000$，坐标绝对值不超过$10^6$。
+
+\noindent\textbf{读题思路。}只检查采样记录，不插值判断相邻记录间的连线。逗留强调连续；分散的k次进入不算。矩形边界也在区域内。
+
+\noindent\textbf{做题思路与解答。}对每人维护曾进入标记、当前连续进入长度run、曾逗留标记。内点令run加1，外点清0；run达到k后保留逗留标记，即使后来离开也不取消。每人结束时各标记只加一次计数。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2435,7 +2556,8 @@ int main() {
 0
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(nt)$，额外空间$O(1)$。已经确定逗留后仍须读取剩余坐标，否则下个人输入错位。
+
+\noindent\textbf{复杂度与边界。}时间$O(nt)$，额外空间$O(1)$。已经确定逗留后仍须读取剩余坐标，否则下个人输入错位。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{59\_risk.cpp}
 \begin{lstlisting}
@@ -2463,9 +2585,12 @@ int main() {
 
 \subsection{非零段划分}
 \textbf{真题 · 第23次CCF-CSP认证，2021-09，第2题。}\href{https://www.acwing.com/problem/content/4010/}{非零段划分（在线做题）}。
-\textbf{题目与输入输出。}输入n项非负整数A，选择正整数p，把所有小于p的值变0，求剩余连续非零段数量的最大值。一个非零段必须不能再向左或向右扩展。$n\le5\times10^5,A_i\le10^4$。输出最大段数。
-\textbf{读题思路。}阈值变化时段数不单调，不能二分“段数达到某值”。直接枚举每个p并扫描全数组约$5\times10^9$次，需利用值域。
-\textbf{做题思路与解答。}每段恰好由一个开头贡献。设$A_0=0$，位置i成为开头当且仅当$A_{i-1}<p\le A_i$。因此当$A_{i-1}<A_i$时，给阈值区间$[A_{i-1}+1,A_i]$贡献1，用差分记录；遍历阈值恢复段数并取最大值。每个真实段只有一个开头，条件与开头定义等价，所以统计不重不漏。
+
+\noindent\textbf{题目与输入输出。}输入n项非负整数A，选择正整数p，把所有小于p的值变0，求剩余连续非零段数量的最大值。一个非零段必须不能再向左或向右扩展。$n\le5\times10^5,A_i\le10^4$。输出最大段数。
+
+\noindent\textbf{读题思路。}阈值变化时段数不单调，不能二分“段数达到某值”。直接枚举每个p并扫描全数组约$5\times10^9$次，需利用值域。
+
+\noindent\textbf{做题思路与解答。}每段恰好由一个开头贡献。设$A_0=0$，位置i成为开头当且仅当$A_{i-1}<p\le A_i$。因此当$A_{i-1}<A_i$时，给阈值区间$[A_{i-1}+1,A_i]$贡献1，用差分记录；遍历阈值恢复段数并取最大值。每个真实段只有一个开头，条件与开头定义等价，所以统计不重不漏。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2490,7 +2615,8 @@ int main() {
 4
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n+V)$，V=$10^4$，空间$O(V)$。数组全0时答案0；为$A_i+1$处预留容量。
+
+\noindent\textbf{复杂度与边界。}时间$O(n+V)$，V=$10^4$，空间$O(V)$。数组全0时答案0；为$A_i+1$处预留容量。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{60\_nonzero.cpp}
 \begin{lstlisting}
@@ -2516,9 +2642,12 @@ int main() {
 
 \subsection{出行计划}
 \textbf{真题 · 第25次CCF-CSP认证，2022-03，第2题。}\href{https://www.acwing.com/problem/content/4458/}{出行计划（在线做题）}。
-\textbf{题目与输入输出。}输入计划数n、查询数m、等待结果时长k；随后n行出行时刻$t_i$和有效时长$c_i$，最后m个检测时刻q。q检测的结果可从$q+k$到$q+k+c_i-1$进入对应场所。每查询输出符合条件的计划数。$n,m,k\le10^5$，$t_i,c_i,q\le2\times10^5$，均为正整数。
-\textbf{读题思路。}有效时间包括刚获得结果的时刻，末端是有效时长减1。把“这次检测满足哪些计划”反过来，求“每项计划允许在哪些时刻检测”。
-\textbf{做题思路与解答。}条件$q+k\le t_i\le q+k+c_i-1$等价于$t_i-c_i+1-k\le q\le t_i-k$。每项计划给这个整数区间加1，按q正数范围裁剪后做差分；一次前缀累加得到每个q的答案。等价变形保证区间内恰好计入满足要求的计划。
+
+\noindent\textbf{题目与输入输出。}输入计划数n、查询数m、等待结果时长k；随后n行出行时刻$t_i$和有效时长$c_i$，最后m个检测时刻q。q检测的结果可从$q+k$到$q+k+c_i-1$进入对应场所。每查询输出符合条件的计划数。$n,m,k\le10^5$，$t_i,c_i,q\le2\times10^5$，均为正整数。
+
+\noindent\textbf{读题思路。}有效时间包括刚获得结果的时刻，末端是有效时长减1。把“这次检测满足哪些计划”反过来，求“每项计划允许在哪些时刻检测”。
+
+\noindent\textbf{做题思路与解答。}条件$q+k\le t_i\le q+k+c_i-1$等价于$t_i-c_i+1-k\le q\le t_i-k$。每项计划给这个整数区间加1，按q正数范围裁剪后做差分；一次前缀累加得到每个q的答案。等价变形保证区间内恰好计入满足要求的计划。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2539,7 +2668,8 @@ int main() {
 3
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n+m+V)$，V=$2\times10^5$，空间$O(V)$。右端为负或裁剪后左端大于右端时跳过；r+1必须有空间。
+
+\noindent\textbf{复杂度与边界。}时间$O(n+m+V)$，V=$2\times10^5$，空间$O(V)$。右端为负或裁剪后左端大于右端时跳过；r+1必须有空间。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{61\_travel.cpp}
 \begin{lstlisting}
@@ -2562,9 +2692,12 @@ int main() {
 
 \subsection{寻宝！大冒险！}
 \textbf{真题 · 第26次CCF-CSP认证，2022-06，第2题。}\csp{CSP202206B}{寻宝！大冒险！}。
-\textbf{题目与输入输出。}地图是坐标0到L的方格点，共n棵树，输入n、L、S及n个树坐标，再输入$(S+1)\times(S+1)$的0/1藏宝图。图的第一维按S到0输入，第二维按0到S输入。藏宝图左下格$B[0][0]=1$。求所有与藏宝图完全匹配且不越地图边界的左下位置数。$n\le1000,L\le10^9,S\le50$，树坐标不重复。
-\textbf{读题思路。}不能按L开地图，也不能枚举所有坐标。左下格保证有树，只需枚举n棵树为候选。匹配要求1与0都一致，不能只找到规定的树就忽略多余树。输入首行对应B[S]，不要按B[0]读。
-\textbf{做题思路与解答。}先数藏宝图中的树数need。对每个候选，拒绝越界窗口；扫描全部地图树，若落入窗口却对应藏宝图0，立即拒绝，否则统计窗口树数。没有多余树且count=need时，一一对应保证所有藏宝图1也都有树，其余格为0，故整个窗口完全匹配。
+
+\noindent\textbf{题目与输入输出。}地图是坐标0到L的方格点，共n棵树，输入n、L、S及n个树坐标，再输入$(S+1)\times(S+1)$的0/1藏宝图。图的第一维按S到0输入，第二维按0到S输入。藏宝图左下格$B[0][0]=1$。求所有与藏宝图完全匹配且不越地图边界的左下位置数。$n\le1000,L\le10^9,S\le50$，树坐标不重复。
+
+\noindent\textbf{读题思路。}不能按L开地图，也不能枚举所有坐标。左下格保证有树，只需枚举n棵树为候选。匹配要求1与0都一致，不能只找到规定的树就忽略多余树。输入首行对应B[S]，不要按B[0]读。
+
+\noindent\textbf{做题思路与解答。}先数藏宝图中的树数need。对每个候选，拒绝越界窗口；扫描全部地图树，若落入窗口却对应藏宝图0，立即拒绝，否则统计窗口树数。没有多余树且count=need时，一一对应保证所有藏宝图1也都有树，其余格为0，故整个窗口完全匹配。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2603,7 +2736,8 @@ int main() {
 0
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(n^2+S^2)$，空间$O(n+S^2)$。代码严格按题面$B[S-i][j]$的输入下标存储；不额外转置。
+
+\noindent\textbf{复杂度与边界。}时间$O(n^2+S^2)$，空间$O(n+S^2)$。代码严格按题面$B[S-i][j]$的输入下标存储；不额外转置。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{62\_treasure.cpp}
 \begin{lstlisting}
@@ -2637,9 +2771,12 @@ int main() {
 
 \subsection{何以包邮？}
 \textbf{真题 · 第27次CCF-CSP认证，2022-09，第2题。}\href{https://www.acwing.com/problem/content/4703/}{何以包邮？（在线做题）}。
-\textbf{题目与输入输出。}输入n、包邮阈值x，随后n本书的正整数价格，每本只能选一次。求总价至少x的最小选购总价，保证全部价格和不小于x。$n\le30,a_i\le10^4$，故总价S不超过$3\times10^5$。输出最小总价。
-\textbf{读题思路。}不是花费不超过x的最大价值，而是总价至少x且最小。$2^{30}$枚举太大；利用价格和上界做01可达性背包。
-\textbf{做题思路与解答。}reachable[s]表示用已处理书本能否恰好买到s元。初值仅0为真，每本价格a加入时从S向a倒序更新$reachable[s]\mathrel{|}=reachable[s-a]$，保证当前书只使用一次。全部处理后从x向上找首个可达s，就是满足包邮的最小价格。
+
+\noindent\textbf{题目与输入输出。}输入n、包邮阈值x，随后n本书的正整数价格，每本只能选一次。求总价至少x的最小选购总价，保证全部价格和不小于x。$n\le30,a_i\le10^4$，故总价S不超过$3\times10^5$。输出最小总价。
+
+\noindent\textbf{读题思路。}不是花费不超过x的最大价值，而是总价至少x且最小。$2^{30}$枚举太大；利用价格和上界做01可达性背包。
+
+\noindent\textbf{做题思路与解答。}reachable[s]表示用已处理书本能否恰好买到s元。初值仅0为真，每本价格a加入时从S向a倒序更新$reachable[s]\mathrel{|}=reachable[s-a]$，保证当前书只使用一次。全部处理后从x向上找首个可达s，就是满足包邮的最小价格。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2669,7 +2806,8 @@ int main() {
 30
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(nS)$，空间$O(S)$。重复价格仍代表不同书，不能去重；全部购买可行保证扫描能找到答案。
+
+\noindent\textbf{复杂度与边界。}时间$O(nS)$，空间$O(S)$。重复价格仍代表不同书，不能去重；全部购买可行保证扫描能找到答案。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{63\_shipping.cpp}
 \begin{lstlisting}
@@ -2689,10 +2827,12 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \subsection{数字排序（真题）}
 \textbf{第4次，2015-03，第2题。}\csp{CSP201503B}{数字排序}。
-\textbf{任务。}输入n个整数，统计每个不同值的出现次数，按次数从大到小输出“值 次数”；次数相同按值从小到大输出。\textbf{解答与关键代码。}值域小时先用桶计数，再把非零记录存入结构体数组排序。值域大时可用map计数后生成记录。比较函数只表达严格顺序，不能用大于等于。
+
+\noindent\textbf{任务。}输入n个整数，统计每个不同值的出现次数，按次数从大到小输出“值 次数”；次数相同按值从小到大输出。
+
+\noindent\textbf{解答与关键代码。}值域小时先用桶计数，再把非零记录存入结构体数组排序。值域大时可用map计数后生成记录。比较函数只表达严格顺序，不能用大于等于。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 struct Record { int value, count; };
@@ -2706,10 +2846,14 @@ bool less_record(const Record &a, const Record &b) {
 排序时间$O(u\log u)$，u是不同值个数；还需加上计数过程的成本。
 \subsection{稀疏向量}
 \textbf{真题 · 第19次CCF-CSP认证，2020-06，第2题。}\csp{CSP202006B}{稀疏向量}。
-\textbf{题目与输入输出。}长度为n的两个向量，只有a、b项非零。每个向量的非零项按下标严格递增输入，每项为下标、数值；求内积$\sum_{i=1}^n u_iv_i$。首行n、a、b，随后a行u和b行v。$n\le10^9$，$0<a,b<n$，$a,b\le5\times10^5$，非零数值绝对值不超过100。输出内积。
-\textbf{评测限制。}曙梦OJ当前时限2秒，内存512MB。
-\textbf{读题思路。}n很大，但非零项数较小，按n开数组会浪费数GiB。只有相同下标的两项才产生非零乘积，排序信息已经给出。最多约$5\times10^9$的绝对值累加，需要long long。
-\textbf{做题思路与解答。}将每组存成下标和值的结构体数组。下标较小的那项在另一组当前及后续项中不可能匹配，可以丢弃；下标相同则乘积累加并同时前进。每个共同非零位置只遇到一次，其他位置贡献为0，所以扫描值等于原内积。
+
+\noindent\textbf{题目与输入输出。}长度为n的两个向量，只有a、b项非零。每个向量的非零项按下标严格递增输入，每项为下标、数值；求内积$\sum_{i=1}^n u_iv_i$。首行n、a、b，随后a行u和b行v。$n\le10^9$，$0<a,b<n$，$a,b\le5\times10^5$，非零数值绝对值不超过100。输出内积。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限2秒，内存512MB。
+
+\noindent\textbf{读题思路。}n很大，但非零项数较小，按n开数组会浪费数GiB。只有相同下标的两项才产生非零乘积，排序信息已经给出。最多约$5\times10^9$的绝对值累加，需要long long。
+
+\noindent\textbf{做题思路与解答。}将每组存成下标和值的结构体数组。下标较小的那项在另一组当前及后续项中不可能匹配，可以丢弃；下标相同则乘积累加并同时前进。每个共同非零位置只遇到一次，其他位置贡献为0，所以扫描值等于原内积。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2728,7 +2872,8 @@ bool less_record(const Record &a, const Record &b) {
 -20
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}时间$O(a+b)$，空间$O(a+b)$，与完整向量长度n无关。若改成映射也能做，但已有有序性时双指针更简单。
+
+\noindent\textbf{复杂度与边界。}时间$O(a+b)$，空间$O(a+b)$，与完整向量长度n无关。若改成映射也能做，但已有有序性时双指针更简单。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{41\_sparse.cpp}
 \begin{lstlisting}
@@ -2753,10 +2898,14 @@ int main() {
 
 \subsection{因子化简}
 \textbf{真题 · 第32次CCF-CSP认证，2023-12，第2题。}\csp{CSP202312B}{因子化简}。
-\textbf{题目与输入输出。}对整数n进行质因数分解$n=\prod p_i^{e_i}$，删除所有指数$e_i<k$的整个因子$p_i^{e_i}$，保留其余因子，输出结果；全部删去时为1。输入q，随后q行n、k；每个结果一行。$1\le q\le10$，$1<n\le10^{10}$，$1<k\le10$。
-\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
-\textbf{读题思路。}“删除指数不足的整个质因子幂”不是把每个指数减少k，也不是只保留$p_i^k$。例如$360=2^3\cdot3^2\cdot5$，k=3时答案为8。n超过int上界，读入必须用long long。
-\textbf{做题思路与解答。}从p=2开始试除，每找到一个质因子就反复整除，记录完整指数以及对应幂。指数达标才把该幂乘入答案。条件$p\le n/p$避免$p^2$溢出，也利用不断缩小的n减少试除。结束后残留大于1的数是指数为1的质因子；由于本题k至少为2，它不保留。所有质因子都被处理且筛选严格按定义，得到所求乘积。
+
+\noindent\textbf{题目与输入输出。}对整数n进行质因数分解$n=\prod p_i^{e_i}$，删除所有指数$e_i<k$的整个因子$p_i^{e_i}$，保留其余因子，输出结果；全部删去时为1。输入q，随后q行n、k；每个结果一行。$1\le q\le10$，$1<n\le10^{10}$，$1<k\le10$。
+
+\noindent\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+
+\noindent\textbf{读题思路。}“删除指数不足的整个质因子幂”不是把每个指数减少k，也不是只保留$p_i^k$。例如$360=2^3\cdot3^2\cdot5$，k=3时答案为8。n超过int上界，读入必须用long long。
+
+\noindent\textbf{做题思路与解答。}从p=2开始试除，每找到一个质因子就反复整除，记录完整指数以及对应幂。指数达标才把该幂乘入答案。条件$p\le n/p$避免$p^2$溢出，也利用不断缩小的n减少试除。结束后残留大于1的数是指数为1的质因子；由于本题k至少为2，它不保留。所有质因子都被处理且筛选严格按定义，得到所求乘积。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -2773,7 +2922,8 @@ int main() {
 10000000000
 \end{Sample}
 \end{tcolorbox}
-\textbf{复杂度与边界。}最坏时间$O(q\sqrt{\max n})$，空间$O(1)$。答案初值为1，覆盖所有因子被删除的情况。
+
+\noindent\textbf{复杂度与边界。}最坏时间$O(q\sqrt{\max n})$，空间$O(1)$。答案初值为1，覆盖所有因子被删除的情况。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{43\_factor.cpp}
 \begin{lstlisting}
@@ -2796,7 +2946,6 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
-
 
 \subsection{画图与矩阵运算（真题）}
 \textbf{真题，第2次，2014-09，第2题。}\csp{CSP201409B}{画图}：
@@ -3128,7 +3277,8 @@ int main() {
 5
 \end{Sample}
 \end{tcolorbox}
-\textbf{解答。}所有移动代价相等，使用 BFS。起点距离为0，邻居距离为当前距离加1；入队时就记录距离，确保同一格最多入队一次。队列按距离层次扩展，因此首次到达就是最短距离。注意这里的“步数”不包含起点，单格可走迷宫答案为0。时间与空间均为 $O(nm)$。
+
+\noindent\textbf{解答。}所有移动代价相等，使用 BFS。起点距离为0，邻居距离为当前距离加1；入队时就记录距离，确保同一格最多入队一次。队列按距离层次扩展，因此首次到达就是最短距离。注意这里的“步数”不包含起点，单格可走迷宫答案为0。时间与空间均为 $O(nm)$。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{11\_bfs.cpp}
 \begin{lstlisting}
@@ -3474,7 +3624,7 @@ int main() {
 
 \subsection{按成绩和编号排序（教学例题）}
 
-\textbf{题目。}输入$n$名学生的编号和成绩，成绩降序，相同成绩按编号字典序升序。编号是不含空格的字符串，长度1到30且互不相同；$1\le n\le2\times10^5$，成绩0到100。首行n，随后每行编号和成绩，输出排序后的记录。
+\noindent\textbf{题目。}输入$n$名学生的编号和成绩，成绩降序，相同成绩按编号字典序升序。编号是不含空格的字符串，长度1到30且互不相同；$1\le n\le2\times10^5$，成绩0到100。首行n，随后每行编号和成绩，输出排序后的记录。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3493,7 +3643,8 @@ a03 90
 b02 90
 \end{Sample}
 \end{tcolorbox}
-\textbf{解答。}结构体数组保存记录，cmp先判断成绩，再用strcmp判断编号。编号数组容量31，多留一格保存字符串结束符。\texttt{\%30s}限制一次最多读入30个字符。比较次数为$O(n\log n)$，每次字符串比较最多扫描30个字符，记录存储为$O(n)$。
+
+\noindent\textbf{解答。}结构体数组保存记录，cmp先判断成绩，再用strcmp判断编号。编号数组容量31，多留一格保存字符串结束符。\texttt{\%30s}限制一次最多读入30个字符。比较次数为$O(n\log n)$，每次字符串比较最多扫描30个字符，记录存储为$O(n)$。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{03\_rank.cpp}
 \begin{lstlisting}
@@ -3520,7 +3671,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{有序去重（教学例题）}
-\textbf{题目。}输入$n$个整数，$1\le n\le2\times10^5$、$|a_i|\le10^9$。第一行输出不同值数量，第二行按升序输出这些值。
+
+\noindent\textbf{题目。}输入$n$个整数，$1\le n\le2\times10^5$、$|a_i|\le10^9$。第一行输出不同值数量，第二行按升序输出这些值。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3559,7 +3711,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{追加和撤销（教学例题）}
-\textbf{题目。}首行$q$，$1\le q\le10^5$；随后每条命令为ADD x、UNDO或PRINT，$|x|\le10^9$。ADD末尾追加，UNDO删除末尾一项，空时忽略；PRINT输出当前序列，空时输出EMPTY。保证全部PRINT实际输出的元素数不超过$2\times10^5$。
+
+\noindent\textbf{题目。}首行$q$，$1\le q\le10^5$；随后每条命令为ADD x、UNDO或PRINT，$|x|\le10^9$。ADD末尾追加，UNDO删除末尾一项，空时忽略；PRINT输出当前序列，空时输出EMPTY。保证全部PRINT实际输出的元素数不超过$2\times10^5$。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3611,7 +3764,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{从左向右替换（教学例题）}
-\textbf{题目。}输入三行s、p、t，各行长度不超过1000，允许空格；s和t可空，p非空。按原串s从左到右查找p，每次选取最靠左的不重叠出现，将其替换为t。新插入的内容不再次参与匹配，输出结果。例如s为aaaa、p为aa、t为b，结果bb；s为aaa时结果ba。
+
+\noindent\textbf{题目。}输入三行s、p、t，各行长度不超过1000，允许空格；s和t可空，p非空。按原串s从左到右查找p，每次选取最靠左的不重叠出现，将其替换为t。新插入的内容不再次参与匹配，输出结果。例如s为aaaa、p为aa、t为b，结果bb；s为aaa时结果ba。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3657,7 +3811,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{三类括号匹配（教学例题）}
-\textbf{题目。}输入一行仅由\texttt{()[]\{\}}组成的字符串，长度0到$10^5$；空串合法。若每个右括号能与最近尚未匹配的同类左括号配对，输出YES，否则NO。
+
+\noindent\textbf{题目。}输入一行仅由\texttt{()[]\{\}}组成的字符串，长度0到$10^5$；空串合法。若每个右括号能与最近尚未匹配的同类左括号配对，输出YES，否则NO。
 \begin{tcolorbox}[samplebox,title={输入输出样例 1}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3716,7 +3871,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{排队取号（教学例题）}
-\textbf{题目。}首行$n$，$1\le n\le10^5$；随后每行PUSH x或POP，编号x为int范围内整数。PUSH入队；POP输出并删除队首，空队列输出EMPTY。
+
+\noindent\textbf{题目。}首行$n$，$1\le n\le10^5$；随后每行PUSH x或POP，编号x为int范围内整数。PUSH入队；POP输出并删除队首，空队列输出EMPTY。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3765,7 +3921,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{保留最大的k个数（教学例题）}
-\textbf{题目。}输入n、k及n个整数，$1\le k\le n\le2\times10^5$，数值在int范围内。重复值按不同出现计数，按降序输出最大的k个数。
+
+\noindent\textbf{题目。}输入n、k及n个整数，$1\le k\le n\le2\times10^5$，数值在int范围内。重复值按不同出现计数，按降序输出最大的k个数。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3808,7 +3965,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{动态候选值（教学例题）}
-\textbf{题目。}首行q，$1\le q\le2\times10^5$；随后每行ADD x、DEL x或GE x，$|x|\le10^9$。ADD加入一个副本，DEL删除一个副本，不存在则忽略；GE输出当前最小的、不小于x的值，不存在输出NONE。
+
+\noindent\textbf{题目。}首行q，$1\le q\le2\times10^5$；随后每行ADD x、DEL x或GE x，$|x|\le10^9$。ADD加入一个副本，DEL删除一个副本，不存在则忽略；GE输出当前最小的、不小于x的值，不存在输出NONE。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3861,7 +4019,8 @@ int main() {
 \end{minipage}\par
 
 \subsection{单词计数（教学例题）}
-\textbf{题目。}输入$n$及n个仅含小写字母的单词，每词长度1到30，$1\le n\le10^5$。按字典序输出每个不同单词及次数。
+
+\noindent\textbf{题目。}输入$n$及n个仅含小写字母的单词，每词长度1到30，$1\le n\le10^5$。按字典序输出每个不同单词及次数。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -3903,8 +4062,10 @@ int main() {
 \subsection{B3693：数列前缀和4}
 
 \practice{B3693}{数列前缀和 4}
-\textbf{题意。}多组非负整数矩阵，每次求矩形和模$2^{64}$，每组输出所有查询答案的异或和。$n,m\le1000$，累计矩阵项数、查询数各不超过$10^6$。
-\textbf{解答。}使用unsigned long long建立二维前缀和。C++无符号加减自然按$2^{64}$回绕，正好实现题目取模；不能改用有符号溢出。每组清零第0行和第0列，正文符号求和公式其余部分相同。$O(nm+q)$。下面给完整程序。
+
+\noindent\textbf{题意。}多组非负整数矩阵，每次求矩形和模$2^{64}$，每组输出所有查询答案的异或和。$n,m\le1000$，累计矩阵项数、查询数各不超过$10^6$。
+
+\noindent\textbf{解答。}使用unsigned long long建立二维前缀和。C++无符号加减自然按$2^{64}$回绕，正好实现题目取模；不能改用有符号溢出。每组清零第0行和第0列，正文符号求和公式其余部分相同。$O(nm+q)$。下面给完整程序。
 \textbf{自测样例（按原题规则构造）。}
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
@@ -3960,13 +4121,13 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
-
 \subsection{P8649：k倍区间}
 
 \practice{P8649}{[蓝桥杯 2017 省 B] k 倍区间}
-\textbf{题意。}输入n、k和n项正整数，求和能被k整除的非空连续区间数。$n,k,a_i\le10^5$。
-\textbf{解答。}区间和是k倍数当且仅当两端前缀余数相等。顺序扫描，每读到余数r，先加以前的cnt[r]，再增加计数。初始cnt[0]=1代表空前缀；次序反过来会把空区间算进去。$O(n+k)$时间、$O(k)$空间，答案用long long。
+
+\noindent\textbf{题意。}输入n、k和n项正整数，求和能被k整除的非空连续区间数。$n,k,a_i\le10^5$。
+
+\noindent\textbf{解答。}区间和是k倍数当且仅当两端前缀余数相等。顺序扫描，每读到余数r，先加以前的cnt[r]，再增加计数。初始cnt[0]=1代表空前缀；次序反过来会把空区间算进去。$O(n+k)$时间、$O(k)$空间，答案用long long。
 \textbf{自测样例（按原题规则构造）。}
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
@@ -4004,13 +4165,13 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
-
 \subsection{P1638：逛画展}
 
 \practice{P1638}{逛画展}
-\textbf{题意。}n幅画各有1到m的作者编号，求包含全部作者的最短连续区间；同长时输出左端点最小的一组，保证有解。$n\le10^6,m\le2000$。
-\textbf{解答。}频率记录窗口内作者出现次数，种类数达到m就尽量缩小左端。每次删除后若该作者计数变0，窗口才失去一类。仅在长度严格变小时更新答案，扫描顺序会保留最小左端。$O(n+m)$。
+
+\noindent\textbf{题意。}n幅画各有1到m的作者编号，求包含全部作者的最短连续区间；同长时输出左端点最小的一组，保证有解。$n\le10^6,m\le2000$。
+
+\noindent\textbf{解答。}频率记录窗口内作者出现次数，种类数达到m就尽量缩小左端。每次删除后若该作者计数变0，窗口才失去一类。仅在长度严格变小时更新答案，扫描顺序会保留最小左端。$O(n+m)$。
 \textbf{自测样例（按原题规则构造）。}
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
@@ -4051,13 +4212,13 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
-
 \subsection{P3143：两个展示柜}
 
 \practice{P3143}{[USACO16OPEN] Diamond Collector S}
-\textbf{题意。}n颗钻石放进两个柜，每柜最大、最小尺寸差不超过K；每颗只能使用一次，求总展示数最多。$n\le50000$。
-\textbf{解答。}先排序。双指针求每个起点的最长合法段，再算后缀中单柜最多能取多少。第一个柜取$[l,r)$，第二个柜从r以后取，贡献len[l]+best[r]。有最优方案可按尺寸把两柜分开，扩大第一段、删去重叠仍不会降低总数；不能直接相加两个可能重叠的最大窗口。$O(n\log n)$。
+
+\noindent\textbf{题意。}n颗钻石放进两个柜，每柜最大、最小尺寸差不超过K；每颗只能使用一次，求总展示数最多。$n\le50000$。
+
+\noindent\textbf{解答。}先排序。双指针求每个起点的最长合法段，再算后缀中单柜最多能取多少。第一个柜取$[l,r)$，第二个柜从r以后取，贡献len[l]+best[r]。有最优方案可按尺寸把两柜分开，扩大第一段、删去重叠仍不会降低总数；不能直接相加两个可能重叠的最大窗口。$O(n\log n)$。
 \textbf{自测样例（按原题规则构造）。}
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
@@ -4098,13 +4259,13 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
-
 \subsection{P10719：黑白格}
 
 \practice{P10719}{[GESP202406 五级] 黑白格}
-\textbf{题意。}输入n、m、k及01网格，求至少包含k个黑格的最小子矩形面积；不存在输出0。$n,m\le100$。
-\textbf{解答。}枚举上下边界，累加每列黑格数，再用非负数组滑动窗口找和至少k的最短列区间。新增一行只需$O(m)$，避免重新统计每个矩形。$O(n^2m)$时间、$O(nm)$存储。缩小窗口时不要越过右端点；k为正，零列也需要正确删除。
+
+\noindent\textbf{题意。}输入n、m、k及01网格，求至少包含k个黑格的最小子矩形面积；不存在输出0。$n,m\le100$。
+
+\noindent\textbf{解答。}枚举上下边界，累加每列黑格数，再用非负数组滑动窗口找和至少k的最短列区间。新增一行只需$O(m)$，避免重新统计每个矩形。$O(n^2m)$时间、$O(nm)$存储。缩小窗口时不要越过右端点；k为正，零列也需要正确删除。
 \textbf{自测样例（按原题规则构造）。}
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
@@ -4151,7 +4312,6 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
-
 
 % ===== second-practice.tex =====
 \Needspace{7\baselineskip}\section{练习题}
@@ -4217,179 +4377,15 @@ for (int i = 0; i < length; i++) {
 \end{minipage}\par
 扫描长度L的文本为$O(L)$。若规则只把普通空格当分隔符，就比较\texttt{' '}；isspace还会接受制表符等空白。
 
-\Needspace{16\baselineskip}\subsection{扫描指针与状态机}
-扫描指针p表示下一个尚未处理的字符。连续数字应一次读取成一个数，而不是把每个字符单独当成数据。
-% snippet:scan_number
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-// s is a null-terminated string; p initially points at a digit.
-long long value = 0;
-while (s[p] >= '0' && s[p] <= '9') {
-    value = value * 10 + s[p] - '0';
-    p++;
-}
-\end{lstlisting}
-\end{minipage}\par
-例如从\texttt{12,7}的开头读取，value依次为1、12，结束时p指向逗号。数值范围必须允许每次乘10再加数字。
-
-状态机用少量状态说明同一字符在不同上下文中的含义。例如引号外的空格是分隔符，引号内的空格是正文；用in\_quote记录当前是否在引号中。
-% snippet:scan_state
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-// Input has matched quotes and no escaping.
-int in_quote = 0, separators = 0;
-for (int p = 0; s[p] != '\0'; p++) {
-    if (s[p] == '"') in_quote = !in_quote;
-    else if (s[p] == ' ' && !in_quote) separators++;
-}
-\end{lstlisting}
-\end{minipage}\par
-\texttt{a "b c" d}的两个引号外空格被计数，引号内空格不计。每个字符触发一次状态转移，时间$O(L)$，额外空间$O(1)$。完整解析还需按规则决定空片段、转义和非法输入的处理方式。
-
-\Needspace{16\baselineskip}\subsection{状态存储与更新顺序}
-模拟用变量保存当前状态，按照操作规则更新。每个变量应对应明确的对象和时刻：编号作下标，多个属性放入结构体，查询读取该时刻已生效的状态。
-\Needspace{12\baselineskip}\subsubsection{同步更新}
-若一轮中的每个新值都依赖上一轮，必须从旧数组a读取，写入新数组b；全部算完后再复制回a。
-% snippet:synchronous
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-// One round: new value = old value + old immediate neighbors.
-for (int i = 0; i < n; i++) {
-    b[i] = a[i];
-    if (i > 0) b[i] += a[i-1];
-    if (i+1 < n) b[i] += a[i+1];
-}
-for (int i = 0; i < n; i++) a[i] = b[i];
-\end{lstlisting}
-\end{minipage}\par
-$[1,2,3]$一轮后为$[3,6,5]$。若直接改a，计算中间位置时会读到已更新的3，结果变为8。每轮$O(n)$时间，两个数组$O(n)$空间。
-\Needspace{12\baselineskip}\subsubsection{顺序更新}
-若操作依次生效，后一条必须看到前一条的结果。事件模拟还要确定同一时刻的先后，例如先加入该时刻到达的对象，再从全部候选中选择。
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-// Events are already sorted by arrival time.
-while (next < n && events[next].arrival <= now) {
-    add_candidate(events[next]);
-    next++;
-}
-if (has_candidate()) execute_one();
-\end{lstlisting}
-\end{minipage}\par
-小于等于把恰好在now到达的对象也纳入本次选择。每个事件只加入一次，加入阶段总计处理n项；选择和执行成本由相应数据结构决定。
-
-\Needspace{16\baselineskip}\subsection{栈与递归解析}
-\Needspace{12\baselineskip}\subsubsection{栈保存未完成状态}
-处理嵌套结构时，最近打开的结构应最先关闭，用栈保存尚未配对的左括号。
-% snippet:parse_stack
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-// s contains only '(' and ')'; stack capacity >= strlen(s).
-int top = 0, valid = 1;
-for (int p = 0; s[p] != '\0'; p++) {
-    if (s[p] == '(') st[top++] = p;
-    else if (top == 0) { valid = 0; break; }
-    else top--;
-}
-if (top != 0) valid = 0;
-\end{lstlisting}
-\end{minipage}\par
-右括号遇到空栈表示没有对应左括号，扫描结束仍有元素表示左括号未关闭。栈中存位置还可以记录配对关系。时间$O(L)$，最坏空间$O(L)$。
-
-\Needspace{25\baselineskip}\subsubsection{递归函数对应语法层级}
-递归解析把语法中的一个结构交给一个函数。以非负整数、加号和括号为例：
-\[
-\begin{aligned}
-\mathrm{expr}&=\mathrm{factor}\ \{+\ \mathrm{factor}\},\\
-\mathrm{factor}&=\mathrm{number}\mid(\ \mathrm{expr}\ ).
-\end{aligned}
-\]
-expr处理连续加法，factor处理数字或括号。共享指针p始终指向下一个未读字符；本片段假定语法合法、没有空白，数值运算不溢出。
-% snippet:recursive_parser
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-char s[1005]; int p = 0;
-long long parse_expr();
-long long parse_factor() {
-    if (s[p] == '(') {
-        p++;
-        long long value = parse_expr();
-        p++; // Consume the matching ')'.
-        return value;
-    }
-    long long value = 0;
-    while (s[p] >= '0' && s[p] <= '9')
-        value = value*10 + s[p++] - '0';
-    return value;
-}
-long long parse_expr() {
-    long long value = parse_factor();
-    while (s[p] == '+') {
-        p++;
-        value += parse_factor();
-    }
-    return value;
-}
-\end{lstlisting}
-\end{minipage}\par
-解析\texttt{1+(2+3)}时，外层读到左括号便递归求出5，再与1相加；内层在右括号处停止，由调用它的factor消费右括号。每个字符消费一次，时间$O(L)$，调用栈空间$O(H)$，H为嵌套深度。若题目允许非法输入，需要检查预期的字符，并在顶层确认整行读完。
-
-\Needspace{16\baselineskip}\subsection{树形结构与依赖处理}
-\Needspace{12\baselineskip}\subsubsection{父子关系与子树}
-树形结构用父编号或孩子列表表达。普通数组可以用first[u]保存第一个孩子，next[v]保存同父节点下的下一个孩子。
-% snippet:tree_build
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-// Nodes 0..n-1; parent[root] = -1.
-for (int u = 0; u < n; u++) first[u] = next[u] = -1;
-for (int v = 0; v < n; v++) {
-    int u = parent[v];
-    if (u == -1) continue;
-    next[v] = first[u];
-    first[u] = v;
-}
-\end{lstlisting}
-\end{minipage}\par
-孩子按逆插入顺序连接；若题目要求输入顺序，需维护尾指针或按反向编号插入。递归遍历孩子后再处理父亲，可以汇总子树信息：
-% snippet:tree_size
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-int subtree_size(int u) {
-    int total = 1;
-    for (int v = first[u]; v != -1; v = next[v])
-        total += subtree_size(v);
-    return total;
-}
-\end{lstlisting}
-\end{minipage}\par
-返回值包含u本身。合法树上每个节点和父子边访问一次，时间$O(n)$，存储$O(n)$，调用栈深度为树高H；链状树可能达到n层。
-
-\Needspace{12\baselineskip}\subsubsection{依赖顺序与环检测}
-若u的结果依赖v，就应先完成v。依赖图不一定是树：多个对象可以依赖同一个对象，也可能出现环。用三种颜色记录进度：0未开始，1正在当前递归链中，2已经完成。
-% snippet:dependency
-\par\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}
-// dependency[u] lists objects needed by u; color is initially zero.
-bool solve(int u) {
-    if (color[u] == 1) return false;
-    if (color[u] == 2) return true;
-    color[u] = 1;
-    for (int i = 0; i < (int)dependency[u].size(); i++)
-        if (!solve(dependency[u][i])) return false;
-    color[u] = 2;
-    order[count++] = u;
-    return true;
-}
-\end{lstlisting}
-\end{minipage}\par
-再次遇到颜色1，说明当前链回到尚未结束的对象，存在环；遇到颜色2则复用已经完成的结果，不是环。order中依赖对象先于使用它的对象，可以按此顺序计算。对所有未访问节点调用solve即可检查全图，n个对象、m条依赖的时间与存储为$O(n+m)$；实际结果计算和输出若更大，应另计成本。
-
 % ===== 11-comprehensive.tex =====
 \Needspace{7\baselineskip}\section{例题速看}
 \subsection{带引号的单行分词（教学例题）}
 
-\textbf{题目。}一行文本由普通字符、空格和英文双引号组成。引号外的连续空格分隔单词；引号内的空格属于单词；双引号本身不输出。相邻的普通片段和引号片段属于同一个单词。空引号表示一个空单词。本题不支持转义字符。若引号不匹配，输出 ERROR。行长不超过 $10^5$。
+\noindent\textbf{题目。}一行文本由普通字符、空格和英文双引号组成。引号外的连续空格分隔单词；引号内的空格属于单词；双引号本身不输出。相邻的普通片段和引号片段属于同一个单词。空引号表示一个空单词。本题不支持转义字符。若引号不匹配，输出 ERROR。行长不超过 $10^5$。
 
-\textbf{输入。}一整行文本，可为空。\textbf{输出。}合法时先输出单词数，随后每个单词单独一行，用方括号包住，便于看见空单词和空格。
+\noindent\textbf{输入。}一整行文本，可为空。
+
+\noindent\textbf{输出。}合法时先输出单词数，随后每个单词单独一行，用方括号包住，便于看见空单词和空格。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -4405,9 +4401,10 @@ add "hello world" "" x
 [x]
 \end{Sample}
 \end{tcolorbox}
-\textbf{状态设计。}quoted 表示当前是否在引号内；word[0..len-1] 保存当前单词；active 表示当前单词已经开始。active 不能由 len 是否为0代替，否则空引号会丢失。遇到引号切换 quoted；遇到引号外空格时结束当前单词；其余字符追加到word并增加len。扫描结束后检查引号是否闭合，再处理最后一个单词。
 
-\textbf{正确性。}每个字符恰好进入一种分支。引号仅改变状态，分隔空格仅结束一个已开始的单词，因此保留的字符、单词边界和空单词均符合规则。时间 $O(L)$，输出存储 $O(L)$。
+\noindent\textbf{状态设计。}quoted 表示当前是否在引号内；word[0..len-1] 保存当前单词；active 表示当前单词已经开始。active 不能由 len 是否为0代替，否则空引号会丢失。遇到引号切换 quoted；遇到引号外空格时结束当前单词；其余字符追加到word并增加len。扫描结束后检查引号是否闭合，再处理最后一个单词。
+
+\noindent\textbf{正确性。}每个字符恰好进入一种分支。引号仅改变状态，分隔空格仅结束一个已开始的单词，因此保留的字符、单词边界和空单词均符合规则。时间 $O(L)$，输出存储 $O(L)$。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{04\_tokens.cpp}
 \begin{lstlisting}
@@ -4444,7 +4441,8 @@ int main() {
 \end{minipage}\par
 \example{路径规范化}
 \ojpractice{CSP201604C}{路径解析：第7次认证，处理绝对路径、相对路径以及点号路径段}
-\textbf{题目。}给定固定的当前目录cwd和q条路径。以斜杠开头的是绝对路径，否则相对于cwd。连续斜杠视为一个；点号目录表示当前目录；两个点号表示父目录，在根目录继续上移仍为根。普通目录名只含字母、数字、下划线。路径不含空格且非空。
+
+\noindent\textbf{题目。}给定固定的当前目录cwd和q条路径。以斜杠开头的是绝对路径，否则相对于cwd。连续斜杠视为一个；点号目录表示当前目录；两个点号表示父目录，在根目录继续上移仍为根。普通目录名只含字母、数字、下划线。路径不含空格且非空。
 
 输出规范绝对路径：以一个斜杠开头，不含点号、两个点号或重复斜杠；除根目录外不以斜杠结尾。\textbf{每条查询独立使用原来的cwd，不改变当前目录。}路径长度不超过 $10^4$，全部输入路径总长度不超过 $2\times10^5$，$1\le q\le10^4$。第一行cwd，第二行q，随后q行各一条路径。cwd保证为绝对路径，也允许特殊片段。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
@@ -4468,7 +4466,8 @@ tmp/../../z
 /a/z
 \end{Sample}
 \end{tcolorbox}
-\textbf{解答。}用vector保存从根向下的目录名。普通片段入栈，两个点号在非空时弹栈，空片段和点号忽略。绝对路径从空栈开始，相对路径从cwd的副本开始。
+
+\noindent\textbf{解答。}用vector保存从根向下的目录名。普通片段入栈，两个点号在非空时弹栈，空片段和点号忽略。绝对路径从空栈开始，相对路径从cwd的副本开始。
 
 最后一条查询从 $[a,b]$ 出发，读tmp得到 $[a,b,tmp]$，两次父目录操作后为 $[a]$，加入z后得到 $[a,z]$。不变量是：栈中的目录始终表示已经处理的路径前缀的规范形式。
 
@@ -4517,10 +4516,10 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \example{授权和撤销的状态管理}
 \ojpractice{CSP202206C}{角色授权：第26次认证；下面教学例题先练习较小的授权模型，原题还需处理角色关联与权限匹配}
-\textbf{题目。}执行q条命令：\texttt{GRANT user resource}授予权限；\texttt{REVOKE user resource}撤销；\texttt{CHECK user resource}查询并输出YES或NO。重复授予不叠加；撤销不存在的权限不报错；未出现用户默认无权限。操作依次执行，只有CHECK输出。$1\le q\le2\times10^5$，名称为1到20个字母或数字。本题不含角色继承、通配符或优先级。
+
+\noindent\textbf{题目。}执行q条命令：\texttt{GRANT user resource}授予权限；\texttt{REVOKE user resource}撤销；\texttt{CHECK user resource}查询并输出YES或NO。重复授予不叠加；撤销不存在的权限不报错；未出现用户默认无权限。操作依次执行，只有CHECK输出。$1\le q\le2\times10^5$，名称为1到20个字母或数字。本题不含角色继承、通配符或优先级。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
 \textbf{样例输入}
 \begin{Sample}
@@ -4543,7 +4542,8 @@ NO
 NO
 \end{Sample}
 \end{tcolorbox}
-\textbf{解答。}外层map按用户名定位，内层set保存资源。set处理重复授权。查询和撤销用find，避免无意创建空记录。所有操作依次执行，因此CHECK反映此前的状态。
+
+\noindent\textbf{解答。}外层map按用户名定位，内层set保存资源。set处理重复授权。查询和撤销用find，避免无意创建空记录。所有操作依次执行，因此CHECK反映此前的状态。
 
 设用户数U，每位用户最多持有R项权限，单次比较次数为 $O(\log U+\log R)$，还需考虑字符串比较长度。总存储不超过授予过的记录规模。权限是用户与资源的二元关系，不能只判断用户是否出现过；撤销file1不能影响file2。
 \par\noindent\begin{minipage}{\linewidth}
@@ -4578,9 +4578,9 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \example{带括号的整数表达式}
-\textbf{题目。}输入一行表达式，支持非负整数字面量、加、减、乘、括号和一元正负号。乘法优先于加减，同级二元运算从左到右；一元符号优先于乘法；只忽略普通空格。合法时输出结果，语法错误输出ERROR。不支持除法、变量和隐式乘法，例如 \texttt{2(3+4)} 非法。
+
+\noindent\textbf{题目。}输入一行表达式，支持非负整数字面量、加、减、乘、括号和一元正负号。乘法优先于加减，同级二元运算从左到右；一元符号优先于乘法；只忽略普通空格。合法时输出结果，语法错误输出ERROR。不支持除法、变量和隐式乘法，例如 \texttt{2(3+4)} 非法。
 
 行长不超过1000，括号与连续一元符号嵌套不超过100层，字面量不超过 $10^6$；保证求值过程中涉及的数值运算的中间结果绝对值不超过 $10^{12}$，本题只讨论语法错误，不要求处理溢出。
 \begin{tcolorbox}[samplebox,title={输入输出样例 1}]
@@ -4605,7 +4605,8 @@ int main() {
 ERROR
 \end{Sample}
 \end{tcolorbox}
-\textbf{按语法拆函数。}
+
+\noindent\textbf{按语法拆函数。}
 \begin{tcolorbox}[samplebox,title={语法规则}]
 \begin{Sample}
 expression = term { ('+' | '-') term }
@@ -4670,10 +4671,10 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \example{树形文档的后代选择查询}
 \ojpractice{CSP201809C}{元素选择器：第14次认证；下面先用显式父编号练习祖先链，原题还需解析缩进与选择器}
-\textbf{题目。}给出按先序排列的一片有根森林，共n个节点。每行记录深度、标签和标识。根深度0，孩子比父亲深1；输入结构合法，每次深度最多增加1。标识为减号表示无标识，其余标识互不相同；标签和标识只含字母数字，长度1到20。
+
+\noindent\textbf{题目。}给出按先序排列的一片有根森林，共n个节点。每行记录深度、标签和标识。根深度0，孩子比父亲深1；输入结构合法，每次深度最多增加1。标识为减号表示无标识，其余标识互不相同；标签和标识只含字母数字，长度1到20。
 
 查询由空格分隔的选择符组成。普通选择符匹配标签，以井号开头的选择符匹配标识。\texttt{div p}表示匹配p节点，且它的某个\textbf{严格祖先}是div；\texttt{div div p}需要两个不同的div祖先按顺序出现，允许隔着其他节点。节点不能把自己当祖先。
 
@@ -4705,9 +4706,10 @@ div div p
 1 5
 \end{Sample}
 \end{tcolorbox}
-\textbf{建树。}用祖先栈。读取深度d的节点时，把栈截断到长度d；栈顶就是父亲，空栈则为根，然后压入自己。读取同深度兄弟时，旧兄弟会被弹出。
 
-\textbf{匹配。}从查询末尾开始，先检查候选节点本身，再沿父链逆序匹配剩余选择符。找到一个就继续寻找更高祖先。选择最近的匹配祖先不会损失可行解，因为它给剩余前缀保留最多的上方祖先。找齐全部选择符则接受。
+\noindent\textbf{建树。}用祖先栈。读取深度d的节点时，把栈截断到长度d；栈顶就是父亲，空栈则为根，然后压入自己。读取同深度兄弟时，旧兄弟会被弹出。
+
+\noindent\textbf{匹配。}从查询末尾开始，先检查候选节点本身，再沿父链逆序匹配剩余选择符。找到一个就继续寻找更高祖先。选择最近的匹配祖先不会损失可行解，因为它给剩余前缀保留最多的上方祖先。找齐全部选择符则接受。
 
 候选检查最多走树高H条父边并处理K个选择符，整体为 $O(qn(H+K))$，本题规模下足够。节点7虽是p，但没有div祖先；若程序把它算入 \texttt{div p}，通常是把“之前出现的节点”误认为“当前祖先”。
 \par\noindent\begin{minipage}{\linewidth}
@@ -4765,10 +4767,10 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \example{模板展开与循环依赖}
 \ojpractice{CSP201509C}{模板生成系统：第5次认证；下面教学题额外加入递归依赖与环检测，原题按其自身替换规则实现}
-\textbf{题目。}有n个命名模板，每个由若干以空白分隔的词组成。以at符号开头的词引用另一个模板，其余词直接输出。定义全部读完后，展开指定起始模板，以单个空格连接所有普通词。从起始模板可达的引用若出现未定义名称或环，输出ERROR；不可达模板的错误不影响本次输出。
+
+\noindent\textbf{题目。}有n个命名模板，每个由若干以空白分隔的词组成。以at符号开头的词引用另一个模板，其余词直接输出。定义全部读完后，展开指定起始模板，以单个空格连接所有普通词。从起始模板可达的引用若出现未定义名称或环，输出ERROR；不可达模板的错误不影响本次输出。
 
 模板名互不重复，只含字母数字，长度不超过20；引用符号后必须有名称。允许空模板。$1\le n\le100$，每个定义最多100个词，每词长度最多20。保证无环情况下每个模板完整展开不超过2000个词。第一行n，随后每个定义包含名称、词数k及k个词，最后给出起始名称。
 \begin{tcolorbox}[samplebox,title={输入输出样例 1}]
@@ -4800,9 +4802,10 @@ a
 ERROR
 \end{Sample}
 \end{tcolorbox}
-\textbf{三色状态。}0表示未算，1表示正在递归，2表示已经完成并缓存。访问状态1说明当前依赖链回到了自己；访问状态2直接复用。第二次引用同一模板不必然成环，关键看第一次展开是否结束。
 
-\textbf{解答。}先读入全部定义以允许前向引用。按词序展开，普通词加入结果，引用词接上被引用模板的结果。记忆化避免重算，但每次拼接仍复制相应词。时间取决于查找及所有实际复制的词数；本题每个模板最多缓存2000词，总缓存约不超过 $100\times2000$ 词，不能忽略输出规模而声称总是O(n)。
+\noindent\textbf{三色状态。}0表示未算，1表示正在递归，2表示已经完成并缓存。访问状态1说明当前依赖链回到了自己；访问状态2直接复用。第二次引用同一模板不必然成环，关键看第一次展开是否结束。
+
+\noindent\textbf{解答。}先读入全部定义以允许前向引用。按词序展开，普通词加入结果，引用词接上被引用模板的结果。记忆化避免重算，但每次拼接仍复制相应词。时间取决于查找及所有实际复制的词数；本题每个模板最多缓存2000词，总缓存约不超过 $100\times2000$ 词，不能忽略输出规模而声称总是O(n)。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{23\_templates.cpp}
 \begin{lstlisting}
@@ -4857,7 +4860,6 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-
 \example{差值数对}
 给 n 个整数和非负整数 c，求满足 $i<j$ 且 $|a_i-a_j|=c$ 的位置对数量。$1\le n\le2\times10^5$，$|a_i|\le10^9$，$0\le c\le2\times10^9$。第一行 n、c，第二行数组，输出一个整数。
 \begin{tcolorbox}[samplebox,title={输入输出样例}]
@@ -4872,7 +4874,8 @@ int main() {
 6
 \end{Sample}
 \end{tcolorbox}
-\textbf{解答。}先统计每个值的频次。c>0时，只从较小值x寻找x+c，不会重复统计同一无序数对；贡献是两组频次乘积。c=0时，频次k的组中任选两个位置，贡献 $k(k-1)/2$。答案最多为 $n(n-1)/2$，需要long long。时间 $O(n\log n)$，空间 $O(n)$。
+
+\noindent\textbf{解答。}先统计每个值的频次。c>0时，只从较小值x寻找x+c，不会重复统计同一无序数对；贡献是两组频次乘积。c=0时，频次k的组中任选两个位置，贡献 $k(k-1)/2$。答案最多为 $n(n-1)/2$，需要long long。时间 $O(n\log n)$，空间 $O(n)$。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{24\_pairs.cpp}
 \begin{lstlisting}
@@ -4902,7 +4905,7 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-\textbf{检查用例。}数组 $[7,7,7]$、c=0应输出3；单元素时应输出0。若输出9，说明把相同位置配对或对称重复都算了进去。
+\noindent\textbf{检查用例。}数组 $[7,7,7]$、c=0应输出3；单元素时应输出0。若输出9，说明把相同位置配对或对称重复都算了进去。
 
 \example{矩形增量的最大值}
 初始有 $n\times m$ 全0矩阵，执行q次操作，每次给闭矩形左上 $(x_1,y_1)$ 到右下 $(x_2,y_2)$ 加v。最终输出最大元素值，以及等于最大值的格子数。$1\le n,m\le1000$，$0\le q\le2\times10^5$，$|v|\le10^6$，坐标合法。第一行n、m、q，随后每行五个数。
@@ -4919,7 +4922,8 @@ int main() {
 5 1
 \end{Sample}
 \end{tcolorbox}
-\textbf{解答。}把每次矩形更新记录在二维差分四角，最后恢复每格真实值，同时维护最大值和次数。只统计1到n行、1到m列，不能把辅助边界算进去。允许负更新，最大值要从负无穷开始，不能默认0。时间 $O(nm+q)$，空间 $O(nm)$。
+
+\noindent\textbf{解答。}把每次矩形更新记录在二维差分四角，最后恢复每格真实值，同时维护最大值和次数。只统计1到n行、1到m列，不能把辅助边界算进去。允许负更新，最大值要从负无穷开始，不能默认0。时间 $O(nm+q)$，空间 $O(nm)$。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{25\_rectangle.cpp}
 \begin{lstlisting}
@@ -4950,7 +4954,7 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-\textbf{检查用例。}q=0时输出 \texttt{0 n*m}，第二项应计算成实际格子数；若整个矩阵一次减5，则最大值为-5而不是0。
+\noindent\textbf{检查用例。}q=0时输出 \texttt{0 n*m}，第二项应计算成实际格子数；若整个矩阵一次减5，则最大值为-5而不是0。
 
 \example{非抢占任务调度}
 有一台处理器和n个任务，每个任务给定到达时刻、优先级和执行时间，输入顺序就是任务编号。处理器空闲时，在所有已经到达但尚未执行的任务中选择优先级最高者；并列时选到达更早者，再并列选编号更小者。一旦开始执行就\textbf{不能被抢占}。
@@ -4977,11 +4981,12 @@ int main() {
 7
 \end{Sample}
 \end{tcolorbox}
-\textbf{推演。}任务1在0到5执行，中途到达的高优先级任务不能打断它。时刻5，先加入任务4；待选任务2、3、4中任务3优先级最高，所以执行顺序为1、3、4、2。任务2等到8开始，等待7。
 
-\textbf{状态划分。}排序数组保存还未到达的任务，指针i指向下一项；优先队列保存已经到达的任务；now保存处理器可再次分配工作的时刻。每轮先补全所有到达时间不大于now的任务，再选堆顶。
+\noindent\textbf{推演。}任务1在0到5执行，中途到达的高优先级任务不能打断它。时刻5，先加入任务4；待选任务2、3、4中任务3优先级最高，所以执行顺序为1、3、4、2。任务2等到8开始，等待7。
 
-\textbf{正确性。}选择前，堆恰好包含全部可选任务；比较器严格实现三级优先顺序。执行结束后更新now，不处理中途抢占，符合规则。每个任务入堆出堆各一次，排序与堆操作总时间 $O(n\log n)$，空间 $O(n)$。结束时刻可能达到 $10^{14}$ 量级，应使用long long。
+\noindent\textbf{状态划分。}排序数组保存还未到达的任务，指针i指向下一项；优先队列保存已经到达的任务；now保存处理器可再次分配工作的时刻。每轮先补全所有到达时间不大于now的任务，再选堆顶。
+
+\noindent\textbf{正确性。}选择前，堆恰好包含全部可选任务；比较器严格实现三级优先顺序。执行结束后更新now，不处理中途抢占，符合规则。每个任务入堆出堆各一次，排序与堆操作总时间 $O(n\log n)$，空间 $O(n)$。结束时刻可能达到 $10^{14}$ 量级，应使用long long。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{26\_scheduler.cpp}
 \begin{lstlisting}
@@ -5031,7 +5036,6 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
-
 
 % ===== 12-practice.tex =====
 \Needspace{7\baselineskip}\section{练习题}

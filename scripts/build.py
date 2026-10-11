@@ -110,9 +110,6 @@ for filename in order:
     if path.name in knowledge:
         text = text.replace('\\subsection{', '\\Needspace{16\\baselineskip}\\subsection{')
         text = text.replace('\\subsubsection{', '\\Needspace{12\\baselineskip}\\subsubsection{')
-        text = text.replace(
-            '\\Needspace{12\\baselineskip}\\subsubsection{递归函数对应语法层级}',
-            '\\Needspace{25\\baselineskip}\\subsubsection{递归函数对应语法层级}')
     text = re.sub(r'\\begin\{verbatim\}\n(.*?)\\end\{verbatim\}', format_sample, text, flags=re.S)
     text = re.sub(
         r'\\begin\{lstlisting\}(.*?)\\end\{lstlisting\}',
