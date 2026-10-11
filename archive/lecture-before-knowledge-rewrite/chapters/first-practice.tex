@@ -1,0 +1,274 @@
+\section{练习题}
+\subsection{原题单剩余三道第一题}\textbf{先做原题单，再做知识点补充。}真题速看未展开的三题如下，都保留认证次数、完整规则、样例与可提交程序。
+\subsection{小中大}
+\textbf{第16次CCF-CSP认证，2019-03，第1题。}\href{https://www.acwing.com/problem/content/3275/}{小中大（在线做题）}。
+\textbf{题目与输入输出。}输入$n\le10^5$以及n个已按升序或降序排列的整数，可重复，绝对值不超过$10^7$。输出最大值、中位数、最小值，空格分隔；整数不带小数，非整数保留1位小数。
+\textbf{读题思路。}已经有序，无需重排；升序和降序都能由首尾取得极值。奇数长度中位数是一项，偶数长度是中间两项均值。
+\textbf{做题思路与解答。}首尾取min、max，中间位置按奇偶取值。先计算中位数的两倍twice；偶数时直接输出twice/2，否则输出twice/2.0保留一位。这使负半整数也正确，避免整数除法丢掉0.5。
+\begin{verbatim}
+输入
+3
+-1 2 4
+输出
+4 2 -1
+\end{verbatim}
+\begin{verbatim}
+输入
+4
+-2 -1 3 4
+输出
+4 1 -2
+\end{verbatim}
+\textbf{复杂度与边界。}读入时间$O(n)$、数组空间$O(n)$。可以只保留首尾及中间项把额外空间降为$O(1)$。n=1时三个输出值相同。
+\Code{53_small_middle_large.cpp}
+\subsection{数组推导}
+\textbf{第23次CCF-CSP认证，2021-09，第1题。}\href{https://www.acwing.com/problem/content/4009/}{数组推导（在线做题）}。
+\textbf{题目与输入输出。}非负整数数组A的前缀最大值为$B_i=\max(A_1,\ldots,A_i)$。已知单调不降的B，求A的元素和最大值及最小值，各输出一行，最大值在前。输入n、n项B；$1\le n\le100$，$0\le B_i\le10^5$。
+\textbf{读题思路。}B是前缀最大值，不是前缀和。B上升时当前A被迫等于新值；B不变时A可小到0。
+\textbf{做题思路与解答。}最大和为$\sum B_i$，因为各项都可选为B对应值，且不能超过该值。最小和只保留第一项及严格上升处的B值，其他A取0。上升时此前元素不可能提供新最大值，必须由当前A提供；这些强制项已足以实现全部B，所以该和最小。
+\begin{verbatim}
+输入
+6
+0 0 5 5 10 10
+输出
+30
+15
+\end{verbatim}
+\begin{verbatim}
+输入
+7
+10 20 30 40 50 60 75
+输出
+285
+285
+\end{verbatim}
+\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$。B首项可为0，全0时两个答案都是0。
+\Code{54_derive.cpp}
+\subsection{如此编码}
+\textbf{第27次CCF-CSP认证，2022-09，第1题。}\href{https://www.acwing.com/problem/content/4702/}{如此编码（在线做题）}。
+\textbf{题目与输入输出。}每题有$a_i\ge2$个选项，正确选项$0\le b_i<a_i$。设$c_0=1,c_i=\prod_{j=1}^i a_j$，编码$m=\sum_{i=1}^n c_{i-1}b_i$。输入n、m及n项a，恢复并输出n项b，空格分隔。$n\le20,c_n\le10^9,0\le m<c_n$。
+\textbf{读题思路。}这是不同位使用不同进制的编码。题面给出长公式，但可以从最低位逐次取余，避免反复计算前缀积。
+\textbf{做题思路与解答。}对$a_1$取余，后面所有项都是$a_1$的倍数，所以$b_1=m\bmod a_1$。再令$m=\lfloor m/a_1\rfloor$，得到余下位的同类编码。依次取余和整除即可恢复全部b。每步都唯一确定一位，最终得到原编码的唯一表示。
+\begin{verbatim}
+输入
+4 0
+2 3 2 5
+输出
+0 0 0 0
+\end{verbatim}
+\begin{verbatim}
+输入
+7 23333
+3 5 20 10 4 3 10
+输出
+2 2 15 7 3 1 0
+\end{verbatim}
+\textbf{复杂度与边界。}时间$O(n)$，额外空间$O(1)$，可边读a边输出。m为0时每位都为0；余数不是输出的逆序。
+\Code{55_encoding.cpp}
+\subsection{基础统计与枚举复做}
+以下练习补足频率统计、相邻关系、贪心分段、浮点计算和重复状态。每道在线题附提交入口；教学例题与概念问答没有独立提交页面。
+\example{统计一组整数}
+\textbf{题目。}输入 $n$ 个整数，输出总和、最小值、最大值，以及出现次数最多的值及其次数。若多个值并列，输出最小的值。$1\le n\le2\times10^5$，$|a_i|\le10^9$。
+
+\textbf{输入。}第一行 $n$，第二行 $n$ 个整数。\textbf{输出。}第一行依次输出总和、最小值、最大值；第二行输出众数及出现次数。
+\begin{verbatim}
+输入
+6
+3 -1 3 2 -1 5
+输出
+11 -1 5
+-1 2
+\end{verbatim}
+\textbf{解答。}总和与极值可边读边更新；最小值不能初始化为0，否则全正数时会出错。众数作为本例的进阶要求：先调用C标准库qsort排序，再扫描每个相等值段。按值升序扫描且只在次数严格增加时更新答案，就保留了并列时较小的值。qsort的比较函数返回负数、0或正数，表示小于、等于或大于；不要用可能溢出的相减判断。扫描为$O(n)$，空间为$O(n)$，总时间由排序主导。C标准未规定qsort的复杂度保证；需要明确的$O(n\log n)$比较次数保证时，可使用第二篇讲解的sort。初学时先掌握总和与极值，再学习众数部分。
+\Code{01_stats.cpp}
+
+\exercise
+\textbf{练习1。}数组长度为 $10^5$，每项不超过 $10^9$，总和是否可以用 int？\textbf{解答。}最大总和为 $10^{14}$，应使用 long long。若单项也可能相乘，还要检查乘法是否提前提升类型。
+
+\textbf{练习2。}对 $[4,4,4]$，上题输出什么？\textbf{解答。}第一行是 \texttt{12 4 4}，第二行是 \texttt{4 3}。这检查重复值与极值更新。
+
+\textbf{练习3。}有 $10^5$ 次查询，每次扫描 $10^5$ 个数求和，工作量约是多少？\textbf{解答。}约 $10^{10}$ 次元素访问。若数组不变，应预处理前缀和；若存在修改，则先判断能否离线处理，不直接套静态前缀和。
+\newpage
+
+\subsection{基础题训练路线}
+按顺序打开做题链接，先根据本书的简述实现；输入细节和平台限制以原题为准。后面的逐题解答提供关键代码，并说明为什么这样统计正确。
+\begin{longtable}{P{4.7cm}P{2.4cm}P{6.9cm}}
+\toprule 真题与做题链接 & 认证届次 & 任务和训练目标\\\midrule\endhead
+\csp{CSP201403A}{相反数} & 第1次，2014-03 & 统计互为相反数的数对；值域与不重复计数。\\
+\csp{CSP201409A}{相邻数对} & 第2次，2014-09 & 统计差的绝对值为1的数对；枚举无序对。\\
+\csp{CSP201412A}{门禁系统} & 第3次，2014-12 & 依次输出当前编号是第几次出现；频率数组。\\
+\csp{CSP201509A}{数列分段} & 第5次，2015-09 & 相邻相等的连续段数量；边界变化计数。\\
+\csp{CSP201703A}{分蛋糕} & 第10次，2017-03 & 按顺序累积到重量阈值就分出；末段不足仍分出。\\
+\csp{CSP201809A}{卖菜} & 第14次，2018-09 & 内部位置取三项均值，首尾取两项均值，整数截断。\\
+\csp{CSP201912A}{报数} & 第18次，2019-12 & 四人轮流报数，7的倍数或含7者跳过，统计各人跳过次数。\\
+\csp{CSP202104A}{灰度直方图} & 第22次，2021-04 & 按灰度值计频率，输出完整值域（包括频率0）。\\
+\csp{CSP202206A}{归一化处理} & 第26次，2022-06 & 计算均值、总体方差及归一化值；double与精度。\\
+\csp{CSP202305A}{重复局面} & 第30次，2023-05 & 对每个棋盘局面输出此前累计出现次数；二维字符比较。\\
+\bottomrule\end{longtable}
+\subsection{相反数与相邻数对：不重不漏}
+\textbf{做题：}\csp{CSP201403A}{相反数（第1次）}、\csp{CSP201409A}{相邻数对（第2次）}。
+\textbf{解答。}这两题数据小，读入数组后枚举$i<j$即可。相反数检查$a_i+a_j=0$；相邻数对检查差为1或-1。每个无序对只枚举一次。题面保证输入值互不相同；若改成可重复，按值存在性计数便不等于按位置数对计数。
+\begin{lstlisting}
+int answer = 0;
+for (int i = 0; i < n; i++) {
+    for (int j = i+1; j < n; j++) {
+        if (1LL*a[i]+a[j] == 0) answer++; // Opposite numbers.
+        // Neighbor pairs: replace the condition above by
+        // 1LL*a[i]-a[j] == 1 || 1LL*a[i]-a[j] == -1
+    }
+}
+\end{lstlisting}
+时间$O(n^2)$，数组空间$O(n)$。值域小且不重复时也可用存在性桶：相反数只检查正数x与-x，相邻数对只检查x与x+1，这同样只计一次。
+\subsection{门禁系统与灰度直方图：同一种桶的两种输出}
+\textbf{做题：}\csp{CSP201412A}{门禁系统（第3次）}、\csp{CSP202104A}{灰度直方图（第22次）}。
+门禁题输入n及n次记录，每条是编号，输出每条编号在当前前缀中的出现次数；原题$1\le n\le1000$，编号在1到n之间。直方图题输入n、m、L和$n\times m$个灰度值，灰度在0到$L-1$之间，输出L个计数。\textbf{解答。}数组cnt全0，每读入一个x就\texttt{cnt[x]++}。门禁在更新后立即输出，直方图在全部更新后按0到L-1输出。
+\begin{lstlisting}
+int cnt[1005] = {0};
+for (int i = 0; i < n; i++) {
+    int id; scanf("%d", &id);
+    printf("%d%c", ++cnt[id], i+1 == n ? '\n' : ' ');
+}
+// Histogram core: read all pixels and do cnt[gray]++.
+// Then print cnt[0], cnt[1], ..., cnt[L-1], including zeros.
+\end{lstlisting}
+每条记录只访问一次，时间线性；存储取决于值域，不是记录数量。多个测试实例时必须重新清零。
+\subsection{数列分段与分蛋糕：何时增加答案}
+\textbf{做题：}\csp{CSP201509A}{数列分段（第5次）}、\csp{CSP201703A}{分蛋糕（第10次）}。
+数列分段把相邻相等项放在同一段，输入n及数组，输出段数；n至少为1。\textbf{解答。}先有一段，每个$a_i\ne a_{i-1}$的位置开启新段，答案为1加变化次数。
+\begin{lstlisting}
+int segments = 1;
+for (int i = 1; i < n; i++) if (a[i] != a[i-1]) segments++;
+\end{lstlisting}
+分蛋糕按输入次序累积正重量，达到k就交给一个人并从0重新累积；最后不足k但仍有蛋糕也交给一个人。输入n、k和各块重量，输出人数。
+\begin{lstlisting}
+long long sum = 0; int people = 0;
+for (int i = 0; i < n; i++) {
+    sum += weight[i];
+    if (sum >= k) { people++; sum = 0; }
+}
+if (sum > 0) people++;
+\end{lstlisting}
+达到阈值就分出，符合题目指定流程；若从最大化可分人数理解，正重量条件下延后分出只会消耗更多块，不能增加后续可分段数。两题时间$O(n)$；读入可流式处理，额外空间$O(1)$。
+\subsection{卖菜：首尾与同步更新}
+\textbf{做题：}\csp{CSP201809A}{卖菜（第14次）}。输入至少2个原价格；内部新价格是左、中、右原价格之和除以3向下取整，两端是两个相邻原价格之和除以2。输出新价格序列。
+\textbf{解答与关键代码。}全部原值先读入a，再按规则输出，或者写入新数组b；不要修改a后再算后面的均值。价格非负，整数除法正好完成向下取整。
+\begin{lstlisting}
+printf("%d", (a[0]+a[1])/2);
+for (int i = 1; i+1 < n; i++) printf(" %d", (a[i-1]+a[i]+a[i+1])/3);
+printf(" %d\n", (a[n-2]+a[n-1])/2);
+\end{lstlisting}
+时间$O(n)$，空间$O(n)$。n=2时内部循环不执行，两个答案都是两项均值。
+\subsection{报数：数字与轮次分开}
+\textbf{做题：}\csp{CSP201912A}{报数（第18次）}。四人依次轮流报自然数，从1开始；7的倍数或十进制含7时跳过并记录当前人的跳过次数。直到成功报出n个数，输出四人的跳过次数（每人一行）。
+\textbf{解答。}变量x记录当前自然数，done只统计成功次数；每处理一个x，轮次都会推进，包括被跳过的数。当前人是$(x-1)\bmod4$。
+\begin{lstlisting}
+bool skip(int x) {
+    if (x % 7 == 0) return true;
+    while (x) { if (x % 10 == 7) return true; x /= 10; }
+    return false;
+}
+// int cnt[4]={0}, done=0;
+// for (int x=1; done<n; x++)
+//     if (skip(x)) cnt[(x-1)%4]++; else done++;
+\end{lstlisting}
+不要在跳过时停留在同一个人，也不要把x直接限制为n。若实际处理T个数，时间$O(T\log T)$，空间$O(1)$。
+\subsection{归一化处理：均值、方差与浮点除法}
+\textbf{做题：}\csp{CSP202206A}{归一化处理（第26次）}。给定n个整数，计算均值$\mu=\frac1n\sum a_i$、总体方差$D=\frac1n\sum(a_i-\mu)^2$，再逐行输出$(a_i-\mu)/\sqrt D$；原题保证方差非零。
+\textbf{解答与关键代码。}使用double累加，先求均值，再求平方偏差和。不要误用样本方差的分母n-1，也不要把平方根漏掉。
+\begin{lstlisting}
+double sum = 0, variance = 0;
+for (int i = 0; i < n; i++) sum += a[i];
+double mean = sum/n;
+for (int i = 0; i < n; i++) {
+    double d = a[i]-mean; variance += d*d;
+}
+variance /= n;
+for (int i = 0; i < n; i++) printf("%.10f\n", (a[i]-mean)/sqrt(variance));
+\end{lstlisting}
+需包含\texttt{<cmath>}并调用相应sqrt。时间$O(n)$，数组空间$O(n)$。自编变式若允许全部相等，必须规定D=0时的输出，不能直接除以0。
+\subsection{重复局面：不用STL也能比较字符串}
+\textbf{做题：}\csp{CSP202305A}{重复局面（第30次）}。输入n个$8\times8$字符棋盘，按输入顺序输出当前棋盘在截至此刻的全部棋盘中出现了几次。原题$n\le100$。
+\textbf{解答。}每个棋盘压成一个长度64的字符数组，末尾加0；枚举此前及当前所有棋盘，用strcmp判断完全相同。n很小，$O(64n^2)$足够，无需把map作为第一题的先修条件。
+\begin{lstlisting}
+char board[105][65];
+// Read each row into char row[9] with scanf("%8s", row),
+// then copy its 8 characters to board[i]+8*r.
+// Set board[i][64]=0 before strcmp.
+for (int i = 0; i < n; i++) {
+    int count = 0;
+    for (int j = 0; j <= i; j++)
+        if (strcmp(board[i], board[j]) == 0) count++;
+    printf("%d\n", count);
+}
+\end{lstlisting}
+包含\texttt{<cstring>}。比较必须覆盖全部64格，不能只用某一个格子或棋子数量作为身份。第二篇学完map后，可把完整棋盘串作为键重新实现。
+
+\subsection{历年考点补充：数组与二维枚举}
+\subsection{图像旋转}
+\textbf{第4次CCF-CSP认证，2015-03，第1题。}\csp{CSP201503A}{图像旋转}。
+\textbf{题目与输入输出。}输入一个$n\times m$矩阵，将它逆时针旋转$90^\circ$后输出。第一行n、m，随后n行每行m个整数；输出m行，每行n个整数。$1\le n,m\le1000$，元素在0到1000之间。
+\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
+\textbf{读题思路。}圈出“逆时针”和“输出m行n列”。矩阵不一定是正方形，不能把行列长度混用。百万个int约3.8MiB，可以存整个原矩阵。
+\textbf{做题思路与解答。}原矩阵第j列从上到下，会成为新矩阵第$m-1-j$行（0下标）。因此按列从右到左、每列从上到下输出即可；无需再开一张新矩阵。映射式为$b[m-1-j][i]=a[i][j]$。每个输入元素恰好输出一次，所以既没有漏项，也没有重复。
+\begin{verbatim}
+输入
+2 3
+1 5 3
+3 2 4
+输出
+3 4
+5 2
+1 3
+\end{verbatim}
+\textbf{复杂度与边界。}时间$O(nm)$，空间$O(nm)$。用$1\times3$和$3\times1$检查方向；每行最后一个值后输出换行。
+\Code{35_rotate.cpp}
+\subsection{数位之和}
+\textbf{第6次CCF-CSP认证，2015-12，第1题。}\csp{CSP201512A}{数位之和}。
+\textbf{题目与输入输出。}输入一个整数$n$，输出其十进制各位数字之和。$0\le n\le10^9$。
+\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
+\textbf{读题思路。}任务是求数字之和，不是数位数量，也不是把各位拼成新数。输入允许0；不必为了拆位把整数转换为字符串。
+\textbf{做题思路与解答。}每轮用$n\bmod10$取个位，再用整数除法$n/10$删除个位；不断累加。每位恰好取一次，得到所求总和。do-while会对0执行一次，结果仍为0；普通while配合总和初值0也正确。
+\begin{verbatim}
+输入
+20151220
+输出
+13
+\end{verbatim}
+\textbf{复杂度与边界。}若十进制位数为d，时间$O(d)$，空间$O(1)$。$10^9$只有10位，和最多81（$10^9$本身为1）；int足够。
+\Code{36_digits.cpp}
+\subsection{折点计数}
+\textbf{第7次CCF-CSP认证，2016-04，第1题。}\csp{CSP201604A}{折点计数}。
+\textbf{题目与输入输出。}有n天销售量$a_1,\ldots,a_n$，相邻两天的销售量不同。一个内部位置的值严格大于左右两项，或严格小于左右两项，称为折点。输入n及n项销售量，输出折点数。$1\le n\le1000$，销售量在0到10000之间。
+\textbf{评测限制。}曙梦OJ当前时限1秒，内存256MB。
+\textbf{读题思路。}折点表示趋势从升变降或从降变升。第一天和最后一天没有两侧邻居，不能计入；不相邻的位置可以取相同值。
+\textbf{做题思路与解答。}从第二项到倒数第二项检查“同时大于左右”或“同时小于左右”。每个内部位置独立判断一次，恰好覆盖全部折点。也可检查相邻差的符号是否不同，但直接写大小关系更直观，且没有乘法溢出的隐患。
+\begin{verbatim}
+输入
+7
+5 4 1 2 3 6 4
+输出
+2
+\end{verbatim}
+\textbf{复杂度与边界。}时间$O(n)$，空间$O(n)$。n为1或2时循环不执行，答案为0。严格单调序列也没有折点。
+\Code{37_turns.cpp}
+\subsection{仓库规划}
+\textbf{第32次CCF-CSP认证，2023-12，第1题。}\csp{CSP202312A}{仓库规划}。
+\textbf{题目与输入输出。}n个仓库各有m维坐标。只有j的每一维都严格大于i，j才是i的上级；若有多个，取编号最小的j，否则为0。输入n、m，再输入n行坐标；按编号顺序输出各仓库上级，一行一个。$1\le n\le1000$，$1\le m\le10$，各坐标绝对值不超过$10^6$。
+\textbf{评测限制。}曙梦OJ当前时限1秒，内存512MB。
+\textbf{读题思路。}关注“每一维”“严格大于”“编号最小”。输出不是最近仓库，也不是坐标最小仓库。$n^2m\le10^7$，直接枚举候选可行，不必急着排序或使用STL。
+\textbf{做题思路与解答。}对每个i，按编号递增枚举j；逐维检查，一旦出现$a[j][k]\le a[i][k]$便拒绝。第一个全部通过的j就是编号最小答案，可以退出候选循环。自身必然无法通过严格比较。遍历所有候选保证无遗漏，升序与首次接受保证最小编号。
+\begin{verbatim}
+输入
+4 2
+0 0
+-1 -1
+1 2
+0 -1
+输出
+3
+1
+0
+3
+\end{verbatim}
+\textbf{复杂度与边界。}时间$O(n^2m)$，空间$O(nm)$。相等坐标不是上级；无上级时保留初值0。
+\Code{39_warehouses.cpp}

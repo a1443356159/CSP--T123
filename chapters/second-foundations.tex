@@ -1,31 +1,4 @@
 \clearpage
-\part{第二题：基础算法与STL}
-本篇学习如何利用结构减少重复计算。第一节按算法模型展开，第二节详细讲解STL工具，第三节用五道认证真题检验建模，最后汇总考点并完成专题练习。即使暂时不用STL，也应理解前缀和、双指针、二分和DP的原理。
-\section{基础算法与STL使用}
-\subsection{先选算法，再选工具}
-数据结构负责保存和查询状态，算法负责说明为什么这样处理正确。不要只根据题名猜容器：已有排序的两组数据可以双指针扫描，不一定需要map；静态区间和优先用前缀和，不必上复杂树结构。普通数组、结构体和独立函数仍是本篇实现的主体。
-\begin{longtable}{P{3cm}P{4.1cm}P{7cm}}
-\toprule 需求 & 算法或工具 & 在本篇就近练习的题目\\\midrule\endhead
-反复查询静态区域总和 & 前缀和、二维容斥 & \csp{CSP202104B}{邻域均值}；\csp{CSP202412B}{梦境巡查}。\\
-批量修改区间或矩形 & 差分、最后恢复 & \csp{CSP201409B}{画图}；第二节后练习。\\
-答案有单调可行性 & 二分答案、判定函数 & \csp{CSP202605B}{机器人宿管}；\csp{CSP202303B}{垦田计划}。\\
-两组已排序序列 & 双指针归并、区间扫描 & \csp{CSP202006B}{稀疏向量}；\csp{CSP201809B}{买菜}。\\
-重复选择，资源恰好用完 & 完全背包 & \csp{CSP202503B}{机器人饲养指南}。\\
-可达性或最短跳数 & DFS、BFS、状态标记 & \csp{CSP202506B}{机器人复健指南}。\\
-按频率和编号排序 & 次数桶、结构体、sort & \csp{CSP201503B}{数字排序}。\\
-维护单词集合与交并 & set、map、规范化 & \csp{CSP202403B}{相似度计算}。\\
-\bottomrule\end{longtable}
-\subsection{C风格程序中怎样使用STL}
-STL是C++标准库的一部分，可以与scanf/printf、普通数组和结构体一起使用。按C++17编译，写清需要的头文件。数组排序可直接使用\texttt{std::sort(a,a+n)}；不需要把已有数组先复制成vector。比较函数写成独立函数；迭代器写明类型。本篇用到的接口会在第二节逐个说明。
-\begin{lstlisting}
-#include <cstdio>
-#include <algorithm>
-struct Student { int id, score; };
-bool less_by_score(const Student &a, const Student &b) {
-    if (a.score != b.score) return a.score > b.score;
-    return a.id < b.id;
-}
-// After declaring array students:
-// std::sort(students, students+n, less_by_score);
-\end{lstlisting}
-以上是比较函数片段，Student必须先定义，例如\texttt{struct Student\{int id,score;\};}。同分时的比较规则来自题面；不能把\texttt{<=}写进严格比较函数。
+\part{第二题：工具与算法}
+\section{基础算法}
+调用std::sort、std::max、std::min时包含\texttt{<algorithm>}；使用std::vector时包含\texttt{<vector>}。

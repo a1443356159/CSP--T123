@@ -170,5 +170,6 @@
       "verification": "公开题面已核对；属于当前团队题单",
       "team_member": true
     }
-  ]
+  ],
+  "current_lecture_scope": "练习区仅保留所选题型与做题链接；完整教学例题集中在例题速看。此前扩展讲解见archive/lecture-before-knowledge-rewrite/chapters。"
 }

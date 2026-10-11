@@ -1,38 +1,40 @@
 \clearpage
 \part{第一题：基础实现}
-本篇以C语言基础、枚举、统计和小模拟为主。先读懂对象、规则与边界，再把它们翻译成变量、数组和循环；基础实现能够清楚表达规则时，优先使用基础实现。
 \section{程序基本功与做题技巧}
 \subsection{程序基本功}
-程序基本功就是C语言的基础知识，包括格式化输入输出、数据的存储与运算（整型、浮点数）、函数的编写与调用、数组、结构体的使用等。下面按做题中实际会用到的顺序简单总结。
+程序基本功包括C语言的格式化输入输出、整型与浮点运算、函数的编写与调用、数组和结构体的使用。
 \subsubsection{格式化输入输出}
-scanf按给定格式读入变量，printf按给定格式输出结果。读入普通变量时通常要写地址符\&；字符数组的名字已经可以表示首元素地址。格式符必须匹配变量类型。
-\begin{longtable}{P{2.3cm}P{3.7cm}P{4.5cm}P{3.7cm}}
-\toprule 类型 & 常见用途 & scanf格式 & printf格式\\\midrule\endhead
-int & 下标、计数、普通整数 & \texttt{\%d} & \texttt{\%d}\\
-long long & 大整数、前缀和、乘积 & \texttt{\%lld} & \texttt{\%lld}\\
-double & 实数、均值、方差 & \texttt{\%lf} & \texttt{\%f}，如\texttt{\%.6f}\\
-char & 单个字符、类别 & \texttt{\%c} & \texttt{\%c}\\
-char数组 & 单词或一整行文本 & \texttt{\%100s}或fgets & \texttt{\%s}\\
-\bottomrule\end{longtable}
+scanf把输入存入变量，普通变量前写地址符\&；printf输出变量的值。格式符必须与类型匹配。
+\begin{center}
+\begin{tabular}{llll}
+\toprule 类型 & 示例声明 & scanf & printf\\\midrule
+int & \texttt{int n;} & \texttt{\%d} & \texttt{\%d}\\
+long long & \texttt{long long s;} & \texttt{\%lld} & \texttt{\%lld}\\
+double & \texttt{double x;} & \texttt{\%lf} & \texttt{\%.6f}（6位小数）\\
+char & \texttt{char c;} & \texttt{\%c} & \texttt{\%c}\\
+字符数组 & \texttt{char s[101];} & \texttt{\%100s} & \texttt{\%s}\\
+\bottomrule
+\end{tabular}
+\end{center}
 \begin{lstlisting}
-int n; long long total; double x; char type;
-scanf("%d%lld%lf %c", &n, &total, &x, &type);
-printf("%d %lld %.6f %c\n", n, total, x, type);
+int n; long long sum; double x; char c;
+scanf("%d%lld%lf %c", &n, &sum, &x, &c);
+printf("%d %lld %.6f %c\n", n, sum, x, c);
 char word[101];
 scanf("%100s", word);
 \end{lstlisting}
-\texttt{\%c}默认不跳过空白；格式串中在它前面加空格，表示先跳过空格与换行。\texttt{\%s}遇到空白停止，因此不能读取含空格的整行。fgets读取整行时可能保留换行；数字输入后再读整行，要处理该行剩余字符。输出空格和换行按题面要求写，不输出“请输入”等提示语。
-\subsubsection{整型、浮点数与运算}
-本讲义所用评测环境中int通常占4字节，范围为$-2147483648$到$2147483647$；long long占8字节，范围约为$\pm9.22\times10^{18}$。不要只看最后答案，\textbf{每个中间结果也必须装得下}。\texttt{long long s = a*b;}仍可能先进行int乘法，应写\texttt{1LL*a*b}。
-
-整数除法舍去小数部分（向0截断），如\texttt{5/2}为2；需要实数结果时写\texttt{5.0/2}或\texttt{(double)a/b}。\texttt{\%}用于整数取余，不能用于double。对非负整数x，向上取整$x/d$可用\texttt{x/d + (x\%d != 0)}，避免\texttt{x+d-1}溢出。double有舍入误差，通常不直接用\texttt{==}比较计算所得的实数；误差判定方式要与题目精度要求一致。比较均值与整数阈值时，若可以安全交叉相乘，优先使用整数比较。
+\texttt{\%c}会读取空白，前面的空格表示先跳过空白。\texttt{\%s}读到空白就停止；上例最多读100个字符，另留一格存结束符。字符数组名表示首元素地址，不再加\&。
+\subsubsection{整型与浮点运算}
+整数除法向0截断，\texttt{5/2}得到2，\texttt{-5/2}得到$-2$；\texttt{\%}取整数余数。要保留小数，至少把一个操作数转为浮点数。
 \begin{lstlisting}
 int a = 1000000000, b = 3;
 long long product = 1LL * a * b;
 double mean = (double)a / b;
+int ceiling = a / b + (a % b != 0);
 \end{lstlisting}
-\subsubsection{函数的编写与调用}
-把一个明确任务写成函数：参数说明输入，返回值说明结果。先定义函数再调用，或在前面声明。C语言参数按值传递，修改函数内的普通参数不会自动修改调用方；需要修改调用方变量时传指针。数组作为参数时，函数收到首元素地址，必须另传长度。
+乘法先按操作数类型计算，再赋值；\texttt{1LL}使乘法按long long进行。最后一行适用于$a\ge0,b>0$，计算向上取整的商。double能表示小数，但有舍入误差；输出精度由printf格式控制。
+\subsubsection{函数}
+函数用参数接收数据，用返回值给出结果。参数按值传递；要修改调用方的变量，可以传入它的地址。数组参数需要同时给出长度。
 \begin{lstlisting}
 long long sum_array(const int a[], int n) {
     long long s = 0;
@@ -42,88 +44,76 @@ long long sum_array(const int a[], int n) {
 void swap_int(int *x, int *y) {
     int t = *x; *x = *y; *y = t;
 }
-// Call: total = sum_array(a, n); swap_int(&a[0], &a[1]);
+// Calls: sum_array(a, n); swap_int(&a[0], &a[1]);
 \end{lstlisting}
-函数名应说明职责，例如判断、计数、更新；不要让同一个函数既读入又排序又输出所有状态。递归还必须有终止条件，搜索时另需撤销分支修改。
-\subsubsection{一维数组、二维数组与初始化}
-长度为n的数组用0下标时合法范围是$0$到$n-1$；用1下标时至少申请$n+1$格。字符数组还需要末尾的\texttt{'\textbackslash0'}。二维数组\texttt{a[i][j]}通常让i表示行、j表示列，循环边界分别对应行数和列数。
+const表示函数不通过a修改数组。\texttt{*x}访问地址x处的变量，所以交换结果会保留在原数组中。
+\subsubsection{数组}
+数组把同类型元素连续存放，\texttt{a[i]}访问第i格。长度为n时，合法下标是0到$n-1$；二维数组\texttt{grid[i][j]}分别用行、列下标访问。
 \begin{lstlisting}
 const int N = 1005;
-int a[N], grid[N][N]; // Global arrays are initially zero.
-int count[10] = {0};
+int a[N], grid[N][N]; // Global: initially zero.
+int count[10] = {0};  // Local: explicitly initialized.
 for (int i = 0; i < n; i++) scanf("%d", &a[i]);
 \end{lstlisting}
-全局数组自动初始化为0，局部普通数组未初始化时不能直接读取。大数组宜放全局，避免局部栈空间不足。最小值、最大值通常用第一个实际元素初始化；若全为正数，把最小值初始化成0会出错。频率数组只能在值域可控时按值索引，负数需要偏移，巨大值域不能直接开数组。
-\subsubsection{结构体与对象属性}
-一个对象有多个属性时，用结构体把它们放在一起。例如点有横坐标、纵坐标和类别，矩形有四个边界。多个对象用结构体数组存储，读题时的名词便有了明确的数据表示。
+全局数组自动清零，未初始化的局部数组不能直接读取。频率数组\texttt{count[x]}按数值x计数，要求x处于数组的合法下标范围。
+\subsubsection{结构体}
+结构体把同一对象的多个属性放在一起，通过点号访问成员；多个对象可以存入结构体数组。
 \begin{lstlisting}
 struct Point { int x, y; char type; };
 struct Point p[1005];
 scanf("%d%d %c", &p[0].x, &p[0].y, &p[0].type);
+int distance2 = p[0].x * p[0].x + p[0].y * p[0].y;
 \end{lstlisting}
-\subsection{读题重点}
-\subsubsection{观察数据范围：两个首要检查}
-\textbf{第一，数组不能开小。}若$n\le1000$且使用1下标，数组不能只有1000格；二维边界、可能访问的$n+1$位置、字符串末尾都要留出来。数组大小由\textbf{索引最大值}决定，不一定由输入个数决定：即使只输入500个编号，若编号可达$10^9$，也不能直接用这么大的编号作为普通数组下标。
+最后一行计算点到原点的距离平方，假定坐标绝对值不超过1000，此时int足够。
+\subsection{做题技巧}
+\subsubsection{数组容量与运算范围}
+数组容量由最大访问下标决定。若$n\le1000$且使用1下标，至少开1001格；若还访问$n+1$，至少开1002格。字符串长度最多为L时，字符数组至少开$L+1$格。
 
-\textbf{第二，运算过程中会不会超过int或long long的范围。}若$n=2\times10^5$且每项绝对值不超过$10^9$，总和上界为$2\times10^{14}$，需要long long；两项乘积的上界应相乘估算。即便long long也可能溢出，例如$10^{18}\times5$还安全，而$10^{18}\times100$已经越界。
-\subsubsection{留意时间限制：时间复杂度与估算}
-时间复杂度描述操作次数随输入规模增长的数量级，不是程序运行的精确秒数。估算时先看循环执行多少次，再忽略常数倍和低阶项。以下各段代码独立示意，假设n、m已给定，数组a、grid已读入，各次加法、比较的代价近似相同。
+常用评测环境中int为32位，范围约为$\pm2.14\times10^9$；long long为64位，范围约为$\pm9.22\times10^{18}$。把数据范围代入每一步运算：$2\times10^5$项、每项绝对值至多$10^9$，和的绝对值至多$2\times10^{14}$，需要long long；$10^{18}\times100$则连long long也放不下。
+\subsubsection{时间复杂度与估算}
+时间复杂度表示操作次数随输入规模增长的数量级。先数循环执行次数，再忽略常数倍和低阶项；$O(n)$表示线性增长，$O(n^2)$表示平方增长。
 
-\Needspace{9\baselineskip}\textbf{一次遍历：$O(n)$。}
-\begin{lstlisting}
-long long sum = 0;
-for (int i = 0; i < n; i++) {
-    sum += a[i];
-}
-\end{lstlisting}
-循环执行n次，每次做一次加法。n扩大到原来的10倍，主要操作次数也约为原来的10倍。
-
-\Needspace{9\baselineskip}\textbf{前后两次遍历：仍是$O(n)$。}
+\Needspace{8\baselineskip}\textbf{一次遍历：$O(n)$。}
 \begin{lstlisting}
 long long sum = 0;
 for (int i = 0; i < n; i++) sum += a[i];
-int positive = 0;
-for (int i = 0; i < n; i++) {
-    if (a[i] > 0) positive++;
-}
 \end{lstlisting}
-两个循环依次执行，总共约2n次，忽略常数2后是$O(n)$。不能看到两个for就判断为平方复杂度。
+执行n次加法。n扩大10倍，操作次数也扩大10倍。
 
-\Needspace{9\baselineskip}\textbf{嵌套循环：$O(n^2)$。}
+\Needspace{8\baselineskip}\textbf{两次依次执行的遍历：$O(n)$。}
 \begin{lstlisting}
-long long equalPairs = 0;
-for (int i = 0; i < n; i++) {
-    for (int j = i + 1; j < n; j++) {
-        if (a[i] == a[j]) equalPairs++;
-    }
-}
+long long sum = 0; int positive = 0;
+for (int i = 0; i < n; i++) sum += a[i];
+for (int i = 0; i < n; i++) if (a[i] > 0) positive++;
 \end{lstlisting}
-内层依次执行$n-1,n-2,\ldots,0$次，合计$n(n-1)/2$次比较，数量级为$O(n^2)$。n扩大10倍，比较次数约扩大100倍；内层不必每次都执行n次，仍可能是平方复杂度。
+两个循环各执行n次，合计约2n次，忽略常数2后仍是$O(n)$。
 
-\Needspace{9\baselineskip}\textbf{两层循环长度不同：$O(nm)$。}
+\Needspace{9\baselineskip}\textbf{枚举所有数对：$O(n^2)$。}
+\begin{lstlisting}
+long long pairs = 0;
+for (int i = 0; i < n; i++)
+    for (int j = i + 1; j < n; j++)
+        if (a[i] == a[j]) pairs++;
+\end{lstlisting}
+比较次数是$(n-1)+(n-2)+\cdots+1=n(n-1)/2$。n扩大10倍，次数约扩大100倍。
+
+\Needspace{8\baselineskip}\textbf{遍历n行m列：$O(nm)$。}
 \begin{lstlisting}
 long long sum = 0;
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-        sum += grid[i][j];
-    }
-}
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++) sum += grid[i][j];
 \end{lstlisting}
-外层n次，每次内层m次，共nm次加法。若m始终是固定的10，便是10n次，可以记作$O(n)$；若m也随输入变化，就保留$O(nm)$。
+共nm次加法；若m始终是固定常数，便可记作$O(n)$。
 
-\Needspace{9\baselineskip}\textbf{每次缩小一半：$O(\log n)$。}
+\Needspace{8\baselineskip}\textbf{每次减半：$O(\log n)$。}
 \begin{lstlisting}
 int steps = 0;
-for (int length = n; length > 1; length /= 2) {
-    steps++;
-}
+for (int length = n; length > 1; length /= 2) steps++;
 \end{lstlisting}
-例如n=16时，length依次为16、8、4、2，循环4次，因为$2^4=16$。一般约执行$\log_2 n$次；n翻倍只会多执行约一次。
+n=16时依次处理16、8、4、2，执行4次。通常约为$\log_2 n$次，n翻倍只多一次。
 
-判断能否在时限内完成，要把\textbf{最大数据规模}代入。例如$n=10^5$时，一次遍历约$10^5$次，枚举所有数对约$5\times10^9$次，后者通常无法在几秒内完成。操作类型、机器速度和输入输出都会影响耗时，因此次数估算用于筛选算法，不能当作精确的用时保证。
-\subsubsection{留意空间限制：空间复杂度与估算}
-空间复杂度描述存储需求随规模增长的数量级。本书说明程序使用的主要数组，并把输入存储也计入；额外空间另有需要时会单独指出。一个n项数组为$O(n)$，$n\times m$矩阵为$O(nm)$，只保留若干计数变量为$O(1)$。递归栈也占空间，深度n的递归可能占$O(n)$栈空间。
+将最大规模代入估算：$n=10^5$时，遍历约$10^5$次，数对枚举约$5\times10^9$次，后者通常无法在几秒内完成。实际耗时还受操作类型、输入输出和机器速度影响。
+\subsubsection{空间复杂度与估算}
+空间复杂度表示存储量的增长数量级：n项数组为$O(n)$，$n\times m$矩阵为$O(nm)$，固定数量的变量为$O(1)$。深度n的递归还需要$O(n)$调用栈空间。
 
-实际估算为“元素个数$\times$每个元素字节数”，再把所有数组、容器和递归开销相加。$1000\times1000$的int矩阵约$4\times10^6$字节（约3.8MiB），两个矩阵约7.6MiB；$10^5$项long long数组约0.76MiB；$10^5\times10^5$的int矩阵约37GiB，显然不可行。结构体可能有对齐填充，STL容器还有管理开销，按实际\texttt{sizeof}和容量估算更准确。
-\subsubsection{写完后的检查顺序}
-先查格式与类型，再查最小规模、最大下标、重复值、负值、端点和更新顺序；最后分析算法为什么不重不漏。样例通过不代表所有数据正确。小规模时可写直接枚举程序作为对照。
+实际内存约为元素个数乘以每个元素的字节数，再加上其他数组、容器和调用栈。$1000\times1000$的int矩阵约3.8MiB，$10^5$项long long数组约0.76MiB。大数组通常放在全局，避免局部栈容量不足；结构体大小可用sizeof查询。

@@ -1,64 +1,76 @@
-\subsection{贪心与基础数学}
-\ojpractice{CSP201703A}{分蛋糕：第10次，2017-03，第1题；正重量累积到阈值后立即分出，第一篇练习给解答}\ojpractice{CSP202312B}{因子化简：第32次，2023-12，第2题；反复试除并记录完整指数；第三节给解答}\ojpractice{CSP202305B}{矩阵运算：第30次，2023-05，第2题；用结合律先算小矩阵，降低乘法次数}
-\subsubsection{贪心需要证明}
-贪心是在当前状态下确定一个选择并且不回退。它成立需要证明：至少存在一个最优解包含这次选择。常用方法是交换论证，即把某个最优方案换成包含该选择的方案，而目标值不变差。找到几个正确样例不是证明。
-
-例如按价值最大的物品优先装背包并不总是正确：容量4，物品的（体积，价值）分别为 $(3,5),(2,4),(2,4)$，先拿价值5的物品只能得到5，拿后两件可得8。基础01背包通常需要DP，不能仅因“选大的”直观就使用贪心。
-
-\subsubsection{例题 合并石堆的最小代价}
-有 n 堆石子，每次可以任意选两堆合并，代价等于两堆石子数之和。求合成一堆的最小总代价。本题\textbf{没有相邻限制}。$1\le n\le2\times10^5$，每堆石子数在1到 $10^9$ 之间。输入第一行 n，第二行各堆大小。
-\begin{verbatim}
-输入
-4
-1 2 3 4
-输出
-19
-\end{verbatim}
-先合并1和2，代价3；再合并3和3，代价6；最后合并4和6，代价10。总计19。
-
-\textbf{为什么取最小两堆。}合并过程可以看成二叉树，每个原始堆是叶子；总代价等于每个叶子权值乘以其深度之和。在固定树形中，较小权值放到较深位置不会使代价增大。选择一对最深的兄弟叶子，可通过交换把最小的两个权值放到那里。因此存在一个最优方案先合并最小两堆；把它们缩成一堆后，剩下同类子问题。重复此选择即可。
-
-用小根堆维护所有堆，每次取两个最小值再插入它们的和。时间 $O(n\log n)$，空间 $O(n)$。只有一堆时无需合并，答案为0。
-\Code{09_merge.cpp}
-
-\subsubsection{中位数最小化绝对距离和}
-若在数轴上选位置 x，使 $\sum_i|a_i-x|$ 最小，排序后取中位数即可。把最左和最右配对：对任何位于两者之间的 x，两项距离和都是两端距离；离开该区间只会增大。对称配对后，所有区间的公共部分包含中位数。偶数个元素时，中间两数之间的任意位置都可达到最小值。
-
-例如 $[1,2,9]$ 取 x=2，距离和为8；取平均数4，距离和为10。平均数与中位数解决的目标不同。
-
-\subsubsection{质因数分解与溢出检查}
-对正整数 x，从2开始试除。若 d 整除 x，反复除去并统计指数。循环条件可写 \texttt{d <= x/d}，避免计算 $d^2$ 溢出。循环结束后若 x>1，它是最后一个质因子。1没有质因子。
+\subsection{贪心}
+贪心每一步选择当前最合适的方案，并且不回退。要说明这种选择能保留某个最优解；局部看起来更好，并不自动保证全局最优。
+\subsubsection{按结束时间选区间}
+从若干半开区间$[l_i,r_i)$中选最多个互不重叠的区间，允许一个区间在另一个结束时开始。按结束时间递增，选择每个与已选区间不冲突的候选。
+% snippet:greedy
 \begin{lstlisting}
-// prime[] and exponent[] each need at least 64 elements.
-int factorize(long long x, long long prime[], int exponent[]) {
-    int total = 0;
-    for (long long d = 2; d <= x / d; d++) {
-        if (x % d != 0) continue;
-        int count = 0;
-        do { x /= d; count++; } while (x % d == 0);
-        prime[total] = d; exponent[total++] = count;
+struct Interval { int l, r; };
+bool by_end(const Interval &a, const Interval &b) {
+    return a.r < b.r;
+}
+// a[0..n-1], each interval satisfies l < r.
+std::sort(a, a+n, by_end);
+int count = 0, last = 0;
+bool selected = false;
+for (int i = 0; i < n; i++) {
+    if (!selected || a[i].l >= last) {
+        count++; last = a[i].r; selected = true;
     }
-    if (x > 1) { prime[total] = x; exponent[total++] = 1; }
-    return total;
 }
 \end{lstlisting}
-最坏试除次数为 $O(\sqrt{x})$。如果要分解很多较大的数，应重新估计总复杂度，而不是只看一次分解。
+把某个最优方案中的第一个区间换成结束最早的区间，不会占用更多后续时间，因而不减少可选数量。对后续区间重复这个交换理由，得到贪心正确性。排序$O(n\log n)$，扫描$O(n)$，存储$O(n)$。
+\subsubsection{中位数与距离和}
+给定n个数，选择x最小化$\sum_{i=1}^n|a_i-x|$。排序后将最小与最大、次小与次大配对；每对的距离和在两者之间恒定，超过这个范围就增大。所有配对的最佳范围交于中位数处，所以任选一个中位数即可。
+% snippet:median
+\begin{lstlisting}
+std::sort(a, a+n);
+long long x = a[n/2], answer = 0;
+for (int i = 0; i < n; i++) {
+    long long d = (long long)a[i] - x;
+    answer += d >= 0 ? d : -d;
+}
+\end{lstlisting}
+n为偶数时，两项中位数之间的任意x都最优。时间$O(n\log n)$，存储数组$O(n)$。
 
-\subsubsection{矩阵运算先看维度}
-若 A 是 $n\times k$，B 是 $k\times m$，则 $C=AB$ 是 $n\times m$，有 $C_{ij}=\sum_{t=1}^k A_{it}B_{tj}$，朴素复杂度 $O(nkm)$。矩阵乘法一般不可交换。若题意出现转置或连乘，应先写出各中间矩阵的维度与计算量，再决定结合顺序。计算量可以因结合顺序变化而显著不同，但结果在精确算术下符合结合律。
-
-\subsubsection{自测与解答}
-\textbf{练习1。}三堆 $[2,2,8]$ 的最优代价是多少？\textbf{解答。}先合并2和2得到4，代价4；再与8合并代价12，总计16。若先合并2和8则为22。
-
-\textbf{练习2。}分解360。\textbf{解答。}$360=2^3\cdot3^2\cdot5$。反复整除才能记录完整指数。
-
-\textbf{练习3。}A为 $10\times100$，B为 $100\times5$，C为 $5\times50$，先算哪一对更省？\textbf{解答。}$(AB)C$ 的乘加规模为 $10\cdot100\cdot5+10\cdot5\cdot50=7500$；$A(BC)$ 为 $100\cdot5\cdot50+10\cdot100\cdot50=75000$，前者更省。
-\newpage
-
-\subsubsection{当前团队题单训练}
-\training{1112208}{贪心}
-先做合并果子、线段覆盖、纪念品分组、删数，再做道路、队伍接续、编码树和国王游戏。各题的题意、解答与关键代码见本篇练习题中的团队专项。
-\practice{P1090}{合并果子：小根堆}
-\practice{P1803}{线段覆盖：结束时间优先}
-\practice{P1094}{纪念品分组：排序与双指针}
-\practice{P1106}{删数问题：单调栈}
+\subsection{基础数学}
+\subsubsection{最大公约数}
+$\gcd(a,b)=\gcd(b,a\bmod b)$：两组数的公因数相同。反复取余，余数变为0时，剩余非零数就是最大公约数。
+% snippet:gcd
+\begin{lstlisting}
+long long gcd(long long a, long long b) { // a, b >= 0
+    while (b != 0) {
+        long long r = a % b;
+        a = b; b = r;
+    }
+    return a;
+}
+\end{lstlisting}
+至少一个数非零时，时间$O(\log\max(a,b))$，空间$O(1)$。正整数的最小公倍数为$a/\gcd(a,b)\times b$；先除再乘减小中间值，但最终结果仍须在long long范围内。
+\subsubsection{质因数分解}
+正整数$x>1$可以写为$\prod p_i^{e_i}$，其中$p_i$是不同质数，$e_i$是对应指数。试除到$\sqrt{x}$，找到因子后反复整除。
+% snippet:factor
+\begin{lstlisting}
+for (long long p = 2; p <= x / p; p++) {
+    if (x % p != 0) continue;
+    int exponent = 0;
+    while (x % p == 0) { x /= p; exponent++; }
+    printf("%lld %d\n", p, exponent);
+}
+if (x > 1) printf("%lld 1\n", x);
+\end{lstlisting}
+每次到达p时，更小的质因子已全部除尽，所以能整除的p一定是质数。结束后若$x>1$，它只能是一个剩余质因子。用$p\le x/p$避免$p^2$溢出。最坏时间$O(\sqrt{x_{\mathrm{初始}}})$，额外空间$O(1)$。
+\subsubsection{矩阵乘法与结合顺序}
+A为$n\times k$，B为$k\times m$时，$C=AB$是$n\times m$矩阵，
+\[
+C_{i,j}=\sum_{t=0}^{k-1}A_{i,t}B_{t,j}.
+\]
+% snippet:matrix
+\begin{lstlisting}
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++) {
+        c[i][j] = 0;
+        for (int t = 0; t < k; t++)
+            c[i][j] += 1LL * a[i][t] * b[t][j];
+    }
+\end{lstlisting}
+c使用long long且需能容纳累加结果。时间$O(nkm)$，结果空间$O(nm)$。矩阵乘法满足结合律：链式乘法可以改变括号，先计算产生较小中间矩阵的一对，但不能交换矩阵顺序。

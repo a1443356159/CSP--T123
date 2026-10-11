@@ -23,7 +23,7 @@ preamble = r'''% !TeX program = xelatex
 \setlength{\parskip}{0.3em}\setlength{\emergencystretch}{3em}
 \renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{5pt}
 \setlist{nosep,topsep=0.3em,leftmargin=2em}
-\pagestyle{plain}\setcounter{tocdepth}{2}
+\pagestyle{plain}\setcounter{tocdepth}{1}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 \ctexset{section={format=\Large\bfseries},subsection={format=\large\bfseries},subsubsection={format=\normalsize\bfseries}}
 \definecolor{CodeKeyword}{HTML}{164D9C}
@@ -96,12 +96,10 @@ def expand(match):
 
 
 # Three study parts; filenames retain their original identities.
-order = ['00-preface.tex', '01-basics.tex', 'first-true.tex', 'first-summary.tex',
-         '02-simulation.tex', 'first-practice.tex', 'second-foundations.tex',
-         '05-prefix.tex', '06-binary.tex', '07-greedy.tex', '08-search.tex',
-         '09-dp.tex', '10-knapsack.tex', '03-stl.tex', 'second-true.tex',
-         'second-summary.tex', 'second-practice.tex', 'team-practice.tex', '04-strings.tex',
-         '11-comprehensive.tex', '12-practice.tex', '13-extensions.tex']
+order = ['00-preface.tex', '01-basics.tex', 'first-true.tex', 'first-practice.tex', 'second-foundations.tex', '05-prefix.tex', '06-binary.tex', '07-greedy.tex', '08-search.tex', '09-dp.tex', '10-knapsack.tex', '03-stl.tex', 'second-true.tex', 'second-teaching.tex', 'second-practice.tex', '04-strings.tex', '11-comprehensive.tex', '12-practice.tex']
+knowledge = {'01-basics.tex', 'second-foundations.tex', '05-prefix.tex',
+             '06-binary.tex', '07-greedy.tex', '08-search.tex', '09-dp.tex',
+             '10-knapsack.tex', '03-stl.tex', '04-strings.tex'}
 parts = []
 for filename in order:
     path = ROOT / 'chapters' / filename
@@ -109,8 +107,12 @@ for filename in order:
     if path.name != '00-preface.tex':
         text = text.replace('\\newpage', '\\par\\bigskip')
         text = text.replace('\\section{', '\\Needspace{7\\baselineskip}\\section{')
-    if path.name == 'team-practice.tex':
-        text = text.replace('\\subsubsection{', '\\Needspace{8\\baselineskip}\\subsubsection{')
+    if path.name in knowledge:
+        text = text.replace('\\subsection{', '\\Needspace{16\\baselineskip}\\subsection{')
+        text = text.replace('\\subsubsection{', '\\Needspace{12\\baselineskip}\\subsubsection{')
+        text = text.replace(
+            '\\Needspace{12\\baselineskip}\\subsubsection{递归函数对应语法层级}',
+            '\\Needspace{25\\baselineskip}\\subsubsection{递归函数对应语法层级}')
     text = re.sub(r'\\begin\{verbatim\}\n(.*?)\\end\{verbatim\}', format_sample, text, flags=re.S)
     text = re.sub(
         r'\\begin\{lstlisting\}(.*?)\\end\{lstlisting\}',

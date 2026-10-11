@@ -1,44 +1,187 @@
 \clearpage
 \part{第三题：字符串解析与综合模拟}
-\noindent 本篇围绕长题意的实现展开：先解析输入，再组织状态，最后执行规则并检查边界。遇到陌生背景时，先列出输入格式、状态定义、修改规则和查询规则，再写程序。
+\section{字符串解析与综合模拟基础}
+\subsection{字符数组与字符串操作}
+C风格字符串是以结束符\texttt{'\textbackslash0'}结尾的字符数组。长度不包括结束符，容量必须包括它。strlen求长度，strcmp比较内容，strcpy复制，头文件为\texttt{<cstring>}。
+% snippet:c_string
+\begin{lstlisting}
+char a[20] = "cat", b[20];
+int len = (int)strlen(a); // 3.
+strcpy(b, a);            // Copies the final '\0' too.
+b[0] = 'b';              // b is now "bat".
+int relation = strcmp(a, b); // Positive: "cat" > "bat".
+\end{lstlisting}
+strcmp返回负数、0、正数，分别表示字典序小于、相等、大于；不能用数组名的==比较内容。复制前保证目标容量足够。strlen、strcpy随字符串长度线性增长；strcmp最坏需要检查完整公共前缀。循环处理字符时先保存长度，避免每轮重新调用strlen。
 
-\section{字符串处理与解析基础}
-\subsection{常用操作与区间含义}
-\ojpractice{CSP201409C}{字符串匹配：第2次认证，按是否区分大小写查找子串，训练扫描与比较}
-\ojpractice{CSP202409B}{字符串变换：第35次认证，按规则逐轮替换，完整解答见第二篇练习题}
-string 的下标从0开始。\texttt{s.substr(pos,len)} 的第二个参数是长度；\texttt{s.find(t)} 返回首次匹配位置，找不到时返回 \texttt{string::npos}。不要把 npos 随意存进 int 后再与某个猜测值比较。字符串比较是字典序，例如 \texttt{"10" < "2"}，与整数大小不同。
+\subsection{整行输入与字符处理}
+fgets最多读取容量减1个字符，保留读到的换行，并补结束符。若一行最多有1000个正文字符，下面的容量可以容纳正文、行尾和结束符。
+% snippet:line_input
+\begin{lstlisting}
+char line[1003];
+if (fgets(line, sizeof(line), stdin) != NULL)
+    line[strcspn(line, "\r\n")] = '\0';
+\end{lstlisting}
+strcspn返回第一个回车或换行的位置，无行尾时返回字符串长度；该位置置0，只去掉行尾，不删除正文空格。若先scanf读数字，再fgets读下一行，应先消耗数字所在行的剩余字符：
+\begin{lstlisting}
+int c;
+while ((c = getchar()) != '\n' && c != EOF) {}
+\end{lstlisting}
+字符分类函数位于\texttt{<cctype>}。isdigit判断数字，isspace判断空白，tolower转为小写；参数先转为unsigned char，避免有符号char的负值。
+% snippet:char_class
+\begin{lstlisting}
+int length = (int)strlen(line), digits = 0;
+for (int i = 0; i < length; i++) {
+    unsigned char c = (unsigned char)line[i];
+    if (isdigit(c)) digits++;
+    line[i] = (char)tolower(c);
+}
+\end{lstlisting}
+扫描长度L的文本为$O(L)$。若规则只把普通空格当分隔符，就比较\texttt{' '}；isspace还会接受制表符等空白。
 
-扫描字符串时最好约定：“指针 p 总是指向下一个尚未处理的字符”。每个分支要么推进 p，要么返回。若某个分支既不推进也不退出，就容易死循环。处理完整段落时，通常比反复在字符串中间 erase 更清楚、也更高效。
+\subsection{扫描指针与状态机}
+扫描指针p表示下一个尚未处理的字符。连续数字应一次读取成一个数，而不是把每个字符单独当成数据。
+% snippet:scan_number
+\begin{lstlisting}
+// s is a null-terminated string; p initially points at a digit.
+long long value = 0;
+while (s[p] >= '0' && s[p] <= '9') {
+    value = value * 10 + s[p] - '0';
+    p++;
+}
+\end{lstlisting}
+例如从\texttt{12,7}的开头读取，value依次为1、12，结束时p指向逗号。数值范围必须允许每次乘10再加数字。
 
-\example{带引号的单行分词}
-\textbf{题目。}一行文本由普通字符、空格和英文双引号组成。引号外的连续空格分隔单词；引号内的空格属于单词；双引号本身不输出。相邻的普通片段和引号片段属于同一个单词。空引号表示一个空单词。本题不支持转义字符。若引号不匹配，输出 ERROR。行长不超过 $10^5$。
+状态机用少量状态说明同一字符在不同上下文中的含义。例如引号外的空格是分隔符，引号内的空格是正文；用in\_quote记录当前是否在引号中。
+% snippet:scan_state
+\begin{lstlisting}
+// Input has matched quotes and no escaping.
+int in_quote = 0, separators = 0;
+for (int p = 0; s[p] != '\0'; p++) {
+    if (s[p] == '"') in_quote = !in_quote;
+    else if (s[p] == ' ' && !in_quote) separators++;
+}
+\end{lstlisting}
+\texttt{a "b c" d}的两个引号外空格被计数，引号内空格不计。每个字符触发一次状态转移，时间$O(L)$，额外空间$O(1)$。完整解析还需按规则决定空片段、转义和非法输入的处理方式。
 
-\textbf{输入。}一整行文本，可为空。\textbf{输出。}合法时先输出单词数，随后每个单词单独一行，用方括号包住，便于看见空单词和空格。
-\begin{verbatim}
-输入
-add "hello world" "" x
-输出
-4
-[add]
-[hello world]
-[]
-[x]
-\end{verbatim}
-\textbf{状态设计。}quoted 表示当前是否在引号内；word[0..len-1] 保存当前单词；active 表示当前单词已经开始。active 不能由 len 是否为0代替，否则空引号会丢失。遇到引号切换 quoted；遇到引号外空格时结束当前单词；其余字符追加到word并增加len。扫描结束后检查引号是否闭合，再处理最后一个单词。
+\subsection{状态存储与更新顺序}
+模拟用变量保存当前状态，按照操作规则更新。每个变量应对应明确的对象和时刻：编号作下标，多个属性放入结构体，查询读取该时刻已生效的状态。
+\subsubsection{同步更新}
+若一轮中的每个新值都依赖上一轮，必须从旧数组a读取，写入新数组b；全部算完后再复制回a。
+% snippet:synchronous
+\begin{lstlisting}
+// One round: new value = old value + old immediate neighbors.
+for (int i = 0; i < n; i++) {
+    b[i] = a[i];
+    if (i > 0) b[i] += a[i-1];
+    if (i+1 < n) b[i] += a[i+1];
+}
+for (int i = 0; i < n; i++) a[i] = b[i];
+\end{lstlisting}
+$[1,2,3]$一轮后为$[3,6,5]$。若直接改a，计算中间位置时会读到已更新的3，结果变为8。每轮$O(n)$时间，两个数组$O(n)$空间。
+\subsubsection{顺序更新}
+若操作依次生效，后一条必须看到前一条的结果。事件模拟还要确定同一时刻的先后，例如先加入该时刻到达的对象，再从全部候选中选择。
+\begin{lstlisting}
+// Events are already sorted by arrival time.
+while (next < n && events[next].arrival <= now) {
+    add_candidate(events[next]);
+    next++;
+}
+if (has_candidate()) execute_one();
+\end{lstlisting}
+小于等于把恰好在now到达的对象也纳入本次选择。每个事件只加入一次，加入阶段总计处理n项；选择和执行成本由相应数据结构决定。
 
-\textbf{正确性。}每个字符恰好进入一种分支。引号仅改变状态，分隔空格仅结束一个已开始的单词，因此保留的字符、单词边界和空单词均符合规则。时间 $O(L)$，输出存储 $O(L)$。
-\Code{04_tokens.cpp}
+\subsection{栈与递归解析}
+\subsubsection{栈保存未完成状态}
+处理嵌套结构时，最近打开的结构应最先关闭，用栈保存尚未配对的左括号。
+% snippet:parse_stack
+\begin{lstlisting}
+// s contains only '(' and ')'; stack capacity >= strlen(s).
+int top = 0, valid = 1;
+for (int p = 0; s[p] != '\0'; p++) {
+    if (s[p] == '(') st[top++] = p;
+    else if (top == 0) { valid = 0; break; }
+    else top--;
+}
+if (top != 0) valid = 0;
+\end{lstlisting}
+右括号遇到空栈表示没有对应左括号，扫描结束仍有元素表示左括号未关闭。栈中存位置还可以记录配对关系。时间$O(L)$，最坏空间$O(L)$。
 
-\subsection{C字符数组与string的区别}
-C 字符串以终止字符 \verb|'\0'| 结尾，数组需要额外空间存放它。strlen 统计终止符前的字符数。定义后的字符数组不能用赋值表达式整体赋值；string 可以直接赋值。strcmp 返回值的符号表示字典序关系，不保证只返回1或-1。字符分类函数如 isdigit 接收字符时，可先转为 unsigned char，避免负 char 值带来的未定义行为。
+\subsubsection{递归函数对应语法层级}
+递归解析把语法中的一个结构交给一个函数。以非负整数、加号和括号为例：
+\[
+\begin{aligned}
+\mathrm{expr}&=\mathrm{factor}\ \{+\ \mathrm{factor}\},\\
+\mathrm{factor}&=\mathrm{number}\mid(\ \mathrm{expr}\ ).
+\end{aligned}
+\]
+expr处理连续加法，factor处理数字或括号。共享指针p始终指向下一个未读字符；本片段假定语法合法、没有空白，数值运算不溢出。
+% snippet:recursive_parser
+\begin{lstlisting}
+char s[1005]; int p = 0;
+long long parse_expr();
+long long parse_factor() {
+    if (s[p] == '(') {
+        p++;
+        long long value = parse_expr();
+        p++; // Consume the matching ')'.
+        return value;
+    }
+    long long value = 0;
+    while (s[p] >= '0' && s[p] <= '9')
+        value = value*10 + s[p++] - '0';
+    return value;
+}
+long long parse_expr() {
+    long long value = parse_factor();
+    while (s[p] == '+') {
+        p++;
+        value += parse_factor();
+    }
+    return value;
+}
+\end{lstlisting}
+解析\texttt{1+(2+3)}时，外层读到左括号便递归求出5，再与1相加；内层在右括号处停止，由调用它的factor消费右括号。每个字符消费一次，时间$O(L)$，调用栈空间$O(H)$，H为嵌套深度。若题目允许非法输入，需要检查预期的字符，并在顶层确认整行读完。
 
-\subsection{解析与业务处理分开}
-例如命令 \texttt{GRANT alice file1}，解析层先产生三个字符串，再由执行层决定如何修改权限。这样出现错误时，可以先打印解析结果，判断错在读入还是状态更新。本篇下一节会进一步用函数处理路径和表达式。
+\subsection{树形结构与依赖处理}
+\subsubsection{父子关系与子树}
+树形结构用父编号或孩子列表表达。普通数组可以用first[u]保存第一个孩子，next[v]保存同父节点下的下一个孩子。
+% snippet:tree_build
+\begin{lstlisting}
+// Nodes 0..n-1; parent[root] = -1.
+for (int u = 0; u < n; u++) first[u] = next[u] = -1;
+for (int v = 0; v < n; v++) {
+    int u = parent[v];
+    if (u == -1) continue;
+    next[v] = first[u];
+    first[u] = v;
+}
+\end{lstlisting}
+孩子按逆插入顺序连接；若题目要求输入顺序，需维护尾指针或按反向编号插入。递归遍历孩子后再处理父亲，可以汇总子树信息：
+% snippet:tree_size
+\begin{lstlisting}
+int subtree_size(int u) {
+    int total = 1;
+    for (int v = first[u]; v != -1; v = next[v])
+        total += subtree_size(v);
+    return total;
+}
+\end{lstlisting}
+返回值包含u本身。合法树上每个节点和父子边访问一次，时间$O(n)$，存储$O(n)$，调用栈深度为树高H；链状树可能达到n层。
 
-\exercise
-\textbf{练习1。}输入 \verb|a"b c"d|，分词结果是什么？\textbf{解答。}只有一个单词 \texttt{ab cd}。相邻片段没有引号外空格，不应拆开。
-
-\textbf{练习2。}输入只有三个空格，输出什么？\textbf{解答。}单词数为0。输入 \verb|""| 时则是一个空单词，输出1和 \texttt{[]}。
-
-\textbf{练习3。}若题目新增反斜杠转义，当前程序能直接使用吗？\textbf{解答。}不能。需要新增 escape 状态：读取反斜杠后，下一个字符按普通字符处理，不切换引号状态。还要定义行末孤立反斜杠是否非法。规则改变后必须重新列出状态转移。
-\newpage
+\subsubsection{依赖顺序与环检测}
+若u的结果依赖v，就应先完成v。依赖图不一定是树：多个对象可以依赖同一个对象，也可能出现环。用三种颜色记录进度：0未开始，1正在当前递归链中，2已经完成。
+% snippet:dependency
+\begin{lstlisting}
+// dependency[u] lists objects needed by u; color is initially zero.
+bool solve(int u) {
+    if (color[u] == 1) return false;
+    if (color[u] == 2) return true;
+    color[u] = 1;
+    for (int i = 0; i < (int)dependency[u].size(); i++)
+        if (!solve(dependency[u][i])) return false;
+    color[u] = 2;
+    order[count++] = u;
+    return true;
+}
+\end{lstlisting}
+再次遇到颜色1，说明当前链回到尚未结束的对象，存在环；遇到颜色2则复用已经完成的结果，不是环。order中依赖对象先于使用它的对象，可以按此顺序计算。对所有未访问节点调用solve即可检查全图，n个对象、m条依赖的时间与存储为$O(n+m)$；实际结果计算和输出若更大，应另计成本。

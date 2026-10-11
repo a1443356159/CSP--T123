@@ -1,85 +1,62 @@
 # CCF-CSP 前三题备考讲义
 
-一份可独立阅读的中文 LaTeX 讲义，目前 **138 页**：题目规则、输入输出、样例、读题与做题思路、正确性、复杂度和完整参考程序都写在正文中。链接用于在线做题和查阅来源。
+一份可独立阅读的中文 LaTeX 讲义，当前 **106 页**。知识章节讲概念、处理规则、关键代码和复杂度；完整题目与解答集中在例题区，练习区仅列题型和做题链接。
 
 ## 阅读与下载
 
-- **[正式讲义 PDF](dist/main.pdf)**
-- **[可单独编译的 LaTeX 主文件](main.tex)**
+- [正式讲义 PDF](dist/main.pdf)
+- [可独立编译的 LaTeX 主文件](main.tex)
 - [分章编辑源文件](chapters/)
 - [68 份完整 C++17 参考程序](code/)
-- [原始资料](sources/)
+- [原始备考材料](sources/)
 
-原资料中的 **23 道真题全部覆盖**，第一篇 8 道、第二篇 15 道，均保留认证次数、年月、题号和做题入口，并提供解答与完整程序。另补充图像旋转、数位之和、折点计数、仓库规划、稀疏向量、因子化简六道历年考点真题。其余程序为完整教学例题或自测；自编题和平台原题的规则可能不同，正文会明确说明。
+## 三篇结构
 
-## 三个学习篇章
+| 篇章 | 章节 |
+| --- | --- |
+| 第一题：基础实现 | 1 程序基本功与做题技巧；2 例题速看；3 练习题 |
+| 第二题：工具与算法 | 1 基础算法；2 STL；3 例题速看；4 练习题 |
+| 第三题：字符串解析与综合模拟 | 1 字符串解析与综合模拟基础；2 例题速看；3 练习题 |
 
-### 第一篇：第一题——基础实现
+第一篇包括格式化输入输出、整型与浮点运算、函数、数组、结构体，以及数组容量、数值范围、时间与空间复杂度估算。
 
-1. **程序基本功与做题技巧**：C 语言输入输出、整型与浮点数、函数、数组、结构体；读题、数据范围、时间复杂度与空间复杂度的估算。
-2. **真题速看**：打酱油、跳一跳、线性分类器、检测点查询、田地丈量。
-3. **考点总结**：统计、枚举、边界、模拟、日期与几何实现。
-4. **练习题**：小中大、数组推导、如此编码，以及历年考点补充和知识点练习，附解答与代码。
+第二篇包括前缀和、差分、二分、双指针、贪心、基础数学、搜索、动态规划和背包；保留二维前缀和与差分、实数二分、剪枝、LIS 优化、LCS、滚动数组、多重与分组背包、背包计数。
 
-### 第二篇：第二题——工具与算法
+STL 单列一章，分别讲区间与迭代器、sort、unique、lower_bound、upper_bound、vector、string、pair、stack、queue、priority_queue、set、multiset、map、unordered_map、unordered_set，每项说明用途、常用操作、代码与复杂度。
 
-1. **基础算法与 STL 使用**：前缀和、差分、二分、双指针、贪心、基础数学、搜索、剪枝、动态规划、背包。讲算法时就近给出真题或练习链接。
-2. **STL 独立专章**：头文件与迭代器、sort、unique、二分与离散化、vector、string、pair、stack、queue、priority_queue、set、multiset、map、unordered_map、unordered_set，分别说明接口、复杂度、失效规则和易错点，附练习与解答。
-3. **真题速看**：买菜、邻域均值、垦田计划、相似度计算、机器人饲养指南。
-4. **考点总结**：模型识别、算法选择、复杂度与实现检查。
-5. **练习题**：回收站选址、风险人群筛查、非零段划分、出行计划、寻宝！大冒险！、何以包邮？、字符串变换、梦境巡查、机器人复健指南、机器人宿管，以及稀疏向量、因子化简，均附解答和完整程序；再按四个专题展开当前团队题单的64道练习，附题意、解答与关键代码。
+第三篇包括字符数组、整行输入、字符处理、扫描指针、状态机、状态更新顺序、栈、递归解析、树形结构与依赖处理。完整分词、路径、授权、表达式、树形查询等案例在例题区。
 
-### 第三篇：第三题——字符串解析与综合模拟
+原资料的 **23 道真题**均保留完整解答和程序，另有六道历年真题补充；认证真题标注认证次数、年月、题号和做题入口。68 个完整程序各在正文出现一次。
 
-1. 字符串处理与解析基础。
-2. 综合模拟：路径规范化、授权管理、表达式解析、树形查询、模板展开。
-3. 综合训练与复盘：差值数对、二维差分、非抢占任务调度。
+## 格式与做题入口
 
-各篇分别编号。题号划分用于组织学习路线，并不表示每次认证的题型固定。书末附录补充多重背包、混合背包、多维费用、方案恢复、计数撤销、LIS 优化、实数搜索、可删堆和 KMP。
+- 代码以普通数组、结构体、独立函数、scanf/printf 为主，STL 使用明确类型，按 C++17 编译。
+- 代码保留语法高亮与行号。PDF 行号用空 ActualText 排除在复制文本之外，代码正文可复制，需要阅读器支持。
+- 输入输出样例分别装框，保留空格与换行；代码框不跨页拆开。
+- 主要平台为[曙梦 OJ](https://oj.shumeng.tech/p)。没有已核对曙梦入口的旧题保留原资料的 AcWing 链接。
+- 练习从[洛谷团队题单](https://www.luogu.com.cn/team/113242/training)及原资料中选取。团队的 64 道原讲解保存在归档；当前例题区保留其中五道完整专项例题。对应位置记录在[团队题单索引](data/team-practice.json)。
 
-## 代码和样例格式
+## 编译与验证
 
-- 以 `scanf/printf`、普通数组、下标循环、结构体和独立函数为主；需要动态容器时再使用 STL。
-- 使用明确的容器和迭代器类型，不使用 `auto`、Lambda 或结构化绑定；统一使用 **C++17** 编译器。
-- PDF 代码有语法高亮、行号和浅色背景。行号以空 `ActualText` 排除在复制文本之外，代码正文可以复制；这一功能需要 PDF 阅读器支持，源代码也可直接从 `code/` 复制。
-- 输入输出样例放在分区边框中，用等宽字体保留空格与换行；完整程序和样例框避免跨页拆开。
+main.tex 内嵌全部正文和代码，只下载该文件即可使用 XeLaTeX 编译。需要 ctex、fontspec、amsmath、listings、tcolorbox、accsupp、hyperref 等常用宏包；字体优先 Fandol，Windows 可回退到宋体、黑体。
 
-## 在线做题与来源核对
+    xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
+    xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
 
-- **主要平台：[曙梦 OJ 题库](https://oj.shumeng.tech/p)**、[历次 CCF-CSP 认证训练](https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62)。已读取到对应页面的题目优先用曙梦链接。
-- 部分旧题尚未读取到曙梦对应页面，保留原资料中的 AcWing 入口；原题身份通过题面与来源栏核对，不猜测题号。
-- [洛谷团队 113242 题单](https://www.luogu.com.cn/team/113242/training)在附录提供总入口；原资料5个旧专题链接见 `data/exercise-links.json`。已登录核对当前四个题单的全部 **64** 道题（二分、差分、双指针16题，搜索19题，贪心10题，dp19题）。第二篇逐题补充题意、解答和关键代码，其中五道代表题另附自测样例和完整程序。专题列表仍需团队权限，正文保留每题的直达链接。
-- 原资料 23 个真题入口的题名、认证次数和对应关系已核对，记录在 [入口索引](data/exercise-links.json)；29 道完整真题的题号、平台、程序与原题样例记录在 [真题验证索引](data/csp-practice.json)。当前团队成员、题面及讲解覆盖记录在 [团队题单索引](data/team-practice.json)；公开洛谷补充题记录在 [补充题索引](data/online-practice.json)。
+编辑分章文件后重新合成：
 
-核对日期为 **2026-10-11**。不同平台的数据范围或时限可能不同，正文说明采用的范围；程序按所列题面实现，本地验证不等于已在线提交通过。
+    python scripts/build.py
+    python tests/check_structure.py
+    python tests/check_knowledge.py
+    python tests/check_examples.py
 
-## 编译讲义
+本版 **55 个知识片段通过 5492 项检查**，**68 个完整程序通过 1793 项检查**。片段验证直接提取正文代码，并使用枚举、直接求和、父链扫描、传递闭包等独立方法对照；详见[测试说明](tests/README.md)。
 
-`main.tex` 已内嵌全部正文和代码，**只下载该文件也可以编译**。使用 XeLaTeX，安装 `ctex`、`fontspec`、`geometry`、`amsmath`、`booktabs`、`longtable`、`enumitem`、`listings`、`fancyvrb`、`needspace`、`tcolorbox`、`accsupp`、`hyperref` 等常用宏包。字体优先 Fandol；Windows 缺少 Fandol 时回退到宋体、黑体。
+## 原稿与来源
 
-```sh
-mkdir -p dist
-xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
-xelatex -interaction=nonstopmode -halt-on-error -output-directory=dist main.tex
-```
+- [重写前的完整分章原稿](archive/lecture-before-knowledge-rewrite/)保留原知识、练习解答及计数撤销、可删堆、三分等提高内容，不参与当前编译。
+- 原始 5 份 PPTX、2 份 PDF 原样保留，[文件清单与 SHA-256](data/sources.json)可核对材料。
+- [原题入口索引](data/exercise-links.json)、[真题样例与程序索引](data/csp-practice.json)、[补充题索引](data/online-practice.json)保留来源记录。
+- planning.tex 和 dist/planning.pdf 是前期方案，不代表当前篇章结构与页数。
 
-PowerShell 创建输出目录用 `New-Item -ItemType Directory -Force dist | Out-Null`。
-
-## 编辑与验证
-
-修改 `chapters/*.tex` 或 `code/*.cpp` 后，重新合成主文件，再编译 PDF：
-
-```sh
-python scripts/build.py
-python tests/check_examples.py
-```
-
-合成脚本只用 Python 标准库。验证脚本需要 Python 3.9+ 和 GNU g++，以 C++17 编译全部 **68** 个程序；本版通过 **148** 项原题样例和边界检查，以及 **1645** 项随机对照测试，共 **1793** 项。验证范围见 [测试说明](tests/README.md)。
-
-`main.tex` 为合成结果，应修改分章和程序源文件，避免下次合成覆盖直接修改。短讲解代码片段保存在分章源文件中。
-
-## 原始资料
-
-原样保留 5 份 PPTX（160 页）和 2 份 PDF（7 页）；[文件清单与 SHA-256](data/sources.json)用于核对原始材料。
-
-[教师用整理方案 LaTeX](planning.tex)与[整理方案 PDF](dist/planning.pdf)是前期蓝图，其中页数预算不是当前成品页数；实际以正式讲义为准。原资料及所引平台题目的权利归原作者或平台所有，本仓库未另行授予这些材料新的许可。
+原资料及所引平台题目的权利归原作者或平台所有。

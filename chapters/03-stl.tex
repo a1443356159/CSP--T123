@@ -1,536 +1,269 @@
 \section{STL}
-\label{chap:stl}\ojpractice{CSP201503B}{数字排序：第4次，2015-03，第2题；计数后按次数降序、数值升序排序}\ojpractice{CSP202403B}{相似度计算：第33次，2024-03，第2题；统一字母大小写后用set计算交集和并集}
-本节是第二篇的独立STL专章。STL通常指标准模板库；本讲义将常用的标准库容器、算法、字符串和数对放在一起讲解。它们仍然属于C++，程序需要用C++编译器。\textbf{采用C风格写法}是指优先使用scanf/printf、普通数组、下标循环、结构体和独立函数；使用STL时保留必要的模板类型和成员函数调用。
+STL是C++标准库中的容器与算法。算法头文件为\texttt{<algorithm>}，容器头文件通常与名称相同，例如\texttt{<vector>}、\texttt{<map>}；priority\_queue使用\texttt{<queue>}，pair使用\texttt{<utility>}。以下接口使用std前缀，按C++17编译。
 
-学习时先掌握sort、二分查找、vector与基本队列，再学set、map和堆。string、嵌套容器与自定义比较器会在第三篇继续用到。每种工具都要回答：数据如何存放、能做什么操作、一次操作花多少时间、什么情况下不能调用。
-
-\subsection{头文件、类型与最小程序}
-C++可以调用C标准库。\texttt{<cstdio>}提供scanf/printf，\texttt{<cstring>}提供strlen/strcmp，\texttt{<algorithm>}提供sort、unique等算法。容器各有头文件；只包含algorithm并不能保证queue可用。
-\begin{longtable}{P{3.4cm}P{4.1cm}P{6.7cm}}
-\toprule 头文件 & 工具 & 适合解决的问题\\\midrule\endhead
-algorithm & sort、unique、二分、reverse & 排序、去重、静态有序查找。\\
-vector & vector & 元素数变化，需要按下标访问。\\
-string & string & 保存、比较和加工文本。\\
-utility & pair、make\_pair & 把两个有关联的值放在一起。\\
-stack & stack & 后进先出，撤销、括号匹配。\\
-queue & queue、priority\_queue & 先来先处理，或优先处理极值。\\
-set & set、multiset & 动态有序集合，前驱、后继。\\
-map & map & 从名字、编号映射到信息或次数。\\
-functional & greater & 常用于声明小根堆。\\
-\bottomrule
-\end{longtable}
-本章短代码默认已经包含对应头文件，且写在main或指定函数中；给出的完整参考程序可以直接编译。\texttt{using namespace std;}允许省略std::前缀。\texttt{vector<int>}表示元素为int的动态数组，尖括号里的类型不是容量。
+\subsection{区间与迭代器}
+STL算法通常处理左闭右开区间$[first,last)$，包含first、不包含last。普通数组的指针和容器的迭代器都可表示区间端点。
 \begin{lstlisting}
-#include <cstdio>
-#include <vector>
-using namespace std;
-int main() {
-    vector<int> a;
-    a.push_back(7);
-    printf("%d\n", a[0]);
-    return 0;
+int a[] = {4, 1, 3, 2};
+std::sort(a, a+4);       // All four elements.
+std::sort(a+1, a+3);     // Only a[1], a[2].
+std::vector<int> v(4, 0);
+for (std::vector<int>::iterator it = v.begin();
+     it != v.end(); ++it) {
+    *it = 1;
 }
 \end{lstlisting}
-\textbf{读法。}a是容器；点号后是它的成员操作；push\_back在末尾添加一个元素。普通数组也可以配合STL算法，不必把所有数组改成vector。
+begin()指向第一个元素，end()指向末元素后面，不能解引用。空容器满足begin()==end()。指针和vector迭代器支持常数时间的加减、下标与相减；set、map迭代器只能逐个前进或后退，不能加一个整数。遍历n个元素为$O(n)$。
 
-\subsection{区间与迭代器：所有接口的共同基础}
-\subsubsection{左闭右开区间}
-算法通常接收$[first,last)$：包含first，不包含last。数组前n项是\texttt{[a,a+n)}；使用1下标时则是\texttt{[a+1,a+n+1)}。空区间满足first等于last，长度为0。
+\subsection{sort：排序}
+sort按升序排列一个区间，要求随机访问迭代器；普通数组和vector可以使用。比较函数返回“a是否应排在b前面”，必须使用严格顺序，相等对象不能互相排在前面。
+% snippet:stl_sort
 \begin{lstlisting}
-int a[5] = {9, 4, 7, 1, 3};
-sort(a + 1, a + 4); // Sort indices 1, 2, 3 only.
-// a is now {9, 1, 4, 7, 3}.
+bool greater_int(int a, int b) { return a > b; }
+struct Student { int score, id; };
+bool by_score(const Student &a, const Student &b) {
+    if (a.score != b.score) return a.score > b.score;
+    return a.id < b.id;
+}
+// int a[n]; Student students[n]; arrays already contain data.
+std::sort(a, a+n);                 // Ascending.
+std::sort(a, a+n, greater_int);    // Descending.
+std::sort(students, students+n, by_score);
 \end{lstlisting}
-\subsubsection{迭代器可以移动，但不一定能相减}
-\texttt{begin()}指向首元素，\texttt{end()}指向最后一个元素之后。\texttt{*it}读取当前元素，\texttt{++it}移动到下一个。空容器的begin等于end；end不能解引用。
+最后一种排序先按成绩降序，再按编号升序。比较器不能写成大于等于；sort不保证等价对象保留原顺序。n个元素需要$O(n\log n)$次比较，若单次比较不是常数时间，还要计入比较成本。
+
+\subsection{unique：去相邻重复}
+unique把相邻重复段压成一个元素，返回新的逻辑末尾，不改变容器实际大小。若要去除所有重复值，先排序，让相同值相邻。
+% snippet:stl_unique
 \begin{lstlisting}
-vector<int> a(3, 8);
-vector<int>::iterator it;
-for (it = a.begin(); it != a.end(); ++it)
-    printf("%d\n", *it);
+int a[] = {3, 1, 3, 2, 2};
+std::sort(a, a+5);
+int len = (int)(std::unique(a, a+5) - a);
+// Only a[0..len-1] is the distinct result: 1, 2, 3.
+std::vector<int> v = {3, 1, 3, 2, 2};
+std::sort(v.begin(), v.end());
+v.erase(std::unique(v.begin(), v.end()), v.end());
 \end{lstlisting}
-vector迭代器支持\texttt{it+3}和相减；set/map迭代器只支持逐步前后移动，不能写\texttt{it+3}、\texttt{s[0]}或用迭代器相减求排名。迭代器也不能跨两个不同容器比较或相减。
+数组只使用新的len；vector再用erase删除无效尾段。unique本身$O(n)$，排序后去重总时间$O(n\log n)$。新末尾之后的值不能作为去重结果使用。
 
-\subsubsection{什么时候需要重新取得迭代器}
-vector扩容会使原来的指针、引用和迭代器失效；即使没有扩容，在中间插入、删除后，受影响位置及后面的迭代器也不能继续照用。set/map插入通常不影响已有迭代器，删除则使指向被删元素的迭代器失效。最稳妥的初学者习惯是：修改容器后重新查找，删除时使用erase返回的下一个位置。
-
-\subsection{sort：普通数组排序与多关键字排序}
-\practice{P1177}{【模板】排序}
-原题只要求整数升序；本节的多关键字比较是进一步扩展。
-
-\subsubsection{升序、降序和局部排序}
-默认sort按小于关系升序排列。下例里的cmp是\textbf{普通函数}，不是匿名函数；返回true表示x应排在y前面。
+\subsection{lower\_bound：第一个不小于}
+对非降区间，lower\_bound返回第一个大于等于x的位置，全部小于x时返回末尾。
+% snippet:stl_lower
 \begin{lstlisting}
-bool descending(int x, int y) { return x > y; }
-// Inside main:
-int a[5] = {3, 1, 4, 1, 5};
-sort(a, a + 5);             // 1 1 3 4 5
-sort(a, a + 5, descending); // 5 4 3 1 1
+int a[] = {2, 2, 5, 7};
+int x = 3;
+int p = (int)(std::lower_bound(a, a+4, x) - a);
+bool exists = p < 4 && a[p] == x;
+// Here p == 2, exists == false.
 \end{lstlisting}
-对n个元素，sort保证$O(n\log n)$量级的比较次数。不要把它固定理解为某一种朴素快速排序实现。sort不保证等价元素的原相对顺序；需要保留时用stable\_sort，或将原下标加入次关键字。
-
-\subsubsection{比较器必须严格}
-\texttt{cmp(x,x)}必须为false；x排在y前时，y不能也排在x前；比较关系还要传递。\texttt{x>=y}不是合格比较器。不能在比较过程中随机改变规则，也不应通过\texttt{return x-y;}返回布尔结果：非零都会变成true，而且减法可能溢出。字符数组按内容比较应使用strcmp，不能直接比较两个数组地址。
-
-\example{按成绩和编号排序}
-\textbf{题目。}输入$n$名学生的编号和成绩，成绩降序，相同成绩按编号字典序升序。编号是不含空格的字符串，长度1到30且互不相同；$1\le n\le2\times10^5$，成绩0到100。首行n，随后每行编号和成绩，输出排序后的记录。
-\begin{verbatim}
-输入
-4
-b02 90
-a01 95
-a02 90
-a03 90
-输出
-a01 95
-a02 90
-a03 90
-b02 90
-\end{verbatim}
-\textbf{解答。}结构体数组保存记录，cmp先判断成绩，再用strcmp判断编号。编号数组容量31，多留一格保存字符串结束符。\texttt{\%30s}限制一次最多读入30个字符。比较次数为$O(n\log n)$，每次字符串比较最多扫描30个字符，记录存储为$O(n)$。
-\Code{03_rank.cpp}
-\textbf{自测。}若编号为a2和a10，字典序中a10在a2之前；题目若要求按数字编号排序，应先把数字部分解析为数值。
-
-\subsection{unique：去相邻重复与修改逻辑长度}
-unique把相邻等价元素压缩到区间前部，返回\textbf{新的逻辑末尾}，不改变普通数组容量，也不会自动缩短vector。新末尾后的元素不属于去重结果，不要依赖其具体值。
+返回值是位置，不一定指向x；先判断是否到达末尾。普通数组和vector上为$O(\log n)$时间。
+\subsection{upper\_bound：第一个严格大于}
+upper\_bound返回第一个大于x的位置。配合lower\_bound，可以得到x的全部出现位置$[l,r)$。
+% snippet:stl_upper
 \begin{lstlisting}
-int a[6] = {3, 1, 3, 2, 2, 1};
-sort(a, a + 6);                // 1 1 2 2 3 3
-int m = unique(a, a + 6) - a;   // m = 3
-for (int i = 0; i < m; i++) printf("%d ", a[i]);
-// Output: 1 2 3
+int a[] = {2, 2, 5, 7};
+int x = 2;
+int l = (int)(std::lower_bound(a, a+4, x) - a);
+int r = (int)(std::upper_bound(a, a+4, x) - a);
+int count = r-l; // Here [l,r) == [0,2), count == 2.
 \end{lstlisting}
-如果不排序，\texttt{[1,2,1]}中两个1不相邻，unique不会删掉后面的1。若要求保留首次出现顺序，排序去重会改变顺序，应该用集合判断是否见过，同时另存答案。vector全局去重的常见顺序是sort、unique、erase：
-\begin{lstlisting}
-vector<int> v;
-v.push_back(3); v.push_back(1); v.push_back(3);
-sort(v.begin(), v.end());
-vector<int>::iterator last = unique(v.begin(), v.end());
-v.erase(last, v.end());
-\end{lstlisting}
-\textbf{练习与完整解答：有序去重。}输入$n$个整数，$1\le n\le2\times10^5$、$|a_i|\le10^9$。第一行输出不同值数量，第二行按升序输出这些值。
-\begin{verbatim}
-输入
-6
-3 1 3 2 2 1
-输出
-3
-1 2 3
-\end{verbatim}
-排序后每个等值段保留一个即可，时间$O(n\log n)$。
-\practice{P1059}{明明的随机数}
-该原题同样要求去重后升序输出，提交时按原题范围与格式读写。
-\Code{27_distinct.cpp}
+普通数组和vector上两次查询共$O(\log n)$。对set、map应调用容器自身的lower\_bound、upper\_bound；通用算法在这些迭代器上可能进行线性次数的移动。
 
-\subsection{lower\_bound与upper\_bound：四种边界}
-\practice{P2249}{【深基13.例1】查找}
-原题要求首次出现的位置；将迭代器转成题面要求的下标，并单独处理查找失败。
-
-本节默认序列按升序排列；不要在无序数组上直接使用二分查找。lower\_bound找第一个不小于x的位置，upper\_bound找第一个大于x的位置；找不到时都返回右端点。
+\subsubsection{离散化}
+离散化把较大的值映射为有序编号，保留相等关系和大小关系。复制原数组、排序去重，再查每个原值的位置。
+% snippet:discretize
 \begin{lstlisting}
-int a[4] = {2, 2, 5, 7};
-int n = 4, x = 2;
-int l = lower_bound(a, a + n, x) - a;
-int r = upper_bound(a, a + n, x) - a;
-printf("%d %d %d\n", l, r, r - l); // 0 2 2
-if (l < n && a[l] == x) puts("FOUND");
-\end{lstlisting}
-\begin{longtable}{P{4.5cm}P{5cm}P{4.7cm}}
-\toprule 需求 & 下标公式 & 必须检查\\\midrule\endhead
-第一个$\ge x$ & lower\_bound减起点 & 下标小于n。\\
-第一个$>x$ & upper\_bound减起点 & 下标小于n。\\
-最后一个$<x$ & lower\_bound下标减1 & 结果不小于0。\\
-最后一个$\le x$ & upper\_bound下标减1 & 结果不小于0。\\
-x出现次数 & upper下标减lower下标 & 两次使用同一有序区间。\\
-\bottomrule
-\end{longtable}
-数组或vector上的一次查询为$O(\log n)$。例如x=8时两端均为4，表示不存在8；\texttt{a[4]}不是有效元素。\textbf{set/map上优先使用成员函数}，如\texttt{s.lower\_bound(x)}；通用算法作用于树迭代器时，比较次数虽少，迭代器移动却可能达到线性数量。
-
-\subsection{离散化：值域大时保存相对大小}
-离散化把实际值变成在去重有序表中的排名。原序列$[100,5,100,20]$的有序不同值为$[5,20,100]$，1起始排名为$[3,1,3,2]$。\textbf{保留相等关系与大小关系，不保留坐标距离。}
-\begin{lstlisting}
-int a[4] = {100, 5, 100, 20}, keys[4], rank_id[4];
-int n = 4;
-for (int i = 0; i < n; i++) keys[i] = a[i];
-sort(keys, keys + n);
-int m = unique(keys, keys + n) - keys;
+// a[0..n-1] is unchanged; b and rank each have at least n slots.
+for (int i = 0; i < n; i++) b[i] = a[i];
+std::sort(b, b+n);
+int size = (int)(std::unique(b, b+n) - b);
 for (int i = 0; i < n; i++)
-    rank_id[i] = lower_bound(keys, keys + m, a[i]) - keys + 1;
+    rank[i] = (int)(std::lower_bound(b, b+size, a[i]) - b);
 \end{lstlisting}
-排序$O(n\log n)$，逐项查询$O(n\log n)$，空间$O(n)$。必须复制一份数据再排序，否则原顺序被破坏。涉及线段长度或面积时，用排名定位，用keys恢复原坐标计算距离。在线出现的新值不能随意追加到末尾并假定排名仍正确。
+例如$[100,7,100]$变为编号$[1,0,1]$。编号之差不等于原值之差，不能直接用于距离计算。时间$O(n\log n)$，空间$O(n)$。
 
 \subsection{vector：可变长数组}
-\subsubsection{建立、赋值与下标访问}
+vector连续存储元素，支持下标访问和末尾增删。size()是实际元素数，capacity()是已分配容量；reserve只预留容量，resize改变元素数。
+% snippet:stl_vector
 \begin{lstlisting}
-vector<int> a;             // Empty, size 0.
-vector<int> b(5);          // Five zeros.
-vector<int> c(5, -1);      // Five copies of -1.
-a.push_back(10); a.push_back(20);
-printf("%d %d\n", (int)a.size(), a[1]); // 2 20
-b = a;                    // Copies the elements.
-for (int i = 0; i < (int)b.size(); i++) printf("%d ", b[i]);
+std::vector<int> v;
+v.reserve(10);          // size=0; no element may be indexed.
+v.push_back(4); v.push_back(7);
+v.resize(4, 0);         // v = [4,7,0,0].
+v[1] = 9;
+v.pop_back();           // v = [4,9,0].
+v.insert(v.begin()+1, 5); // v = [4,5,9,0].
+v.erase(v.begin()+2);   // v = [4,5,0].
+v.assign(3, 2);         // Replace all elements: [2,2,2].
 \end{lstlisting}
-合法下标为0到size减1。\texttt{a[5]=1}不会自动扩容。size返回无符号类型；本讲义数据量可用int表示，循环前转为int，避免空容器上\texttt{size()-1}发生无符号下溢。\texttt{front()}、\texttt{back()}、\texttt{pop\_back()}均应先确认非空。
+下标访问、size、empty、back为$O(1)$；push\_back均摊$O(1)$，发生扩容的一次为$O(n)$；pop\_back为$O(1)$。中间插入、删除需要移动后续元素，为$O(n)$；初始化、assign和resize新增k个元素至少处理这k项。pop\_back、back要求非空，下标必须小于size。
 
-\subsubsection{size、capacity、resize、reserve的区别}
-size是已有元素数，capacity是无需重新分配时能容纳的数量。resize改变元素数；reserve只预留容量。\texttt{vector<int> a; a.reserve(100);}之后a仍然为空，不能写a[0]，应该push\_back或先resize。\texttt{a.resize(100,7)}只把新增元素填成7，原有元素不会全部改写；要整体重置可用\texttt{a.assign(100,7)}。
+扩容会使原迭代器、指针和引用失效；未扩容的插入使插入点及之后的迭代器失效，删除使删除点及之后失效。结构改变后按需要重新取得迭代器。
 
-\subsubsection{插入、删除和二维vector}
+\subsection{string：字符串}
+string自动维护长度和存储空间，支持下标、拼接、比较、截取及查找。与scanf配合时先读入字符数组，再赋给string；printf用c\_str()取得字符数组形式。
+% snippet:stl_string
 \begin{lstlisting}
-vector<int> a(3, 5);       // 5 5 5
-a.insert(a.begin() + 1, 9); // 5 9 5 5
-a.erase(a.begin() + 2);    // 5 9 5
-a.erase(a.begin(), a.begin() + 2); // 5
-a.clear();                // size becomes 0.
-vector<vector<int> > grid(3, vector<int>(4, 0));
-grid[1][2] = 8;
-\end{lstlisting}
-下标访问为$O(1)$，末尾push\_back均摊$O(1)$；单次扩容可能搬移全部元素。中间插入删除通常为$O(n)$，连续在开头删除n次可能变成$O(n^2)$。clear清空元素，不承诺立刻归还所有容量。二维vector的每一行是独立vector，不能假定跨行内存连续；规模已知的普通矩阵通常直接使用二维数组。
-
-\textbf{练习与解答：追加和撤销。}首行$q$，$1\le q\le10^5$；随后每条命令为ADD x、UNDO或PRINT，$|x|\le10^9$。ADD末尾追加，UNDO删除末尾一项，空时忽略；PRINT输出当前序列，空时输出EMPTY。保证全部PRINT实际输出的元素数不超过$2\times10^5$。
-\begin{verbatim}
-输入
-7
-UNDO
-ADD 4
-ADD 9
-PRINT
-UNDO
-PRINT
-UNDO
-输出
-4 9
-4
-\end{verbatim}
-每次修改仅涉及末尾，vector适合保存操作结果。时间为$O(q+S)$的均摊量级，S为输出元素总数；没有对S的约束时，反复PRINT的输出本身也可能很大。
-\Code{33_undo.cpp}
-
-\subsection{string：与字符数组配合处理文本}
-\subsubsection{读写、复制和字典序}
-string自动管理存储空间，可赋值、拼接和按内容比较。字符数组用\texttt{strcmp(a,b)}，string可以直接用\texttt{a==b}、\texttt{a<b}。字符串\texttt{"10"}按字典序小于\texttt{"2"}，这不等于数值比较。char指针不应直接作为按文本内容比较的map键，本章统一使用string键。
-\begin{lstlisting}
-char buf[101];
-scanf("%100s", buf);
-string s = buf;
+char word[101];
+scanf("%100s", word);
+std::string s = word;
+s += "!";
 printf("%s\n", s.c_str());
-string t = s; t += "!";
-for (int i = 0; i < (int)t.size(); i++) printf("%c", t[i]);
+std::string part = s.substr(0, 2); // At most two characters.
+std::string::size_type p = s.find("ab");
+if (p != std::string::npos) printf("%zu\n", p);
+s.insert(0, "X");
+s.erase(0, 1);
+s.replace(0, 1, "Y");
 \end{lstlisting}
-不能写\texttt{scanf("\%s", s)}或\texttt{printf("\%s", s)}：格式化函数不会自动把string转换成字符指针。输出使用c\_str；输入先读字符数组再赋给string。\texttt{c\_str()}返回的指针只宜用于即时读取，修改string后不要继续依赖旧指针。
+substr(pos,len)从pos截取至多len个字符；pos不能超过size。find返回起始下标，失败为npos；不要把npos转成int再判断。字符串用==判断内容相同，用<按字典序比较。
 
-\subsubsection{整行输入与空格}
-\begin{lstlisting}
-char line[1005];
-if (fgets(line, sizeof(line), stdin) != NULL) {
-    line[strcspn(line, "\r\n")] = '\0';
-    string s = line;
-    printf("[%s]\n", s.c_str());
-}
-\end{lstlisting}
-fgets最多读入容量减1个字符，可能保留换行。例中用strcspn找到第一个回车或换行并截断。容量必须覆盖题目允许的最大行长，否则一次fgets不一定读完一行。先scanf读取数字再fgets时，应把该行余下字符读到换行；只调用一次getchar仅在确知剩余恰好一个换行时才足够。不要用跳过所有空白的方法处理允许空行或前导空格的题目。
-
-\subsubsection{截取、查找、插入、删除与替换}
-\begin{lstlisting}
-string s = "abcdef";
-string t = s.substr(2, 3);  // "cde": start, count.
-s.erase(1, 2);             // "adef": remove b,c.
-s.insert(1, "XY");         // "aXYdef".
-s.replace(1, 2, "-");      // "a-def".
-string::size_type p = s.find("de");
-if (p != string::npos) printf("%d\n", (int)p); // 2
-\end{lstlisting}
-substr第二参数是长度，不是终点。find失败返回string::npos，先判断成功再转成int或拿来访问。insert/erase/replace可能移动后缀，反复从头修改长字符串会很慢；可以逐段追加到新字符串。string不能用memset清零，清空用clear。
-
-\textbf{练习与解答：从左向右替换。}输入三行s、p、t，各行长度不超过1000，允许空格；s和t可空，p非空。按原串s从左到右查找p，每次选取最靠左的不重叠出现，将其替换为t。新插入的内容不再次参与匹配，输出结果。例如s为aaaa、p为aa、t为b，结果bb；s为aaa时结果ba。
-\begin{verbatim}
-输入
-one two one
-one
-X
-输出
-X two X
-\end{verbatim}
-用start标记原串尚未处理的位置。找到后先追加未匹配片段，再追加t，随后前进p的长度。始终在原串上find，可避免t包含p时重复替换甚至死循环。答案最长为约$10^6$字符；朴素匹配可用$O(|s||p|+|answer|)$估计，具体string查找实现可能优化，本题规模不依赖这种优化。
-\Code{34_replace.cpp}
+下标访问、size、empty为$O(1)$；复制和截取需要处理相应字符，长度k时为$O(k)$。中间插入、删除、替换可能移动后续字符，按字符串及替换内容长度估算。比较最坏要检查整个公共前缀；查找也可能反复比较字符，不能视为常数操作。
 
 \subsection{pair：两个值的组合}
-pair是辅助类型，不是可增删元素的容器。\texttt{pair<int,int>}可以存坐标、数值与下标等；成员名为first、second。为了保持简单写法，本章用make\_pair创建数对，不用结构化绑定。
+pair把两个值保存为first、second；默认比较先比first，相等再比second，适合坐标、距离与编号等二元数据。
+% snippet:stl_pair
 \begin{lstlisting}
-pair<int, int> p = make_pair(3, 8);
+std::pair<int, int> p = std::make_pair(3, 7);
 printf("%d %d\n", p.first, p.second);
-pair<int, int> a[3];
-a[0] = make_pair(2, 1);
-a[1] = make_pair(1, 9);
-a[2] = make_pair(1, 4);
-sort(a, a + 3); // (1,4), (1,9), (2,1)
+std::pair<int, int> a[3] = {{2, 4}, {1, 9}, {2, 3}};
+std::sort(a, a+3); // (1,9), (2,3), (2,4).
 \end{lstlisting}
-默认按first比较，first相同才比较second，即字典序。字段有明确业务含义时可改用结构体并命名为x、y、score等，提高可读性；pair的比较不会自动满足“第一项降序、第二项升序”，这种规则仍需自定义比较函数。
+访问成员为$O(1)$。比较成本取决于成员类型；int成员比较为$O(1)$。超过两个有明确含义的属性时，用结构体成员名更容易表达。
 
-\subsection{stack：后进先出与括号匹配}
-\subsubsection{基本操作}
+\subsection{stack：后进先出}
+栈只从一端访问，最后放入的元素最先取出。push入栈，top读取栈顶，pop删除栈顶。
+% snippet:stl_stack
 \begin{lstlisting}
-stack<int> st;
-st.push(4); st.push(9);
+std::stack<int> st;
+st.push(3); st.push(5);
 if (!st.empty()) {
-    printf("%d\n", st.top()); // 9
-    st.pop();
+    int x = st.top(); // x = 5.
+    st.pop();        // Leaves 3.
 }
-printf("%d\n", (int)st.size()); // 1
 \end{lstlisting}
-push加入栈顶，top只读取栈顶，pop只删除栈顶，\textbf{pop不返回被删除的值}。默认底层容器下这些操作为常数时间。stack不提供下标访问或普通遍历；需要访问所有元素时可改用vector。普通数组也能实现栈：用top表示已有元素数，入栈\texttt{a[top++]=x}，读栈顶\texttt{a[top-1]}，出栈\texttt{top--}，访问前确认top大于0。
+top、pop要求非空；pop不返回元素，要先读取再删除。默认底层为deque，以上操作以及size、empty为$O(1)$，存储n项为$O(n)$。适合保存括号、待返回的位置或最近的未完成操作。
 
-\textbf{练习与解答：三类括号匹配。}输入一行仅由\texttt{()[]\{\}}组成的字符串，长度0到$10^5$；空串合法。若每个右括号能与最近尚未匹配的同类左括号配对，输出YES，否则NO。
-\begin{verbatim}
-输入
-([]){}
-输出
-YES
-另一组输入
-([)]
-另一组输出
-NO
-\end{verbatim}
-
-最近出现的未匹配左括号必须先配对，所以使用栈。扫描右括号时先检查非空，再检查类型；扫描结束还必须检查栈是否为空。每个字符最多入栈出栈各一次，时间和最坏空间均为$O(n)$。只比较左右括号总数会误判顺序或嵌套类型。
-\Code{28_brackets.cpp}
-
-\subsection{queue：先进先出与处理顺序}
+\subsection{queue：先进先出}
+队列从末尾加入、从头部取出，用于按发现顺序处理对象。
+% snippet:stl_queue
 \begin{lstlisting}
-queue<int> q;
-q.push(4); q.push(9);
+std::queue<int> q;
+q.push(3); q.push(5);
 if (!q.empty()) {
-    printf("%d %d\n", q.front(), q.back()); // 4 9
-    q.pop();
+    int x = q.front(); // x = 3.
+    q.pop();          // Leaves 5.
 }
 \end{lstlisting}
-push在队尾添加，front读取队首，back读取队尾，pop删除队首；访问空队列是错误。默认底层容器下这些操作为常数时间。queue按进入顺序处理，不按数值大小排序。BFS按层扩展用queue；总要取最大值时则应考虑priority\_queue。
+front读队首，back读队尾，二者及pop要求非空。默认底层为deque，push、pop、front、back、size、empty为$O(1)$，空间$O(n)$。
 
-普通数组实现队列时，可用$[head,tail)$表示有效区间：入队\texttt{a[tail++]=x}，出队先读\texttt{a[head]}再head加1，非空条件head小于tail。只增不回绕的写法需要容量覆盖\textbf{累计入队次数}；长期复用时可改成循环队列或直接用queue。
-
-\textbf{练习与解答：排队取号。}首行$n$，$1\le n\le10^5$；随后每行PUSH x或POP，编号x为int范围内整数。PUSH入队；POP输出并删除队首，空队列输出EMPTY。
-\begin{verbatim}
-输入
-6
-POP
-PUSH 5
-PUSH 2
-POP
-POP
-POP
-输出
-EMPTY
-5
-2
-EMPTY
-\end{verbatim}
-维护进入顺序即可。每条命令$O(1)$，总时间$O(n)$，最多保存n个编号。
-\Code{29_queue.cpp}
-
-\subsection{priority\_queue：堆与优先处理}
-\subsubsection{大根堆与小根堆}
+\subsection{priority\_queue：优先队列}
+优先队列用堆维护当前优先级最高的元素，不保证其他元素整体有序。默认是大根堆，top为最大值；greater使它成为小根堆。
+% snippet:stl_heap
 \begin{lstlisting}
-priority_queue<int> large;
-large.push(4); large.push(9); large.push(2);
-printf("%d\n", large.top()); // 9
-priority_queue<int, vector<int>, greater<int> > small;
-small.push(4); small.push(9); small.push(2);
-printf("%d\n", small.top()); // 2
+std::priority_queue<int> large;
+std::priority_queue<int, std::vector<int>, std::greater<int> > small;
+large.push(4); large.push(9);
+int maximum = large.top(); // 9.
+large.pop();
+small.push(4); small.push(9);
+int minimum = small.top(); // 4.
 \end{lstlisting}
-第一个模板参数是元素类型，第二个是底层存储，第三个是比较方式。默认大根堆top最大；greater使最小值位于堆顶。top为$O(1)$，push/pop的堆调整为$O(\log n)$，底层vector分配另有均摊成本。堆不是完全排好序的数组，不支持第k项查询，也没有erase(x)接口。要删除指定值可用multiset；延迟删除见提高附录。
+greater还需\texttt{<functional>}。push、pop为$O(\log n)$，top、size、empty为$O(1)$；top、pop要求非空。没有直接删除任意元素或按下标访问的接口。
 
-\subsubsection{结构体与普通比较函数}
-堆的比较函数返回true，表示\textbf{左边对象优先级比右边低}，与sort里“应放在前面”的直观含义不同。下面优先取成绩更高者，相同成绩取编号更小者。函数指针类型写法中，Compare表示接收两个Item并返回bool的函数指针。
+结构体比较函数返回“a的优先级低于b”。函数指针可以作为比较器类型：
+% snippet:stl_heap_struct
 \begin{lstlisting}
-struct Item { int score, id; };
-bool lower_priority(Item a, Item b) {
-    if (a.score != b.score) return a.score < b.score;
+struct Task { int priority, id; };
+bool lower_priority(const Task &a, const Task &b) {
+    if (a.priority != b.priority) return a.priority < b.priority;
     return a.id > b.id;
 }
-// Inside main:
-typedef bool (*Compare)(Item, Item);
-priority_queue<Item, vector<Item>, Compare> q(lower_priority);
-Item a; a.score = 90; a.id = 2; q.push(a);
-a.id = 1; q.push(a);
-printf("%d\n", q.top().id); // 1
+std::priority_queue<Task, std::vector<Task>,
+                    bool (*)(const Task &, const Task &)> pq(lower_priority);
+pq.push(Task{2, 3});
+pq.push(Task{2, 1}); // Top has id 1.
 \end{lstlisting}
-构造时必须传入比较函数，不能让函数指针保持空值。不要直接把sort的“高分在前”比较器原封不动放进堆。本讲义第三篇的任务调度继续使用这种普通函数写法。
+这里优先级大者先出，并列时编号小者先出。比较仍须严格，不能用大于等于或小于等于。
 
-\textbf{练习与解答：保留最大的k个数。}输入n、k及n个整数，$1\le k\le n\le2\times10^5$，数值在int范围内。重复值按不同出现计数，按降序输出最大的k个数。
-\begin{verbatim}
-输入
-5 3
-4 1 9 9 2
-输出
-9 9 4
-\end{verbatim}
-
-维护最多k个元素的小根堆。每读入一个数就入堆，超过k个时删除最小值；留下的恰好是已读前缀中最大的k个。反复弹出得到升序，最后逆转。时间$O(n\log(k+1)+k)$，额外空间$O(k)$。若n很小且一次读完，直接sort也是合理选择。
-\Code{32_heap.cpp}
-
-\subsection{set：自动去重的有序集合}
-set存唯一键，默认按升序排列。insert重复键不会新增元素；find失败返回end；count在set中只能为0或1。查找、插入、按键删除的通常复杂度为$O(\log n)$，完整遍历为$O(n)$。
+\subsection{set：有序集合}
+set按值有序存储，重复插入同一个值只保留一份。适用于动态判重、有序遍历和查找前驱后继。
+% snippet:stl_set
 \begin{lstlisting}
-set<int> s;
-s.insert(5); s.insert(2); s.insert(5);
-printf("%d\n", (int)s.size()); // 2
-set<int>::iterator it;
-for (it = s.begin(); it != s.end(); ++it) printf("%d ", *it);
-if (s.find(5) != s.end()) puts("FOUND");
-s.erase(2);
+std::set<int> s;
+s.insert(3); s.insert(7); s.insert(3);
+std::set<int>::iterator it = s.find(3);
+if (it != s.end()) s.erase(it);
+it = s.lower_bound(5); // First value >= 5.
+if (it != s.end()) printf("%d\n", *it); // 7.
 \end{lstlisting}
-不能通过\texttt{*it=新值}修改set中的键，否则会破坏有序关系；修改键应先删旧值再插新值。遍历不是按插入顺序，不支持按下标读取。只做一次排序去重时普通数组往往更直接；数据边加入边查询时set更合适。
+insert、find、按值erase、成员lower\_bound及upper\_bound为$O(\log n)$；遍历全部元素为$O(n)$，空间$O(n)$。迭代器指向的值不能直接修改。
 
-\subsubsection{前驱、后继与安全边界}
-以下寻找严格小于x的前驱，以及不小于x的后继。两者定义不同于“严格大于”的后继；严格大于应改用upper\_bound。
+求严格小于x的最大值，先找第一个不小于x的元素，再退一步；若已经是begin，就不存在前驱。
 \begin{lstlisting}
-int x = 6;
-set<int>::iterator it = s.lower_bound(x);
-if (it != s.end()) printf("next = %d\n", *it);
-if (it != s.begin()) {
-    --it;
-    printf("previous = %d\n", *it);
-}
+std::set<int>::iterator it = s.lower_bound(x);
+if (it != s.begin()) { --it; printf("%d\n", *it); }
 \end{lstlisting}
-空集合begin等于end，两种访问都会被挡住；x大于所有元素时it为end，可以在集合非空的条件下先减一次取得最大值；x不大于最小值时不能对begin做减法。
+end不能解引用，begin不能向前退。插入不使已有迭代器失效，删除只使被删元素的迭代器失效。
 
-\subsection{multiset：重复值与删除一个副本}
-multiset允许相同值出现多次。\texttt{erase(x)}删除\textbf{所有等于x的元素}；\texttt{erase(it)}只删除迭代器指向的一个。count可能返回大于1，统计大量重复元素的成本也与出现次数有关，不能把它一律算作$O(\log n)$。
+\subsection{multiset：允许重复的有序集合}
+multiset与set的有序操作相同，但保留重复值。按值erase(x)删除全部x；只删一个副本时，先find再按迭代器删除。
+% snippet:stl_multiset
 \begin{lstlisting}
-multiset<int> s;
-s.insert(5); s.insert(5); s.insert(8);
-multiset<int>::iterator it = s.find(5);
-if (it != s.end()) s.erase(it); // One 5 remains.
-printf("%d\n", (int)s.count(5)); // 1
-s.erase(5); // Remove all remaining 5s.
+std::multiset<int> s;
+s.insert(4); s.insert(4); s.insert(7);
+std::multiset<int>::iterator it = s.find(4);
+if (it != s.end()) s.erase(it); // Deletes only one 4.
+int copies = (int)s.count(4);   // 1.
+s.erase(4);                    // Deletes every remaining 4.
 \end{lstlisting}
-\textbf{练习与解答：动态候选值。}首行q，$1\le q\le2\times10^5$；随后每行ADD x、DEL x或GE x，$|x|\le10^9$。ADD加入一个副本，DEL删除一个副本，不存在则忽略；GE输出当前最小的、不小于x的值，不存在输出NONE。
-\begin{verbatim}
-输入
-8
-ADD 5
-ADD 5
-ADD 9
-DEL 5
-GE 5
-DEL 5
-GE 5
-GE 10
-输出
-5
-9
-NONE
-\end{verbatim}
-使用multiset保留重复值；DEL采用find加erase迭代器；GE用成员lower\_bound。每条操作至多$O(\log(q+1))$，空间$O(q)$。
-\Code{30_neighbors.cpp}
+插入、find、成员边界查询为$O(\log n)$。count(x)和erase(x)为$O(\log n+k)$，k是x的出现次数；按迭代器删除均摊$O(1)$，与find合用总计$O(\log n)$。
 
-\subsection{map：键到信息的映射}
-\subsubsection{下标、find和有序遍历}
-map保存唯一键及其对应值，默认按键排序。迭代器的first是键、second是值；键不可直接修改，值可以修改。
-
-例如，string到int的映射可以保存名字及其次数；int到vector的映射可以保存某个编号对应的一组记录。
+\subsection{map：有序键值映射}
+map按键有序，每个键对应一个值。适用于计数、对象编号和按名称保存状态。\texttt{m[key]}在键不存在时会插入默认值；只查询是否存在时，用find。
+% snippet:stl_map
 \begin{lstlisting}
-map<string, int> cnt;
-cnt["apple"]++; cnt["pear"] += 2;
-map<string, int>::iterator it = cnt.find("orange");
-if (it == cnt.end()) puts("NOT FOUND");
-for (it = cnt.begin(); it != cnt.end(); ++it)
-    printf("%s %d\n", it->first.c_str(), it->second);
+std::map<int, int> freq;
+freq[7]++; freq[3]++; freq[7]++;
+std::map<int, int>::iterator it = freq.find(5);
+if (it != freq.end()) printf("%d\n", it->second);
+for (it = freq.begin(); it != freq.end(); ++it)
+    printf("%d %d\n", it->first, it->second);
+freq.erase(3);
 \end{lstlisting}
-访问不存在键的\texttt{cnt[key]}会插入默认值；这里int默认为0，因此计数很方便。但只想查存在性时应使用find或count，避免创建新键。\texttt{cnt.count(key)}表示这个键是否存在，不是该单词的频数。\texttt{insert(make\_pair(key,value))}遇到已有键不会覆盖旧值；需要覆盖应使用下标赋值。
+遍历输出按键升序排列，为3出现1次、7出现2次。first是键，不能直接修改；second是值，可以更新。下标、insert、find、按键erase为$O(\log n)$，完整遍历为$O(n)$，空间$O(n)$；字符串键还需计入比较字符的成本。
 
-比较和树查找通常需要$O(\log n)$次键比较。若键是长度L的字符串，一次比较最坏$O(L)$，整体可估为$O(L\log n)$。值域很小且连续的计数优先用普通数组，避免不必要的树节点开销。
-
-\textbf{练习与解答：单词计数。}输入$n$及n个仅含小写字母的单词，每词长度1到30，$1\le n\le10^5$。按字典序输出每个不同单词及次数。
-\begin{verbatim}
-输入
-5
-pear apple pear banana apple
-输出
-apple 2
-banana 1
-pear 2
-\end{verbatim}
-读入时对键计数；map已经按键排列，最后顺序遍历即可，不需要再sort。若有m个不同单词，计数约需$O(30n\log(m+1))$时间，存储约$O(30m)$。
-\Code{31_frequency.cpp}
-
-\subsubsection{遍历时删除与嵌套映射}
+遍历时删除，用erase返回的下一个迭代器继续：
 \begin{lstlisting}
-map<string, int>::iterator it = cnt.begin();
-while (it != cnt.end()) {
-    if (it->second == 0) it = cnt.erase(it);
+for (std::map<int, int>::iterator it = freq.begin();
+     it != freq.end(); ) {
+    if (it->second == 0) it = freq.erase(it);
     else ++it;
 }
-map<string, set<string> > rights;
-rights["alice"].insert("file1");
-map<string, set<string> >::iterator p = rights.find("alice");
-if (p != rights.end() && p->second.count("file1")) puts("YES");
 \end{lstlisting}
-erase之后继续对旧it加1会使用失效迭代器。嵌套map/set适合权限管理：外层找用户，内层查资源。查询用find，授权才用下标主动创建，这正是第三篇授权模拟的状态组织方式。
+不要删除后再递增已经失效的迭代器。
 
-\subsection{unordered\_map与unordered\_set：哈希查找}
-\ojpractice{CSP202403B}{相似度计算：第33次，统一大小写后记录每个词在哪篇出现；真题速看给完整代码}
-\ojpractice{CSP201912B}{回收站选址：第18次，查询坐标是否存在；练习中用set的有序查找实现}
-\texttt{unordered\_map}保存键值对，需要包含\texttt{<unordered\_map>}。\texttt{unordered\_set}只保存不重复的键，需要包含\texttt{<unordered\_set>}。哈希表根据键的哈希值选桶，再在桶内寻找精确相等的键。不同键可能哈希相同，不能把哈希值相同直接当作原对象相同。
-
-与map、set相比，哈希容器不维护键的顺序，不能直接求某值的前驱、后继或最小键。插入、查找、删除的\textbf{平均}时间为$O(1)$（字符串还要计算与长度相关的哈希）；严重冲突时单次可能退化为$O(n)$。不要把平均复杂度写成最坏保证。
+\subsection{unordered\_map：哈希键值映射}
+unordered\_map按哈希值组织键值对，不保证遍历顺序，适合只需按键查询和更新的场景。下标仍会插入不存在的键。
+% snippet:stl_umap
 \begin{lstlisting}
-#include <string>
-#include <unordered_map>
-std::unordered_map<std::string, int> mask;
-mask.max_load_factor(0.7f);
-mask.reserve(100000);
-mask["apple"] |= 1;
-mask["apple"] |= 2; // 3 means present in both articles.
-std::unordered_map<std::string, int>::const_iterator it = mask.find("pear");
-if (it != mask.end()) printf("%d\n", it->second);
+std::unordered_map<int, int> freq;
+freq.reserve(1000);
+freq[7]++;
+std::unordered_map<int, int>::iterator it = freq.find(7);
+if (it != freq.end()) printf("%d\n", it->second);
+freq.erase(7);
 \end{lstlisting}
-reserve根据预计元素数预留桶，减少插入中的重哈希；不能保证无冲突。负载因子约为“元素数/桶数”，调整时兼顾时间和内存。重哈希会使迭代器失效，所以不要在一次遍历中继续使用重哈希之前的迭代器。operator[]会插入不存在的键；只想查看存在性用find。\textbf{练习与解答：}若第一篇apple出现三次、第二篇出现两次，位标记仍为3，交集只贡献1；若要求按词典序输出单词，应另行排序或改用map。
+查找、插入和删除平均$O(1)$，最坏$O(n)$；遍历$O(n)$，空间$O(n)$。reserve预留预计元素数，减少扩容次数；重新组织哈希桶会使迭代器失效。字符串键的哈希需要读取字符，长度L时至少计入$O(L)$成本。
 
-\subsection{常用算法补充与容器选择}
+\subsection{unordered\_set：哈希集合}
+unordered\_set只保存不同的值，适用于无需排序的判重和存在性查询。
+% snippet:stl_uset
 \begin{lstlisting}
-int a[5] = {1, 2, 3, 4, 5};
-reverse(a, a + 5); // 5 4 3 2 1
-fill(a, a + 3, 7); // 7 7 7 2 1
-int pos = max_element(a, a + 5) - a;
-printf("%d %d\n", pos, a[pos]); // 0 7
-swap(a[0], a[4]);
+std::unordered_set<int> seen;
+seen.reserve(1000);
+bool inserted = seen.insert(7).second; // true on first insertion.
+bool exists = seen.find(7) != seen.end();
+seen.erase(7);
 \end{lstlisting}
-reverse和fill为线性，max\_element找最大值位置也为线性；空区间会返回右端点，不能解引用。min/max常用于两个值的比较；数组整体求最小值用min\_element。给普通int数组全部置0可以memset；\textbf{memset按字节填充}，\texttt{memset(a,1,sizeof(a))}不是把每项变成整数1。给每项赋一般数值时用fill或for循环。
-
-\begin{longtable}{P{5.4cm}P{3.2cm}P{5.6cm}}
-\toprule 任务特征 & 首选工具 & 选择依据\\\midrule\endhead
-规模已知、频繁下标访问 & 普通数组 & 简单直接，容量需提前留够。\\
-末尾追加、撤销，偶尔遍历 & vector & 连续存储，动态长度。\\
-最近未完成对象先处理 & stack & 后进先出。\\
-最早进入对象先处理 & queue & 先进先出。\\
-每次仅取最大或最小 & priority\_queue & 堆顶快，不提供任意删除。\\
-动态查前驱后继、无重复 & set & 有序唯一键。\\
-动态查前驱后继、有重复 & multiset & 保留出现次数。\\
-按名字查次数或属性 & map & 键到值，有序遍历。\\
-静态排序后重复查找 & 数组加二分 & 不需维护动态树结构。\\
-\bottomrule
-\end{longtable}
-unordered\_map、unordered\_set不按键排序，常见哈希操作平均较快但最坏可能退化；不能替代需要lower\_bound或有序输出的map/set。deque支持两端操作，list适合特定位置已知的链表操作，但本讲义常规题型不以它们为主。选择容器应由题目操作决定，不能仅凭“高级”程度选择。
-
-\exercise
-\textbf{1.}有序数组$[2,2,5,7]$中，x=2的lower和upper下标是多少？x=8呢？\textbf{解答：}分别为0、2和4、4；后者是末尾，不能访问数组第4项。
-
-\textbf{2.}vector只reserve(20)，能否写a[0]=3？\textbf{解答：}不能，size仍为0。push\_back(3)或先resize才建立元素。
-
-\textbf{3.}map中a键的频数是5，\texttt{cnt.count("a")}是多少？\textbf{解答：}1；它统计键是否存在。实际频数在it->second或cnt["a"]中。
-
-\textbf{4.}multiset含$[4,4,8]$，删一个4后如何保证仍有一个4？\textbf{解答：}find(4)，检查不为end，然后erase该迭代器；不能直接erase(4)。
-
-\textbf{5.}比较器返回\texttt{x.score>=y.score}是否正确？\textbf{解答：}错误，自比较会为true，破坏严格弱序。相同主关键字再比较次关键字。
-
-\textbf{6.}栈和队列均依次加入2、7、3，再依次弹出，输出是什么？\textbf{解答：}栈为3、7、2，队列为2、7、3；默认大根堆则为7、3、2。
-
-\textbf{7.}把坐标$[1,100,101]$变成$[1,2,3]$后能否用排名差算距离？\textbf{解答：}不能。排名只保序，原前两点距离99而排名差为1。
-
-\textbf{8.}替换题s=aaa、p=aa、t=aaaa时，结果和处理次数是多少？\textbf{解答：}一次匹配，输出aaaaa；新插入内容不再匹配，避免无休止增长。
-
-\textbf{9.}用小根堆保存最大的3个数，已读$[6,1,5,2]$时堆中是什么？\textbf{解答：}保留2、5、6，堆顶2；内部数组次序不必完全升序。
-
-\textbf{10.}为什么不能在map查询缺失用户时一律写rights[user]？\textbf{解答：}该语句会建立空集合；查询越多，状态可能无故增长。使用find后再访问已有记录。
-
-\textbf{参考文档。}C++工作草案中的\href{https://eel.is/c++draft/vector.capacity}{vector容量规则}、\href{https://eel.is/c++draft/associative.reqmts}{关联容器规则}、\href{https://eel.is/c++draft/priority.queue}{优先队列}与\href{https://eel.is/c++draft/alg.sorting}{排序算法}。
+insert返回的second表示是否插入了新值。查询、插入、删除平均$O(1)$，最坏$O(n)$；遍历$O(n)$，空间$O(n)$。它没有按值查找前驱、后继的lower\_bound或upper\_bound接口。
