@@ -60,9 +60,9 @@
 
 正文区分两类内容。\textbf{认证真题}标出题名、认证次数、年月、题号和做题链接，压缩转述完整规则，并给出解答、样例或关键代码；原资料23道真题及六道历年考点补充题均提供按所列题面编写的完整程序。\textbf{教学例题与自测}围绕资料知识点设计，完整展示规则、输入输出、样例、解答和参考实现；若旁边链接标为同类练习，平台原题的规则可能不同，提交前应重新核对。
 
-\textbf{主要在线练习平台：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}；\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次CCF-CSP认证训练总入口}。各算法小节就近列出对应真题或练习题，不需要等到章末才能练习。原资料中的洛谷团队题单和专项训练链接在附录保留，缺少已核对曙梦入口的专项题使用洛谷补充。
+\textbf{主要在线练习平台：}\href{https://oj.shumeng.tech/p}{曙梦OJ题库}；\href{https://oj.shumeng.tech/training/68330d72efce6d5ac2765a62}{历次CCF-CSP认证训练总入口}。各算法小节就近列出对应真题或练习题，不需要等到章末才能练习。团队四个专题题单的64道练习已在第二篇按知识点展开，缺少已核对曙梦入口的专项题保留洛谷链接；原资料旧题单链接在附录保留。
 
-题面、届次、数据范围和曙梦当前限制按2026年10月11日读取的页面核对。已核对原资料23个真题入口：第一篇五道速看与三道剩余题，第二篇五道速看与十道剩余题。原资料中的AcWing入口已通过浏览器题面及来源栏确认身份；部分旧题暂未读取到曙梦对应页面，保留原入口。历年考点补充题另行标明，不声称所有补充题均属于洛谷团队题单。
+题面、届次、数据范围和曙梦当前限制按2026年10月11日读取的页面核对。已核对原资料23个真题入口：第一篇五道速看与三道剩余题，第二篇五道速看与十道剩余题。原资料中的AcWing入口已通过浏览器题面及来源栏确认身份；部分旧题暂未读取到曙梦对应页面，保留原入口。登录后已核对团队113242当前四个题单的完整成员：二分、差分、双指针16题，搜索19题，贪心10题，dp19题。正文分别标明团队专项题与原资料补充题，团队专项全部给出题意、解答和关键代码，其中五道代表题提供完整程序。
 
 参考程序以C风格为主，使用scanf/printf、普通数组、下标循环、结构体和独立函数；需要动态容器时再使用STL。没有使用auto、匿名函数或结构化绑定。STL属于C++，统一按C++17编译。主文件内嵌全部正文与代码，只下载本TeX文件也可以编译。代码高亮；行号保留显示，以空ActualText排除在复制文本之外（需要阅读器支持）；代码正文可选择、复制。输入输出样例分区装框，保留原始空格与换行。
 
@@ -1213,6 +1213,13 @@ d[x2+1][y2+1] += v;
 \subsubsection{原题单差分应用：阈值与检测时刻}
 \href{https://www.acwing.com/problem/content/4010/}{非零段划分（第23次，2021-09）}把“一个位置何时成为段开头”转成阈值区间贡献；\href{https://www.acwing.com/problem/content/4458/}{出行计划（第25次，2022-03）}把“计划允许的检测时刻”转成整数区间贡献。本篇练习给出公式、样例和完整代码。两题都先推导区间端点，再做差分，不能从题名直接套模板。
 
+\subsubsection{当前团队题单训练}
+\training{1112210}{二分、差分、双指针}
+前缀和先做P8218，再做余数计数P8649、二维查询B3693；差分先做P2367，再做二维P13787。各题的题意、解答与关键代码见本篇练习题中的团队专项。
+\practice{P8649}{k倍区间：前缀余数与计数}
+\practice{B3693}{二维前缀和与无符号回绕}
+\practice{P13787}{二维差分与异或汇总}
+
 % ===== 06-binary.tex =====
 \subsection{二分与双指针}
 \ojpractice{CSP202605B}{机器人宿管：第42次，2026-05，第2题；人数越多越难满足天数，二分最后可行人数；第五节给解答}
@@ -1352,6 +1359,13 @@ int main() {
 \textbf{练习3。}闭区间最后可行值搜索中，lo=2、hi=3，若使用下中位数且判定为真会怎样？\textbf{解答。}mid=2，更新lo=2后区间不变，可能死循环。应取上中位数，或采用另一套能证明缩小区间的写法。
 \par\bigskip
 
+\subsubsection{当前团队题单训练}
+\training{1112210}{二分、差分、双指针}
+整数判定做P2440、P2678、P3853，实数判定做P1024、P1163、P3743；双指针做P1638、P3143、P10719。各题的题意、解答与关键代码见本篇练习题中的团队专项。
+\practice{P1638}{逛画展：覆盖全部类别的窗口}
+\practice{P3143}{Diamond Collector：两个不重叠的窗口}
+\practice{P10719}{黑白格：枚举行边界与非负窗口}
+
 % ===== 07-greedy.tex =====
 \subsection{贪心与基础数学}
 \ojpractice{CSP201703A}{分蛋糕：第10次，2017-03，第1题；正重量累积到阈值后立即分出，第一篇练习给解答}\ojpractice{CSP202312B}{因子化简：第32次，2023-12，第2题；反复试除并记录完整指数；第三节给解答}\ojpractice{CSP202305B}{矩阵运算：第30次，2023-05，第2题；用结合律先算小矩阵，降低乘法次数}
@@ -1443,6 +1457,14 @@ int factorize(long long x, long long prime[], int exponent[]) {
 
 \textbf{练习3。}A为 $10\times100$，B为 $100\times5$，C为 $5\times50$，先算哪一对更省？\textbf{解答。}$(AB)C$ 的乘加规模为 $10\cdot100\cdot5+10\cdot5\cdot50=7500$；$A(BC)$ 为 $100\cdot5\cdot50+10\cdot100\cdot50=75000$，前者更省。
 \par\bigskip
+
+\subsubsection{当前团队题单训练}
+\training{1112208}{贪心}
+先做合并果子、线段覆盖、纪念品分组、删数，再做道路、队伍接续、编码树和国王游戏。各题的题意、解答与关键代码见本篇练习题中的团队专项。
+\practice{P1090}{合并果子：小根堆}
+\practice{P1803}{线段覆盖：结束时间优先}
+\practice{P1094}{纪念品分组：排序与双指针}
+\practice{P1106}{删数问题：单调栈}
 
 % ===== 08-search.tex =====
 \subsection{搜索与剪枝}
@@ -1580,6 +1602,14 @@ int main() {
 
 \textbf{练习3。}只有两个格子，边代价分别可能为1或100，按经过格子数最少就一定费用最小吗？\textbf{解答。}不一定。BFS最小化边数，只有每条边的代价相等时才等价于最小费用。选择算法前必须看目标函数。
 \par\bigskip
+
+\subsubsection{当前团队题单训练}
+\training{1112209}{搜索}
+基础DFS做P1706、P1219，基础BFS做P1135、P1162、P1443；剪枝做P1120、P1731与T148457，带权状态做P1346、P3956、CF1063B。各题的题意、解答与关键代码见本篇练习题中的团队专项。
+\practice{P1135}{电梯：最少按键}
+\practice{P1162}{填色：从外围标记}
+\practice{P1346}{电车：01BFS}
+\practice{P1120}{小木棍：剪枝与恢复}
 
 % ===== 09-dp.tex =====
 \subsection{动态规划入门}
@@ -1739,6 +1769,13 @@ int main() {
 
 \textbf{练习4。}滚动数组能否把 LCS 的 $O(nm)$ 时间降为 $O(m)$？\textbf{解答。}不能。它只减少保存的历史行数，仍需要计算 n 行各 m 个状态。
 \par\bigskip
+
+\subsubsection{当前团队题单训练}
+\training{1112207}{dp}
+先做编辑距离P2758、导弹拦截P1020；LCS计数P2516需要单独处理重复方案，不能只套长度转移。各题的题意、解答与关键代码见本篇练习题中的团队专项。
+\practice{P1020}{导弹拦截：非上升与严格上升}
+\practice{P2758}{编辑距离：二维状态}
+\practice{P2516}{最长公共子序列：长度与计数}
 
 % ===== 10-knapsack.tex =====
 \subsection{基础背包与计数}
@@ -1951,6 +1988,14 @@ int main() {
 \par\bigskip
 \subsubsection{原题单01背包练习}
 \href{https://www.acwing.com/problem/content/4703/}{何以包邮？（第27次，2022-09，第2题）}每本书只能购买一次，先做恰好总价可达性，再找大于等于阈值的首个可达总价。不能照搬“容量以内最大价值”的答案位置；本篇练习给完整实现。
+
+\subsubsection{当前团队题单训练}
+\training{1112207}{dp}
+01背包做P1048，完全背包做P1616，多重背包做P1776、P1077，再做P2340、P5662、P1417的变形。各题的题意、解答与关键代码见本篇练习题中的团队专项。
+\practice{P1776}{宝物筛选：二进制拆分}
+\practice{P1077}{摆花：有界计数}
+\practice{P5662}{纪念品：逐日完全背包}
+\practice{P1417}{烹调方案：排序后背包}
 
 % ===== 03-stl.tex =====
 \Needspace{7\baselineskip}\section{STL}
@@ -3866,6 +3911,1050 @@ int main() {
 \end{minipage}\par
 
 
+% ===== team-practice.tex =====
+\subsection{团队题单专项练习：学习顺序与代码约定}
+2026年10月11日已登录核对\href{https://www.luogu.com.cn/team/113242/training}{团队113242}的全部四个题单，共64道题。本节保留全部成员，按知识点给出题意摘要、解答与关键实现；代码片段中的数组、循环范围与初始化按旁边文字说明补齐，标为“完整参考实现”的程序可以独立编译。
+
+建议先完成每组的基础题，再做需要多个模型的提高题。题单中的NOIP、CSP-J、NOI、USACO等题用于算法训练，认证真题速看仍指前面标明届次的CCF-CSP认证题。认证题优先在曙梦OJ完成；团队专项题保留已核对的洛谷直达链接，不猜测其他平台题号。私有题单需要团队权限，公开单题可以从直达链接进入。
+
+\subsection{团队题单：二分、差分、双指针（16题）}
+\training{1112210}{二分、差分、双指针}
+建议顺序：P8218、P2249、P2367、P2440、P1102、P8649、P1638，再学习二维、双窗口和实数判定题。
+
+\Needspace{8\baselineskip}\subsubsection{P2249：查找}
+\practice{P2249}{【深基13.例1】查找}
+\textbf{题意。}给定n个非降整数，回答m次查询：输出查询值首次出现的1下标，不存在为-1；所有答案在一行。$n\le10^6,m\le10^5$。
+\textbf{解答。}求第一个不小于x的位置，再检查是否等于x；不能直接返回二分途中任意一个相等位置。时间$O(n+m\log n)$，存储$O(n)$。以下数组用0下标，尾端必须先判断再访问。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int p = std::lower_bound(a, a+n, x)-a;
+int answer = p < n && a[p] == x ? p+1 : -1;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1024：一元三次方程求解}
+\practice{P1024}{[NOIP 2001 提高组] 一元三次方程求解}
+\textbf{题意。}输入实数系数a、b、c、d。三次方程有三个不同实根，均在$[-100,100]$，根间距离至少1；升序输出三根，保留两位小数。
+\textbf{解答。}用Horner法求值，逐个扫描长度为1的区间。端点根单独记录，内部严格异号才二分，避免同一整数根被相邻区间重复记录。二分固定80轮，最后另查100。异号规则依赖题目给定的根间距离；它不能寻找任意函数的所有根。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+double value(double x) { return ((a*x+b)*x+c)*x+d; }
+// For a bracket with strictly opposite endpoint signs:
+for (int t = 0; t < 80; t++) {
+    double mid = (lo+hi)/2;
+    if ((value(lo)<0) == (value(mid)<0)) lo=mid;
+    else hi=mid;
+}
+printf("%.2f", (lo+hi)/2);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2440：木材加工}
+\practice{P2440}{木材加工}
+\textbf{题意。}n根整数长度木材，要切出至少k段相同正整数长度，求最大长度；切不出长度1时输出0。$n\le10^5,k,L_i\le10^8$。
+\textbf{解答。}试探len时，第i根能贡献$\lfloor L_i/len\rfloor$段。可行性随len增加而变差，用闭区间二分最后可行值。正文切木条教学题的完整程序适用，读入按空白分隔即可；不能在len=0时做除法。$O(n\log\max L_i)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long count = 0;
+for (int i=0; i<n; i++) count += length[i]/len;
+return count >= k;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2678：跳石头}
+\practice{P2678}{[NOIP 2015 提高组] 跳石头}
+\textbf{题意。}端点距离L，中间有n块有序石头，至多删m块，使所有相邻保留位置的最小距离最大。$n\le50000,L\le10^9$。
+\textbf{解答。}二分距离d。保留尽可能早的可用石头，距离不足d时删当前石头；最后若到终点仍不足d，需要再删上一块已保留的中间石头。删数不超过m即可行。下面末句计数等价于该调整，并不真的删除终点。起点、终点不足d且无中间石头时也会被正确判为不可行。$O(n\log L)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int removed=0, last=0;
+for (int i=0; i<n; i++) {
+    if (pos[i]-last < d) removed++;
+    else last=pos[i];
+}
+if (L-last < d) removed++;
+return removed <= m;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P8218：求区间和}
+\practice{P8218}{【深进1.例1】求区间和}
+\textbf{题意。}输入n、n个正整数、m及m组闭区间，逐行输出区间和。$n,m\le10^5,a_i\le10^4$。
+\textbf{解答。}1下标前缀和令pre[0]=0，每次减去左端点前的前缀。$O(n+m)$，空间$O(n)$。正文静态区间求和教学程序首行读n、q；本题m在数组后，应移动读入q的位置。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+pre[0]=0;
+for (int i=1; i<=n; i++) pre[i]=pre[i-1]+a[i];
+printf("%lld\n", pre[r]-pre[l-1]);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2367：语文成绩}
+\practice{P2367}{语文成绩}
+\textbf{题意。}先给n人成绩，再做p次闭区间加分，全部修改后输出最低分。$n\le5\times10^6,p\le n$，初始分和单次加分不超过100。
+\textbf{解答。}把初始成绩也写入差分，再用左右两个端点表示一次更新。恢复时同时求最小值，不必另存原数组。数组至少n+2格；用long long约需40MB。$O(n+p)$。这里输出的是最后状态的最小值，并非每次修改后的最小值。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+diff[l] += z; diff[r+1] -= z;
+// Initialize diff[i] = a[i]-a[i-1], a[0]=0.
+long long value=0, answer=9223372036854775807LL;
+for (int i=1; i<=n; i++) {
+    value += diff[i]; if (value<answer) answer=value;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P13787：地毯加强版}
+\practice{P13787}{地毯 加强版}
+\textbf{题意。}n方阵上放m块闭区间矩形地毯，覆盖次数为$F_{i,j}$，输出$\sum((i+j)\mathbin{\mathrm{xor}}F_{i,j})$。$n\le5000,m\le2\times10^5$；不是输出整个覆盖矩阵。
+\textbf{解答。}二维差分更新四个角，再按行列恢复。覆盖数可用int，汇总答案用long long。一个$5002^2$的int矩阵约100MB，不能额外复制许多同样大的矩阵。$O(m+n^2)$时间、$O(n^2)$空间。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+d[x1][y1]++; d[x2+1][y1]--;
+d[x1][y2+1]--; d[x2+1][y2+1]++;
+// After every update, restore in increasing i,j order:
+d[i][j] += d[i-1][j]+d[i][j-1]-d[i-1][j-1];
+answer += (i+j)^d[i][j];
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1102：A-B数对}
+\practice{P1102}{A-B 数对}
+\textbf{题意。}给定数组和正整数C，统计差为C的数对；位置不同的重复数分别贡献。$n\le2\times10^5$。
+\textbf{解答。}排序，对每个B求B+C的出现次数。若两种值分别出现p、q次，贡献pq。次数答案用long long，查找目标也先转long long，避免加法溢出。$O(n\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long target=1LL*a[i]+C;
+answer += std::upper_bound(a,a+n,target)
+        - std::lower_bound(a,a+n,target);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P3853：路标设置}
+\practice{P3853}{[TJOI2007] 路标设置}
+\textbf{题意。}整数位置已有路标，包括0和L，至多加K块，使最大相邻间距尽量小。$N,K\le10^5,L\le10^7$。
+\textbf{解答。}二分允许的最大间距d。原间距gap需补$\lceil gap/d\rceil-1=(gap-1)/d$块。总需求不超过K即为可行，找最小可行d。gap恰好整除时不能直接用gap/d作为补数。$O(N\log L)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long need=0;
+for (int i=1; i<N; i++) need += (pos[i]-pos[i-1]-1)/d;
+return need <= K;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{B3693：数列前缀和4}
+\practice{B3693}{数列前缀和 4}
+\textbf{题意。}多组非负整数矩阵，每次求矩形和模$2^{64}$，每组输出所有查询答案的异或和。$n,m\le1000$，累计矩阵项数、查询数各不超过$10^6$。
+\textbf{解答。}使用unsigned long long建立二维前缀和。C++无符号加减自然按$2^{64}$回绕，正好实现题目取模；不能改用有符号溢出。每组清零第0行和第0列，正文符号求和公式其余部分相同。$O(nm+q)$。下面给完整程序。
+\textbf{自测样例（按原题规则构造）。}
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+2
+1 2 2
+18446744073709551615 1
+1 1 1 2
+1 1 1 1
+1 1 1
+0
+1 1 1 1
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+18446744073709551615
+0
+\end{Sample}
+\end{tcolorbox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{68\_unsigned\_prefix.cpp}
+\begin{lstlisting}
+#include <cstdio>
+unsigned long long pre[1005][1005];
+int main() {
+    int tests;
+    scanf("%d", &tests);
+    while (tests--) {
+        int n, m, q;
+        scanf("%d%d%d", &n, &m, &q);
+        for (int i = 0; i <= n; i++) pre[i][0] = 0;
+        for (int j = 0; j <= m; j++) pre[0][j] = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                unsigned long long x;
+                scanf("%llu", &x);
+                pre[i][j] = x + pre[i-1][j] + pre[i][j-1] - pre[i-1][j-1];
+            }
+        }
+        unsigned long long answer = 0;
+        for (int i = 0; i < q; i++) {
+            int x1, y1, x2, y2;
+            scanf("%d%d%d%d", &x1, &y1, &x2, &y2);
+            unsigned long long sum = pre[x2][y2] - pre[x1-1][y2]
+                                   - pre[x2][y1-1] + pre[x1-1][y1-1];
+            answer ^= sum;
+        }
+        printf("%llu\n", answer);
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{8\baselineskip}\subsubsection{P8649：k倍区间}
+\practice{P8649}{[蓝桥杯 2017 省 B] k 倍区间}
+\textbf{题意。}输入n、k和n项正整数，求和能被k整除的非空连续区间数。$n,k,a_i\le10^5$。
+\textbf{解答。}区间和是k倍数当且仅当两端前缀余数相等。顺序扫描，每读到余数r，先加以前的cnt[r]，再增加计数。初始cnt[0]=1代表空前缀；次序反过来会把空区间算进去。$O(n+k)$时间、$O(k)$空间，答案用long long。
+\textbf{自测样例（按原题规则构造）。}
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+5 3
+1 2 3 4 5
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+7
+\end{Sample}
+\end{tcolorbox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{64\_k\_intervals.cpp}
+\begin{lstlisting}
+#include <cstdio>
+long long cnt[100005];
+int main() {
+    int n, k;
+    scanf("%d%d", &n, &k);
+    cnt[0] = 1;
+    int remainder = 0;
+    long long answer = 0;
+    for (int i = 0; i < n; i++) {
+        int x;
+        scanf("%d", &x);
+        remainder = (remainder + x) % k;
+        answer += cnt[remainder];
+        cnt[remainder]++;
+    }
+    printf("%lld\n", answer);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{8\baselineskip}\subsubsection{P1638：逛画展}
+\practice{P1638}{逛画展}
+\textbf{题意。}n幅画各有1到m的作者编号，求包含全部作者的最短连续区间；同长时输出左端点最小的一组，保证有解。$n\le10^6,m\le2000$。
+\textbf{解答。}频率记录窗口内作者出现次数，种类数达到m就尽量缩小左端。每次删除后若该作者计数变0，窗口才失去一类。仅在长度严格变小时更新答案，扫描顺序会保留最小左端。$O(n+m)$。
+\textbf{自测样例（按原题规则构造）。}
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+7 3
+1 2 1 3 2 1 3
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+2 4
+\end{Sample}
+\end{tcolorbox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{65\_gallery.cpp}
+\begin{lstlisting}
+#include <cstdio>
+int a[1000005], cnt[2005];
+int main() {
+    int n, m;
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+    int left = 1, kinds = 0, bestLeft = 1, bestRight = n;
+    for (int right = 1; right <= n; right++) {
+        if (cnt[a[right]]++ == 0) kinds++;
+        while (kinds == m) {
+            if (right - left < bestRight - bestLeft) {
+                bestLeft = left;
+                bestRight = right;
+            }
+            if (--cnt[a[left]] == 0) kinds--;
+            left++;
+        }
+    }
+    printf("%d %d\n", bestLeft, bestRight);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{8\baselineskip}\subsubsection{P3143：两个展示柜}
+\practice{P3143}{[USACO16OPEN] Diamond Collector S}
+\textbf{题意。}n颗钻石放进两个柜，每柜最大、最小尺寸差不超过K；每颗只能使用一次，求总展示数最多。$n\le50000$。
+\textbf{解答。}先排序。双指针求每个起点的最长合法段，再算后缀中单柜最多能取多少。第一个柜取$[l,r)$，第二个柜从r以后取，贡献len[l]+best[r]。有最优方案可按尺寸把两柜分开，扩大第一段、删去重叠仍不会降低总数；不能直接相加两个可能重叠的最大窗口。$O(n\log n)$。
+\textbf{自测样例（按原题规则构造）。}
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+7 2
+1 2 3 8 9 10 20
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+6
+\end{Sample}
+\end{tcolorbox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{66\_diamonds.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <algorithm>
+int a[50005], len[50005], best[50006];
+int main() {
+    int n, k;
+    scanf("%d%d", &n, &k);
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+    std::sort(a, a + n);
+    int right = 0;
+    for (int left = 0; left < n; left++) {
+        while (right < n && a[right] - a[left] <= k) right++;
+        len[left] = right - left;
+    }
+    for (int i = n - 1; i >= 0; i--)
+        best[i] = std::max(len[i], best[i + 1]);
+    int answer = 0;
+    for (int i = 0; i < n; i++)
+        answer = std::max(answer, len[i] + best[i + len[i]]);
+    printf("%d\n", answer);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{8\baselineskip}\subsubsection{P10719：黑白格}
+\practice{P10719}{[GESP202406 五级] 黑白格}
+\textbf{题意。}输入n、m、k及01网格，求至少包含k个黑格的最小子矩形面积；不存在输出0。$n,m\le100$。
+\textbf{解答。}枚举上下边界，累加每列黑格数，再用非负数组滑动窗口找和至少k的最短列区间。新增一行只需$O(m)$，避免重新统计每个矩形。$O(n^2m)$时间、$O(nm)$存储。缩小窗口时不要越过右端点；k为正，零列也需要正确删除。
+\textbf{自测样例（按原题规则构造）。}
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+2 3 3
+101
+011
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+4
+\end{Sample}
+\end{tcolorbox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{67\_black\_rectangle.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <algorithm>
+char grid[105][105];
+int col[105];
+int main() {
+    int n, m, k;
+    scanf("%d%d%d", &n, &m, &k);
+    for (int i = 0; i < n; i++) scanf("%100s", grid[i]);
+    int answer = n * m + 1;
+    for (int top = 0; top < n; top++) {
+        std::fill(col, col + m, 0);
+        for (int bottom = top; bottom < n; bottom++) {
+            for (int j = 0; j < m; j++) col[j] += grid[bottom][j] == '1';
+            int left = 0, sum = 0;
+            for (int right = 0; right < m; right++) {
+                sum += col[right];
+                while (sum >= k) {
+                    int area = (bottom - top + 1) * (right - left + 1);
+                    answer = std::min(answer, area);
+                    sum -= col[left++];
+                }
+            }
+        }
+    }
+    printf("%d\n", answer == n * m + 1 ? 0 : answer);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{8\baselineskip}\subsubsection{P1163：银行贷款}
+\practice{P1163}{银行贷款}
+\textbf{题意。}输入贷款本金、固定月还款和月数m，求月利率，按百分数保留一位小数；题目保证不超过300\%。$m\le3000$。
+\textbf{解答。}月利率r越大，按“先计息、再还款”模拟后的余额越大。在$[0,3]$二分余额为0的r，固定100轮；一旦余额为正且下一月只会继续增大，可提前判为过高，避免浮点数无限增长。最后输出$100r$。$O(100m)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+double balance=principal;
+for (int i=0; i<m; i++) {
+    balance=balance*(1+rate)-payment;
+    if (balance>0 && balance*rate>payment) break;
+}
+if (balance>0) hi=rate; else lo=rate;
+// After binary search: printf("%.1f\n", 100*(lo+hi)/2);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P3743：小鸟的设备}
+\practice{P3743}{小鸟的设备}
+\textbf{题意。}设备i每秒消耗$a_i$、初始能量$b_i$；总充电速度p可连续切换设备。求全部设备共同工作的最长时间，能无限使用输出-1。$n\le10^5$。
+\textbf{解答。}若$\sum a_i\le p$，直接-1。否则时间t内至少需要补$\sum\max(0,a_it-b_i)$，不超过pt才可行。二分最后可行t；上界可用$\sum b_i/(\sum a_i-p)$，因为总能量给出必要上限。整数求和先用long long，上界除法先转double，判定用double，输出足够小数。时间为$O(n\log(R/\varepsilon))$，R为搜索范围，$\varepsilon$为精度。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+// If sumA>p: double hi=(double)sumB/(sumA-p);
+double need=0;
+for (int i=0; i<n; i++) {
+    double lack=a[i]*t-b[i]; if (lack>0) need+=lack;
+}
+return need <= p*t;
+\end{lstlisting}
+\end{minipage}\par
+
+\subsection{团队题单：搜索（19题）}
+\training{1112209}{搜索}
+先做全排列、八皇后、电梯、填色和马步，再处理带权状态、剪枝和综合模型。普通BFS仅适用于每条转移代价相同；边权为0、1时学01BFS，一般非负权用Dijkstra。
+
+\Needspace{8\baselineskip}\subsubsection{P1706：全排列问题}
+\practice{P1706}{全排列问题}
+\textbf{题意。}输入$1\le n\le9$，按字典序输出1到n的全部排列，每个数字占5个字符宽度。
+\textbf{解答。}按位置递归，候选值从1到n扫描，用used标记已放数，返回时撤销。正文全排列程序的数组容量足够，但输出应改为场宽5。$O(n\cdot n!)$，递归深度n。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (!used[x]) {
+    used[x]=1; permutation[pos]=x; dfs(pos+1); used[x]=0;
+}
+// At a complete permutation: printf("%5d", permutation[i]);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1219：八皇后}
+\practice{P1219}{[USACO1.5] 八皇后 Checker Challenge}
+\textbf{题意。}n方阵放n个皇后，每行、列恰一个且对角线不冲突，字典序输出前三个方案，再输出总数；$6\le n\le13$。
+\textbf{解答。}逐行递归，列按升序尝试；列、行列和、行列差加n分别对应三类冲突。前三个方案可以输出，但不能停止搜索，否则总数不完整。对角数组至少2n+1格。时间为剪枝搜索的指数级，额外状态$O(n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (!col[c] && !diag1[r+c] && !diag2[r-c+n]) {
+    col[c]=diag1[r+c]=diag2[r-c+n]=1;
+    answer[r]=c; dfs(r+1);
+    col[c]=diag1[r+c]=diag2[r-c+n]=0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1135：奇怪的电梯}
+\practice{P1135}{奇怪的电梯}
+\textbf{题意。}n层楼，第i层只能上或下$K_i$层，求A到B最少按键次数；无法到达输出-1。$n\le200$，允许$K_i=0$。
+\textbf{解答。}楼层作顶点，两个合法去向为边，BFS首次发现即是最短距离。初始化所有dist为-1、dist[A]=0；入队时标记，零步自环不会反复入队。$O(n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int next[2]={u+K[u],u-K[u]};
+for (int i=0; i<2; i++) {
+    int v=next[i];
+    if (v>=1 && v<=n && dist[v]==-1) {
+        dist[v]=dist[u]+1; q[tail++]=v;
+    }
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1162：填涂颜色}
+\practice{P1162}{填涂颜色}
+\textbf{题意。}n方阵中1形成闭合圈，圈外、圈内原来均为0，把圈内0改成2，保留其他数。四方向可到边界的0是圈外。$n\le30$。
+\textbf{解答。}四周加一圈0，从(0,0)BFS标记所有可到达的0，最后未标记的0改成2。不能只从原矩阵某个角出发，因为角可能被边界上的1挡住。$O(n^2)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+// BFS from (0,0) on the padded range [0,n+1]^2.
+if (grid[nx][ny]==0 && !outside[nx][ny]) {
+    outside[nx][ny]=1; q[tail++]={nx,ny};
+}
+// For original cells: if (!grid[i][j] && !outside[i][j]) grid[i][j]=2;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1443：马的遍历}
+\practice{P1443}{马的遍历}
+\textbf{题意。}n行m列棋盘上从(x,y)走马步，输出到每格的最短步数，不可达为-1。$n,m\le400$。
+\textbf{解答。}八方向是$(\pm1,\pm2)$、$(\pm2,\pm1)$，均为单位代价，BFS。与机器人复健指南不同，这里不限制k步，而且要输出整个距离矩阵；队列容量应为$n\times m$以上。$O(nm)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int dx[8]={1,1,-1,-1,2,2,-2,-2};
+int dy[8]={2,-2,2,-2,1,-1,1,-1};
+// First discovery: dist[nx][ny]=dist[x][y]+1; enqueue(nx,ny);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P3956：棋盘}
+\practice{P3956}{[NOIP 2017 普及组] 棋盘}
+\textbf{题意。}红、黄、无色格组成m方阵，从左上到右下。相同色移动费用0、异色1；花2让下个无色格暂时继承当前色，魔法不能连续使用。求最小费用或-1。$m\le100$。
+\textbf{解答。}状态用位置与当前颜色。原本无色的位置说明当前是魔法状态，不能再走向无色格；走回原有色格后恢复可用魔法。用非负权Dijkstra和最小堆，松弛允许改进旧距离，不能沿用BFS的“一次访问永不改”。$O(m^2\log m)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (original[nx][ny]==-1) {
+    if (original[x][y]==-1) continue;
+    nextColor=color; cost=2;
+} else {
+    nextColor=original[nx][ny]; cost=(nextColor!=color);
+}
+// Relax dist[nx][ny][nextColor] using current distance + cost.
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1346：电车}
+\practice{P1346}{[CHCI 2002 Regional Competition Juniors] 电车}
+\textbf{题意。}每个路口默认走第一个给出的出口，改走其他出口算一次切换，求A到B最少切换次数或-1。$n\le100$。
+\textbf{解答。}把首出口边权设0，其余设1，做01BFS：改进距离后0边放双端队列前、1边放后。边是有向的，不能自行补反向边。$O(n+E)$；也可用小规模Dijkstra。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (dist[v]>dist[u]+w) {
+    dist[v]=dist[u]+w;
+    if (w==0) q.push_front(v); else q.push_back(v);
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1120：小木棍}
+\practice{P1120}{[CERC 1995] 小木棍}
+\textbf{题意。}n段长度不超过50的木棍，原来由若干根相同长度的棍子切开，求可能的最小原长。$n\le65$。
+\textbf{解答。}原长从最大段到总长枚举，只尝试总长的因子。段长降序，递归拼满一根再拼下一根。跳过同层失败的相同段长；空根的第一段失败后直接返回，因为各根没有身份区别。恰好补满失败时也可剪去该层其他候选。剪枝搜索最坏仍为指数级。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (sum%target) continue;
+// Inside DFS, after a failed attempt using length[i]:
+used[i]=0; lastFailed=length[i];
+if (filled==0 || filled+length[i]==target) return false;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1731与T148457：生日蛋糕及加强版}
+\practice{P1731}{[NOI1999] 生日蛋糕}
+\practice{T148457}{生日蛋糕加强版}
+\textbf{题意。}做M层整数半径、整数高度的圆柱蛋糕，下面的半径和高度都严格更大，总体积$N\pi$，求除底面外表面积除以$\pi$的最小值。原题$N\le20000,M\le15$，无解输出0；加强版$N\le100000,M\le16$，无解输出-1。
+\textbf{解答。}从底向上枚举半径、高度。外表面积等于底层半径平方加全部侧面积$\sum2rh$，水平部分会望远镜消去。还剩d层时最小体积为$\sum_{i=1}^d i^3$，最小侧面积为$\sum2i^2$；据此剪枝，并用剩余体积和半径上限估计侧面积下界。搜索中面积已不优就停止，指数级搜索依赖这些界。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (volume+minVolume[depth]>N) return;
+if (area+minSide[depth]>=best) return;
+if (area+2*(N-volume)/maxRadius>=best) return;
+// r<previousRadius, h<previousHeight, both positive integers.
+dfs(depth-1, volume+r*r*h, area+2*r*h+(depth==M?r*r:0), r,h);
+\end{lstlisting}
+\end{minipage}\par
+maxRadius必须为正，表示剩余层半径的严格上限；初始可设为$\lfloor\sqrt N\rfloor+1$，避免漏掉整数端点。终止时只有体积恰好N才更新答案。不能把加强版无解输出0。
+
+\Needspace{8\baselineskip}\subsubsection{P1144：最短路计数}
+\practice{P1144}{最短路计数}
+\textbf{题意。}无向无权图可能有重边和自环，求从1到各点的最短路径数，模100003，不可达输出0。$N\le10^6,M\le2\times10^6$。
+\textbf{解答。}BFS分层。首次发现v设置距离并入队；凡满足dist[v]=dist[u]+1的边，都把ways[u]加给v。重边分别贡献，自环不满足距离条件。邻接表为无向边预留2M格，ways[1]=1。$O(N+M)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (dist[v]==-1) { dist[v]=dist[u]+1; q[tail++]=v; }
+if (dist[v]==dist[u]+1) ways[v]=(ways[v]+ways[u])%100003;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1514：引水入城}
+\practice{P1514}{[NOIP 2010 提高组] 引水入城}
+\textbf{题意。}高度矩阵中水只能沿四方向流向严格更低格，只能在第一行建水厂。若最后一行不能全部供水，输出0和不可达格数；否则输出1及最少水厂数。$n,m\le500$。
+\textbf{解答。}先从第一行检查最后一行是否全部可达。若全部可达，平面网格的下降路径保证每个第一行水源在底边的覆盖可以按区间处理；求每个源的最左、最右可达列，再贪心用左端不大于当前未覆盖列、右端最远的区间。端点DP按高度从低到高计算，避免长递归栈。排序$O(nm\log(nm))$，存储$O(nm)$。不能跳过可达检查就把一个不连续集合当区间。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+// For each lower neighbor v whose bottom interval is nonempty:
+left[u]=std::min(left[u],left[v]);
+right[u]=std::max(right[u],right[v]);
+// Cover [1,m]: among left<=next, select largest right, next=right+1.
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1004：方格取数}
+\practice{P1004}{[NOIP 2000 提高组] 方格取数}
+\textbf{题意。}n方阵有非负权，从左上到右下各走两次，只能向右或下，每格数字最多取一次，求最大总和。$n\le9$，输入给非零格坐标直到结束标记。
+\textbf{解答。}让两个人同时走，步号s等于行加列，状态$f[s][x_1][x_2]$，列分别是$s-x_1,s-x_2$。枚举两人上一步的四种组合；两人同格只加一次。不可达状态置负无穷，起点同时站在(1,1)。$O(n^3)$，滚动空间$O(n^2)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int gain=a[x1][s-x1];
+if (x1!=x2) gain+=a[x2][s-x2];
+// bestPrevious: maximum over previous rows x1/x1-1 and x2/x2-1.
+if (bestPrevious!=NEG) f[s][x1][x2]=bestPrevious+gain;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{CF1063B：Labyrinth}
+\practice{CF1063B}{Labyrinth}
+\textbf{题意。}网格有障碍，四方向移动，向左最多x次、向右最多y次，上下不受限，求起点可到格数。$n,m\le2000$。
+\textbf{解答。}只把左移视为费用1，其他方向为0，用01BFS求到每格的最少左移left。终点列j与起点列c满足right=left+j-c；因此最少左移也同时最小化右移，检查两个上限即可。不能只记录普通最短步数。$O(nm)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int cost = dy==-1 ? 1 : 0;
+// 0-1 BFS relaxation using this cost.
+long long right=1LL*left[i][j]+j-startColumn;
+if (left[i][j]!=INF && left[i][j]<=x && right<=y) answer++;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1790：矩形分割}
+\practice{P1790}{矩形分割}
+\textbf{题意。}小矩形由$a\times b$单位格组成，分成两个连通部分，两部分都须接触原矩形外边，求方案数。$a,b\le6$。
+\textbf{解答。}把分割边界视为格线图上两处边界间的简单路径：中途只在内部格线顶点行走，不重复顶点，不沿外边行走，到另一处边界就结束。每条路径正反各被枚举一次，最终除2。若a=1则仅有b-1个切点。该做法为指数级搜索；“连通部分”的题意也可对照\href{https://www.luogu.com.cn/article/z7wvfqyz}{原题解作者的连通性说明}。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+// Grid-line vertices are (x,y), 0<=x<=a, 0<=y<=b.
+if (depth>0 && onBoundary(x,y)) { count++; return; }
+// At depth 0 only move into an interior vertex.
+// Inside DFS: skip visited vertices, mark before recursion, unmark after.
+// Sum over boundary starting vertices excluding corners; answer=count/2.
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1825：玉米迷宫}
+\practice{P1825}{[USACO11OPEN] Corn Maze S}
+\textbf{题意。}网格中\#为墙，@为起点，=为出口，成对大写字母是强制瞬间传送口。走一步耗时1，传送耗时0，传送后至少走一步才能再次传送。$n,m\le300$。
+\textbf{解答。}预存每个字母的两个坐标。BFS向邻格走一步时，如果落入字母，立刻把落点改为另一个端口，再把最终落点入队。弹出传送后状态时不再原地传送，而是继续普通移动。每条组合转移都耗时1，因此这个建模仍可用普通BFS。$O(nm)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+// nx,ny is a passable adjacent cell, reached in one walking step.
+if (isPortal(grid[nx][ny])) {
+    Point p=otherEndpoint(nx,ny); nx=p.x; ny=p.y;
+}
+if (dist[nx][ny]==-1) { dist[nx][ny]=dist[x][y]+1; enqueue(nx,ny); }
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2919：守卫农场}
+\practice{P2919}{[USACO08NOV] Guarding the Farm S}
+\textbf{题意。}等高且八方向连通的平台若四周均低于它或在图外，算一个山顶。求山顶数。$n,m\le700$，高度可以为0。
+\textbf{解答。}BFS每个未访问的等高连通块，检查其八方向所有邻格；发现更高邻格就取消该块山顶资格，但仍需遍历整块，避免重复计数。不是逐格数局部最大值。$O(nm)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (height[nx][ny]>height[x][y]) peak=false;
+if (height[nx][ny]==height[x][y] && !visited[nx][ny]) {
+    visited[nx][ny]=1; enqueue(nx,ny);
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1225：黑白棋游戏}
+\practice{P1225}{[CEOI 1999] 黑白棋游戏}
+\textbf{题意。}4方阵各有8个黑、白棋子，一步可交换共边的两个格，从初始布局变成目标布局，输出最少步数及每步交换坐标。
+\textbf{解答。}16位整数编码黑格。相邻同色交换无变化，跳过；异色交换等于翻转两位。BFS状态数不超过$2^{16}$，记录父状态与交换位置，沿目标反向回溯再倒序输出。只给步数并不满足本题输出要求。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (((state>>u)&1) != ((state>>v)&1)) {
+    int next=state^(1<<u)^(1<<v);
+    if (dist[next]==-1) {
+        dist[next]=dist[state]+1; parent[next]=state;
+        from[next]=u; to[next]=v; q[tail++]=next;
+    }
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1379：八数码难题}
+\practice{P1379}{八数码难题}
+\textbf{题意。}3方阵中0为空格，每次与上下左右一格交换，求到固定目标123804765的最少步数，保证可达。
+\textbf{解答。}从固定目标BFS预处理全部可达排列，询问直接查距；可用九字符string作为map的键，也可康托展开成0到9!-1的编号。起始串按字符读，不能丢掉前导0。九格总状态数$9!$，每格至多四条边。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+std::string next=state;
+std::swap(next[zeroPosition],next[neighborPosition]);
+if (dist.find(next)==dist.end()) {
+    dist[next]=dist[state]+1; q.push(next);
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\subsection{团队题单：贪心（10题）}
+\training{1112208}{贪心}
+先完成合并果子、线段覆盖、纪念品分组、删数和铺设道路；其余题需要二分、堆、编码树或大整数。
+
+\Needspace{8\baselineskip}\subsubsection{P1090：合并果子}
+\practice{P1090}{[NOIP 2004 提高组] 合并果子}
+\textbf{题意。}任意两堆可合并，代价为两堆重量和，求合成一堆的最小总代价。$n\le10^4$，不要求相邻。
+\textbf{解答。}反复合并最轻的两堆。正文最小代价合并石堆给出交换论证和完整程序；本题可直接采用该模型。只有一堆时答案0。$O(n\log n)$，空间$O(n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long x=q.top(); q.pop();
+long long y=q.top(); q.pop();
+answer+=x+y; q.push(x+y); // q must be a min-heap.
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1106：删数问题}
+\practice{P1106}{删数问题}
+\textbf{题意。}不超过250位的十进制正整数，删恰好k位，其余位保持先后次序，求最小非负整数，输出不能有前导0。
+\textbf{解答。}用字符数组作单调栈，新数字小于栈顶且还能删，就删栈顶，使高位尽量小。扫描后删额未用完时从末尾删。最后跳过前导0，全为0则输出0。$O(L)$，不要先把输入转成整数。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+for (int i=0; s[i]; i++) {
+    while (top>0 && k>0 && stack[top-1]>s[i]) { top--; k--; }
+    stack[top++]=s[i];
+}
+top-=k; stack[top]='\0';
+int p=0; while (p<top && stack[p]=='0') p++;
+puts(p==top ? "0" : stack+p);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1182：数列分段II}
+\practice{P1182}{数列分段 Section II}
+\textbf{题意。}非负数列分为M个非空连续段，令最大段和最小。$n\le10^5,M\le n$。
+\textbf{解答。}二分段和上限limit，从左向右装入，加入下一项超限就开新段。每段尽量长会使段数最少；所需段数不超过M就可再拆成恰好M段。二分下界max项，上界总和，均用long long。$O(n\log\sum a_i)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int segments=1; long long sum=0;
+for (int i=0; i<n; i++) {
+    if (sum+a[i]>limit) { segments++; sum=0; }
+    sum+=a[i];
+}
+return segments<=M; // Require limit >= max(a) before this check.
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1803：线段覆盖}
+\practice{P1803}{凌乱的yyy / 线段覆盖}
+\textbf{题意。}n个比赛有开始、结束时间，最多参加多少互不冲突的比赛。一个比赛结束时可立即开始下一个。$n\le10^6$。
+\textbf{解答。}按结束时间升序，能接上就选；选更早结束的比赛给以后留下的时间不会更少。初始last取0，因为题目开始时间非负。不是按开始时间排序。$O(n\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+for (int i=0; i<n; i++) {
+    if (event[i].start>=last) { count++; last=event[i].end; }
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1094：纪念品分组}
+\practice{P1094}{[NOIP 2007 普及组] 纪念品分组}
+\textbf{题意。}每组最多两件纪念品，价格和不超过w，求最少组数。每件单独均能放下，$n\le30000$。
+\textbf{解答。}排序，最大项若不能与最小项同组，就不可能与其他项同组；否则把最小、最大配对，通过交换可保持组数不增。双指针每次处理最大项，组数加1。$O(n\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int l=0,r=n-1,groups=0;
+while (l<=r) {
+    if (l<r && a[l]+a[r]<=w) l++;
+    r--; groups++;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P5019：铺设道路}
+\practice{P5019}{[NOIP 2018 提高组] 铺设道路}
+\textbf{题意。}非负深度数组，每天选择一个全部为正的连续段减1，求变成全0的最少天数。$n\le10^5$。
+\textbf{解答。}从左向右，相邻深度上升的部分需要开启新的一批填补操作，下降时可结束一部分旧操作。因此答案为$d_1+\sum_{i=2}^n\max(0,d_i-d_{i-1})$。它既是每处上升的必需下界，也能按高度层构造达到。$O(n)$，可流式读取。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long answer=0; int previous=0;
+for (int i=0; i<n; i++) {
+    if (depth[i]>previous) answer+=depth[i]-previous;
+    previous=depth[i];
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P4447：分组}
+\practice{P4447}{[AHOI2018初中组] 分组}
+\textbf{题意。}所有人恰分一次，每组实力值是无重复的连续整数；最大化人数最少一组的人数。实力可负且重复，$n\le10^5$。
+\textbf{解答。}实力升序处理，在以x-1结束的队伍里选最短的接上x，若没有就开新队。补给短队可防止它过早成为瓶颈，交换接续对象不会破坏连续性。每个终值用小根堆保存队长；不要把相同x接到刚以x结束的队伍。$O(n\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int length=1;
+if (!team[x-1].empty()) {
+    length=team[x-1].top()+1; team[x-1].pop();
+}
+team[x].push(length); // map<int, min-heap<int> > team;
+// At the end, take the smallest nonempty heap top over all ending values.
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1080：国王游戏}
+\practice{P1080}{[NOIP 2012 提高组] 国王游戏}
+\textbf{题意。}国王排首位，大臣i获得前面所有左手数的乘积除以其右手数向下取整。调整大臣顺序，使最大奖励最小。$n\le1000,a_i,b_i<10000$。
+\textbf{解答。}交换相邻大臣比较可得按$a_ib_i$递增排序。依次先用当前前缀乘积除b计算奖赏，再乘a更新前缀。乘积可有数千位，long long不足；用十进制数组实现乘小整数、除小整数、比较大整数。排序$O(n\log n)$，大数扫描约$O(nD)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+bool lessMinister(const Minister &x,const Minister &y) {
+    return 1LL*x.a*x.b < 1LL*y.a*y.b;
+}
+// product initially equals the king's a.
+quotient=divideBySmall(product,minister[i].b);
+answer=maxBig(answer,quotient);
+multiplyBySmall(product,minister[i].a);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{B2168：哈夫曼编码}
+\practice{B2168}{【模板】哈夫曼编码}
+\textbf{题意。}n个不同单词有频次，输出任一种使带权编码长度最小的二进制前缀编码；输出顺序必须与输入一致。$n\le1000,w_i\le10^9$。
+\textbf{解答。}小根堆中保留节点编号和long long权重，每次合并最轻两节点并保存左右儿子。根到叶子的左边写0、右边写1；叶子按原编号存答案，最后按输入顺序输出。不能仅输出合并代价。DFS的总输出量也计入复杂度；同权可任选合并顺序。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+left[parent]=u; right[parent]=v;
+weight[parent]=weight[u]+weight[v];
+// In DFS: append '0' for left, '1' for right; restore path after returning.
+// At a leaf: code[originalId]=path. Finally print word[i], code[i].
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2168：荷马史诗}
+\practice{P2168}{[NOI2015] 荷马史诗}
+\textbf{题意。}构造k进制前缀编码，先使总带权长度最小，再使最长编码长度最小；输出这两个值。
+\textbf{解答。}k叉哈夫曼。补权0的虚叶子，使$(n-1)\bmod(k-1)=0$；每次取k个最轻节点合并，累加其总权。同权优先高度较小的树，合并高度为最大子高加1；最终高度是最长码长。比较器按权、高度先后，权重与总代价用long long。$O((n+k)\log(n+k))$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+while ((leafCount-1)%(k-1)) { pushNode(0,0); leafCount++; }
+// Extract k nodes; sum their weights, find maximum height h.
+answer+=sum; pushNode(sum,h+1);
+\end{lstlisting}
+\end{minipage}\par
+
+\subsection{团队题单：dp（19题）}
+\training{1112207}{dp}
+先做采药、完全采药、摆花、编辑距离，再学习子序列、区间、事件及多维状态。每题先写清“恰好”还是“至多”，不可达初值、循环方向和答案位置。
+
+\Needspace{8\baselineskip}\subsubsection{P1020：导弹拦截}
+\practice{P1020}{[NOIP 1999 提高组] 导弹拦截}
+\textbf{题意。}按输入顺序，一套系统能选非升子序列，问最长可拦截数，以及覆盖全序列需要最少几套。输入直到结束；最多$10^5$项。
+\textbf{解答。}第一问为最长非升子序列，把高度取负，用upper\_bound求最长非降长度；第二问由链划分性质等于原高度的最长严格上升长度，用lower\_bound。相等值在两问中的作用不同，不能统一使用同一种二分。$O(n\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int p=std::upper_bound(nondec,nondec+len1,-height)-nondec;
+nondec[p]=-height; if (p==len1) len1++;
+p=std::lower_bound(strict,strict+len2,height)-strict;
+strict[p]=height; if (p==len2) len2++;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2516：最长公共子序列与计数}
+\practice{P2516}{[HAOI2010] 最长公共子序列}
+\textbf{题意。}两个大写字符串各以点号结束，去掉点号后求LCS长度和原题匹配位置方案数，计数模$10^8$，长度各不超过5000。
+\textbf{解答。}f记录最优长度，g记录达到该长度的匹配方案。使用末尾两字符的配对、跳过第一串末尾、跳过第二串末尾，分别在最优长度相等时加方案；上、左重复包含的左上方案需要减一次。边界空序列方案数为1。两行滚动，$O(nm)$时间、$O(m)$空间。这里计数匹配位置，不能按不同转移路径重复计数，见\href{https://www.luogu.com.cn/article/dsndm32n}{原题解作者的配对模型说明}。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int best=std::max(f[prev][j],f[cur][j-1]);
+if (a[i]==b[j]) best=std::max(best,f[prev][j-1]+1);
+long long count=0;
+if (a[i]==b[j] && best==f[prev][j-1]+1) count+=g[prev][j-1];
+if (best==f[prev][j]) count+=g[prev][j];
+if (best==f[cur][j-1]) count+=g[cur][j-1];
+if (best==f[prev][j-1]) count-=g[prev][j-1];
+f[cur][j]=best; g[cur][j]=(count%MOD+MOD)%MOD;
+\end{lstlisting}
+\end{minipage}\par
+上面的字符数组用1下标；每轮开始设置f[cur][0]=0、g[cur][0]=1，初始上一行的长度全0、计数全1。MOD为100000000。例如第一串AA、第二串A，长度1，有两种配对位置方案。
+
+\Needspace{8\baselineskip}\subsubsection{P2758：编辑距离}
+\practice{P2758}{编辑距离}
+\textbf{题意。}两个小写字符串，以插入、删除、替换单个字符把第一个变成第二个，求最少操作次数。长度各不超过2000。
+\textbf{解答。}f[i][j]是前i个字符变成前j个字符的最少操作。末次分别是删第一串末字符、插入目标末字符、替换或保持末字符。f[i][0]=i，f[0][j]=j。$O(nm)$时间，可两行滚动到$O(m)$空间。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+f[i][j]=std::min(f[i-1][j]+1,f[i][j-1]+1);
+f[i][j]=std::min(f[i][j],f[i-1][j-1]+(a[i-1]!=b[j-1]));
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1048：采药}
+\practice{P1048}{[NOIP 2005 普及组] 采药}
+\textbf{题意。}总时间T内，每株草药最多采一次，有耗时和价值，最大化总价值。$T\le1000,M\le100$。
+\textbf{解答。}基础01背包，f[t]表示时间至多t的最优收益，初值全0，每株容量倒序。输入是先T、M，再各株耗时、价值；正文教学背包的字段顺序需相应调整。$O(MT)$时间、$O(T)$空间。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+for (int t=T; t>=cost; t--) f[t]=std::max(f[t],f[t-cost]+value);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1616：疯狂的采药}
+\practice{P1616}{疯狂的采药}
+\textbf{题意。}每种草药不限次数，总时间t内最大价值。$m\le10^4,t\le10^7$，还保证$mt\le10^7$，价值不超过$10^4$。
+\textbf{解答。}完全背包，容量从小到大，允许复用同种草药。明确乘积限制后，$O(mt)$可行；f用long long，t为$10^7$时单数组约80MB。不能直接照抄教学题的小容量数组。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+for (int j=cost; j<=t; j++) f[j]=std::max(f[j],f[j-cost]+value);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1776：宝物筛选}
+\practice{P1776}{宝物筛选}
+\textbf{题意。}每种宝物输入价值v、重量w、数量m，容量W内求最大价值。$n\le100,W\le40000$，总数量不超过$10^5$。
+\textbf{解答。}多重背包，把数量拆成1、2、4等及最后剩余的一包，每包按01背包倒序更新。包的价值和重量都要乘件数，不能颠倒输入v、w。$O(W\sum\log(m_i+1))$；更进一步可按重量余数用单调队列优化。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+for (int k=1; remaining>0; k*=2) {
+    int take=std::min(k,remaining); remaining-=take;
+    int cost=take*w, gain=take*v;
+    for (int j=W; j>=cost; j--) f[j]=std::max(f[j],f[j-cost]+gain);
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2340：Cow Exhibition}
+\practice{P2340}{[USACO03FALL] Cow Exhibition G}
+\textbf{题意。}选择奶牛，智商和、情商和均非负，最大化两者总和，可什么也不选。$n\le400$，两属性绝对值不超过1000。
+\textbf{解答。}f[s]是智商和恰为s时最大情商和，s可负，用偏移存储范围$[-400000,400000]$。初始只有f[0]=0可达，其余负无穷。每头使用旧行更新新行，避免负重量破坏01背包方向。最后在s非负且f[s]非负中取最大s+f[s]。$O(nV)$、滚动空间$O(V)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+std::copy(old,old+SIZE,next);
+for (int s=-bound; s<=bound; s++) {
+    if (old[s+OFFSET]!=NEG && s+S>=-bound && s+S<=bound)
+        next[s+S+OFFSET]=std::max(next[s+S+OFFSET],old[s+OFFSET]+F);
+}
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1077：摆花}
+\practice{P1077}{[NOIP 2012 普及组] 摆花}
+\textbf{题意。}n种花各至多$a_i$盆，总共恰好m盆，同种连续且种类按编号排序，求方案数模1000007。
+\textbf{解答。}f[i][j]表示前i种恰好摆j盆的方案数，枚举第i种取k盆。f[0][0]=1，其他为0；固定种类顺序已经确定摆放次序，不要再乘排列数。$O(nm\min(m,\max a_i))$，可滚动。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+f[i][j]=0;
+for (int k=0; k<=a[i] && k<=j; k++)
+    f[i][j]=(f[i][j]+f[i-1][j-k])%1000007;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1233：木棍加工}
+\practice{P1233}{[ICPC 2001 Taejon R] 木棍加工}
+\textbf{题意。}先前棍子的长、宽均不小于当前时无需准备，否则准备1分钟；可调整加工顺序，求最少准备次数。$n\le5000$。
+\textbf{解答。}长降序，同长宽也降序。这样同一条加工链只需宽非升；最少非升链划分数等于宽的最长严格上升子序列长度。用lower\_bound维护tails，严格条件不能改为upper\_bound。$O(n\log n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int p=std::lower_bound(tails,tails+length,stick[i].width)-tails;
+tails[p]=stick[i].width; if (p==length) length++;
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1095：守望者的逃离}
+\practice{P1095}{[NOIP 2007 普及组] 守望者的逃离}
+\textbf{题意。}每秒可跑17米，或消耗10魔法闪60米，或静止恢复4魔法。给M、距离S、总秒数T，能逃输出Yes和最早时间，否则No和最远距离。$T\le3\times10^5$。
+\textbf{解答。}先维护只用闪烁、休息在每秒后的距离magic，能闪就闪，否则恢复。best取magic与上一秒best+17的较大者。闪烁方案给跑步混合方案提供重新接入的最优起点，前向递推求所有秒数；首次达到S即最早。$O(T)$、$O(1)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (mana>=10) { magic+=60; mana-=10; } else mana+=4;
+best=std::max(best+17,magic);
+if (best>=S) { /* print Yes and current second, then stop */ }
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P5662：纪念品}
+\practice{P5662}{[CSP-J 2019] 纪念品}
+\textbf{题意。}已知T天N种物品价格，买卖不限件且无手续费，初始M金币，最后一天全部卖出，求最多金币。任意时刻金币不超过10000。
+\textbf{解答。}每天把持仓视为先卖出再按当天价格重买，不损失价值，因此只考虑相邻两天。当天买价作体积、次日价减当天价作收益，完全背包求这一夜最大增益，money加上收益再处理下一天。每天重新清零f，容量是当日money。$O(TNC)$，C为最大金币数。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+for (int c=0; c<=money; c++) f[c]=0;
+for (int i=0; i<N; i++) if (price[day+1][i]>price[day][i])
+    for (int c=price[day][i]; c<=money; c++)
+        f[c]=std::max(f[c],f[c-price[day][i]]+price[day+1][i]-price[day][i]);
+money+=f[money];
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1435：回文字串}
+\practice{P1435}{[IOI 2000] 回文字串}
+\textbf{题意。}输入区分大小写的字符串，允许插入字符，求变成回文的最少插入数。
+\textbf{解答。}f[l][r]是该区间的最小插入数。两端相同可以一并保留，否则插入一个字符与其中一端配对，取两种方案较小值加1。按区间长度升序，单字符及空区间为0。$O(L^2)$时间，普通二维$O(L^2)$空间，也可滚动。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (s[l]==s[r]) f[l][r]=f[l+1][r-1];
+else f[l][r]=1+std::min(f[l+1][r],f[l][r-1]);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1417：烹调方案}
+\practice{P1417}{烹调方案}
+\textbf{题意。}食材i耗时$c_i$，完成时刻t产生收益$a_i-b_it$，总时间至多T，选择并排序食材求最大收益。$n\le50$。
+\textbf{解答。}相邻交换得到i在j前当且仅当$c_i b_j\le c_j b_i$；用交叉乘避免浮点比值。排好后01背包，f[t]为恰好t时的最大收益，只有f[0]=0可达；容量倒序，选i的完成时刻就是t。答案取所有t中的最大值，可不选任何食材。$O(nT+n\log n)$，收益和乘法用long long。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+return 1LL*x.c*y.b < 1LL*y.c*x.b; // comparator
+// After sorting, for each item:
+for (int t=T; t>=item.c; t--) if (f[t-item.c]!=NEG)
+    f[t]=std::max(f[t],f[t-item.c]+item.a-1LL*item.b*t);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P2285：打鼹鼠}
+\practice{P2285}{[HNOI2004] 打鼹鼠}
+\textbf{题意。}机器人每单位时间走四邻格或等待，初始位置任选。鼹鼠按时间非降给出，问最多击中数。$m\le10000$，同刻可能多点出现。
+\textbf{解答。}f[i]为最后击中第i只时的最多数，初值1。j到i可达当且仅当曼哈顿距离不超过时间差，转移f[j]+1。时间相同的不同地点不能同时击中；不能固定机器人从(1,1)出发。直接$O(m^2)$、$O(m)$空间。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+if (abs(x[i]-x[j])+abs(y[i]-y[j])<=t[i]-t[j])
+    f[i]=std::max(f[i],f[j]+1);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1541：乌龟棋}
+\practice{P1541}{[NOIP 2010 提高组] 乌龟棋}
+\textbf{题意。}一行格子有非负分数，卡片步长1、2、3、4各有若干，恰好用光到终点，求路径最大得分，起点分也计入。每类卡至多40张。
+\textbf{解答。}f[a][b][c][d]记录已经用了各类多少张。所在位置由$1+a+2b+3c+4d$唯一决定，枚举最后一张卡，从四个前驱取最大再加当前位置分。初始f[0][0][0][0]=score[1]。最多$41^4$个状态，$O(\prod(count_i+1))$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int pos=1+a+2*b+3*c+4*d;
+int best=NEG;
+if (a) best=std::max(best,f[a-1][b][c][d]);
+if (b) best=std::max(best,f[a][b-1][c][d]);
+if (c) best=std::max(best,f[a][b][c-1][d]);
+if (d) best=std::max(best,f[a][b][c][d-1]);
+if (best!=NEG) f[a][b][c][d]=best+score[pos];
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P4310：绝世好题}
+\practice{P4310}{绝世好题}
+\textbf{题意。}保持原顺序选最长子序列，使相邻两项按位与非0。$n\le10^5,a_i\le10^9$。
+\textbf{解答。}best[bit]保存结尾含该位的最长序列长度。对于x，先从x所有1位取旧best最大值加1，再统一更新这些位；不要边查询边更新导致同一x被多次使用。0也能单独构成长度1。$O(30n)$，空间$O(30)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+int length=1;
+for (int b=0; b<30; b++) if (x&(1<<b)) length=std::max(length,best[b]+1);
+for (int b=0; b<30; b++) if (x&(1<<b)) best[b]=std::max(best[b],length);
+answer=std::max(answer,length);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1005：矩阵取数游戏}
+\practice{P1005}{[NOIP 2007 提高组] 矩阵取数游戏}
+\textbf{题意。}每轮从每行首或尾取一个数，第i轮权重$2^i$，所有行取空后求最大总得分。$n,m\le80,a_{i,j}\le1000$。
+\textbf{解答。}各行独立。f[l][r]为该行剩余区间的最优后续得分，此时下次权重为$2^{m-(r-l+1)+1}$，枚举取左、右。空区间0，长度升序；各行答案相加。最大总值不超过$80\cdot1000\cdot2^{81}$，需要大整数。标准C++17可用十进制数组；支持GNU扩展的评测环境也可用\texttt{\_\_int128}，但它不是标准C++类型。$O(nm^2D)$，D为大数长度。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+// bigAdd, bigMulSmall, bigMax are decimal-array big-integer operations.
+left=bigAdd(f[l+1][r],bigMulSmall(power[round],a[l]));
+right=bigAdd(f[l][r-1],bigMulSmall(power[round],a[r]));
+f[l][r]=bigMax(left,right);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1063：能量项链}
+\practice{P1063}{[NOIP 2006 提高组] 能量项链}
+\textbf{题意。}圆环珠子相邻共享一个标记，合并$(a,b)$与$(b,c)$得$(a,c)$并释放abc，求全部合并的最大总能量。$n\le100$。
+\textbf{解答。}复制一遍标记断环为链。f[l][r]表示头标记从l到r的珠子合并最大值，尾标记是a[r+1]；枚举最后分界k。长度从2到n，最后取所有长n区间最大值，单珠值0。$O(n^3)$、$O(n^2)$，乘法先用1LL。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+f[l][r]=std::max(f[l][r],f[l][k]+f[k+1][r]+1LL*a[l]*a[k+1]*a[r+1]);
+\end{lstlisting}
+\end{minipage}\par
+
+\Needspace{8\baselineskip}\subsubsection{P1880：石子合并}
+\practice{P1880}{[NOI1995] 石子合并}
+\textbf{题意。}石堆成环，每次仅合并相邻两堆，费用为合并后的重量，分别求最小、最大总代价。$n\le100$。
+\textbf{解答。}复制成链，用前缀和求区间总重量。枚举最后合并分界，两个子区间最优值加整个区间重量，分别取min和max。最后在所有长n的区间中再取全局最小、最大。不能使用“任意两堆”的哈夫曼贪心。$O(n^3)$、$O(n^2)$。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+long long sum=pre[r]-pre[l-1];
+mn[l][r]=std::min(mn[l][r],mn[l][k]+mn[k+1][r]+sum);
+mx[l][r]=std::max(mx[l][r],mx[l][k]+mx[k+1][r]+sum);
+// Singleton mn and mx are 0; longer mn starts at INF.
+\end{lstlisting}
+\end{minipage}\par
+
 % ===== 04-strings.tex =====
 \clearpage
 \part{第三题：字符串解析与综合模拟}
@@ -4733,7 +5822,15 @@ dp入门.pptx & 18 & 第二篇DP、LIS与LCS扩展。\\
 接口语义可查阅C++工作草案的\href{https://eel.is/c++draft/sort}{sort条目}和\href{https://eel.is/c++draft/alg.unique}{unique条目}。平台原题和标准文档是进一步核对的依据，本讲义正文的教学例题与解答已经提供独立学习所需的规则和算法。
 
 \subsection{团队题单与专题入口}
-\textbf{练习总入口：}\href{https://www.luogu.com.cn/team/113242/training}{洛谷团队113242的训练题单}。以下5个专题地址来自原资料。团队页与专题题单目前需要访问权限，整理时未能核对其中的完整题目列表；正文中的公开题目链接不据此认定为团队题单成员。
+\textbf{练习总入口：}\href{https://www.luogu.com.cn/team/113242/training}{洛谷团队113242的训练题单}。2026年10月11日已登录核对当前四个专题的全部64道题，第二篇练习题中已逐题给出题意、解答与关键代码。专题列表需团队权限，正文的单题直达链接便于直接做题。
+\begin{longtable}{P{7cm}P{2cm}P{5cm}}
+\toprule 当前专题 & 题数 & 题单入口\\\midrule\endhead
+二分、差分、双指针 & 16 & \href{https://www.luogu.com.cn/training/1112210}{1112210}\\
+搜索 & 19 & \href{https://www.luogu.com.cn/training/1112209}{1112209}\\
+贪心 & 10 & \href{https://www.luogu.com.cn/training/1112208}{1112208}\\
+dp & 19 & \href{https://www.luogu.com.cn/training/1112207}{1112207}\\
+\bottomrule\end{longtable}
+以下5个专题地址来自原资料，作为历史入口保留；它们与当前团队题单不是同一组编号。
 \begin{longtable}{P{8cm}P{6cm}}
 \toprule 专题 & 打开题单\\\midrule\endhead
 二分、前缀和、差分、双指针 & \href{https://www.luogu.com.cn/training/1048062}{1048062}\\

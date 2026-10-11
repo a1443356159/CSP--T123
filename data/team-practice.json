@@ -1,0 +1,433 @@
+{
+  "verified": "2026-10-11",
+  "team_id": 113242,
+  "team_url": "https://www.luogu.com.cn/team/113242/training",
+  "verification": "已登录浏览器中读取团队题单及完整题目列表；只记录题单与题目，不记录账户或做题进度。",
+  "groups": [
+    {
+      "id": "1112210",
+      "title": "二分、差分、双指针",
+      "url": "https://www.luogu.com.cn/training/1112210",
+      "visibility": "团队私有",
+      "count": 16,
+      "problems": [
+        {
+          "pid": "P2249",
+          "title": "【深基13.例1】查找",
+          "url": "https://www.luogu.com.cn/problem/P2249",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1024",
+          "title": "[NOIP 2001 提高组] 一元三次方程求解",
+          "url": "https://www.luogu.com.cn/problem/P1024",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2440",
+          "title": "木材加工",
+          "url": "https://www.luogu.com.cn/problem/P2440",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2678",
+          "title": "[NOIP 2015 提高组] 跳石头",
+          "url": "https://www.luogu.com.cn/problem/P2678",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P8218",
+          "title": "【深进1.例1】求区间和",
+          "url": "https://www.luogu.com.cn/problem/P8218",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2367",
+          "title": "语文成绩",
+          "url": "https://www.luogu.com.cn/problem/P2367",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P13787",
+          "title": "地毯 加强版",
+          "url": "https://www.luogu.com.cn/problem/P13787",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1102",
+          "title": "A-B 数对",
+          "url": "https://www.luogu.com.cn/problem/P1102",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P3853",
+          "title": "[TJOI2007] 路标设置",
+          "url": "https://www.luogu.com.cn/problem/P3853",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "B3693",
+          "title": "数列前缀和 4",
+          "url": "https://www.luogu.com.cn/problem/B3693",
+          "coverage": "题意、解答、自测样例、完整程序",
+          "program": "68_unsigned_prefix.cpp"
+        },
+        {
+          "pid": "P8649",
+          "title": "[蓝桥杯 2017 省 B] k 倍区间",
+          "url": "https://www.luogu.com.cn/problem/P8649",
+          "coverage": "题意、解答、自测样例、完整程序",
+          "program": "64_k_intervals.cpp"
+        },
+        {
+          "pid": "P1638",
+          "title": "逛画展",
+          "url": "https://www.luogu.com.cn/problem/P1638",
+          "coverage": "题意、解答、自测样例、完整程序",
+          "program": "65_gallery.cpp"
+        },
+        {
+          "pid": "P3143",
+          "title": "[USACO16OPEN] Diamond Collector S",
+          "url": "https://www.luogu.com.cn/problem/P3143",
+          "coverage": "题意、解答、自测样例、完整程序",
+          "program": "66_diamonds.cpp"
+        },
+        {
+          "pid": "P10719",
+          "title": "[GESP202406 五级] 黑白格",
+          "url": "https://www.luogu.com.cn/problem/P10719",
+          "coverage": "题意、解答、自测样例、完整程序",
+          "program": "67_black_rectangle.cpp"
+        },
+        {
+          "pid": "P1163",
+          "title": "银行贷款",
+          "url": "https://www.luogu.com.cn/problem/P1163",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P3743",
+          "title": "小鸟的设备",
+          "url": "https://www.luogu.com.cn/problem/P3743",
+          "coverage": "题意、解答、关键代码"
+        }
+      ]
+    },
+    {
+      "id": "1112209",
+      "title": "搜索",
+      "url": "https://www.luogu.com.cn/training/1112209",
+      "visibility": "团队私有",
+      "count": 19,
+      "problems": [
+        {
+          "pid": "P1706",
+          "title": "全排列问题",
+          "url": "https://www.luogu.com.cn/problem/P1706",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1219",
+          "title": "[USACO1.5] 八皇后 Checker Challenge",
+          "url": "https://www.luogu.com.cn/problem/P1219",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1135",
+          "title": "奇怪的电梯",
+          "url": "https://www.luogu.com.cn/problem/P1135",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1162",
+          "title": "填涂颜色",
+          "url": "https://www.luogu.com.cn/problem/P1162",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1443",
+          "title": "马的遍历",
+          "url": "https://www.luogu.com.cn/problem/P1443",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P3956",
+          "title": "[NOIP 2017 普及组] 棋盘",
+          "url": "https://www.luogu.com.cn/problem/P3956",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1346",
+          "title": "[CHCI 2002 Regional Competition Juniors] 电车",
+          "url": "https://www.luogu.com.cn/problem/P1346",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1120",
+          "title": "[CERC 1995] 小木棍",
+          "url": "https://www.luogu.com.cn/problem/P1120",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1731",
+          "title": "[NOI1999] 生日蛋糕",
+          "url": "https://www.luogu.com.cn/problem/P1731",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "T148457",
+          "title": "生日蛋糕加强版",
+          "url": "https://www.luogu.com.cn/problem/T148457",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1144",
+          "title": "最短路计数",
+          "url": "https://www.luogu.com.cn/problem/P1144",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1514",
+          "title": "[NOIP 2010 提高组] 引水入城",
+          "url": "https://www.luogu.com.cn/problem/P1514",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1004",
+          "title": "[NOIP 2000 提高组] 方格取数",
+          "url": "https://www.luogu.com.cn/problem/P1004",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "CF1063B",
+          "title": "Labyrinth",
+          "url": "https://www.luogu.com.cn/problem/CF1063B",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1790",
+          "title": "矩形分割",
+          "url": "https://www.luogu.com.cn/problem/P1790",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1825",
+          "title": "[USACO11OPEN] Corn Maze S",
+          "url": "https://www.luogu.com.cn/problem/P1825",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2919",
+          "title": "[USACO08NOV] Guarding the Farm S",
+          "url": "https://www.luogu.com.cn/problem/P2919",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1225",
+          "title": "[CEOI 1999] 黑白棋游戏",
+          "url": "https://www.luogu.com.cn/problem/P1225",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1379",
+          "title": "八数码难题",
+          "url": "https://www.luogu.com.cn/problem/P1379",
+          "coverage": "题意、解答、关键代码"
+        }
+      ]
+    },
+    {
+      "id": "1112208",
+      "title": "贪心",
+      "url": "https://www.luogu.com.cn/training/1112208",
+      "visibility": "团队私有",
+      "count": 10,
+      "problems": [
+        {
+          "pid": "P1090",
+          "title": "[NOIP 2004 提高组] 合并果子",
+          "url": "https://www.luogu.com.cn/problem/P1090",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1106",
+          "title": "删数问题",
+          "url": "https://www.luogu.com.cn/problem/P1106",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1182",
+          "title": "数列分段 Section II",
+          "url": "https://www.luogu.com.cn/problem/P1182",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1803",
+          "title": "凌乱的yyy / 线段覆盖",
+          "url": "https://www.luogu.com.cn/problem/P1803",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1094",
+          "title": "[NOIP 2007 普及组] 纪念品分组",
+          "url": "https://www.luogu.com.cn/problem/P1094",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P5019",
+          "title": "[NOIP 2018 提高组] 铺设道路",
+          "url": "https://www.luogu.com.cn/problem/P5019",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P4447",
+          "title": "[AHOI2018初中组] 分组",
+          "url": "https://www.luogu.com.cn/problem/P4447",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1080",
+          "title": "[NOIP 2012 提高组] 国王游戏",
+          "url": "https://www.luogu.com.cn/problem/P1080",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "B2168",
+          "title": "【模板】哈夫曼编码",
+          "url": "https://www.luogu.com.cn/problem/B2168",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2168",
+          "title": "[NOI2015] 荷马史诗",
+          "url": "https://www.luogu.com.cn/problem/P2168",
+          "coverage": "题意、解答、关键代码"
+        }
+      ]
+    },
+    {
+      "id": "1112207",
+      "title": "dp",
+      "url": "https://www.luogu.com.cn/training/1112207",
+      "visibility": "团队私有",
+      "count": 19,
+      "problems": [
+        {
+          "pid": "P1020",
+          "title": "[NOIP 1999 提高组] 导弹拦截",
+          "url": "https://www.luogu.com.cn/problem/P1020",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2516",
+          "title": "[HAOI2010] 最长公共子序列",
+          "url": "https://www.luogu.com.cn/problem/P2516",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2758",
+          "title": "编辑距离",
+          "url": "https://www.luogu.com.cn/problem/P2758",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1048",
+          "title": "[NOIP 2005 普及组] 采药",
+          "url": "https://www.luogu.com.cn/problem/P1048",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1616",
+          "title": "疯狂的采药",
+          "url": "https://www.luogu.com.cn/problem/P1616",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1776",
+          "title": "宝物筛选",
+          "url": "https://www.luogu.com.cn/problem/P1776",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2340",
+          "title": "[USACO03FALL] Cow Exhibition G",
+          "url": "https://www.luogu.com.cn/problem/P2340",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1077",
+          "title": "[NOIP 2012 普及组] 摆花",
+          "url": "https://www.luogu.com.cn/problem/P1077",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1233",
+          "title": "[ICPC 2001 Taejon R] 木棍加工",
+          "url": "https://www.luogu.com.cn/problem/P1233",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1095",
+          "title": "[NOIP 2007 普及组] 守望者的逃离",
+          "url": "https://www.luogu.com.cn/problem/P1095",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P5662",
+          "title": "[CSP-J 2019] 纪念品",
+          "url": "https://www.luogu.com.cn/problem/P5662",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1435",
+          "title": "[IOI 2000] 回文字串",
+          "url": "https://www.luogu.com.cn/problem/P1435",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1417",
+          "title": "烹调方案",
+          "url": "https://www.luogu.com.cn/problem/P1417",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P2285",
+          "title": "[HNOI2004] 打鼹鼠",
+          "url": "https://www.luogu.com.cn/problem/P2285",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1541",
+          "title": "[NOIP 2010 提高组] 乌龟棋",
+          "url": "https://www.luogu.com.cn/problem/P1541",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P4310",
+          "title": "绝世好题",
+          "url": "https://www.luogu.com.cn/problem/P4310",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1005",
+          "title": "[NOIP 2007 提高组] 矩阵取数游戏",
+          "url": "https://www.luogu.com.cn/problem/P1005",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1063",
+          "title": "[NOIP 2006 提高组] 能量项链",
+          "url": "https://www.luogu.com.cn/problem/P1063",
+          "coverage": "题意、解答、关键代码"
+        },
+        {
+          "pid": "P1880",
+          "title": "[NOI1995] 石子合并",
+          "url": "https://www.luogu.com.cn/problem/P1880",
+          "coverage": "题意、解答、关键代码"
+        }
+      ]
+    }
+  ]
+}

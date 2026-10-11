@@ -100,7 +100,7 @@ order = ['00-preface.tex', '01-basics.tex', 'first-true.tex', 'first-summary.tex
          '02-simulation.tex', 'first-practice.tex', 'second-foundations.tex',
          '05-prefix.tex', '06-binary.tex', '07-greedy.tex', '08-search.tex',
          '09-dp.tex', '10-knapsack.tex', '03-stl.tex', 'second-true.tex',
-         'second-summary.tex', 'second-practice.tex', '04-strings.tex',
+         'second-summary.tex', 'second-practice.tex', 'team-practice.tex', '04-strings.tex',
          '11-comprehensive.tex', '12-practice.tex', '13-extensions.tex']
 parts = []
 for filename in order:
@@ -109,6 +109,8 @@ for filename in order:
     if path.name != '00-preface.tex':
         text = text.replace('\\newpage', '\\par\\bigskip')
         text = text.replace('\\section{', '\\Needspace{7\\baselineskip}\\section{')
+    if path.name == 'team-practice.tex':
+        text = text.replace('\\subsubsection{', '\\Needspace{8\\baselineskip}\\subsubsection{')
     text = re.sub(r'\\begin\{verbatim\}\n(.*?)\\end\{verbatim\}', format_sample, text, flags=re.S)
     text = re.sub(
         r'\\begin\{lstlisting\}(.*?)\\end\{lstlisting\}',
