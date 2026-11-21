@@ -4,9 +4,8 @@
 #include <vector>
 using namespace std;
 const int N = 10005;
-char cwd[N], path[N];
+char cwd[N], path[N], item[N];
 void append_parts(const char s[], vector<string> &parts) {
-    char item[N];
     int i = 0;
     while (s[i] != '\0') {
         while (s[i] == '/') i++;

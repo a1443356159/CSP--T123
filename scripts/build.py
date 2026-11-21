@@ -39,14 +39,14 @@ preamble = r'''% !TeX program = xelatex
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
 \newcommand{\practice}[2]{\par\noindent\textbf{同类练习（在线做题）：}\href{https://www.luogu.com.cn/problem/#1}{#1\quad #2}。\par}
 \newcommand{\training}[2]{\par\noindent\textbf{专题题单：}\href{https://www.luogu.com.cn/training/#1}{#2（#1）}。\par}
-\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，AcWing）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
+\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，\csname csplabel@#1\endcsname）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
 \newcommand{\ojpractice}[2]{\par\noindent\textbf{真题练习：}\csp{#1}{#2}。\par}
 \makeatletter\@addtoreset{section}{part}\makeatother
 \renewcommand{\theHsection}{\thepart.\arabic{section}}
 \newcommand{\important}[1]{\par\noindent\textbf{#1}\par}
 \title{\textbf{CCF-CSP 前三题备考讲义}}
 \author{第一题：基础实现\quad 第二题：工具与算法\quad 第三题：综合模拟}
-\date{2026年10月11日}
+\date{2026年11月21日}
 \begin{document}\maketitle
 '''
 
@@ -55,7 +55,9 @@ for entry in json.loads((ROOT / 'data/exercise-links.json').read_text(encoding='
     url = entry.get('preferred_url', '')
     if entry.get('certification_id') and url and not url.startswith('https://oj.shumeng.tech/'):
         definition = (r'\expandafter\def\csname cspurl@' + entry['certification_id']
-                      + r'\endcsname{' + url + '}\n')
+                      + r'\endcsname{' + url + '}\n'
+                      + r'\expandafter\def\csname csplabel@' + entry['certification_id']
+                      + r'\endcsname{' + ('AcWing' if 'acwing.com' in url else '原题入口') + '}\n')
         preamble = preamble.replace(r'\begin{document}', definition + r'\begin{document}', 1)
 
 
@@ -87,16 +89,19 @@ def format_sample(match):
 def expand(match):
     name = match.group(1)
     content = (ROOT / 'code' / name).read_text(encoding='utf-8').rstrip()
+    # Keep long complete programs on one A4 page with the same font size.
+    options = (r'[basicstyle=\ttfamily\footnotesize\linespread{0.94}\selectfont]'
+               if len(content.splitlines()) > 60 else '')
     return '\n'.join([
         r'\par\noindent\begin{minipage}{\linewidth}',
         r'\textbf{完整参考实现}\quad\texttt{' + name.replace('_', r'\_') + '}',
-        r'\begin{lstlisting}', content, r'\end{lstlisting}',
+        r'\begin{lstlisting}' + options, content, r'\end{lstlisting}',
         r'\end{minipage}\par', '',
     ])
 
 
 # Three study parts; filenames retain their original identities.
-order = ['00-preface.tex', '01-basics.tex', 'first-true.tex', 'first-practice.tex', 'second-foundations.tex', '05-prefix.tex', '06-binary.tex', '07-greedy.tex', '08-search.tex', '09-dp.tex', '10-knapsack.tex', '03-stl.tex', 'second-true.tex', 'second-teaching.tex', 'second-practice.tex', '04-strings.tex', '11-comprehensive.tex', '12-practice.tex']
+order = ['00-preface.tex', '01-basics.tex', 'first-true.tex', 'first-practice.tex', 'second-foundations.tex', '05-prefix.tex', '06-binary.tex', '07-greedy.tex', '08-search.tex', '09-dp.tex', '10-knapsack.tex', '03-stl.tex', 'second-true.tex', 'second-teaching.tex', 'second-practice.tex', '04-strings.tex', '11-comprehensive.tex', 'third-true.tex', '12-practice.tex']
 knowledge = {'01-basics.tex', 'second-foundations.tex', '05-prefix.tex',
              '06-binary.tex', '07-greedy.tex', '08-search.tex', '09-dp.tex',
              '10-knapsack.tex', '03-stl.tex', '04-strings.tex'}
@@ -110,6 +115,9 @@ for filename in order:
     if path.name in knowledge:
         text = text.replace('\\subsection{', '\\Needspace{16\\baselineskip}\\subsection{')
         text = text.replace('\\subsubsection{', '\\Needspace{12\\baselineskip}\\subsubsection{')
+    if path.name in {'11-comprehensive.tex', 'third-true.tex', '12-practice.tex'}:
+        text = text.replace('\\subsection{', '\\Needspace{9\\baselineskip}\\subsection{')
+        text = text.replace('\\subsubsection{', '\\Needspace{7\\baselineskip}\\subsubsection{')
     text = re.sub(r'\\begin\{verbatim\}\n(.*?)\\end\{verbatim\}', format_sample, text, flags=re.S)
     text = re.sub(
         r'\\begin\{lstlisting\}(.*?)\\end\{lstlisting\}',

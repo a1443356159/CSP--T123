@@ -37,7 +37,7 @@ for name in order:
         count=0
     count+=len(re.findall(r'\\section\{',text))
 section_counts.append(count)
-assert section_counts==[3,4,3],section_counts
+assert section_counts==[3,4,4],section_counts
 archive=ROOT/'archive/lecture-before-knowledge-rewrite/chapters'
 for name in ['13-extensions.tex','team-practice.tex']:
     assert (archive/name).is_file()

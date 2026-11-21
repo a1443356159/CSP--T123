@@ -3,7 +3,7 @@
 struct Node { char tag[21], id[21]; int parent; };
 Node a[505];
 int ancestors[505], answer[505];
-char line[1005], tokens[10][22];
+char line[1005], tokens[15][30];
 int matches(int u, const char token[]) {
     if (token[0] == '#')
         return strcmp(a[u].id, "-") != 0 && strcmp(a[u].id, token + 1) == 0;

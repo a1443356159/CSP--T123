@@ -1,7 +1,7 @@
 {
   "verified": "2026-10-11",
   "primary_oj": "https://oj.shumeng.tech/p",
-  "selection_note": "真题速看五加五及剩余三加十，完整覆盖原资料23个真题入口；另列历年考点补充。",
+  "selection_note": "原资料23道真题、六道历年补充真题，以及第三篇四道完整真题精讲。",
   "problems": [
     {
       "pid": "CSP201503A",
@@ -545,6 +545,66 @@
       ],
       "original_url": "https://www.acwing.com/problem/content/4703/",
       "original_mapping_verified": "2026-10-11 (浏览器题面与来源栏)"
+    },
+    {
+      "pid": "CSP201809C",
+      "title": "元素选择器",
+      "session": 14,
+      "date": "2018-09",
+      "url": "https://oj.shumeng.tech/p/CSP201809C",
+      "program": "69_selector_real.cpp",
+      "verified": "2026-11-21",
+      "samples": [
+        {
+          "input": "11 5\nhtml\n..head\n....title\n..body\n....h1\n....p #subtitle\n....div #main\n......h2\n......p #one\n......div\n........p #two\np\n#subtitle\nh3\ndiv p\ndiv div p\n",
+          "output": "3 6 9 11\n1 6\n0\n2 9 11\n1 11\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP201912C",
+      "title": "化学方程式",
+      "session": 18,
+      "date": "2019-12",
+      "url": "https://oj.shumeng.tech/p/CSP201912C",
+      "program": "70_chem.cpp",
+      "verified": "2026-11-21",
+      "samples": [
+        {
+          "input": "11\nH2+O2=H2O\n2H2+O2=2H2O\nH2+Cl2=2NaCl\nH2+Cl2=2HCl\nCH4+2O2=CO2+2H2O\nCaCl2+2AgNO3=Ca(NO3)2+2AgCl\n3Ba(OH)2+2H3PO4=6H2O+Ba3(PO4)2\n3Ba(OH)2+2H3PO4=Ba3(PO4)2+6H2O\n4Zn+10HNO3=4Zn(NO3)2+NH4NO3+3H2O\n4Au+8NaCN+2H2O+O2=4Na(Au(CN)2)+4NaOH\nCu+As=Cs+Au\n",
+          "output": "N\nY\nN\nY\nY\nY\nY\nY\nY\nY\nN\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202206C",
+      "title": "角色授权",
+      "session": 26,
+      "date": "2022-06",
+      "url": "https://oj.shumeng.tech/p/CSP202206C",
+      "program": "71_rbac.cpp",
+      "verified": "2026-11-21",
+      "samples": [
+        {
+          "input": "1 2 3\nop 1 open 1 door 0\nop 1 g sre\nop 1 u xiaop\nxiaoc 2 sre ops open door room302\nxiaop 1 ops open door room501\nxiaoc 2 sre ops remove door room302\n",
+          "output": "1\n1\n0\n"
+        }
+      ]
+    },
+    {
+      "pid": "CSP202305C",
+      "title": "解压缩",
+      "session": 30,
+      "date": "2023-05",
+      "url": "https://oj.shumeng.tech/p/CSP202305C",
+      "program": "72_decompress.cpp",
+      "verified": "2026-11-21",
+      "samples": [
+        {
+          "input": "81\n8001240102030405\n060708090af03c00\n0102030405060708\n090a0b0c0d0e0f01\n0203040506070809\n0a0b0c0d0e0f0102\n030405060708090a\n0b0c0d0e0f010203\n0405060708090a0b\n0c0d0e0fc603000d\n78\n",
+          "output": "0102030405060708\n090a000102030405\n060708090a0b0c0d\n0e0f010203040506\n0708090a0b0c0d0e\n0f01020304050607\n08090a0b0c0d0e0f\n0102030405060708\n090a0b0c0d0e0f0d\n0e0f0d0e0f0d0e0f\n0d0e0f0d0e0f0d0e\n0f0d0e0f0d0e0f0d\n0e0f0d0e0f0d0e0f\n0d0e0f0d0e0f0d0e\n0f0d0e0f0d0e0f0d\n0e02030405060708\n"
+        }
+      ]
     }
   ]
 }
