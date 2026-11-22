@@ -158,6 +158,16 @@ add('c_string','','','assert(len==3&&!strcmp(a,"cat")&&!strcmp(b,"bat")&&relatio
 add('line_input','','','assert(!strcmp(line,"a b"));return 1;')
 add('char_class','','char line[]="A b3Z8!";','assert(digits==2&&!strcmp(line,"a b3z8!"));return 1;')
 
+# Exercise the actual string tools, including empty fields and lookup side effects.
+add('split_char', '', None,
+    "assert((split_char(\"a,,b,\",',')==std::vector<std::string>{\"a\",\"\",\"b\",\"\"}));assert((split_char(\"\",',')==std::vector<std::string>{\"\"}));assert((split_char(\",\",',')==std::vector<std::string>{\"\",\"\"}));assert((split_char(\"abc\",',')==std::vector<std::string>{\"abc\"}));return 4;")
+add('split_space', '', None,
+    'assert((split_space("  a\tb c  ")==std::vector<std::string>{"a","b","c"}));assert(split_space("  ").empty());assert((split_space("x")==std::vector<std::string>{"x"}));return 3;')
+add('scan_fields', '', '', 'assert(complete&&a==192&&b==168&&c==1&&d==8&&port==8080);return 1;')
+add('name_id', '', None,
+    'assert(get_id("cat")==0);assert(get_id("dog")==1);assert(get_id("cat")==0);assert(number.find("missing")==number.end()&&number.size()==2);return 4;')
+add('tokenize_c', '', '', 'assert((words==std::vector<std::string>{"a","b","c"}));assert(text[1]==0);return 2;')
+
 # Compile and run the STL demonstrations unchanged, with assertions on their final state.
 stl_specs = {
     'stl_sort': ('', '', 'assert(a[0]==9 && students[0].id==1);return 1;'),
@@ -206,6 +216,7 @@ header = r'''
 #include <random>
 #include <set>
 #include <stack>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>

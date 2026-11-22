@@ -27,12 +27,12 @@ int expand(int u) {
 int main() {
     int n;
     scanf("%d", &n);
-    char name[21], token[21];
+    char name[21], token[25];
     for (int i = 0; i < n; i++) {
         int k;
         scanf("%20s%d", name, &k); number[name] = i;
         for (int j = 0; j < k; j++) {
-            scanf("%20s", token); definition[i].push_back(token);
+            scanf("%24s", token); definition[i].push_back(token);
         }
     }
     scanf("%20s", name);

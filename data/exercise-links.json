@@ -337,5 +337,15 @@
     "source": "sources/练习题与真题.pdf",
     "page": 2,
     "verification": "从PDF链接注释提取，题单内容未逐题核对"
+  },
+  {
+    "type": "真题入口",
+    "group": "第三题",
+    "title": "JSON查询",
+    "certification_id": "CSP201709C",
+    "session": 11,
+    "preferred_url": "https://sim.csp.thusaac.com/contest/11/problem/2",
+    "source": "CSP-T3-修订交接文档-2026-11-21",
+    "verification": "原认证练习入口；平台页面需要访问权限"
   }
 ]

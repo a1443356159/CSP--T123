@@ -33,24 +33,36 @@
 \newcommand{\prob}[1]{\href{https://www.luogu.com.cn/problem/#1}{\texttt{#1}}}
 \newcommand{\practice}[2]{\par\noindent\textbf{同类练习（在线做题）：}\href{https://www.luogu.com.cn/problem/#1}{#1\quad #2}。\par}
 \newcommand{\training}[2]{\par\noindent\textbf{专题题单：}\href{https://www.luogu.com.cn/training/#1}{#2（#1）}。\par}
-\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，AcWing）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
+\newcommand{\csp}[2]{\ifcsname cspurl@#1\endcsname\href{\csname cspurl@#1\endcsname}{#2（\texttt{#1}，\csname csplabel@#1\endcsname）}\else\href{https://oj.shumeng.tech/p/#1}{#2（\texttt{#1}）}\fi}
 \newcommand{\ojpractice}[2]{\par\noindent\textbf{真题练习：}\csp{#1}{#2}。\par}
 \makeatletter\@addtoreset{section}{part}\makeatother
 \renewcommand{\theHsection}{\thepart.\arabic{section}}
 \newcommand{\important}[1]{\par\noindent\textbf{#1}\par}
 \title{\textbf{CCF-CSP 前三题备考讲义}}
 \author{第一题：基础实现\quad 第二题：工具与算法\quad 第三题：综合模拟}
-\date{2026年10月11日}
+\date{2026年11月21日}
 \expandafter\def\csname cspurl@CSP201709A\endcsname{https://www.acwing.com/problem/content/3250/}
+\expandafter\def\csname csplabel@CSP201709A\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP201803A\endcsname{https://www.acwing.com/problem/content/3260/}
+\expandafter\def\csname csplabel@CSP201803A\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP201903A\endcsname{https://www.acwing.com/problem/content/3275/}
+\expandafter\def\csname csplabel@CSP201903A\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP202009A\endcsname{https://www.acwing.com/problem/content/3295/}
+\expandafter\def\csname csplabel@CSP202009A\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP202109A\endcsname{https://www.acwing.com/problem/content/4009/}
+\expandafter\def\csname csplabel@CSP202109A\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP202209A\endcsname{https://www.acwing.com/problem/content/4702/}
+\expandafter\def\csname csplabel@CSP202209A\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP202009B\endcsname{https://www.acwing.com/problem/content/3296/}
+\expandafter\def\csname csplabel@CSP202009B\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP202109B\endcsname{https://www.acwing.com/problem/content/4010/}
+\expandafter\def\csname csplabel@CSP202109B\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP202203B\endcsname{https://www.acwing.com/problem/content/4458/}
+\expandafter\def\csname csplabel@CSP202203B\endcsname{AcWing}
 \expandafter\def\csname cspurl@CSP202209B\endcsname{https://www.acwing.com/problem/content/4703/}
+\expandafter\def\csname csplabel@CSP202209B\endcsname{AcWing}
+\expandafter\def\csname cspurl@CSP201709C\endcsname{https://sim.csp.thusaac.com/contest/11/problem/2}
+\expandafter\def\csname csplabel@CSP201709C\endcsname{原题入口}
 \begin{document}\maketitle
 % ===== 00-preface.tex =====
 \noindent 参考代码按C++17编译，以普通数组、结构体、独立函数和scanf/printf为主。
@@ -1050,6 +1062,7 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
+
 
 % ===== first-practice.tex =====
 \Needspace{7\baselineskip}\section{练习题}
@@ -2391,6 +2404,7 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
+
 \subsection{机器人复健指南}
 \textbf{真题 · 第38次CCF-CSP认证，2025-06，第2题。}\csp{CSP202506B}{机器人复健指南}。
 
@@ -2455,6 +2469,7 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
+
 
 \subsection{回收站选址}
 \textbf{真题 · 第18次CCF-CSP认证，2019-12，第2题。}\csp{CSP201912B}{回收站选址}。
@@ -2827,6 +2842,7 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
+
 \subsection{数字排序（真题）}
 \textbf{第4次，2015-03，第2题。}\csp{CSP201503B}{数字排序}。
 
@@ -2946,6 +2962,7 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
+
 
 \subsection{画图与矩阵运算（真题）}
 \textbf{真题，第2次，2014-09，第2题。}\csp{CSP201409B}{画图}：
@@ -4121,6 +4138,7 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
+
 \subsection{P8649：k倍区间}
 
 \practice{P8649}{[蓝桥杯 2017 省 B] k 倍区间}
@@ -4164,6 +4182,7 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
+
 
 \subsection{P1638：逛画展}
 
@@ -4212,6 +4231,7 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
+
 \subsection{P3143：两个展示柜}
 
 \practice{P3143}{[USACO16OPEN] Diamond Collector S}
@@ -4258,6 +4278,7 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
+
 
 \subsection{P10719：黑白格}
 
@@ -4313,6 +4334,107 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
+
+\subsection{差值数对（教学例题）}
+用 map 计数并分类处理差值为零的情况。
+给 n 个整数和非负整数 c，求满足 $i<j$ 且 $|a_i-a_j|=c$ 的位置对数量。$1\le n\le2\times10^5$，$|a_i|\le10^9$，$0\le c\le2\times10^9$。第一行 n、c，第二行数组，输出一个整数。
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+5 2
+1 3 1 3 3
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+6
+\end{Sample}
+\end{tcolorbox}
+
+\noindent\textbf{解答。}先统计每个值的频次。c>0时，只从较小值x寻找x+c，不会重复统计同一无序数对；贡献是两组频次乘积。c=0时，频次k的组中任选两个位置，贡献 $k(k-1)/2$。答案最多为 $n(n-1)/2$，需要long long。时间 $O(n\log n)$，空间 $O(n)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{24\_pairs.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <map>
+using namespace std;
+int main() {
+    int n; long long c;
+    scanf("%d%lld", &n, &c);
+    map<long long, long long> count;
+    for (int i = 0; i < n; i++) {
+        long long x; scanf("%lld", &x); count[x]++;
+    }
+    long long answer = 0;
+    map<long long, long long>::iterator it;
+    for (it = count.begin(); it != count.end(); ++it) {
+        long long x = it->first, k = it->second;
+        if (c == 0) answer += k * (k - 1) / 2;
+        else {
+            map<long long, long long>::iterator p = count.find(x + c);
+            if (p != count.end()) answer += k * p->second;
+        }
+    }
+    printf("%lld\n", answer);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\noindent\textbf{检查用例。}数组 $[7,7,7]$、c=0应输出3；单元素时应输出0。若输出9，说明把相同位置配对或对称重复都算了进去。
+
+\subsection{矩形增量的最大值（教学例题）}
+用二维差分合并批量矩形更新。
+初始有 $n\times m$ 全0矩阵，执行q次操作，每次给闭矩形左上 $(x_1,y_1)$ 到右下 $(x_2,y_2)$ 加v。最终输出最大元素值，以及等于最大值的格子数。$1\le n,m\le1000$，$0\le q\le2\times10^5$，$|v|\le10^6$，坐标合法。第一行n、m、q，随后每行五个数。
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+3 3 2
+1 1 2 2 2
+2 2 3 3 3
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+5 1
+\end{Sample}
+\end{tcolorbox}
+
+\noindent\textbf{解答。}把每次矩形更新记录在二维差分四角，最后恢复每格真实值，同时维护最大值和次数。只统计1到n行、1到m列，不能把辅助边界算进去。允许负更新，最大值要从负无穷开始，不能默认0。时间 $O(nm+q)$，空间 $O(nm)$。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{25\_rectangle.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <climits>
+const int N = 1005;
+long long d[N][N];
+int main() {
+    int n, m, q;
+    scanf("%d%d%d", &n, &m, &q);
+    while (q--) {
+        int x1, y1, x2, y2; long long v;
+        scanf("%d%d%d%d%lld", &x1, &y1, &x2, &y2, &v);
+        d[x1][y1] += v; d[x2 + 1][y1] -= v;
+        d[x1][y2 + 1] -= v; d[x2 + 1][y2 + 1] += v;
+    }
+    long long best = LLONG_MIN, count = 0;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            d[i][j] += d[i - 1][j] + d[i][j - 1] - d[i - 1][j - 1];
+            if (d[i][j] > best) { best = d[i][j]; count = 1; }
+            else if (d[i][j] == best) count++;
+        }
+    }
+    printf("%lld %lld\n", best, count);
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\noindent\textbf{检查用例。}q=0时输出 \texttt{0 n*m}，第二项应计算成实际格子数；若整个矩阵一次减5，则最大值为-5而不是0。
+
 % ===== second-practice.tex =====
 \Needspace{7\baselineskip}\section{练习题}
 \begin{longtable}{P{5cm}P{9cm}}
@@ -4331,7 +4453,44 @@ DFS与回溯 & \prob{P1706} 全排列问题\\
 % ===== 04-strings.tex =====
 \clearpage
 \part{第三题：字符串解析与综合模拟}
-\Needspace{7\baselineskip}\section{字符串解析与综合模拟基础}
+\Needspace{7\baselineskip}\section{大模拟拆题方法与字符串工具}
+\Needspace{16\baselineskip}\subsection{第三题在考什么}
+第三题常把文件、角色、文档、协议或任务调度写成一套中文规则。做题的过程就是把这份说明书翻译成程序：找出要保存的对象，明确每条指令怎样改变对象，再按格式回答查询。第一题常在一个循环内完成；大模拟需要把若干个小步骤接在一起，保证它们对同一份状态有一致的理解。
+
+例如，元素选择器可以分成“读一行文档、找父节点、拆查询、沿祖先链匹配、输出行号”五件事。每件事都能单独检查。程序长度由输入规则和对象关系决定，写到150行时，依然可以逐个函数理解。学习本篇时，先掌握七个基础构件，再用四道完整真题练习把它们组合起来。
+
+\Needspace{16\baselineskip}\subsection{四步拆题法}
+\Needspace{12\baselineskip}\subsubsection{第一步：把题面压成对象、规则、输出}
+草稿纸保留三栏。对象栏写“需要记住什么”，规则栏写“什么条件触发什么动作”，输出栏写“何时输出、顺序和分隔符是什么”。以角色授权为例：对象有角色、用户、用户组；规则是找关联角色并检验三项权限；输出是每次查询一行0或1。背景故事读完后，按这三栏组织程序。
+
+把容易混淆的条件并排写清：用户和用户组怎样区分；重复操作是否叠加；查询会不会修改状态；同一时刻多个事件先处理谁。遇到“且”“或”“任意”“所有”，在草稿上分别写成逻辑关系。角色授权就是“同一角色内三项取且，多个角色之间取或”。
+
+\Needspace{12\baselineskip}\subsubsection{第二步：按子任务安排实现顺序}
+先读数据范围和子任务，再估算最直接方法的成本。对象很少时，逐项扫描容易写对；对象增多后，再用编号、哈希表、倒排索引或位集合减少查找。角色授权的70\%子任务最多50个角色与关联，可以先逐条检查；满数据最多500个角色、5000次查询，下一章用位集合一次合并多个角色。
+
+功能型子任务则按语法逐层扩展。例如化学方程式先处理元素和加号，再处理数字，最后处理括号嵌套；解压缩先完成短字面量，再读长长度，随后加入两种回溯引用。每完成一层，用对应数据确认结果。具体分值依各题子任务确定。
+
+\Needspace{12\baselineskip}\subsubsection{第三步：先写函数职责，再填实现}
+可以先在纸上列出下面的职责：读入对象、解析一条指令、更新状态、回答查询。每个函数约定输入、返回值和它会改变的全局状态。例如解析器约定“指针始终指向下一个未处理字符”；调度器约定“选任务前，先加入当前时刻已经到达的全部任务”。这些约定让相邻函数能够顺畅衔接。
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+void parse_input();  // Read definitions and build lookup tables.
+void apply_op();     // Parse one command and update the state.
+void query();        // Read a query and print its answer.
+int main() {
+    parse_input();
+    // Call apply_op() or query() according to the input format.
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+这是一种职责划分。静态文档只需建树和查询；解压缩则可拆为读字节、读小端整数和解码。函数名与边界应跟随题目实际操作。
+
+\Needspace{12\baselineskip}\subsubsection{第四步：逐层检查输入、状态和输出}
+读完一行，先检查拆出的字段；建完树，检查父编号；执行一条操作，检查被修改的对象。调试信息输出到stderr，检查完成后删除。准备一个能手算的小例子，逐轮记录“读了什么、指针在哪、状态变成什么、输出什么”。若第一次差异出现在输入阶段，就先修输入；定位到状态更新后，再检查更新条件。
+
+建议用四组小数据起步：最小对象数；同一操作重复两次；刚好触及边界；两个规则同时生效。角色授权可分别检查直接用户、用户组、通配操作，以及两个角色各满足一半条件的情况。
+
 \Needspace{16\baselineskip}\subsection{字符数组与字符串操作}
 C风格字符串是以结束符\texttt{'\textbackslash0'}结尾的字符数组。长度不包括结束符，容量必须包括它。strlen求长度，strcmp比较内容，strcpy复制，头文件为\texttt{<cstring>}。
 % snippet:c_string
@@ -4344,7 +4503,9 @@ b[0] = 'b';              // b is now "bat".
 int relation = strcmp(a, b); // Positive: "cat" > "bat".
 \end{lstlisting}
 \end{minipage}\par
-strcmp返回负数、0、正数，分别表示字典序小于、相等、大于；不能用数组名的==比较内容。复制前保证目标容量足够。strlen、strcpy随字符串长度线性增长；strcmp最坏需要检查完整公共前缀。循环处理字符时先保存长度，避免每轮重新调用strlen。
+strcmp返回负数、0、正数，分别表示字典序小于、相等、大于。比较字符数组内容用strcmp；复制前检查目标容量。strlen、strcpy随长度线性增长；strcmp最坏检查完整公共前缀。循环扫描时先保存长度，避免每轮重新调用strlen。
+
+长度上界固定、按下标扫描和使用scanf时，可以用char数组；需要拼接、截取、存进容器时，std::string写起来更直接。例如最长20字符的模板名需要21个位置存结束符，带 @ 的引用词还要增加一个位置。数组容量和scanf宽度应分别按最终读入的整个词计算。
 
 \Needspace{16\baselineskip}\subsection{整行输入与字符处理}
 fgets最多读取容量减1个字符，保留读到的换行，并补结束符。若一行最多有1000个正文字符，下面的容量可以容纳正文、行尾和结束符。
@@ -4356,13 +4517,15 @@ if (fgets(line, sizeof(line), stdin) != NULL)
     line[strcspn(line, "\r\n")] = '\0';
 \end{lstlisting}
 \end{minipage}\par
-strcspn返回第一个回车或换行的位置，无行尾时返回字符串长度；该位置置0，只去掉行尾，不删除正文空格。若先scanf读数字，再fgets读下一行，应先消耗数字所在行的剩余字符：
+strcspn返回第一个回车或换行的位置，无行尾时返回字符串长度；该位置置0，只去掉行尾，保留正文空格。先用scanf读数字，再用fgets读下一行，应先消耗数字所在行的剩余字符：
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 int c;
 while ((c = getchar()) != '\n' && c != EOF) {}
 \end{lstlisting}
 \end{minipage}\par
+使用cin读数字后接getline时，使用\texttt{cin.ignore(numeric\_limits<streamsize>::max(), '\textbackslash n')}，并包含\texttt{<limits>}。若空行本身有含义，应让getline原样读入；\texttt{getline(cin >> ws, s)}会跳过行首空白及空行。
+
 字符分类函数位于\texttt{<cctype>}。isdigit判断数字，isspace判断空白，tolower转为小写；参数先转为unsigned char，避免有符号char的负值。
 % snippet:char_class
 \par\noindent\begin{minipage}{\linewidth}
@@ -4375,11 +4538,106 @@ for (int i = 0; i < length; i++) {
 }
 \end{lstlisting}
 \end{minipage}\par
-扫描长度L的文本为$O(L)$。若规则只把普通空格当分隔符，就比较\texttt{' '}；isspace还会接受制表符等空白。
+扫描长度L的文本为$O(L)$。规则若指定普通空格，比较\texttt{' '}；isspace还接受制表符等空白。大小写转换应作用在规则指定的字段，例如元素选择器只转换标签，保留ID原样。
+
+\Needspace{16\baselineskip}\subsection{std::string切分：空字段与连续空白}
+按固定字符切分时，先决定是否保留空字段。下面的函数把\texttt{a,,b,}切成四段，其中第二段和第四段为空。空串会得到一个空字段。路径解析若忽略空段，可在处理结果时跳过它们。
+% snippet:split_char
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+std::vector<std::string> split_char(const std::string &s, char sep) {
+    std::vector<std::string> result;
+    std::size_t start = 0;
+    for (std::size_t i = 0; i <= s.size(); i++) {
+        if (i == s.size() || s[i] == sep) {
+            result.push_back(s.substr(start, i - start));
+            start = i + 1;
+        }
+    }
+    return result;
+}
+\end{lstlisting}
+\end{minipage}\par
+按空白分词可以用\texttt{<sstream>}中的istringstream。连续空格自动合并，空行得到零个词；带引号字段则交给下一章的状态机处理。
+% snippet:split_space
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+std::vector<std::string> split_space(const std::string &s) {
+    std::istringstream in(s);
+    std::vector<std::string> result;
+    std::string word;
+    while (in >> word) result.push_back(word);
+    return result;
+}
+\end{lstlisting}
+\end{minipage}\par
+两种切分都扫描并复制$O(L)$个字符，结果空间为$O(L)$。先区分“每个逗号都划分一个字段”和“任意多个空白分隔单词”，再选模板。
+
+\Needspace{16\baselineskip}\subsection{sscanf：固定格式提取}
+当字段顺序和分隔符固定时，用\texttt{<cstdio>}中的sscanf从已读入的字符串提取数值。返回值是成功赋值的字段数。下面同时使用\texttt{\%n}记录消费长度，检查末尾是否还有正文。
+% snippet:scan_fields
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+const char text[] = "192.168.1.8:8080";
+int a, b, c, d, port, used = -1;
+int fields = sscanf(text, "%d.%d.%d.%d:%d%n",
+                    &a, &b, &c, &d, &port, &used);
+bool complete = fields == 5 && used >= 0 && text[used] == '\0';
+\end{lstlisting}
+\end{minipage}\par
+\texttt{\%n}本身不计入返回值。这里的complete检查结构与末尾；若题目还要求IP每段在0至255、端口在指定范围内，再逐项检查范围。\texttt{\%s}读取字符数组时应给宽度；普通\texttt{\%s}遇到空白就结束，包含空格的字段应按行读入后解析。
+
+\Needspace{16\baselineskip}\subsection{字符串转整数ID：建立对象表}
+名称适合输入输出，整数适合数组下标。给每个第一次出现的名称分配连续编号，就能用数组保存父节点、状态或邻接表。下面用map建立映射，编号从0开始：
+% snippet:name_id
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+std::map<std::string, int> number;
+int get_id(const std::string &name) {
+    std::map<std::string, int>::iterator it = number.find(name);
+    if (it != number.end()) return it->second;
+    int id = (int)number.size();
+    number.emplace(name, id);
+    return id;
+}
+\end{lstlisting}
+\end{minipage}\par
+定义阶段调用get\_id创建对象，查询阶段用find检查名称是否存在。\texttt{number[name]}会为新名称插入值为0的记录，因此应在需要创建或累计时使用。map查找有$O(\log U)$次键比较；unordered\_map平均查找次数为$O(1)$，两者还需计算字符串比较或哈希的成本。转成ID后，内部操作直接访问整数下标。
+
+\Needspace{16\baselineskip}\subsection{strtok：原地分词的适用条件}
+strtok把分隔位置改成结束符，并在内部保存下一次扫描位置。下面会把原数组改成三个独立的C字符串，连续分隔符被合并：
+% snippet:tokenize_c
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+char text[] = "a,,b c";
+std::vector<std::string> words;
+char *p = strtok(text, ", ");
+while (p != NULL) {
+    words.push_back(p);
+    p = strtok(NULL, ", ");
+}
+\end{lstlisting}
+\end{minipage}\par
+调用对象必须是可修改的字符数组。它会丢弃空字段，且同一串分词未结束时，对另一串调用strtok会覆盖内部进度。多层分词可使用前面的切分函数，每一层独立保存扫描位置。若原文本还要用于输出或定位，先复制再分词。
+
+\Needspace{16\baselineskip}\subsection{提交前的高频检查}
+\begin{longtable}{P{3.5cm}P{10.5cm}}
+\toprule 检查项 & 具体动作\\\midrule\endhead
+输入衔接 & scanf或cin读数字后，消耗当前行尾，再读下一整行。\\
+换行与空白 & 去掉行尾的\texttt{\textbackslash r\textbackslash n}，按题目保留正文空格和空行。\\
+字段大小写 & 为各字段分别写下比较规则；标签可转小写，ID保留大小写。\\
+查询副作用 & 查找用find；创建与计数时再用下标运算符。\\
+边界状态 & 手算根目录的两个点号、空模板、重复授权、零个匹配。\\
+优先级与顺序 & 明确同一时刻的处理次序，逐项核对比较器。\\
+计数与容量 & 累加用足够宽的整数；缓冲区包括前缀、行尾和结束符。\\
+输出格式 & 核对编号从0还是1开始、每行字节数、空结果和大小写。\\
+\bottomrule\end{longtable}
 
 % ===== 11-comprehensive.tex =====
-\Needspace{7\baselineskip}\section{例题速看}
-\subsection{带引号的单行分词（教学例题）}
+\Needspace{7\baselineskip}\section{七大底层构件}
+\Needspace{9\baselineskip}\subsection{带引号的单行分词（教学例题）}
+\noindent\textbf{构件用途。}状态机分词：处理带引号参数、命令和文本字段时，用状态区分字符的含义。
+
 
 \noindent\textbf{题目。}一行文本由普通字符、空格和英文双引号组成。引号外的连续空格分隔单词；引号内的空格属于单词；双引号本身不输出。相邻的普通片段和引号片段属于同一个单词。空引号表示一个空单词。本题不支持转义字符。若引号不匹配，输出 ERROR。行长不超过 $10^5$。
 
@@ -4439,7 +4697,11 @@ int main() {
 }
 \end{lstlisting}
 \end{minipage}\par
-\example{路径规范化}
+
+
+\Needspace{9\baselineskip}\subsection{路径规范化（教学例题）}
+\noindent\textbf{构件用途。}栈维护层级：处理目录进入与返回时，用栈保存当前有效路径。
+
 \ojpractice{CSP201604C}{路径解析：第7次认证，处理绝对路径、相对路径以及点号路径段}
 
 \noindent\textbf{题目。}给定固定的当前目录cwd和q条路径。以斜杠开头的是绝对路径，否则相对于cwd。连续斜杠视为一个；点号目录表示当前目录；两个点号表示父目录，在根目录继续上移仍为根。普通目录名只含字母、数字、下划线。路径不含空格且非空。
@@ -4471,7 +4733,7 @@ tmp/../../z
 
 最后一条查询从 $[a,b]$ 出发，读tmp得到 $[a,b,tmp]$，两次父目录操作后为 $[a]$，加入z后得到 $[a,z]$。不变量是：栈中的目录始终表示已经处理的路径前缀的规范形式。
 
-设cwd长度为B，第i个查询长度为 $L_i$。复制基目录的总成本最坏为 $O(qB)$，加上扫描与输出为 $O(qB+\sum L_i)$。不能漏算复制和输出中重复的cwd长度。
+设cwd长度为B，第i个查询长度为 $L_i$。复制基目录的总成本最坏为 $O(qB)$，加上扫描与输出为 $O(qB+\sum L_i)$。其中包括每次复制与输出基目录的成本。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{19\_path.cpp}
 \begin{lstlisting}
@@ -4481,9 +4743,8 @@ tmp/../../z
 #include <vector>
 using namespace std;
 const int N = 10005;
-char cwd[N], path[N];
+char cwd[N], path[N], item[N];
 void append_parts(const char s[], vector<string> &parts) {
-    char item[N];
     int i = 0;
     while (s[i] != '\0') {
         while (s[i] == '/') i++;
@@ -4516,7 +4777,10 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-\example{授权和撤销的状态管理}
+
+\Needspace{9\baselineskip}\subsection{授权和撤销的状态管理（教学例题）}
+\noindent\textbf{构件用途。}嵌套容器查状态：处理用户与资源的动态关系，为下一章的角色授权准备集合操作。
+
 \ojpractice{CSP202206C}{角色授权：第26次认证；下面教学例题先练习较小的授权模型，原题还需处理角色关联与权限匹配}
 
 \noindent\textbf{题目。}执行q条命令：\texttt{GRANT user resource}授予权限；\texttt{REVOKE user resource}撤销；\texttt{CHECK user resource}查询并输出YES或NO。重复授予不叠加；撤销不存在的权限不报错；未出现用户默认无权限。操作依次执行，只有CHECK输出。$1\le q\le2\times10^5$，名称为1到20个字母或数字。本题不含角色继承、通配符或优先级。
@@ -4578,7 +4842,10 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-\example{带括号的整数表达式}
+
+\Needspace{9\baselineskip}\subsection{带括号的整数表达式（教学例题）}
+\noindent\textbf{构件用途。}递归下降解析：处理括号、优先级和嵌套结构；下一章把返回值换成元素计数表，用于化学方程式。逻辑表达式也可按自身优先级分层。
+
 
 \noindent\textbf{题目。}输入一行表达式，支持非负整数字面量、加、减、乘、括号和一元正负号。乘法优先于加减，同级二元运算从左到右；一元符号优先于乘法；只忽略普通空格。合法时输出结果，语法错误输出ERROR。不支持除法、变量和隐式乘法，例如 \texttt{2(3+4)} 非法。
 
@@ -4616,7 +4883,7 @@ factor     = number | '(' expression ')' | '+' factor | '-' factor
 \end{tcolorbox}
 expression负责加减，term负责乘法，factor负责括号、数字与一元符号。共享指针p指向下一个未处理字符，每个函数返回其负责部分的值。term先完整处理乘法，从而保证优先级；循环保证减法左结合，例如 $8-3-2=3$。
 
-解析前面一个合法表达式不代表整行合法。例如 \texttt{1 2}，解析1后还剩2，必须输出ERROR。最后检查是否读到行尾。时间 $O(L)$，递归空间与嵌套深度有关。
+整行解析成功要求指针到达行尾。例如 \texttt{1 2} 在解析1后仍有字符2，输出ERROR。时间 $O(L)$，递归空间与嵌套深度有关。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{21\_expression.cpp}
 \begin{lstlisting}
@@ -4671,7 +4938,10 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-\example{树形文档的后代选择查询}
+
+\Needspace{9\baselineskip}\subsection{树形文档的后代选择查询（教学例题）}
+\noindent\textbf{构件用途。}树形结构与祖先链：处理缩进文档、层级菜单和后代选择；下一章衔接元素选择器的真实输入。
+
 \ojpractice{CSP201809C}{元素选择器：第14次认证；下面先用显式父编号练习祖先链，原题还需解析缩进与选择器}
 
 \noindent\textbf{题目。}给出按先序排列的一片有根森林，共n个节点。每行记录深度、标签和标识。根深度0，孩子比父亲深1；输入结构合法，每次深度最多增加1。标识为减号表示无标识，其余标识互不相同；标签和标识只含字母数字，长度1到20。
@@ -4720,7 +4990,7 @@ div div p
 struct Node { char tag[21], id[21]; int parent; };
 Node a[505];
 int ancestors[505], answer[505];
-char line[1005], tokens[10][22];
+char line[1005], tokens[15][30];
 int matches(int u, const char token[]) {
     if (token[0] == '#')
         return strcmp(a[u].id, "-") != 0 && strcmp(a[u].id, token + 1) == 0;
@@ -4767,12 +5037,15 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-\example{模板展开与循环依赖}
+
+\Needspace{9\baselineskip}\subsection{模板展开与循环依赖（教学例题）}
+\noindent\textbf{构件用途。}依赖图与三色判环：处理递归引用，区分当前调用链与已经完成的展开结果。
+
 \ojpractice{CSP201509C}{模板生成系统：第5次认证；下面教学题额外加入递归依赖与环检测，原题按其自身替换规则实现}
 
 \noindent\textbf{题目。}有n个命名模板，每个由若干以空白分隔的词组成。以at符号开头的词引用另一个模板，其余词直接输出。定义全部读完后，展开指定起始模板，以单个空格连接所有普通词。从起始模板可达的引用若出现未定义名称或环，输出ERROR；不可达模板的错误不影响本次输出。
 
-模板名互不重复，只含字母数字，长度不超过20；引用符号后必须有名称。允许空模板。$1\le n\le100$，每个定义最多100个词，每词长度最多20。保证无环情况下每个模板完整展开不超过2000个词。第一行n，随后每个定义包含名称、词数k及k个词，最后给出起始名称。
+模板名互不重复，只含字母数字，长度不超过20；引用符号后必须有名称。允许空模板。$1\le n\le100$，每个定义最多100个词，普通词长度最多20，引用词由 @ 和最长20字符的模板名组成。保证无环情况下每个模板完整展开不超过2000个词。第一行n，随后每个定义包含名称、词数k及k个词，最后给出起始名称。
 \begin{tcolorbox}[samplebox,title={输入输出样例 1}]
 \textbf{样例输入}
 \begin{Sample}
@@ -4805,7 +5078,7 @@ ERROR
 
 \noindent\textbf{三色状态。}0表示未算，1表示正在递归，2表示已经完成并缓存。访问状态1说明当前依赖链回到了自己；访问状态2直接复用。第二次引用同一模板不必然成环，关键看第一次展开是否结束。
 
-\noindent\textbf{解答。}先读入全部定义以允许前向引用。按词序展开，普通词加入结果，引用词接上被引用模板的结果。记忆化避免重算，但每次拼接仍复制相应词。时间取决于查找及所有实际复制的词数；本题每个模板最多缓存2000词，总缓存约不超过 $100\times2000$ 词，不能忽略输出规模而声称总是O(n)。
+\noindent\textbf{解答。}先读入全部定义以允许前向引用。按词序展开，普通词加入结果，引用词接上被引用模板的结果。记忆化避免重算，但每次拼接仍复制相应词。时间取决于查找及所有实际复制的词数；本题每个模板最多缓存2000词，总缓存约不超过 $100\times2000$ 词，复杂度计算应包含展开结果的复制规模。
 \par\noindent\begin{minipage}{\linewidth}
 \textbf{完整参考实现}\quad\texttt{23\_templates.cpp}
 \begin{lstlisting}
@@ -4838,12 +5111,12 @@ int expand(int u) {
 int main() {
     int n;
     scanf("%d", &n);
-    char name[21], token[21];
+    char name[21], token[25];
     for (int i = 0; i < n; i++) {
         int k;
         scanf("%20s%d", name, &k); number[name] = i;
         for (int j = 0; j < k; j++) {
-            scanf("%20s", token); definition[i].push_back(token);
+            scanf("%24s", token); definition[i].push_back(token);
         }
     }
     scanf("%20s", name);
@@ -4860,103 +5133,10 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-\example{差值数对}
-给 n 个整数和非负整数 c，求满足 $i<j$ 且 $|a_i-a_j|=c$ 的位置对数量。$1\le n\le2\times10^5$，$|a_i|\le10^9$，$0\le c\le2\times10^9$。第一行 n、c，第二行数组，输出一个整数。
-\begin{tcolorbox}[samplebox,title={输入输出样例}]
-\textbf{样例输入}
-\begin{Sample}
-5 2
-1 3 1 3 3
-\end{Sample}
-\tcblower
-\textbf{样例输出}
-\begin{Sample}
-6
-\end{Sample}
-\end{tcolorbox}
 
-\noindent\textbf{解答。}先统计每个值的频次。c>0时，只从较小值x寻找x+c，不会重复统计同一无序数对；贡献是两组频次乘积。c=0时，频次k的组中任选两个位置，贡献 $k(k-1)/2$。答案最多为 $n(n-1)/2$，需要long long。时间 $O(n\log n)$，空间 $O(n)$。
-\par\noindent\begin{minipage}{\linewidth}
-\textbf{完整参考实现}\quad\texttt{24\_pairs.cpp}
-\begin{lstlisting}
-#include <cstdio>
-#include <map>
-using namespace std;
-int main() {
-    int n; long long c;
-    scanf("%d%lld", &n, &c);
-    map<long long, long long> count;
-    for (int i = 0; i < n; i++) {
-        long long x; scanf("%lld", &x); count[x]++;
-    }
-    long long answer = 0;
-    map<long long, long long>::iterator it;
-    for (it = count.begin(); it != count.end(); ++it) {
-        long long x = it->first, k = it->second;
-        if (c == 0) answer += k * (k - 1) / 2;
-        else {
-            map<long long, long long>::iterator p = count.find(x + c);
-            if (p != count.end()) answer += k * p->second;
-        }
-    }
-    printf("%lld\n", answer);
-    return 0;
-}
-\end{lstlisting}
-\end{minipage}\par
+\Needspace{9\baselineskip}\subsection{非抢占任务调度（教学例题）}
+\noindent\textbf{构件用途。}时间轴与事件调度：用时间跳跃和优先队列处理到达、完成与候选选择。
 
-\noindent\textbf{检查用例。}数组 $[7,7,7]$、c=0应输出3；单元素时应输出0。若输出9，说明把相同位置配对或对称重复都算了进去。
-
-\example{矩形增量的最大值}
-初始有 $n\times m$ 全0矩阵，执行q次操作，每次给闭矩形左上 $(x_1,y_1)$ 到右下 $(x_2,y_2)$ 加v。最终输出最大元素值，以及等于最大值的格子数。$1\le n,m\le1000$，$0\le q\le2\times10^5$，$|v|\le10^6$，坐标合法。第一行n、m、q，随后每行五个数。
-\begin{tcolorbox}[samplebox,title={输入输出样例}]
-\textbf{样例输入}
-\begin{Sample}
-3 3 2
-1 1 2 2 2
-2 2 3 3 3
-\end{Sample}
-\tcblower
-\textbf{样例输出}
-\begin{Sample}
-5 1
-\end{Sample}
-\end{tcolorbox}
-
-\noindent\textbf{解答。}把每次矩形更新记录在二维差分四角，最后恢复每格真实值，同时维护最大值和次数。只统计1到n行、1到m列，不能把辅助边界算进去。允许负更新，最大值要从负无穷开始，不能默认0。时间 $O(nm+q)$，空间 $O(nm)$。
-\par\noindent\begin{minipage}{\linewidth}
-\textbf{完整参考实现}\quad\texttt{25\_rectangle.cpp}
-\begin{lstlisting}
-#include <cstdio>
-#include <climits>
-const int N = 1005;
-long long d[N][N];
-int main() {
-    int n, m, q;
-    scanf("%d%d%d", &n, &m, &q);
-    while (q--) {
-        int x1, y1, x2, y2; long long v;
-        scanf("%d%d%d%d%lld", &x1, &y1, &x2, &y2, &v);
-        d[x1][y1] += v; d[x2 + 1][y1] -= v;
-        d[x1][y2 + 1] -= v; d[x2 + 1][y2 + 1] += v;
-    }
-    long long best = LLONG_MIN, count = 0;
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-            d[i][j] += d[i - 1][j] + d[i][j - 1] - d[i - 1][j - 1];
-            if (d[i][j] > best) { best = d[i][j]; count = 1; }
-            else if (d[i][j] == best) count++;
-        }
-    }
-    printf("%lld %lld\n", best, count);
-    return 0;
-}
-\end{lstlisting}
-\end{minipage}\par
-
-\noindent\textbf{检查用例。}q=0时输出 \texttt{0 n*m}，第二项应计算成实际格子数；若整个矩阵一次减5，则最大值为-5而不是0。
-
-\example{非抢占任务调度}
 有一台处理器和n个任务，每个任务给定到达时刻、优先级和执行时间，输入顺序就是任务编号。处理器空闲时，在所有已经到达但尚未执行的任务中选择优先级最高者；并列时选到达更早者，再并列选编号更小者。一旦开始执行就\textbf{不能被抢占}。
 
 一个任务完成时，必须先把恰好在该时刻到达的任务加入候选，再选择下一项。若没有已到达任务，时钟直接跳到下一次到达。输入不保证按到达时刻有序。$1\le n\le2\times10^5$，到达时刻和优先级在0到 $10^9$ 之间，执行时间在1到 $10^9$ 之间。
@@ -5037,13 +5217,525 @@ int main() {
 \end{lstlisting}
 \end{minipage}\par
 
-% ===== 12-practice.tex =====
-\Needspace{7\baselineskip}\section{练习题}
-\begin{longtable}{P{5cm}P{9cm}}
-\toprule 练习题型 & 做题链接\\\midrule
-扫描与栈维护 & \prob{P1106} 删数问题\\
-字符网格与传送规则 & \prob{P1825} Corn Maze S\\
-棋盘状态编码与更新 & \prob{P1225} 黑白棋游戏\\
+
+% ===== third-true.tex =====
+\Needspace{7\baselineskip}\section{历年真题全流程精讲}
+本章把前面的构件放回真实题目。每题先压缩规则，再明确边界、选择结构、安排实现顺序，最后给出完整C++17程序。题目入口保留完整原题；下文用自己的规则表和小例子讲解。可先合上代码，按函数职责写一版，再对照实现检查差异。
+
+\Needspace{9\baselineskip}\subsection{元素选择器：从缩进文本到祖先链}
+\ojpractice{CSP201809C}{元素选择器：第14次认证，2018年9月，第3题}
+\Needspace{7\baselineskip}\subsubsection{题面瘦身}
+\begin{enumerate}
+\item 文档每行一个元素，行号从1开始。开头每两个点号表示一层缩进；点号后是标签，可附带以井号开头的ID。
+\item 标签按忽略大小写的方式比较，ID按原大小写比较。文档结构合法，ID唯一。
+\item 单个选择符按标签或ID匹配。多个选择符以空格连接时，最后一个匹配候选节点，之前的依次匹配它的严格祖先，层与层之间可以跨过节点。
+\item 每条查询输出匹配数，随后按行号递增输出匹配的节点。一个节点只有符合完整选择器时才被选中。
+\end{enumerate}
+输入第一行$n,q$，接下来$n$行文档，再接$q$行查询。$n\le100$，$q\le10$，每行至多80字符。下面是用于逐步推演的自拟小例子：
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+6 4
+HTML
+..DIV #Main
+....p #A
+....DIV
+......P #a
+..p
+DIV p
+#Main #a
+div div p
+#A
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+2 3 5
+1 5
+1 5
+1 3
+\end{Sample}
+\end{tcolorbox}
+
+\Needspace{7\baselineskip}\subsubsection{读题避坑}
+先数行首点号，再解析后面的字段。整行转小写会把\texttt{\#A}与\texttt{\#a}混在一起，应只把标签及标签选择符转成小写。标签与ID分开存，缺少ID时保留空串。
+
+后代允许跨层。例如\texttt{\#Main \#a}从第5行向上经过第4行后，在第2行找到Main。\texttt{div div p}则要求两个不同的div祖先：第5行有第4、2行，第3行只有第2行。节点匹配最后一个选择符之后，从它的父亲开始继续查找，保证各层使用不同节点。
+
+\Needspace{7\baselineskip}\subsubsection{数据结构选型}
+结构体保存tag、id、parent三个字段。祖先栈按深度保存当前路径：读到深度$d$时，把栈长度截为$d$，栈顶就是父亲，然后压入新节点。例如读完第5行后栈保存第1、2、4、5行；读第6行时深度回到1，截断后只留下第1行，因此父亲恢复为第1行。
+
+匹配时从右向左处理查询。先匹配候选节点，剩下的选择符沿父链向上寻找，遇到匹配的祖先就消费一个选择符。优先选最近祖先，会给剩余选择符留下最多的上方节点：若某个解使用更远的同类祖先，把它换成最近祖先后，更高层的匹配仍然可用。按节点行号从小到大枚举，答案自然有序。
+
+\Needspace{7\baselineskip}\subsubsection{从子任务到完整解法}
+先完成单标签查询，再增加ID查询，随后增加两级与多级后代。原题前六个测试点围绕标签、ID和不同树高，后四个加入后代匹配。父编号建好以后，多级匹配只是让选择符下标多走几次，基础结构可以保留。
+
+设树高$H$、查询选择符数$K$、单次字符串比较最长$C$，查询时间为$O(qn(H+K)C)$，空间为文档与查询文本的大小。按原题范围直接沿祖先链即可完成全部查询。代码中lower\_tag只负责标签转换，matches只负责一个节点，selected负责完整祖先链；这样可以分别检查输入、单点匹配和多级匹配。
+
+\Needspace{7\baselineskip}\subsubsection{完整参考代码}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{69\_selector\_real.cpp}
+\begin{lstlisting}
+#include <cctype>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+using namespace std;
+struct Node { string tag, id; int parent; };
+vector<Node> nodes;
+string lower_tag(string s) {
+    for (int i = 0; i < (int)s.size(); i++)
+        s[i] = (char)tolower((unsigned char)s[i]);
+    return s;
+}
+bool matches(int u, const string &token) {
+    if (token[0] == '#') return nodes[u].id == token;
+    return nodes[u].tag == token;
+}
+bool selected(int u, const vector<string> &tokens) {
+    int k = (int)tokens.size() - 1;
+    if (!matches(u, tokens[k])) return false;
+    // Each remaining selector must match a strict ancestor.
+    for (int v = nodes[u].parent; v != -1 && k > 0;
+         v = nodes[v].parent)
+        if (matches(v, tokens[k - 1])) k--;
+    return k == 0;
+}
+
+int main() {
+    ios::sync_with_stdio(false); cin.tie(NULL);
+    int n, q; cin >> n >> q;
+    string line; getline(cin, line);
+    vector<int> ancestors;
+    for (int i = 0; i < n; i++) {
+        getline(cin, line);
+        int dots = 0;
+        while (dots < (int)line.size() && line[dots] == '.') dots++;
+        int depth = dots / 2;
+        ancestors.resize(depth);
+        Node node;
+        istringstream in(line.substr(dots));
+        in >> node.tag >> node.id;
+        node.tag = lower_tag(node.tag);
+        node.parent = depth == 0 ? -1 : ancestors.back();
+        nodes.push_back(node); ancestors.push_back(i);
+    }
+    while (q--) {
+        getline(cin, line);
+        istringstream in(line);
+        string word; vector<string> tokens;
+        while (in >> word)
+            tokens.push_back(word[0] == '#' ? word : lower_tag(word));
+        vector<int> answer;
+        for (int u = 0; u < n; u++)
+            if (selected(u, tokens)) answer.push_back(u + 1);
+        cout << answer.size();
+        for (int id : answer) cout << ' ' << id;
+        cout << '\n';
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{9\baselineskip}\subsection{化学方程式：递归返回元素计数表}
+\ojpractice{CSP201912C}{化学方程式：第18次认证，2019年12月，第3题}
+\Needspace{7\baselineskip}\subsubsection{题面瘦身}
+\begin{enumerate}
+\item 每行一个合法方程式，等号两边分别由若干化学式用加号连接。
+\item 每个化学式前可带正整数系数；元素或括号后可带正整数数量，省略时均为1。
+\item 元素名由一个大写字母，或一个大写字母紧跟一个小写字母组成；括号可嵌套。
+\item 分别统计等号两边每种元素的原子数，完全相同输出Y，否则输出N。
+\end{enumerate}
+第一行方程式数量$n\le100$。每行长度不超过1000，无空白，系数无前导零，每边每种元素总数至多$10^9$。任务是检查给定系数是否配平。下列自拟样例覆盖普通系数、括号、嵌套和元素名的区分：
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+4
+H2+O2=H2O
+2Al(OH)3+3H2SO4=Al2(SO4)3+6H2O
+K4(ON(SO3)2)2=K4O14N2S4
+Co=CO
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+N
+Y
+Y
+N
+\end{Sample}
+\end{tcolorbox}
+
+\Needspace{7\baselineskip}\subsubsection{读题避坑}
+数字的位置决定作用范围：化学式前的数字乘整个化学式，元素后的数字乘单个元素，右括号后的数字乘括号内全部元素。\texttt{3Ca(OH)2}先得到Ca为1、O为2、H为2，再整体乘3，结果为Ca为3、O和H各为6。
+
+\texttt{Co}是一个元素，\texttt{CO}是C与O两个元素。读一个大写字母后，只再接收紧随的小写字母。多位数字连续扫描，遇到分隔符时把指针留给调用者。原题保证语法合法，可以按已确定的语法前进。
+
+\Needspace{7\baselineskip}\subsubsection{数据结构选型}
+用\texttt{map<string, long long>}保存“元素名到数量”的映射。把表达式求值的返回值从整数换成计数表：元素返回单项表，括号返回内层计数表，连接操作把同名元素数量相加，数量与系数对整张表逐项乘法。
+
+解析分为三层。number读取数字，缺省返回1；formula读取连续的元素或括号项，在右括号、加号、等号或行尾处停止；side循环读取“前置系数+formula”，遇到等号或行尾停止。formula遇到左括号后递归，递归返回时消费右括号，再读取紧随其后的数量。共享pos始终指向下一个未处理字符。
+
+以\texttt{Al2(SO4)3}为例：读取Al后数量2，表为Al:2；进入括号得到S:1、O:4；括号后数量3，合并后成为Al:2、S:3、O:12。两个side结果比较时，map会同时比较元素名和数量，键的先后输入顺序不影响结果。
+
+\Needspace{7\baselineskip}\subsubsection{从子任务到完整解法}
+原题前六个测试点逐步加入小写字母、加号和数字；第7、8点加入一层括号；第9、10点允许嵌套。先写一个扫描器处理元素名、数量与化学式前系数，再把括号部分交给同一个formula递归，便能沿用计数合并操作。
+
+设行长$L$、最多$E$种元素、括号深度$D$。每次合并至多处理$E$项，map更新耗时$O(\log(E+1))$，用$O(LE\log(E+1))$作上界；活动递归表占$O(DE)$空间。元素名长度至多2，可能的键至多$26\times27$种。按题目计数上界使用long long保存中间乘法与总量。
+
+\Needspace{7\baselineskip}\subsubsection{完整参考代码}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{70\_chem.cpp}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize\linespread{0.94}\selectfont]
+#include <cctype>
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+typedef map<string, long long> Counts;
+string text;
+int pos;
+bool digit() {
+    return pos < (int)text.size() && isdigit((unsigned char)text[pos]);
+}
+long long number() {
+    if (!digit()) return 1;
+    long long value = 0;
+    while (digit()) value = value * 10 + text[pos++] - '0';
+    return value;
+}
+void merge_counts(Counts &to, const Counts &from, long long multiplier) {
+    for (const pair<const string, long long> &item : from)
+        to[item.first] += item.second * multiplier;
+}
+// Read a formula, leaving ')', '+' or '=' for the caller.
+Counts formula() {
+    Counts result;
+    while (pos < (int)text.size() && text[pos] != ')' &&
+           text[pos] != '+' && text[pos] != '=') {
+        Counts term;
+        if (text[pos] == '(') {
+            pos++; term = formula(); pos++; // Consume ')'.
+        } else {
+            string element(1, text[pos++]);
+            if (pos < (int)text.size() && islower((unsigned char)text[pos]))
+                element += text[pos++];
+            term[element] = 1;
+        }
+        long long multiplier = number();
+        merge_counts(result, term, multiplier);
+    }
+    return result;
+}
+
+Counts side() {
+    Counts result;
+    while (true) {
+        long long coefficient = number();
+        Counts molecule = formula();
+        merge_counts(result, molecule, coefficient);
+        if (pos == (int)text.size() || text[pos] == '=') break;
+        pos++; // Consume '+' and start the next molecule.
+    }
+    return result;
+}
+int main() {
+    ios::sync_with_stdio(false); cin.tie(NULL);
+    int n; cin >> n;
+    while (n--) {
+        cin >> text; pos = 0;
+        Counts left = side(); pos++; // Consume '='.
+        Counts right = side();
+        cout << (left == right ? 'Y' : 'N') << '\n';
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{9\baselineskip}\subsection{角色授权：把多表关联变成集合运算}
+\ojpractice{CSP202206C}{角色授权：第26次认证，2022年6月，第3题}
+\Needspace{7\baselineskip}\subsubsection{题面瘦身}
+\begin{enumerate}
+\item 每个角色包含三张允许清单：操作、资源种类、资源名称。操作和种类中的星号匹配任意值；资源名称清单为空时匹配任意名称。
+\item 关联记录把一个角色授予若干用户或用户组。一个角色可以出现在多条关联记录中，同一用户也可以获得多个角色。
+\item 每次查询给出用户名、该次所属的用户组、操作、资源种类和资源名称。通过直接用户或任意当前用户组找到候选角色。
+\item 只要一个候选角色同时满足三项权限，就输出1；全部候选均不满足时输出0。
+\end{enumerate}
+输入首先给$n,m,q$。随后$n$个角色，每个按“角色名、操作数及清单、种类数及清单、名称数及清单”读取；接着$m$条关联，格式为“角色名、对象数、若干组类型与名称”，类型u表示用户、g表示组；最后$q$次查询，格式为“用户名、组数及各组名、操作、种类、名称”。
+
+$n,m\le500$，$q\le5000$；每张清单、每条关联对象数与每次查询的组数至多400，字符串长度至多10。下面的小样例中，alice通过组获得读取权限，bob通过用户名获得全部权限：
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+2 2 4
+reader 1 read 1 file 0
+admin 1 * 1 * 0
+reader 1 g staff
+admin 1 u bob
+alice 1 staff read file report
+alice 0 read file report
+bob 0 delete door front
+alice 1 staff write file report
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+1
+0
+1
+0
+\end{Sample}
+\end{tcolorbox}
+
+\Needspace{7\baselineskip}\subsubsection{读题避坑}
+每次查询使用本次给出的组。样例中alice第一次属于staff，第二次组数为0，第二次就只能使用直接授予alice的角色。用户与用户组使用两张索引表，即使它们名字相同，也各自按u或g解释。
+
+三个权限条件必须由同一个角色满足。假设角色A只允许读文件，角色B只允许写门，用户同时拥有A和B，查询“读门”仍输出0。推导时先在每张权限表中筛出满足条件的角色，再对角色集合取交集，就能保留同一个角色这一要求。
+
+操作与种类用星号表示任意，名称用空清单表示任意。重复出现的关联应合并；查询不存在的用户或组时返回空角色集合。
+
+\Needspace{7\baselineskip}\subsubsection{数据结构选型}
+为$n$个角色分配0到$n-1$的整数编号。用\texttt{bitset<505>}表示一组角色，第$r$位为1表示角色$r$在集合中。例如只有角色0和2时，低三位是101。按位或合并集合，按位与筛出共同角色，any检查集合是否非空。
+
+建立五类倒排索引：用户名到角色集合、组名到角色集合，以及操作、种类、名称各自到允许该值的角色集合。另存三个任意匹配集合。所有索引以字符串为键，以位集合为值。读角色清单时把对应位设为1；读关联时按用户或组把角色位加入对应集合。
+
+对一次查询，先把直接角色和各个当前组的角色取并集，得到$C$；再分别得到满足操作、种类、名称的角色集合$O,T,N$，计算
+\[
+C\cap O\cap T\cap N.
+\]
+结果有任意一位为1即授权成功。沿用样例，alice与staff关联得到reader；第二次查询没有组，候选集合变空。bob得到admin，其位同时在三个任意匹配集合中，因此任意行为均通过。
+
+\Needspace{7\baselineskip}\subsubsection{从70\%子任务到完整解法}
+70\%子任务中$n,m\le50$，可以扫描关联记录找角色，再逐个角色扫描三张清单。扩大到满数据后，把清单建成哈希集合可加快单角色查询；进一步使用上述倒排索引和位集合，将多个角色的检查合并成机器字运算。这样每次查询只需读入它的组名，并合并固定长度的角色集合。
+
+设关联对象总数为$A$、角色清单词条总数为$P$、查询组数为$G$，位集合机器字数$W=\lceil505/64\rceil=8$。预处理创建并更新倒排集合；每次查询平均耗时$O((G+1)W)$，另计字符串哈希成本。若索引中不同键共$S$个，位集合存储为$O(SW)$，加上键本身的文本存储。代码中的lookup用find读表，read\_rules集中处理两类通配规则。
+
+\Needspace{7\baselineskip}\subsubsection{完整参考代码}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{71\_rbac.cpp}
+\begin{lstlisting}
+#include <bitset>
+#include <iostream>
+#include <string>
+#include <unordered_map>
+using namespace std;
+const int MAX_ROLE = 505;
+typedef bitset<MAX_ROLE> Mask;
+typedef unordered_map<string, Mask> Index;
+Index users, groups, operations, kinds, names;
+Mask any_operation, any_kind, any_name;
+unordered_map<string, int> role_id;
+// A missing key produces an empty mask without inserting a record.
+Mask lookup(const Index &index, const string &key) {
+    Index::const_iterator it = index.find(key);
+    return it == index.end() ? Mask() : it->second;
+}
+void read_rules(int r, Index &index, Mask &any, bool wildcard) {
+    int count; cin >> count;
+    if (!wildcard && count == 0) any.set(r);
+    while (count--) {
+        string value; cin >> value;
+        if (wildcard && value == "*") any.set(r);
+        else index[value].set(r);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false); cin.tie(NULL);
+    int n, m, q; cin >> n >> m >> q;
+    for (int r = 0; r < n; r++) {
+        string name; cin >> name; role_id.emplace(name, r);
+        read_rules(r, operations, any_operation, true);
+        read_rules(r, kinds, any_kind, true);
+        read_rules(r, names, any_name, false);
+    }
+    while (m--) {
+        string role; int count; cin >> role >> count;
+        int r = role_id.find(role)->second;
+        while (count--) {
+            string type, name; cin >> type >> name;
+            if (type == "u") users[name].set(r);
+            else groups[name].set(r);
+        }
+    }
+    while (q--) {
+        string user, group, op, kind, name;
+        int count; cin >> user >> count;
+        Mask candidate = lookup(users, user);
+        // Group membership belongs to this query only.
+        while (count--) {
+            cin >> group; candidate |= lookup(groups, group);
+        }
+        cin >> op >> kind >> name;
+        candidate &= lookup(operations, op) | any_operation;
+        candidate &= lookup(kinds, kind) | any_kind;
+        candidate &= lookup(names, name) | any_name;
+        cout << (candidate.any() ? 1 : 0) << '\n';
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+\Needspace{9\baselineskip}\subsection{解压缩：按字节推进的协议解析器}
+\ojpractice{CSP202305C}{解压缩：第30次认证，2023年5月，第3题}
+\Needspace{7\baselineskip}\subsubsection{题面瘦身}
+\begin{enumerate}
+\item 输入$s$个压缩字节，用小写十六进制表示，每行最多8个字节。先把每两个字符转成一个0至255的数。
+\item 开头的导引域每字节用低7位记录长度的一部分，最高位为1表示还有下一字节；按低位在前恢复原文长度。
+\item 后续逐个解析元素。首字节低两位区分字面量、短回溯和长回溯；字面量追加输入中的原始字节，回溯按偏移和长度追加已有输出中的字节。
+\item 回溯允许重叠，刚追加的字节可被继续引用。输出也采用小写十六进制，每行8个字节，末行按实际长度输出。
+\end{enumerate}
+$s\le2\times10^6$，解压结果长度不超过2MiB，输入保证合法。下面自拟数据表示先写一个字节a，再向前1字节复制8次，得到9个a：
+\begin{tcolorbox}[samplebox,title={输入输出样例}]
+\textbf{样例输入}
+\begin{Sample}
+5
+0900611101
+\end{Sample}
+\tcblower
+\textbf{样例输出}
+\begin{Sample}
+6161616161616161
+61
+\end{Sample}
+\end{tcolorbox}
+
+\Needspace{7\baselineskip}\subsubsection{读题避坑}
+把“输入字符下标”和“压缩字节下标”区分开：\texttt{61}是一个数值为97的字节。先完成十六进制转换，后续pos每增加1都表示消费一个字节。输出也按字节数每8个换行。
+
+导引域用7位为一组，小端整数用8位为一组。字面量存的是长度减1，短回溯存的是长度减4；写分支前先把公式列成表。令首字节为$b$，低两位为$t$，高六位为$h=\lfloor b/4\rfloor$：
+\begin{longtable}{P{2.3cm}P{5.9cm}P{5.8cm}}
+\toprule 类型 & 还要读什么 & 还原公式\\\midrule\endhead
+$t=0$，$h<60$ & 接下来$l$字节是原文 & $l=h+1$\\
+$t=0$，$h\ge60$ & 先读$h-59$字节的小端整数$v$，再读原文 & $l=v+1$\\
+$t=1$ & 再读一个字节$x$ & $l=((b\mathbin{\gg}2)\mathbin{\&}7)+4$；$o=(b\mathbin{\gg}5)\times256+x$\\
+$t=2$ & 再读两字节小端整数$v$ & $l=h+1$，$o=v$\\
 \bottomrule\end{longtable}
+原题合法数据包含以上三种低位类型。位运算\texttt{>>}表示右移，\texttt{\&}表示按位与，取低两位可写\texttt{b \& 3}。
+
+最关键的是重叠复制。若已有\texttt{abcde}，偏移2、长度5，就依次从“当前长度减2”的位置取字节，追加d、e、d、e、d。每追加一次，当前长度都会变化。代码每轮重新计算来源，便能覆盖偏移小于长度的情况。
+
+\Needspace{7\baselineskip}\subsubsection{数据结构选型}
+用两个\texttt{vector<unsigned char>}保存压缩字节与已解压字节，pos指向下一压缩字节。little\_endian按位移合并固定数量的字节。导引域读出原文长度后，调用reserve预留输出容量；字面量和回溯都在输出末尾追加。
+
+样例的09是原文长度9；00表示短字面量，长度为1，读到61；11的低两位为01，长度$4+4=8$，紧随01给出偏移1。输出每次从末尾前1字节取61，最终长度恰好为9。整个过程的指针只向前移动。
+
+\Needspace{7\baselineskip}\subsubsection{从字面量子任务到完整解法}
+原题10\%与20\%子任务只含短字面量，40\%加入长字面量，60\%加入短回溯，80\%覆盖两种回溯且原文较短，100\%扩到2MiB。先验证十六进制输入和短字面量，再扩展长度字段，随后加入回溯与大输出。每个阶段都记录pos和当前输出长度，检查每种元素消费了多少输入字节、产生了多少原文字节。
+
+设压缩长度为$s$、原文长度为$n$。每个输入字节读取一次，每个输出字节生成并打印一次，时间$O(s+n)$、空间$O(s+n)$。unsigned int用于位移与字段合并，避免有符号字节扩展；每次取回溯源先复制到一个字节变量，再追加到vector。
+
+\Needspace{7\baselineskip}\subsubsection{完整参考代码}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{完整参考实现}\quad\texttt{72\_decompress.cpp}
+\begin{lstlisting}
+#include <cstdio>
+#include <vector>
+using namespace std;
+vector<unsigned char> input, output;
+int pos;
+int hex_value(int c) { return c <= '9' ? c - '0' : c - 'a' + 10; }
+unsigned int little_endian(int count) {
+    unsigned int value = 0;
+    for (int i = 0; i < count; i++)
+        value |= (unsigned int)input[pos++] << (8 * i);
+    return value;
+}
+int main() {
+    int s; scanf("%d", &s);
+    input.reserve(s);
+    for (int i = 0; i < s; i++) {
+        char a, b; scanf(" %c %c", &a, &b);
+        input.push_back((unsigned char)(hex_value(a) * 16 + hex_value(b)));
+    }
+    unsigned int length = 0, shift = 0, byte;
+    do {
+        byte = input[pos++];
+        length |= (byte & 127u) << shift; shift += 7;
+    } while (byte & 128u);
+    output.reserve(length);
+    while (pos < s) {
+        unsigned int tag = input[pos++], type = tag & 3u;
+        unsigned int count, offset;
+        if (type == 0) {
+            unsigned int high = tag >> 2;
+            count = high < 60 ? high + 1 : little_endian(high - 59) + 1;
+            for (unsigned int i = 0; i < count; i++)
+                output.push_back(input[pos++]);
+        } else {
+            if (type == 1) {
+                count = ((tag >> 2) & 7u) + 4;
+                offset = (tag >> 5) * 256 + input[pos++];
+            } else {
+                count = (tag >> 2) + 1; offset = little_endian(2);
+            }
+            // Recompute the source after every appended byte: overlap is valid.
+            for (unsigned int i = 0; i < count; i++) {
+                unsigned char value = output[output.size() - offset];
+                output.push_back(value);
+            }
+        }
+    }
+    for (unsigned int i = 0; i < output.size(); i++) {
+        printf("%02x", (unsigned int)output[i]);
+        if (i % 8 == 7 || i + 1 == output.size()) printf("\n");
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}\par
+
+
+% ===== 12-practice.tex =====
+\Needspace{7\baselineskip}\section{T3真题刷题阶梯}
+按下面四档推进。每题先写对象表、规则表和输出格式，再独立实现；完成后记录最早出错的位置，以及能暴露该错误的最小输入。表中的主要坑点可作为自测方向。
+
+\Needspace{9\baselineskip}\subsection{第一档：纯规则模拟}
+目标是完整读入题面信息，准确执行每条规则，并完成全部输出。
+\begin{longtable}{P{5.8cm}P{3cm}P{4.9cm}}
+\toprule 真题入口 & 对应构件 & 主要坑点\\\midrule\endhead
+\csp{CSP201403C}{命令行选项} & 分词与状态机 & 带参选项、遇到非法项时的停止位置、重复选项。\\
+\csp{CSP201604C}{路径解析} & 目录栈 & 空路径、连续斜杠、根目录上移、每条查询独立。\\
+\csp{CSP201709C}{JSON查询} & 扫描与嵌套对象 & 字符串转义、点号路径、对象与字符串的输出类型。\\
+\bottomrule\end{longtable}
+路径解析的空行输入可专门用getline处理；基础构件中的路径题约定非空，做真题时将空路径按当前目录处理。JSON查询先完整解析对象，再按查询路径逐段查找。
+
+\Needspace{9\baselineskip}\subsection{第二档：规则与层次结构}
+目标是把文本层次保存为明确的状态，区分整行规则和行内规则。
+\begin{longtable}{P{5.8cm}P{3cm}P{4.9cm}}
+\toprule 真题入口 & 对应构件 & 主要坑点\\\midrule\endhead
+\csp{CSP201703C}{Markdown} & 行状态与行内扫描 & 空行结束区块、标题与列表、链接和强调的嵌套。\\
+\csp{CSP201809C}{元素选择器} & 树与祖先链 & 标签和ID的大小写规则、多级严格祖先。\\
+\csp{CSP201509C}{模板生成系统} & 字段提取与替换 & 标记空格、缺失变量、替换值按原题规则输出。\\
+\bottomrule\end{longtable}
+模板生成系统按原题进行变量替换；前面的教学构件另练递归模板依赖与三色判环。做题前先将两种模型各自的输入和展开规则列清楚。
+
+\Needspace{9\baselineskip}\subsection{第三档：复杂逻辑与语法解析}
+目标是明确递归边界、对象生命周期和多表之间的关系。
+\begin{longtable}{P{5.8cm}P{3cm}P{4.9cm}}
+\toprule 真题入口 & 对应构件 & 主要坑点\\\midrule\endhead
+\csp{CSP201912C}{化学方程式} & 递归计数 & 前置系数、括号后数量、多位数与元素名。\\
+\csp{CSP202104C}{DHCP服务器} & 状态机与时间轴 & 租约到期、报文接收对象、地址状态更新顺序。\\
+\csp{CSP202206C}{角色授权} & 集合与倒排索引 & 同一角色满足三项条件、通配规则、当次用户组。\\
+\bottomrule\end{longtable}
+化学方程式可按“元素、数字、单层括号、嵌套括号”递进；DHCP服务器按每种报文画状态转移表；角色授权先用小角色集合手算并集和交集，再实现完整查询。
+
+\Needspace{9\baselineskip}\subsection{第四档：近年综合模拟与性能}
+目标是保持规则完整，同时控制扫描、查找与复制的成本。
+\begin{longtable}{P{5.8cm}P{3cm}P{4.9cm}}
+\toprule 真题入口 & 对应构件 & 主要坑点\\\midrule\endhead
+\csp{CSP202305C}{解压缩} & 字节流与扫描指针 & 变长长度、小端序、重叠回溯、每行8字节。\\
+\csp{CSP202309C}{梯度求解} & 表达式与递推 & 运算栈次序、乘法求导、取模与负数。\\
+\csp{CSP202312C}{树上搜索} & 树与动态候选集 & 每轮权重变化、并列编号、查询状态重置。\\
+\csp{CSP202412C}{缓存模拟} & 映射与淘汰状态 & 组号计算、访问次序、替换与写回规则。\\
+\bottomrule\end{longtable}
+完成本档后，挑一题重新限时独立实现。复盘时保留三项记录：函数职责划分、最早出现的错误、满数据时最耗时的操作。下一次练习围绕其中一项改进，再用同一组边界数据检查。
 
 \end{document}
